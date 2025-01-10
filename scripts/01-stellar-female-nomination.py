@@ -1,42 +1,53 @@
-# -*- coding: utf-8 -*-
 import pandas as pd
 from pyecharts import options as opts
 from pyecharts.charts import Bar
 from pyecharts.commons.utils import JsCode
 import json
 from pyecharts.globals import ThemeType
+import os
 
-# 读取CSV文件
-print("正在读取CSV文件...")
-df = pd.read_csv('01-Female.csv', encoding='utf-8')
+# 获取当前脚本所在目录的上级目录（项目根目录）
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+def log_path(path, prefix=""):
+    print(f"{prefix}路径: {os.path.abspath(path)}")
+    print(f"{prefix}是否存在: {os.path.exists(path)}")
+    if os.path.exists(path):
+        print(f"{prefix}是目录: {os.path.isdir(path)}")
+        print(f"{prefix}是文件: {os.path.isfile(path)}")
+
+# 确保输出目录存在
+print("\n检查输出目录...")
+visualization_dir = os.path.join(ROOT_DIR, 'pages', 'visualization')
+log_path(visualization_dir, "输出目录")
+os.makedirs(visualization_dir, exist_ok=True)
+
+print("\n正在读取CSV文件...")
+csv_path = os.path.join(ROOT_DIR, 'data', '01-female-nomination.csv')
+log_path(csv_path, "CSV文件")
+df = pd.read_csv(csv_path, encoding='utf-8')
 print("CSV文件读取完成。")
 
-# 将'-'替换为0，并将得票数转换为数值型
 print("正在处理得票数数据...")
 df['得票数'] = pd.to_numeric(df['得票数'].replace('-', '0'))
 print("得票数数据处理完成。")
 
-# 筛选出有实际得票数的角色并按得票数降序排序
 print("正在筛选和排序数据...")
 df_voted = df[df['得票数'] > 0].sort_values('得票数', ascending=False)
 print("数据筛选和排序完成。")
 
-# 准备数据
 print("正在准备图表数据...")
 ranks = [str(i+1) for i in range(len(df_voted))]
 votes = df_voted['得票数'].tolist()
 labels = [f"{role}（{anime}）" for role, anime in zip(df_voted['角色'], df_voted['作品'])]
 avatars = df_voted['头像'].tolist()
 
-# 删除图片路径打印部分
 print("\n图表数据准备完成。")
 
-# 准备数据
 voted_data = votes[::-1]  
 advance_data = [v if i >= 20 else None for i, v in enumerate(voted_data)]  
 eliminate_data = [v if i < 20 else None for i, v in enumerate(voted_data)] 
 
-# 创建图表
 print("正在创建图表...")
 bar = (
     Bar(init_opts=opts.InitOpts(
@@ -49,18 +60,17 @@ bar = (
     .add_js_funcs("""
         document.body.style.backgroundColor = '#1a1a1a';
         
-        document.querySelector('#vote_chart').style.margin = '0 auto';
-        document.querySelector('#vote_chart').style.textAlign = 'center';
-
+        // 创建标题容器
+        var titleContainer = document.createElement('div');
+        titleContainer.style.width = '1500px';
+        titleContainer.style.margin = '0 auto';
+        titleContainer.style.marginTop = '80px';
+        titleContainer.style.textAlign = 'center';
+        
         var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('width', '1500');
-        svg.setAttribute('height', '70');  
-        svg.style.position = 'absolute';
-        svg.style.top = '5px';
-        svg.style.left = '0';
-        svg.style.pointerEvents = 'none';
+        svg.setAttribute('height', '70');
         
-        // 创建主标题
         var title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         title.textContent = '12.31-1.7 - 恒星组提名-女性组别';
         title.setAttribute('x', '750');
@@ -68,8 +78,7 @@ bar = (
         title.setAttribute('text-anchor', 'middle');
         title.setAttribute('font-size', '24');
         title.setAttribute('font-weight', 'bold');
-        
-        // 创建副标题
+
         var subtitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         subtitle.textContent = '前52名晋级至主赛事恒星组预选赛阶段';
         subtitle.setAttribute('x', '750');
@@ -77,8 +86,7 @@ bar = (
         subtitle.setAttribute('text-anchor', 'middle');
         subtitle.setAttribute('font-size', '14');
         subtitle.setAttribute('fill', '#9370DB');
-        
-        // 创建渐变
+
         var gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
         gradient.id = 'titleGradient';
         gradient.setAttribute('x1', '0%');
@@ -104,7 +112,12 @@ bar = (
         svg.appendChild(title);
         svg.appendChild(subtitle);  
         
-        document.querySelector('#vote_chart').appendChild(svg);
+        titleContainer.appendChild(svg);
+        document.querySelector('#vote_chart').parentNode.insertBefore(titleContainer, document.querySelector('#vote_chart'));
+        
+        // 调整图表容器样式
+        document.querySelector('#vote_chart').style.margin = '0 auto';
+        document.querySelector('#vote_chart').style.textAlign = 'center';
     """)
     .add_xaxis(ranks[::-1])
     .add_yaxis(
@@ -269,7 +282,37 @@ bar = (
     )
 )
 
-# 生成图表
 print("正在生成图表...")
-bar.render('恒星女子组提名.html', encoding="utf-8")
+# 生成基础图表HTML
+chart_html = bar.render_embed()
+
+# 创建完整的HTML
+html_content = f'''<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ISML 2024 恒星组提名赛 - 女子组</title>
+    <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/visualization.css">
+    <script src="../../js/navbar.js"></script>
+    <script src="../../js/footer.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
+</head>
+<body>
+    <!-- 导航栏会被 navbar.js 自动插入到这里 -->
+    <div class="button-container">
+        <a href="../../index.html" class="home-btn">返回主页</a>
+        <a href="../tables/01-stellar-female-nomination-table.html" class="table-btn">查看表格</a>
+    </div>
+    {chart_html}
+    <!-- 页尾会被 footer.js 自动插入到这里 -->
+</body>
+</html>'''
+
+print("\n正在写入HTML文件...")
+html_path = os.path.join(visualization_dir, '01-stellar-female-nomination.html')
+log_path(html_path, "HTML文件")
+with open(html_path, 'w', encoding='utf-8') as f:
+    f.write(html_content)
 print("图表生成完成。") 

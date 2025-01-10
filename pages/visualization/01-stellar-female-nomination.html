@@ -2,6 +2,24 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <title>ISML 2024 恒星组提名赛 - 女子组</title>
+    <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/visualization.css">
+    <script src="../../js/navbar.js"></script>
+    <script src="../../js/footer.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
+</head>
+<body>
+    <!-- 导航栏会被 navbar.js 自动插入到这里 -->
+    <div class="button-container">
+        <a href="../../index.html" class="home-btn">返回主页</a>
+        <a href="../tables/01-stellar-female-nomination-table.html" class="table-btn">查看表格</a>
+    </div>
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
     <title>Awesome-pyecharts</title>
                 <script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
 
@@ -14,18 +32,17 @@
             
         document.body.style.backgroundColor = '#1a1a1a';
         
-        document.querySelector('#vote_chart').style.margin = '0 auto';
-        document.querySelector('#vote_chart').style.textAlign = 'center';
-
+        // 创建标题容器
+        var titleContainer = document.createElement('div');
+        titleContainer.style.width = '1500px';
+        titleContainer.style.margin = '0 auto';
+        titleContainer.style.marginTop = '80px';
+        titleContainer.style.textAlign = 'center';
+        
         var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('width', '1500');
-        svg.setAttribute('height', '70');  
-        svg.style.position = 'absolute';
-        svg.style.top = '5px';
-        svg.style.left = '0';
-        svg.style.pointerEvents = 'none';
+        svg.setAttribute('height', '70');
         
-        // 创建主标题
         var title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         title.textContent = '12.31-1.7 - 恒星组提名-女性组别';
         title.setAttribute('x', '750');
@@ -33,8 +50,7 @@
         title.setAttribute('text-anchor', 'middle');
         title.setAttribute('font-size', '24');
         title.setAttribute('font-weight', 'bold');
-        
-        // 创建副标题
+
         var subtitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         subtitle.textContent = '前52名晋级至主赛事恒星组预选赛阶段';
         subtitle.setAttribute('x', '750');
@@ -42,8 +58,7 @@
         subtitle.setAttribute('text-anchor', 'middle');
         subtitle.setAttribute('font-size', '14');
         subtitle.setAttribute('fill', '#9370DB');
-        
-        // 创建渐变
+
         var gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
         gradient.id = 'titleGradient';
         gradient.setAttribute('x1', '0%');
@@ -69,7 +84,12 @@
         svg.appendChild(title);
         svg.appendChild(subtitle);  
         
-        document.querySelector('#vote_chart').appendChild(svg);
+        titleContainer.appendChild(svg);
+        document.querySelector('#vote_chart').parentNode.insertBefore(titleContainer, document.querySelector('#vote_chart'));
+        
+        // 调整图表容器样式
+        document.querySelector('#vote_chart').style.margin = '0 auto';
+        document.querySelector('#vote_chart').style.textAlign = 'center';
     
         var option_vote_chart = {
     "backgroundColor": "#1a1a1a",
@@ -607,5 +627,9 @@
 };
         chart_vote_chart.setOption(option_vote_chart);
     </script>
+</body>
+</html>
+
+    <!-- 页尾会被 footer.js 自动插入到这里 -->
 </body>
 </html>

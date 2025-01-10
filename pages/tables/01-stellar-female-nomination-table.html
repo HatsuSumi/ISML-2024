@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ISML 2024 恒星组提名 - 女子组</title>
+    <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/01-stellar-female-nomination-table.css">
+    <script src="../../js/navbar.js"></script>
+    <script src="../../js/footer.js"></script>
+    <script src="../../js/01-stellar-female-nomination-table.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../../index.html" class="nav-logo">ISML 2024</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">赛事日程</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">恒星组 ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">提名赛</a></li>
+                        <li><a href="#">预选赛</a></li>
+                        <li><a href="#">正赛</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">彗星组 ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">提名赛</a></li>
+                        <li><a href="#">预选赛</a></li>
+                        <li><a href="#">正赛</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">数据统计</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">关于</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>恒星组提名赛 - 女子组 投票数据</h1>
+        <div class="filter-container">
+            <div class="select-wrapper">
+                <select id="searchType" class="search-type">
+                    <option value="none">不筛选</option>
+                    <option value="rank">按排名搜索</option>
+                    <option value="date">按日期搜索</option>
+                    <option value="event">按赛事搜索</option>
+                    <option value="character">按角色搜索</option>
+                    <option value="anime">按作品搜索</option>
+                    <option value="cv">按声优搜索</option>
+                    <option value="votes">按得票数搜索</option>
+                </select>
+            </div>
+            <input type="text" id="searchInput" placeholder="请输入搜索内容..." class="search-input">
+            <div id="votesRange" class="votes-range" style="display: none;">
+                <input type="number" id="minVotes" placeholder="最小票数" class="vote-input">
+                <span class="range-separator">-</span>
+                <input type="number" id="maxVotes" placeholder="最大票数" class="vote-input">
+            </div>
+            <div class="select-wrapper">
+                <select id="statusFilter" class="status-filter">
+                    <option value="all">全部选手</option>
+                    <option value="normal">普通选手</option>
+                    <option value="auto">自动晋级</option>
+                </select>
+            </div>
+        </div>
+        <div class="button-container">
+            <a href="../../index.html" class="home-btn">返回主页</a>
+            <a href="../visualization/01-stellar-female-nomination.html" class="visualization-btn">数据可视化</a>
+            <div class="dropdown">
+                <button class="download-btn" onclick="toggleDropdown()">下载表格</button>
+                <div id="downloadDropdown" class="dropdown-content">
+                    <a href="#" onclick="downloadFile('csv'); return false;">CSV 格式</a>
+                    <a href="#" onclick="downloadFile('excel'); return false;">Excel 格式</a>
+                </div>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">排名</th>
+                    <th onclick="sortTable(1)">日期</th>
+                    <th onclick="sortTable(2)">赛事名称</th>
+                    <th>头像</th>
+                    <th onclick="sortTable(4)">角色</th>
+                    <th onclick="sortTable(5)">作品</th>
+                    <th onclick="sortTable(6)">CV</th>
+                    <th onclick="sortTable(7)">得票数</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+    </div>
+</body>
+</html> 
