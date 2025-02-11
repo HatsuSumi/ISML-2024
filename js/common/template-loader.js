@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     // 动态路径处理函数
     function getResourcePath(path) {
         // 移除路径开头的 '/'，避免双斜杠//
-        const cleanPath = path.replace(/^\//, '');
-        const processedPath = isGitHubPages ? `/ISML-2024/${cleanPath}` : path;
+        const cleanPath = path.replace(/^\/+/, '');
+        const processedPath = isGitHubPages ? `/ISML-2024/${cleanPath}` : cleanPath;
         
         console.log(`Path Processing:
 - Original Path: ${path}
