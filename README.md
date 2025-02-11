@@ -41,10 +41,6 @@
   - CSS Animations
 - Python
 
-## 📝 文档
-- [对比逻辑指南](pages/comparison/comparison-guide.html)
-- [角色数据对比](pages/comparison/character-comparison.html)
-
 ## 🔗 相关链接
 - [B站主页](https://b23.tv/KBky1wX)
 - [ISML 官网](https://www.internationalsaimoe.com/)
