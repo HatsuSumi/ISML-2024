@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     function getResourcePath(path) {
         // 处理相对路径和绝对路径
         const cleanPath = path
-            .replace(/^\/ISML-2024\//, '')   // 移除开头的 /ISML-2024/
-            .replace(/^\/+/, '')             // 移除其他多余的 /
-            .replace(/^\.\.\//, '');         // 移除相对路径的 ../
+        .replace(/^(\/ISML-2024\/)?/, '')
+            .replace(/^\/+/, '')             
+            .replace(/^\.\.\//, '');       
 
         const processedPath = isGitHubPages 
             ? `/ISML-2024/${cleanPath}` 
@@ -28,8 +28,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     const depth = location.pathname.split('/').slice(1, -1).length;
-    const pathToRoot = depth === 0 ? '.' : Array(depth).fill('..').join('/');
-    const basePath = pathToRoot + '/';
+    const pathToRoot = isGitHubPages 
+    ? '/ISML-2024' 
+    : (depth === 0 ? '.' : Array(depth).fill('..').join('/'));
     
     async function processSpecialComponents() {
         // 检查弹幕功能是否开启
