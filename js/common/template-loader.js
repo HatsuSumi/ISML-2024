@@ -6,7 +6,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // 动态路径处理函数
     function getResourcePath(path) {
-        return isGitHubPages ? `/ISML-2024/${path}` : path;
+        const processedPath = isGitHubPages ? `/ISML-2024/${path}` : path;
+        console.log(`Path Processing:
+- Original Path: ${path}
+- Is GitHub Pages: ${isGitHubPages}
+- Processed Path: ${processedPath}
+- Current Hostname: ${window.location.hostname}`);
+        return processedPath;
     }
 
     const depth = location.pathname.split('/').slice(1, -1).length;
