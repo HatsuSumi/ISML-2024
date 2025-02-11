@@ -6,11 +6,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // 动态路径处理函数
     function getResourcePath(path) {
-        // 处理不同类型的输入路径
+        // 处理相对路径和绝对路径
         const cleanPath = path
             .replace(/^\/ISML-2024\//, '')   // 移除开头的 /ISML-2024/
-            .replace(/^\/+/, '');            // 移除其他多余的 /
-    
+            .replace(/^\/+/, '')             // 移除其他多余的 /
+            .replace(/^\.\.\//, '');         // 移除相对路径的 ../
+
         const processedPath = isGitHubPages 
             ? `/ISML-2024/${cleanPath}` 
             : cleanPath;
