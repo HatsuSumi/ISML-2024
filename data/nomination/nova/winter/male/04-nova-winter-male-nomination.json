@@ -1,0 +1,231 @@
+{
+  "date": "01.07-01.14",
+  "event": "新星组冬季赛提名-男性组别",
+  "data": [
+    {
+      "name": "莱欧斯",
+      "ip": "迷宫饭",
+      "cv": "熊谷健太郎",
+      "votes": 19,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 1
+    },
+    {
+      "name": "水篠旬",
+      "ip": "我独自升级",
+      "cv": "坂泰斗",
+      "votes": 13,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 2
+    },
+    {
+      "name": "马修·班迪德",
+      "ip": "物理魔法使马修",
+      "cv": "小林千晃",
+      "votes": 12,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 3
+    },
+    {
+      "name": "阿诺德·海因",
+      "ip": "轮回七次的恶役千金，在前敌国享受随心所欲的新婚生活",
+      "cv": "岛崎信长",
+      "votes": 12,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 3
+    },
+    {
+      "name": "阿久津雅虎",
+      "ip": "愚蠢天使与恶魔共舞",
+      "cv": "内田雄马",
+      "votes": 11,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 5
+    },
+    {
+      "name": "友崎文也",
+      "ip": "弱势角色友崎君",
+      "cv": "佐藤元",
+      "votes": 10,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 6
+    },
+    {
+      "name": "波岐逸臣",
+      "ip": "指尖相触，恋恋不舍",
+      "cv": "宫崎游",
+      "votes": 9,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 7
+    },
+    {
+      "name": "佐佐木",
+      "ip": "佐佐木与文鸟小哔",
+      "cv": "杉田智和",
+      "votes": 8,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 8
+    },
+    {
+      "name": "齐尔查克",
+      "ip": "迷宫饭",
+      "cv": "泊明日菜",
+      "votes": 5,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 9
+    },
+    {
+      "name": "兔里健",
+      "ip": "治愈魔法的错误使用法～奔赴战场的回复要员～",
+      "cv": "坂田将吾",
+      "votes": 5,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 9
+    },
+    {
+      "name": "山户迅火",
+      "ip": "战国妖狐",
+      "cv": "齐藤壮马",
+      "votes": 5,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 9
+    },
+    {
+      "name": "兰托",
+      "ip": "葬送的芙莉莲",
+      "cv": "小松昌平",
+      "votes": 4,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 12
+    },
+    {
+      "name": "嬴政",
+      "ip": "王者天下",
+      "cv": "福山润",
+      "votes": 4,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 12
+    },
+    {
+      "name": "坏人先生",
+      "ip": "休假日的坏人先生",
+      "cv": "浅沼晋太郎",
+      "votes": 4,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 12
+    },
+    {
+      "name": "四季翼",
+      "ip": "北海道辣妹贼拉可爱",
+      "cv": "岛崎信长",
+      "votes": 4,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 12
+    },
+    {
+      "name": "和仓优希",
+      "ip": "魔都精兵的奴隶",
+      "cv": "广濑裕也",
+      "votes": 4,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 12
+    },
+    {
+      "name": "高远夜雾",
+      "ip": "秒杀外挂太强了，异世界的家伙们根本就不是对手。",
+      "cv": "内山昂辉",
+      "votes": 4,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 12
+    },
+    {
+      "name": "深澄真",
+      "ip": "月光下的异世界之旅",
+      "cv": "花江夏树",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 18
+    },
+    {
+      "name": "安迪",
+      "ip": "不死不幸",
+      "cv": "中村悠一",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 18
+    },
+    {
+      "name": "路易斯·史密斯",
+      "ip": "勇气爆发BANG BRAVERN",
+      "cv": "阿座上洋平",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 18
+    },
+    {
+      "name": "雷特·费纳",
+      "ip": "事与愿违的不死冒险者",
+      "cv": "铃木崚汰",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 18
+    },
+    {
+      "name": "派翠克·阿修巴顿",
+      "ip": "反派千金等级99～我是隐藏头目但不是魔王～",
+      "cv": "内田雄马",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 18
+    },
+    {
+      "name": "柳之剑宗次朗",
+      "ip": "异修罗",
+      "cv": "梶裕贵",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 18
+    },
+    {
+      "name": "雷德",
+      "ip": "因为不是真正的伙伴而被逐出勇者队伍，流落到边境展开慢活人生",
+      "cv": "铃木崚汰",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 18
+    },
+    {
+      "name": "兵头真介",
+      "ip": "战国妖狐",
+      "cv": "木村良平",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": false,
+      "rank": 25
+    }
+  ]
+}

@@ -1,0 +1,996 @@
+body {
+    background-color: #121212;
+}
+
+.characters-data-container {
+    padding: 80px 20px 20px;
+    margin: 0 auto;
+}
+
+/* 筛选区域样式 */
+.filter-section {
+    background: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 轮次模式下的宽度 */
+.show-rounds-mode .filter-section,
+.show-rounds-mode .group-container,
+.show-rounds-mode .rank-group {
+    max-width: 1414px;
+}
+
+/* 组别容器样式 */
+.group-container {
+    margin-bottom: 40px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.group-container h2 {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #444;
+}
+
+/* 恒星组特殊样式 */
+.group-container.stellar h2 {
+    border-color: #FFD700;
+}
+
+/* 新星组特殊样式 */
+.group-container.nova h2 {
+    border-color: #4A90E2;
+}
+
+/* Tab栏样式 */
+.gender-tabs {
+    display: flex;
+    gap: 10px;
+    padding: 5px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.tab-btn.active {
+    color: #fff;
+}
+
+/* 女性角色按钮样式 */
+.tab-btn[data-gender="female"].active {
+    background: linear-gradient(45deg, #FF69B4, #FF1493);
+}
+
+/* 男性角色按钮样式 */
+.tab-btn[data-gender="male"].active {
+    background: linear-gradient(45deg, #4A90E2, #2962FF);
+}
+
+/* 修改搜索区域样式 */
+.search-section {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+    background: rgba(42, 42, 42, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 轮次模式下的宽度 */
+.show-rounds-mode .search-section {
+    width: 500px;  
+}
+
+.search-box {
+    width: 450px;  
+    min-width: 0;
+    position: relative;
+}
+
+.search-box input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 15px 10px 35px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: #333;
+    color: #fff;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    outline: none;
+    caret-color: #fff;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;  
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    pointer-events: none;
+}
+
+.search-box input::placeholder {
+    color: #666;
+}
+
+/* 修改焦点和激活状态的样式 */
+.search-box input:focus,
+.search-box input:active {
+    border-color: #4a90e2;
+    background: #3a3a3a;
+    box-shadow: 0 0 0 1px rgba(74, 144, 226, 0.3);
+}
+
+/* 修改搜索按钮样式 */
+#searchBtn {
+    flex-shrink: 0;
+    width: 60px;
+    padding: 8px 0;
+    background: linear-gradient(45deg, #4a90e2, #3eaf7c);
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+/* 角色卡片网格样式 */
+.characters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.rank-groups {
+    display: block;
+    width: 100%;
+}
+
+.rank-group,
+.nova-group {
+    margin-bottom: 2rem;
+    display: block;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* 只有在非回车键切换时才添加过渡动画 */
+.rank-group[data-gender]:not(.enter-switch),
+.nova-group[data-gender]:not(.enter-switch) {
+    transition: opacity 0.3s ease;
+}
+
+.rank-group[data-gender].show,
+.nova-group[data-gender].show {
+    opacity: 1;
+}
+
+/* 轮次容器样式 */
+.rank-round {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    width: 100%;  
+}
+
+.rank-title {
+    margin-right: 2rem;
+    min-width: 70px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-align: center;
+    background: linear-gradient(45deg, #333, #444);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 8强 - 金色渐变 */
+.rank-title[data-rank="8"] {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* 16强 - 银色渐变 */
+.rank-title[data-rank="16"] {
+    background: linear-gradient(45deg, #C0C0C0, #A9A9A9);
+}
+
+/* 24强 - 青铜渐变 */
+.rank-title[data-rank="24"] {
+    background: linear-gradient(45deg, #CD7F32, #B8860B);
+}
+
+/* 32强 - 紫色渐变 */
+.rank-title[data-rank="32"] {
+    background: linear-gradient(45deg, #9370DB, #8A2BE2);
+}
+
+/* 40-80强 - 蓝色渐变，颜色逐渐变深 */
+.rank-title[data-rank="40"] { background: linear-gradient(45deg, #4169E1, #1E90FF); }
+.rank-title[data-rank="48"] { background: linear-gradient(45deg, #3A5FD1, #1A80EF); }
+.rank-title[data-rank="56"] { background: linear-gradient(45deg, #3355C1, #1670DF); }
+.rank-title[data-rank="64"] { background: linear-gradient(45deg, #2C4BB1, #1260CF); }
+.rank-title[data-rank="72"] { background: linear-gradient(45deg, #2541A1, #0E50BF); }
+.rank-title[data-rank="80"] { background: linear-gradient(45deg, #1E3791, #0A40AF); }
+
+/* 88-136强 - 深蓝到深紫渐变 */
+.rank-title[data-rank="88"] { background: linear-gradient(45deg, #172D81, #06309F); }
+.rank-title[data-rank="96"] { background: linear-gradient(45deg, #102371, #02208F); }
+.rank-title[data-rank="104"] { background: linear-gradient(45deg, #091961, #01107F); }
+.rank-title[data-rank="112"] { background: linear-gradient(45deg, #020F51, #00006F); }
+.rank-title[data-rank="120"] { background: linear-gradient(45deg, #010541, #1A005F); }
+.rank-title[data-rank="128"] { background: linear-gradient(45deg, #000031, #35004F); }
+.rank-title[data-rank="136"] { background: linear-gradient(45deg, #000021, #4F003F); }
+
+/* 144-176强 - 深紫到深红渐变 */
+.rank-title[data-rank="144"] { background: linear-gradient(45deg, #000011, #69002F); }
+.rank-title[data-rank="152"] { background: linear-gradient(45deg, #000008, #83001F); }
+.rank-title[data-rank="160"] { background: linear-gradient(45deg, #000004, #9D000F); }
+.rank-title[data-rank="168"] { background: linear-gradient(45deg, #000002, #B70000); }
+.rank-title[data-rank="176"] { background: linear-gradient(45deg, #000000, #D10000); }
+
+.character-cards {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1rem;
+    flex: 1;
+}
+
+.character-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background: #2a2a2a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    width: 130px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    will-change: transform, opacity;
+    cursor: pointer;
+}
+
+.character-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.character-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    background: #333;
+}
+
+.character-avatar {
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.character-avatar img {
+    max-width: 100%;
+    display: block;
+}
+
+.character-name {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    text-align: center;
+    color: #fff;
+}
+
+/* 角色卡片 IP 样式 */
+.character-card .character-ip {
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+
+/* IP 文本容器 */
+.character-card .character-ip .ip-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    width: 120px;
+    display: block;
+    text-align: center;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.season-group[data-season="winter"] .character-ip::before {
+    border-top-color: rgba(160, 216, 239, 0.95);
+}
+
+.character-cv {
+    font-size: 0.9rem;
+    color: #999;
+    text-align: center;
+}
+
+/* 响应式布局 */
+@media (max-width: 1200px) {
+    .rank-group,
+    .nova-group {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .rank-title {
+        margin-bottom: 0.5rem;
+    }
+    
+    .character-cards {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .character-cards {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .character-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-section {
+        flex-direction: column;
+    }
+    
+    .filter-group {
+        width: 100%;
+    }
+    
+    .search-section {
+        position: static;  /* 在移动端取消固定定位 */
+        width: auto;
+        margin: 20px;
+        flex-direction: row;  /* 保持水平布局 */
+    }
+    
+    #searchBtn {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+/* 修改搜索结果高亮样式 */
+.character-card.highlight {
+    background: #3a3a3a;  /* 更亮的背景 */
+    box-shadow: 0 0 20px rgba(74, 144, 226, 0.7);  /* 更强的外发光 */
+    transform: translateY(-3px);  /* 更明显的上浮 */
+    transition: all 0.3s ease;
+    border: 2px solid rgba(74, 144, 226, 0.5);  /* 添加边框 */
+}
+
+/* 当前选中的搜索结果 */
+.character-card.current-result {
+    background: #404040;  /* 最亮的背景 */
+    box-shadow: 0 0 25px rgba(74, 144, 226, 1);  /* 最强的外发光 */
+    border: 2px solid rgba(74, 144, 226, 1);  /* 更亮的边框 */
+    z-index: 1;  /* 确保当前选中的卡片在最上层 */
+    transform: scale(1.1) translateY(-3px);  /* 添加放大效果和上浮 */
+}
+
+/* 搜索框下方的提示和选项容器 */
+.search-box .search-tips,
+.search-box .search-options {
+    position: absolute;
+    top: calc(100% + 30px);  /* 改用 calc 计算位置 */
+}
+
+.search-box .search-tips {
+    top: 160%;
+    left: 0;
+    font-size: 12px;
+    color: #888;
+    line-height: 1.5;
+    max-width: 70%;  /* 限制宽度，避免和复选框重叠 */
+}
+
+.search-box .search-tips p {
+    line-height: 22px;
+    margin: 0;
+}
+
+/* 覆盖浏览器默认的自动填充背景色 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #333 inset !important;  /* 保持深色背景 */
+    -webkit-text-fill-color: #fff !important;  /* 保持文字颜色 */
+    transition: background-color 5000s ease-in-out 0s;  /* 延长过渡时间 */
+}
+
+/* 修改搜索选项样式 */
+.search-options {
+    right: 0;
+    font-size: 12px;
+    color: #888;
+    display: flex;
+    flex-direction: column;  /* 改为垂直排列 */
+    gap: 8px;  /* 调整间距 */
+}
+
+.search-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative; /* 为tooltip定位 */
+}
+
+.search-options input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+/* 修改计数器样式 */
+.search-count {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    display: none;  /* 默认隐藏 */
+}
+
+/* 添加无结果时的样式 */
+.search-count.no-results {
+    color: #ff4d4d;  /* 红色文字 */
+    background: rgba(255, 77, 77, 0.1);  /* 红色半透明背景 */
+}
+
+/* 添加提示图标样式 */
+.tooltip-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #888;
+    font-size: 10px;
+    margin-left: 5px;
+    cursor: help;
+    position: relative;
+}
+
+.tooltip-icon::after {
+    content: attr(data-tooltip);  /* 需要设置初始content */
+    position: absolute;
+    right: calc(100% + 8px);
+    top: 50%;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    transform: translateY(-50%) translateX(10px);
+}
+
+.tooltip-icon::before {
+    content: '';  /* 需要设置初始content */
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    transform: translateY(-50%) translateX(10px);
+}
+
+.tooltip-icon:hover::after,
+.tooltip-icon:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+}
+
+/* 添加错误提示框样式 */
+.regex-error-tooltip {
+    position: fixed;
+    background: rgba(255, 87, 34, 0.9);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 1001;
+    animation: tooltip-slide-in 0.3s ease;
+}
+
+.regex-error-tooltip.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+@keyframes tooltip-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.character-card.same-ip {
+    background: #3a3a3a;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); 
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.character-card.same-ip:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    z-index: 2;
+}
+
+/* 定义季节颜色变量 */
+:root {
+    --spring-color: 255, 158, 205;  /* 樱花粉 */
+    --summer-color: 78, 180, 245;   /* 清爽蓝 */
+    --autumn-color: 255, 126, 61;   /* 枫叶橙 */
+    --winter-color: 160, 216, 239;  /* 冰雪蓝 */
+}
+
+/* 季节组基础样式 */
+.season-group {
+    position: relative;
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    box-sizing: border-box;
+    overflow: hidden; 
+}
+
+.season-group.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 季节标题样式 */
+.season-title-wrapper {
+    position: relative;
+    text-align: center;
+    margin: 30px 0;
+    padding: 10px 0;
+}
+
+.season-title {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0 30px;
+    position: relative;
+    z-index: 1;
+}
+
+/* 季节标题装饰线 */
+.season-title-decor {
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: 2px;
+}
+
+.season-title-decor.left {
+    right: calc(50% + 80px);
+    transform: translateY(-50%);
+}
+
+.season-title-decor.right {
+    left: calc(50% + 80px);
+    transform: translateY(-50%);
+}
+
+/* 季节图标公共样式 */
+.season-group::before {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    opacity: 0.5;
+}
+
+/* 季节特定样式 */
+.season-group[data-season="spring"] { --season-color: var(--spring-color); }
+.season-group[data-season="summer"] { --season-color: var(--summer-color); }
+.season-group[data-season="autumn"] { --season-color: var(--autumn-color); }
+.season-group[data-season="winter"] { --season-color: var(--winter-color); }
+
+/* 季节组背景和边框 */
+.season-group[data-season] {
+    background: linear-gradient(135deg, 
+        rgba(var(--season-color), 0.1), 
+        rgba(var(--season-color), 0.05)
+    );
+    border: 1px solid rgba(var(--season-color), 0.2);
+    box-shadow: 0 0 20px rgba(var(--season-color), 0.1);
+}
+
+/* 季节标题颜色和装饰线 */
+.season-group[data-season] .season-title {
+    color: rgb(var(--season-color));
+}
+
+.season-group[data-season] .season-title-decor {
+    background: linear-gradient(90deg, 
+        rgba(var(--season-color), 0) 0%,
+        rgba(var(--season-color), 0.5) 50%,
+        rgba(var(--season-color), 0) 100%
+    );
+}
+
+/* 季节图标和动画 */
+.season-group[data-season="spring"]::before { content: '🌸'; animation: floating 3s ease-in-out infinite; }
+.season-group[data-season="summer"]::before { content: '☀️'; animation: rotate 10s linear infinite; }
+.season-group[data-season="autumn"]::before { content: '🍁'; animation: falling 4s ease-in-out infinite; }
+.season-group[data-season="winter"]::before { content: '❄️'; animation: snowfall 3s ease-in-out infinite; }
+
+/* 卡片样式 */
+.season-group[data-season] .character-card {
+    border: 1px solid rgba(var(--season-color), 0.2);
+}
+
+.season-group[data-season] .character-card:hover {
+    box-shadow: 0 0 20px rgba(var(--season-color), 0.3);
+}
+
+/* 悬停效果 */
+.season-group:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.season-title-wrapper:hover .season-title {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.season-title-wrapper:hover .season-title-decor {
+    width: 120px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+/* 动画关键帧 */
+@keyframes floating {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(10deg); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes falling {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(10px) rotate(180deg); }
+    100% { transform: translateY(0) rotate(360deg); }
+}
+
+@keyframes snowfall {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(5px) scale(0.8); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+.season-group .character-cards {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 确保卡片尺寸合适 */
+.season-group .character-card {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    min-width: 0;  
+}
+
+/* 在较小屏幕上自适应 */
+@media screen and (max-width: 1600px) {
+    .season-group .character-cards {
+        grid-template-columns: repeat(5, 1fr); 
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .season-group .character-cards {
+        grid-template-columns: repeat(4, 1fr); 
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .season-group .character-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .season-group .character-cards {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .season-group .character-cards {
+        grid-template-columns: 1fr;  
+    }
+}
+
+/* 自定义提示框样式 */
+.character-card .character-ip .custom-tooltip {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%) translateY(10px);
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    font-size: 14px;
+    white-space: nowrap;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* 提示框小箭头 */
+.character-card .character-ip .custom-tooltip::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%);
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+}
+
+/* 悬停时显示提示框 */
+.character-card .character-ip:hover .custom-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* 电梯导航栏样式 */
+.elevator-nav {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(42, 42, 42, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.elevator-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 主要分组标题 */
+.elevator-nav-group-title {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 5px;
+    padding-left: 12px;
+}
+
+/* 导航项样式 */
+.elevator-nav-item {
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    color: #ccc;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;  /* 确保宽度充满容器 */
+    box-sizing: border-box;
+}
+
+/* 导航项图标 */
+.elevator-nav-item .icon {
+    font-size: 16px;
+    opacity: 0.7;
+}
+
+/* 季节图标 */
+.elevator-nav-item[data-season="spring"] .icon { content: '🌸'; }
+.elevator-nav-item[data-season="summer"] .icon { content: '☀️'; }
+.elevator-nav-item[data-season="autumn"] .icon { content: '🍁'; }
+.elevator-nav-item[data-season="winter"] .icon { content: '❄️'; }
+
+/* 悬停和激活状态 */
+.elevator-nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.elevator-nav-item.active {
+    background: #4a90e2;
+    color: #fff;
+}
+
+/* 分组样式 */
+.elevator-nav-group {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.elevator-nav-group:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
+/* 子项目缩进 */
+.elevator-nav-item.sub-item {
+    padding-left: 24px;  
+    font-size: 13px;   
+    opacity: 0.9;
+    max-height: 40px;  /* 设置固定高度 */
+    overflow: hidden;  /* 超出部分隐藏 */
+    transition: all 0.3s ease;  /* 添加过渡效果 */
+}
+
+/* 主项目加粗 */
+.elevator-nav-item:not(.sub-item) {
+    font-weight: 500;
+}
+
+/* 导航图标样式 */
+.elevator-nav-item .nav-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain; 
+    opacity: 0.7;
+    filter: brightness(1.2) contrast(1.1); 
+    mix-blend-mode: screen; 
+}
+
+/* 悬停时的图标效果 */
+.elevator-nav-item:hover .nav-icon {
+    opacity: 1;
+    filter: brightness(1.4) contrast(1.2);
+}
+
+/* 激活状态的图标效果 */
+.elevator-nav-item.active .nav-icon {
+    opacity: 1;
+    filter: brightness(1.4) contrast(1.2);
+}
+
+/* 折叠箭头样式 */
+.elevator-nav-item .collapse-icon {
+    font-size: 12px;
+    margin-left: auto;
+    transition: transform 0.3s ease;
+    opacity: 0.7;
+    transform: rotate(0deg);  
+}
+
+/* 折叠状态箭头 */
+.elevator-nav-item.collapsed .collapse-icon {
+    transform: rotate(180deg); 
+}
+
+/* 折叠时隐藏所有子项 */
+.elevator-nav-item.collapsed ~ .elevator-nav-item.sub-item {
+    max-height: 0; 
+    padding-top: 0;  
+    padding-bottom: 0;
+    opacity: 0; 
+    pointer-events: none; 
+}
+
+/* 悬停效果 */
+.elevator-nav-item:hover .collapse-icon {
+    opacity: 1;
+}

@@ -1,0 +1,583 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../../css/visualization/visualization.css">
+</head>
+<body>
+<include src="../../../templates/header.html"></include>
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="button-container">
+                <a href="javascript:history.back()" class="home-btn">返回上一页</a>
+                <a href="../tables/02-stellar-male-nomination-table.html" class="table-btn">查看表格</a>
+                <div class="size-controls">
+                    <div class="slider-container">
+                        <label for="width-slider">宽度: <span id="width-value">1800</span>px</label>
+                        <input type="range" id="width-slider" min="100" max="2500" value="1800" step="100">
+                    </div>
+                    <div class="slider-container">
+                        <label for="height-slider">高度: <span id="height-value">2200</span>px</label>
+                        <input type="range" id="height-slider" min="100" max="5000" value="2200" step="100">
+                    </div>
+                    <button id="reset-size" class="reset-btn">重置大小</button>
+                </div>
+            </div>
+            <div class="content-scroll">
+                <div class="chart-wrapper">
+                    <div class="custom-legend">
+                        <div class="legend-item">
+                            <span class="legend-color advance"></span>
+                            <span class="legend-text">晋级</span>
+                        </div>
+                    </div>
+                    <div id="vote_chart" class="chart-container"></div>
+                </div>
+            </div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const widthSlider = document.getElementById('width-slider');
+                    const heightSlider = document.getElementById('height-slider');
+                    const widthValue = document.getElementById('width-value');
+                    const heightValue = document.getElementById('height-value');
+                    const chartContainer = document.querySelector('.chart-container');
+                    const chartWrapper = document.querySelector('.chart-wrapper');
+                    const resetBtn = document.getElementById('reset-size');
+
+                    const defaultWidth = 1800;
+                    const defaultHeight = 2200;
+
+                    function resetSize() {
+                        widthSlider.value = defaultWidth;
+                        heightSlider.value = defaultHeight;
+                        widthValue.textContent = defaultWidth;
+                        heightValue.textContent = defaultHeight;
+                        chartContainer.style.maxWidth = `${defaultWidth}px`;
+                        chartWrapper.style.maxWidth = `${defaultWidth}px`;
+                        chartContainer.style.height = `${defaultHeight}px`;
+                        if (chart_vote_chart) {
+                            chart_vote_chart.resize();
+                        }
+                    }
+
+                    resetBtn.addEventListener('click', resetSize);
+
+                    function updateSize() {
+                        const width = Math.min(Math.max(widthSlider.value, 100), 2500);
+                        const height = Math.min(Math.max(heightSlider.value, 100), 5000);
+                        widthValue.textContent = width;
+                        heightValue.textContent = height;
+                        chartContainer.style.maxWidth = `${width}px`;
+                        chartWrapper.style.maxWidth = `${width}px`;
+                        chartContainer.style.height = `${height}px`;
+                        if (chart_vote_chart) {
+                            chart_vote_chart.resize();
+                        }
+                    }
+
+                    widthSlider.addEventListener('input', updateSize);
+                    heightSlider.addEventListener('input', updateSize);
+
+                    var titleContainer = document.createElement('div');
+                    titleContainer.className = 'title-container';
+                    
+                    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svg.style.width = '100%';
+                    svg.style.height = '75px';
+                    
+                    var title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    title.textContent = '12.31-01.07 - 恒星组提名-男性组别（晋级）';
+                    title.setAttribute('x', '50%');
+                    title.setAttribute('y', '25');
+                    title.setAttribute('text-anchor', 'middle');
+                    title.style.fontSize = '24px';
+                    title.setAttribute('font-weight', 'bold');
+
+                    var subtitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    subtitle.textContent = '前92名晋级至主赛事恒星组预选赛阶段';
+                    subtitle.setAttribute('x', '50%');
+                    subtitle.setAttribute('y', '50');
+                    subtitle.setAttribute('text-anchor', 'middle');
+                    subtitle.style.fontSize = '14px';
+                    subtitle.setAttribute('fill', '#9370DB');
+
+                    var gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+                    gradient.id = 'titleGradient';
+                    gradient.setAttribute('x1', '0%');
+                    gradient.setAttribute('y1', '0%');
+                    gradient.setAttribute('x2', '100%');
+                    gradient.setAttribute('y2', '0%');
+                    
+                    var stops = [
+                        {offset: '0%', color: '#ff6b6b'},
+                        {offset: '40%', color: '#4a90e2'},
+                        {offset: '100%', color: '#3eaf7c'}
+                    ];
+                    
+                    stops.forEach(function(stop) {
+                        var stopEl = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+                        stopEl.setAttribute('offset', stop.offset);
+                        stopEl.setAttribute('stop-color', stop.color);
+                        gradient.appendChild(stopEl);
+                    });
+                    
+                    svg.appendChild(gradient);
+                    title.setAttribute('fill', 'url(#titleGradient)');
+                    svg.appendChild(title);
+                    svg.appendChild(subtitle);
+                    
+                    titleContainer.appendChild(svg);
+                    document.querySelector('.chart-wrapper').insertBefore(titleContainer, document.querySelector('#vote_chart'));
+                    
+                    window.chart_vote_chart = echarts.init(
+                        document.getElementById('vote_chart'), 'dark', {renderer: 'canvas'});
+                    var option_vote_chart = {
+    "backgroundColor": "#1a1a1a",
+    "animation": true,
+    "animationThreshold": 2000,
+    "animationDuration": 1000,
+    "animationEasing": "cubicOut",
+    "animationDelay": 0,
+    "animationDurationUpdate": 300,
+    "animationEasingUpdate": "cubicOut",
+    "animationDelayUpdate": 0,
+    "aria": {
+        "enabled": false
+    },
+    "series": [
+        {
+            "type": "bar",
+            "name": "\u664b\u7ea7",
+            "legendHoverLink": true,
+            "data": [
+                11,
+                11,
+                11,
+                11,
+                11,
+                11,
+                11,
+                11,
+                11,
+                11,
+                11,
+                12,
+                12,
+                12,
+                12,
+                13,
+                13,
+                13,
+                13,
+                13,
+                13,
+                13,
+                13,
+                13,
+                14,
+                15,
+                15,
+                15,
+                15,
+                15,
+                16,
+                16,
+                16,
+                16,
+                17,
+                17,
+                17,
+                17,
+                17,
+                18,
+                19,
+                19,
+                19,
+                19,
+                19,
+                20,
+                20,
+                20,
+                21,
+                21,
+                21,
+                21,
+                21,
+                21,
+                21,
+                21,
+                22,
+                22,
+                22,
+                25,
+                26,
+                26,
+                27,
+                27,
+                28,
+                31,
+                31,
+                31,
+                32,
+                32,
+                32,
+                33,
+                34,
+                34,
+                35,
+                36,
+                37,
+                38,
+                38,
+                41,
+                42,
+                42,
+                46,
+                46,
+                52,
+                58,
+                61,
+                64,
+                64,
+                74,
+                74,
+                74,
+                78,
+                87,
+                96,
+                102,
+                113,
+                125,
+                140
+            ],
+            "realtimeSort": false,
+            "showBackground": false,
+            "stackStrategy": "samesign",
+            "cursor": "pointer",
+            "barMinHeight": 0,
+            "barCategoryGap": "40%",
+            "barGap": "0%",
+            "large": false,
+            "largeThreshold": 400,
+            "seriesLayoutBy": "column",
+            "datasetIndex": 0,
+            "clip": true,
+            "zlevel": 0,
+            "z": 2,
+            "label": {
+                "show": true,
+                "position": "right",
+                "margin": 8,
+                "formatter":             function(params) {                var labels = JSON.parse('[\"\u7684\u573a\u9759\u53f8\uff08\u590f\u76ee\u53cb\u4eba\u5e10\uff09\", \"\u84dd\u67d3\u60e3\u53f3\u4ecb\uff08BLEACH\uff09\", \"\u65af\u6d3e\u514b\u00b7\u65af\u76ae\u683c\u5c14\uff08\u661f\u9645\u725b\u4ed4\uff09\", \"\u4f0a\u85e4\u8bda\uff08School Days\uff09\", \"\u4e94\u6761\u65b0\u83dc\uff08\u66f4\u8863\u4eba\u5076\u5760\u5165\u7231\u6cb3\uff09\", \"\u5f71\u5c71\u98de\u96c4\uff08\u6392\u7403\u5c11\u5e74\uff01\uff01\uff09\", \"\u5929\u738b\u5bfa\u745a\u592a\u6717\uff08Rewrite\uff09\", \"\u5742\u4e95\u60a0\u4e8c\uff08\u707c\u773c\u7684\u590f\u5a1c\uff09\", \"\u6211\u59bb\u5584\u9038\uff08\u9b3c\u706d\u4e4b\u5203\uff09\", \"\u9ed1\uff08\u9ed1\u4e4b\u5951\u7ea6\u8005\uff09\", \"\u77f3\u7530\u5c06\u4e5f\uff08\u58f0\u4e4b\u5f62\uff09\", \"\u6ce2\u98ce\u6c34\u95e8\uff08\u706b\u5f71\u5fcd\u8005\uff09\", \"\u767d\u8840\u7403(U-1146)\uff08\u5de5\u4f5c\u7ec6\u80de\uff09\", \"\u72ac\u591c\u53c9\uff08\u72ac\u591c\u53c9\uff09\", \"\u536b\u5bab\u5207\u55e3\uff08Fate\u7cfb\u5217\uff09\", \"\u58ec\u6c0f\uff08\u836f\u5c4b\u5c11\u5973\u7684\u5462\u5583\uff09\", \"\u9ebb\u4e2d\u84ec\uff08SSSS.DYNAZENON\uff09\", \"\u5185\u5377\u6634\uff08\u8fd9\u4e2a\u7f8e\u672f\u793e\u5927\u6709\u95ee\u9898\uff01\uff09\", \"\u8d64\u7fbd\u4e1a\uff08\u6697\u6740\u6559\u5ba4\uff09\", \"\u7eef\u6751\u5251\u5fc3\uff08\u6d6a\u5ba2\u5251\u5fc3\uff09\", \"\u91ce\u6bd4\u5927\u96c4\uff08\u54c6\u5566A\u68a6\uff09\", \"\u8d64\u4e95\u79c0\u4e00\uff08\u540d\u4fa6\u63a2\u67ef\u5357\uff09\", \"\u767e\u591c\u7c73\u8fe6\u5c14\uff08\u7ec8\u7ed3\u7684\u70bd\u5929\u4f7f\uff09\", \"\u5bcc\u5188\u4e49\u52c7\uff08\u9b3c\u706d\u4e4b\u5203\uff09\", \"\u6728\u4e0b\u79c0\u5409\uff08\u7b28\u86cb\u3001\u6d4b\u9a8c\u3001\u53ec\u5524\u517d\uff09\", \"\u77f3\u795e\u5343\u7a7a\uff08Dr.STONE \u77f3\u7eaa\u5143\uff09\", \"\u9ed1\u5d0e\u4e00\u62a4\uff08BLEACH\uff09\", \"\u5b59\u609f\u7a7a\uff08\u9f99\u73e0\uff09\", \"\u4e00\u6761\u4e50\uff08\u4f2a\u604b\uff09\", \"\u5b89\u5ba4\u900f\uff08\u540d\u4fa6\u63a2\u67ef\u5357\uff09\", \"\u540d\u53d6\u5468\u4e00\uff08\u590f\u76ee\u53cb\u4eba\u5e10\uff09\", \"\u7f57\u7f57\u4e9a\u00b7\u7d22\u9686\uff08\u6d77\u8d3c\u738b\uff09\", \"\u6740\u751f\u4e38\uff08\u72ac\u591c\u53c9\uff09\", \"\u7231\u57ce\u604b\u592a\u90ce\uff08\u8d85\u8d85\u8d85\u8d85\u8d85\u559c\u6b22\u4f60\u7684100\u4e2a\u5973\u670b\u53cb\uff09\", \"\u5317\u539f\u4f0a\u7ec7\uff08\u78a7\u84dd\u4e4b\u6d77\uff09\", \"\u6cc9\u65b0\u4e00\uff08\u5bc4\u751f\u517d\uff09\", \"\u67a3\u606d\u4ecb\uff08Little Busters!\uff09\", \"\u6e1a\u85b0\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u5b87\u667a\u6ce2\u9f2c\uff08\u706b\u5f71\u5fcd\u8005\uff09\", \"\u9f50\u6728\u6960\u96c4\uff08\u9f50\u6728\u6960\u96c4\u7684\u707e\u96be\uff09\", \"\u52b3\u4f26\u65af\uff08\u767d\u5723\u5973\u4e0e\u9ed1\u7267\u5e08\uff09\", \"\u56fd\u5d0e\u5f80\u4eba\uff08AIR\uff09\", \"\u8499\u5947\u00b7D\u00b7\u8def\u98de\uff08\u6d77\u8d3c\u738b\uff09\", \"\u5c0f\u667a\uff08\u5b9d\u53ef\u68a6\uff09\", \"\u6f29\u6da1\u9e23\u4eba\uff08\u706b\u5f71\u5fcd\u8005\uff09\", \"\u795e\u539f\u79cb\u4eba\uff08\u5883\u754c\u7684\u5f7c\u65b9\uff09\", \"\u5b89\u827a\u4f26\u4e5f\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u6f6e\u7530\u6e1a\uff08\u6697\u6740\u6559\u5ba4\uff09\", \"\u65e5\u5411\u7fd4\u9633\uff08\u6392\u7403\u5c11\u5e74\uff01\uff01\uff09\", \"\u5b89\u6619\u5c0f\u592a\u90ce\uff08\u6708\u8272\u771f\u7f8e\uff09\", \"\u674e\u5c0f\u72fc\uff08\u9b54\u5361\u5c11\u5973\u6a31\uff09\", \"\u53ef\u513f\u6c5f\u897f\u4e5f\uff08\u7518\u57ce\u5149\u8f89\u6e38\u4e50\u56ed\uff09\", \"\u591c\u6597\uff08\u91ce\u826f\u795e\uff09\", \"\u5854\u5179\u7c73\uff08\u65a9\u00b7\u8d64\u7ea2\u4e4b\u77b3\uff01\uff09\", \"\u5742\u7530\u94f6\u65f6\uff08\u94f6\u9b42\uff09\", \"\u7076\u95e8\u70ad\u6cbb\u90ce\uff08\u9b3c\u706d\u4e4b\u5203\uff09\", \"\u5a01\u5ec9\u00b7\u514b\u6885\u4fee\uff08\u672b\u65e5\u65f6\u5728\u505a\u4ec0\u4e48\uff1f\u6709\u6ca1\u6709\u7a7a\uff1f\u53ef\u4ee5\u6765\u62ef\u6551\u5417\uff1f\uff09\", \"\u536b\u5bab\uff08Fate\u7cfb\u5217\uff09\", \"\u5e2d\u5fb7\u00b7\u5361\u76d6\u8bfa\uff08\u60f3\u8981\u6210\u4e3a\u5f71\u4e4b\u5b9e\u529b\u8005\uff01\uff09\", \"\u5409\u5c14\u4f3d\u7f8e\u4ec0\uff08Fate\u7cfb\u5217\uff09\", \"\u827e\u6cfd\uff08\u846c\u9001\u7684\u8299\u8389\u83b2\uff09\", \"\u6a31\u6ee1\u96c6\uff08\u7f6a\u6076\u738b\u51a0\uff09\", \"\u6237\u51a2\u5f69\u52a0\uff08\u6211\u7684\u9752\u6625\u604b\u7231\u7269\u8bed\u679c\u7136\u6709\u95ee\u9898\u3002\uff09\", \"\u7a7a\u6761\u627f\u592a\u90ce\uff08JoJo\u7684\u5947\u5999\u5192\u9669\uff09\", \"\u548c\u6cc9\u6b63\u5b97\uff08\u57c3\u7f57\u8292\u963f\u8001\u5e08\uff09\", \"\u6d77\u5854\uff08\u846c\u9001\u7684\u8299\u8389\u83b2\uff09\", \"\u91ce\u5d0e\u6885\u592a\u90ce\uff08\u6708\u520a\u5c11\u5973\u91ce\u5d0e\u541b\uff09\", \"\u4e94\u6761\u609f\uff08\u5492\u672f\u56de\u6218\uff09\", \"\u5e7f\uff08Darling in the FranXX\uff09\", \"\u5e02\u5ddd\u4eac\u592a\u90ce\uff08\u6211\u5fc3\u91cc\u5371\u9669\u7684\u4e1c\u897f\uff09\", \"\u9c81\u8fea\u4e4c\u65af\u00b7\u683c\u96f7\u62c9\u7279\uff08\u65e0\u804c\u8f6c\u751f\uff09\", \"\u592a\u5bb0\u6cbb\uff08\u6587\u8c6a\u91ce\u72ac\uff09\", \"\u68ee\u5c9b\u5e06\u9ad8\uff08\u5929\u6c14\u4e4b\u5b50\uff09\", \"\u91d1\u6728\u7814\uff08\u4e1c\u4eac\u98df\u5c38\u9b3c\uff09\", \"\u963f\u826f\u826f\u6728\u5386\uff08\u7269\u8bed\u7cfb\u5217\uff09\", \"\u827e\u4f26\u00b7\u8036\u683c\u5c14\uff08\u8fdb\u51fb\u7684\u5de8\u4eba\uff09\", \"\u8d64\u5742\u9f99\u4e4b\u4ecb\uff08\u6a31\u82b1\u5e84\u7684\u5ba0\u7269\u5973\u5b69\uff09\", \"\u6625\u65e5\u91ce\u60a0\uff08\u7f18\u4e4b\u7a7a\uff09\", \"\u591c\u795e\u6708\uff08\u6b7b\u4ea1\u7b14\u8bb0\uff09\", \"\u897f\u7247\uff08\u64c5\u957f\u6349\u5f04\u7684\u9ad8\u6728\u540c\u5b66\uff09\", \"\u9ad8\u987b\u9f99\u513f\uff08\u9f99\u4e0e\u864e\uff09\", \"\u7531\u5d0e\u661f\u7a7a\uff08\u603b\u4e4b\u5c31\u662f\u975e\u5e38\u53ef\u7231\uff09\", \"\u963f\u865a\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u9ed1\u7fbd\u5feb\u6597\uff08\u9b54\u672f\u5feb\u6597\uff09\", \"\u7eeb\u5c0f\u8def\u6e05\u9686\uff08\u6b22\u8fce\u6765\u5230\u5b9e\u529b\u81f3\u4e0a\u4e3b\u4e49\u7684\u6559\u5ba4\uff09\", \"\u85e4\u5bab\u5468\uff08\u5173\u4e8e\u6211\u5728\u65e0\u610f\u95f4\u88ab\u9694\u58c1\u7684\u5929\u4f7f\u53d8\u6210\u5e9f\u67f4\u8fd9\u4ef6\u4e8b\uff09\", \"\u4e94\u6cb3\u58eb\u9053\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u795e\u7530\u7a7a\u592a\uff08\u6a31\u82b1\u5e84\u7684\u5ba0\u7269\u5973\u5b69\uff09\", \"\u6c5f\u6237\u5ddd\u67ef\u5357\uff08\u540d\u4fa6\u63a2\u67ef\u5357\uff09\", \"\u8d5b\u6b27\u7279\u00b7\u5229\u8fe6\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u661f\u91ce\u7231\u4e45\u7231\u6d77\uff08\u3010\u6211\u63a8\u7684\u5b69\u5b50\u3011\uff09\", \"\u5188\u90e8\u4f26\u592a\u90ce\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u798f\u90e8\u91cc\u5fd7\uff08\u51b0\u83d3\uff09\", \"\u97f3\u65e0\u7ed3\u5f26\uff08Angel Beats!\uff09\", \"\u4e00\u65b9\u901a\u884c\uff08\u9b54\u6cd5\u7981\u4e66\u76ee\u5f55\uff09\", \"\u6c34\u67ff\u53f8\uff08\u53ef\u5851\u6027\u8bb0\u5fc6\uff09\", \"\u6709\u9a6c\u516c\u751f\uff08\u56db\u6708\u662f\u4f60\u7684\u8c0e\u8a00\uff09\", \"\u57fa\u5c14\u4f2f\u7279\u00b7\u5e03\u7518\u6bd4\u5229\u4e9a\uff08\u7d2b\u7f57\u5170\u6c38\u6052\u82b1\u56ed\uff09\", \"\u51a2\u672c\u79c0\u4e00\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\"]');                if (params.value === null) return '';                return '{vote|' + params.value + '\u7968}{name| - ' + labels[params.dataIndex] + '}';            }        ,
+                "rich": {
+                    "vote": {
+                        "color": "#ff7875",
+                        "fontSize": 13,
+                        "fontWeight": "bold",
+                        "padding": [
+                            0,
+                            5,
+                            0,
+                            5
+                        ]
+                    },
+                    "name": {
+                        "color": "#a6c1ee",
+                        "fontSize": 12
+                    }
+                },
+                "valueAnimation": false
+            },
+            "itemStyle": {
+                "color":             new echarts.graphic.LinearGradient(0, 0, 1, 0, [{                offset: 0,                color: '#3d7644'            }, {                offset: 0.5,                color: '#3e9d65'            }, {                offset: 1,                color: '#3e9d65'            }])        
+            }
+        }
+    ],
+    "legend": [
+        {
+            "data": [
+                "\u664b\u7ea7"
+            ],
+            "selected": {},
+            "show": false,
+            "padding": 5,
+            "itemGap": 10,
+            "itemWidth": 25,
+            "itemHeight": 14,
+            "backgroundColor": "transparent",
+            "borderColor": "#ccc",
+            "borderRadius": 0,
+            "pageButtonItemGap": 5,
+            "pageButtonPosition": "end",
+            "pageFormatter": "{current}/{total}",
+            "pageIconColor": "#2f4554",
+            "pageIconInactiveColor": "#aaa",
+            "pageIconSize": 15,
+            "animationDurationUpdate": 800,
+            "selector": false,
+            "selectorPosition": "auto",
+            "selectorItemGap": 7,
+            "selectorButtonGap": 10
+        }
+    ],
+    "tooltip": {
+        "show": true,
+        "trigger": "axis",
+        "triggerOn": "mousemove|click",
+        "axisPointer": {
+            "type": "line"
+        },
+        "showContent": true,
+        "alwaysShowContent": false,
+        "showDelay": 0,
+        "hideDelay": 100,
+        "enterable": false,
+        "confine": false,
+        "appendToBody": false,
+        "transitionDuration": 0.4,
+        "formatter":             function(params) {                var labels = JSON.parse('[\"\u7684\u573a\u9759\u53f8\uff08\u590f\u76ee\u53cb\u4eba\u5e10\uff09\", \"\u84dd\u67d3\u60e3\u53f3\u4ecb\uff08BLEACH\uff09\", \"\u65af\u6d3e\u514b\u00b7\u65af\u76ae\u683c\u5c14\uff08\u661f\u9645\u725b\u4ed4\uff09\", \"\u4f0a\u85e4\u8bda\uff08School Days\uff09\", \"\u4e94\u6761\u65b0\u83dc\uff08\u66f4\u8863\u4eba\u5076\u5760\u5165\u7231\u6cb3\uff09\", \"\u5f71\u5c71\u98de\u96c4\uff08\u6392\u7403\u5c11\u5e74\uff01\uff01\uff09\", \"\u5929\u738b\u5bfa\u745a\u592a\u6717\uff08Rewrite\uff09\", \"\u5742\u4e95\u60a0\u4e8c\uff08\u707c\u773c\u7684\u590f\u5a1c\uff09\", \"\u6211\u59bb\u5584\u9038\uff08\u9b3c\u706d\u4e4b\u5203\uff09\", \"\u9ed1\uff08\u9ed1\u4e4b\u5951\u7ea6\u8005\uff09\", \"\u77f3\u7530\u5c06\u4e5f\uff08\u58f0\u4e4b\u5f62\uff09\", \"\u6ce2\u98ce\u6c34\u95e8\uff08\u706b\u5f71\u5fcd\u8005\uff09\", \"\u767d\u8840\u7403(U-1146)\uff08\u5de5\u4f5c\u7ec6\u80de\uff09\", \"\u72ac\u591c\u53c9\uff08\u72ac\u591c\u53c9\uff09\", \"\u536b\u5bab\u5207\u55e3\uff08Fate\u7cfb\u5217\uff09\", \"\u58ec\u6c0f\uff08\u836f\u5c4b\u5c11\u5973\u7684\u5462\u5583\uff09\", \"\u9ebb\u4e2d\u84ec\uff08SSSS.DYNAZENON\uff09\", \"\u5185\u5377\u6634\uff08\u8fd9\u4e2a\u7f8e\u672f\u793e\u5927\u6709\u95ee\u9898\uff01\uff09\", \"\u8d64\u7fbd\u4e1a\uff08\u6697\u6740\u6559\u5ba4\uff09\", \"\u7eef\u6751\u5251\u5fc3\uff08\u6d6a\u5ba2\u5251\u5fc3\uff09\", \"\u91ce\u6bd4\u5927\u96c4\uff08\u54c6\u5566A\u68a6\uff09\", \"\u8d64\u4e95\u79c0\u4e00\uff08\u540d\u4fa6\u63a2\u67ef\u5357\uff09\", \"\u767e\u591c\u7c73\u8fe6\u5c14\uff08\u7ec8\u7ed3\u7684\u70bd\u5929\u4f7f\uff09\", \"\u5bcc\u5188\u4e49\u52c7\uff08\u9b3c\u706d\u4e4b\u5203\uff09\", \"\u6728\u4e0b\u79c0\u5409\uff08\u7b28\u86cb\u3001\u6d4b\u9a8c\u3001\u53ec\u5524\u517d\uff09\", \"\u77f3\u795e\u5343\u7a7a\uff08Dr.STONE \u77f3\u7eaa\u5143\uff09\", \"\u9ed1\u5d0e\u4e00\u62a4\uff08BLEACH\uff09\", \"\u5b59\u609f\u7a7a\uff08\u9f99\u73e0\uff09\", \"\u4e00\u6761\u4e50\uff08\u4f2a\u604b\uff09\", \"\u5b89\u5ba4\u900f\uff08\u540d\u4fa6\u63a2\u67ef\u5357\uff09\", \"\u540d\u53d6\u5468\u4e00\uff08\u590f\u76ee\u53cb\u4eba\u5e10\uff09\", \"\u7f57\u7f57\u4e9a\u00b7\u7d22\u9686\uff08\u6d77\u8d3c\u738b\uff09\", \"\u6740\u751f\u4e38\uff08\u72ac\u591c\u53c9\uff09\", \"\u7231\u57ce\u604b\u592a\u90ce\uff08\u8d85\u8d85\u8d85\u8d85\u8d85\u559c\u6b22\u4f60\u7684100\u4e2a\u5973\u670b\u53cb\uff09\", \"\u5317\u539f\u4f0a\u7ec7\uff08\u78a7\u84dd\u4e4b\u6d77\uff09\", \"\u6cc9\u65b0\u4e00\uff08\u5bc4\u751f\u517d\uff09\", \"\u67a3\u606d\u4ecb\uff08Little Busters!\uff09\", \"\u6e1a\u85b0\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u5b87\u667a\u6ce2\u9f2c\uff08\u706b\u5f71\u5fcd\u8005\uff09\", \"\u9f50\u6728\u6960\u96c4\uff08\u9f50\u6728\u6960\u96c4\u7684\u707e\u96be\uff09\", \"\u52b3\u4f26\u65af\uff08\u767d\u5723\u5973\u4e0e\u9ed1\u7267\u5e08\uff09\", \"\u56fd\u5d0e\u5f80\u4eba\uff08AIR\uff09\", \"\u8499\u5947\u00b7D\u00b7\u8def\u98de\uff08\u6d77\u8d3c\u738b\uff09\", \"\u5c0f\u667a\uff08\u5b9d\u53ef\u68a6\uff09\", \"\u6f29\u6da1\u9e23\u4eba\uff08\u706b\u5f71\u5fcd\u8005\uff09\", \"\u795e\u539f\u79cb\u4eba\uff08\u5883\u754c\u7684\u5f7c\u65b9\uff09\", \"\u5b89\u827a\u4f26\u4e5f\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u6f6e\u7530\u6e1a\uff08\u6697\u6740\u6559\u5ba4\uff09\", \"\u65e5\u5411\u7fd4\u9633\uff08\u6392\u7403\u5c11\u5e74\uff01\uff01\uff09\", \"\u5b89\u6619\u5c0f\u592a\u90ce\uff08\u6708\u8272\u771f\u7f8e\uff09\", \"\u674e\u5c0f\u72fc\uff08\u9b54\u5361\u5c11\u5973\u6a31\uff09\", \"\u53ef\u513f\u6c5f\u897f\u4e5f\uff08\u7518\u57ce\u5149\u8f89\u6e38\u4e50\u56ed\uff09\", \"\u591c\u6597\uff08\u91ce\u826f\u795e\uff09\", \"\u5854\u5179\u7c73\uff08\u65a9\u00b7\u8d64\u7ea2\u4e4b\u77b3\uff01\uff09\", \"\u5742\u7530\u94f6\u65f6\uff08\u94f6\u9b42\uff09\", \"\u7076\u95e8\u70ad\u6cbb\u90ce\uff08\u9b3c\u706d\u4e4b\u5203\uff09\", \"\u5a01\u5ec9\u00b7\u514b\u6885\u4fee\uff08\u672b\u65e5\u65f6\u5728\u505a\u4ec0\u4e48\uff1f\u6709\u6ca1\u6709\u7a7a\uff1f\u53ef\u4ee5\u6765\u62ef\u6551\u5417\uff1f\uff09\", \"\u536b\u5bab\uff08Fate\u7cfb\u5217\uff09\", \"\u5e2d\u5fb7\u00b7\u5361\u76d6\u8bfa\uff08\u60f3\u8981\u6210\u4e3a\u5f71\u4e4b\u5b9e\u529b\u8005\uff01\uff09\", \"\u5409\u5c14\u4f3d\u7f8e\u4ec0\uff08Fate\u7cfb\u5217\uff09\", \"\u827e\u6cfd\uff08\u846c\u9001\u7684\u8299\u8389\u83b2\uff09\", \"\u6a31\u6ee1\u96c6\uff08\u7f6a\u6076\u738b\u51a0\uff09\", \"\u6237\u51a2\u5f69\u52a0\uff08\u6211\u7684\u9752\u6625\u604b\u7231\u7269\u8bed\u679c\u7136\u6709\u95ee\u9898\u3002\uff09\", \"\u7a7a\u6761\u627f\u592a\u90ce\uff08JoJo\u7684\u5947\u5999\u5192\u9669\uff09\", \"\u548c\u6cc9\u6b63\u5b97\uff08\u57c3\u7f57\u8292\u963f\u8001\u5e08\uff09\", \"\u6d77\u5854\uff08\u846c\u9001\u7684\u8299\u8389\u83b2\uff09\", \"\u91ce\u5d0e\u6885\u592a\u90ce\uff08\u6708\u520a\u5c11\u5973\u91ce\u5d0e\u541b\uff09\", \"\u4e94\u6761\u609f\uff08\u5492\u672f\u56de\u6218\uff09\", \"\u5e7f\uff08Darling in the FranXX\uff09\", \"\u5e02\u5ddd\u4eac\u592a\u90ce\uff08\u6211\u5fc3\u91cc\u5371\u9669\u7684\u4e1c\u897f\uff09\", \"\u9c81\u8fea\u4e4c\u65af\u00b7\u683c\u96f7\u62c9\u7279\uff08\u65e0\u804c\u8f6c\u751f\uff09\", \"\u592a\u5bb0\u6cbb\uff08\u6587\u8c6a\u91ce\u72ac\uff09\", \"\u68ee\u5c9b\u5e06\u9ad8\uff08\u5929\u6c14\u4e4b\u5b50\uff09\", \"\u91d1\u6728\u7814\uff08\u4e1c\u4eac\u98df\u5c38\u9b3c\uff09\", \"\u963f\u826f\u826f\u6728\u5386\uff08\u7269\u8bed\u7cfb\u5217\uff09\", \"\u827e\u4f26\u00b7\u8036\u683c\u5c14\uff08\u8fdb\u51fb\u7684\u5de8\u4eba\uff09\", \"\u8d64\u5742\u9f99\u4e4b\u4ecb\uff08\u6a31\u82b1\u5e84\u7684\u5ba0\u7269\u5973\u5b69\uff09\", \"\u6625\u65e5\u91ce\u60a0\uff08\u7f18\u4e4b\u7a7a\uff09\", \"\u591c\u795e\u6708\uff08\u6b7b\u4ea1\u7b14\u8bb0\uff09\", \"\u897f\u7247\uff08\u64c5\u957f\u6349\u5f04\u7684\u9ad8\u6728\u540c\u5b66\uff09\", \"\u9ad8\u987b\u9f99\u513f\uff08\u9f99\u4e0e\u864e\uff09\", \"\u7531\u5d0e\u661f\u7a7a\uff08\u603b\u4e4b\u5c31\u662f\u975e\u5e38\u53ef\u7231\uff09\", \"\u963f\u865a\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u9ed1\u7fbd\u5feb\u6597\uff08\u9b54\u672f\u5feb\u6597\uff09\", \"\u7eeb\u5c0f\u8def\u6e05\u9686\uff08\u6b22\u8fce\u6765\u5230\u5b9e\u529b\u81f3\u4e0a\u4e3b\u4e49\u7684\u6559\u5ba4\uff09\", \"\u85e4\u5bab\u5468\uff08\u5173\u4e8e\u6211\u5728\u65e0\u610f\u95f4\u88ab\u9694\u58c1\u7684\u5929\u4f7f\u53d8\u6210\u5e9f\u67f4\u8fd9\u4ef6\u4e8b\uff09\", \"\u4e94\u6cb3\u58eb\u9053\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u795e\u7530\u7a7a\u592a\uff08\u6a31\u82b1\u5e84\u7684\u5ba0\u7269\u5973\u5b69\uff09\", \"\u6c5f\u6237\u5ddd\u67ef\u5357\uff08\u540d\u4fa6\u63a2\u67ef\u5357\uff09\", \"\u8d5b\u6b27\u7279\u00b7\u5229\u8fe6\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u661f\u91ce\u7231\u4e45\u7231\u6d77\uff08\u3010\u6211\u63a8\u7684\u5b69\u5b50\u3011\uff09\", \"\u5188\u90e8\u4f26\u592a\u90ce\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u798f\u90e8\u91cc\u5fd7\uff08\u51b0\u83d3\uff09\", \"\u97f3\u65e0\u7ed3\u5f26\uff08Angel Beats!\uff09\", \"\u4e00\u65b9\u901a\u884c\uff08\u9b54\u6cd5\u7981\u4e66\u76ee\u5f55\uff09\", \"\u6c34\u67ff\u53f8\uff08\u53ef\u5851\u6027\u8bb0\u5fc6\uff09\", \"\u6709\u9a6c\u516c\u751f\uff08\u56db\u6708\u662f\u4f60\u7684\u8c0e\u8a00\uff09\", \"\u57fa\u5c14\u4f2f\u7279\u00b7\u5e03\u7518\u6bd4\u5229\u4e9a\uff08\u7d2b\u7f57\u5170\u6c38\u6052\u82b1\u56ed\uff09\", \"\u51a2\u672c\u79c0\u4e00\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\"]');                var ranks = JSON.parse('[\"89\", \"89\", \"89\", \"89\", \"89\", \"89\", \"89\", \"89\", \"89\", \"89\", \"89\", \"85\", \"85\", \"85\", \"85\", \"76\", \"76\", \"76\", \"76\", \"76\", \"76\", \"76\", \"76\", \"76\", \"75\", \"70\", \"70\", \"70\", \"70\", \"70\", \"66\", \"66\", \"66\", \"66\", \"61\", \"61\", \"61\", \"61\", \"61\", \"60\", \"55\", \"55\", \"55\", \"55\", \"55\", \"52\", \"52\", \"52\", \"44\", \"44\", \"44\", \"44\", \"44\", \"44\", \"44\", \"44\", \"41\", \"41\", \"41\", \"40\", \"38\", \"38\", \"36\", \"36\", \"35\", \"32\", \"32\", \"32\", \"29\", \"29\", \"29\", \"28\", \"26\", \"26\", \"25\", \"24\", \"23\", \"21\", \"21\", \"20\", \"18\", \"18\", \"16\", \"16\", \"15\", \"14\", \"13\", \"11\", \"11\", \"8\", \"8\", \"8\", \"7\", \"6\", \"5\", \"4\", \"3\", \"2\", \"1\"]');                for (var i = 0; i < params.length; i++) {                    if (params[i].value !== null && !isNaN(params[i].value)) {                        params = params[i];                        break;                    }                }                if (params.dataIndex >= labels.length) {                    return '';                }                if (!params.value || isNaN(params.value)) return '';                return params.seriesName + '<br/>' +                       labels[params.dataIndex] + '<br/>' +                       '\u5f97\u7968\u6570\uff1a' + params.value + '\u7968<br/>' +                       '\u6392\u540d\uff1a' + ranks[params.dataIndex];            }        ,
+        "textStyle": {
+            "color": "#a6c1ee",
+            "fontFamily": "Microsoft YaHei",
+            "fontSize": 14
+        },
+        "backgroundColor": "rgba(50, 50, 50, 0.9)",
+        "borderColor": "rgba(50, 50, 50, 0.9)",
+        "borderWidth": 0,
+        "padding": 5,
+        "order": "seriesAsc"
+    },
+    "xAxis": [
+        {
+            "name": "\u5f97\u7968\u6570",
+            "show": true,
+            "scale": false,
+            "nameLocation": "end",
+            "nameGap": 15,
+            "gridIndex": 0,
+            "axisLabel": {
+                "show": true,
+                "margin": 8,
+                "fontSize": 12,
+                "fontFamily": "Microsoft YaHei",
+                "valueAnimation": false
+            },
+            "inverse": false,
+            "position": "center",
+            "offset": 0,
+            "splitNumber": 5,
+            "minInterval": 0,
+            "splitLine": {
+                "show": true,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 0.3,
+                    "curveness": 0,
+                    "type": "dashed"
+                }
+            },
+            "animation": true,
+            "animationThreshold": 2000,
+            "animationDuration": 1000,
+            "animationEasing": "cubicOut",
+            "animationDelay": 0,
+            "animationDurationUpdate": 300,
+            "animationEasingUpdate": "cubicOut",
+            "animationDelayUpdate": 0
+        }
+    ],
+    "yAxis": [
+        {
+            "type": "category",
+            "name": "\u6392\u540d",
+            "show": true,
+            "scale": false,
+            "nameLocation": "end",
+            "nameGap": 15,
+            "gridIndex": 0,
+            "axisLine": {
+                "show": true,
+                "onZero": true,
+                "onZeroAxisIndex": 0,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid",
+                    "color": "#333"
+                }
+            },
+            "axisLabel": {
+                "show": true,
+                "margin": 8,
+                "interval": 0,
+                "fontFamily": "Microsoft YaHei",
+                "formatter": "{value}",
+                "valueAnimation": false
+            },
+            "inverse": false,
+            "position": "center",
+            "offset": 0,
+            "splitNumber": 5,
+            "minInterval": 0,
+            "splitLine": {
+                "show": true,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid"
+                }
+            },
+            "animation": true,
+            "animationThreshold": 2000,
+            "animationDuration": 1000,
+            "animationEasing": "cubicOut",
+            "animationDelay": 0,
+            "animationDurationUpdate": 300,
+            "animationEasingUpdate": "cubicOut",
+            "animationDelayUpdate": 0,
+            "data": [
+                "89",
+                "89",
+                "89",
+                "89",
+                "89",
+                "89",
+                "89",
+                "89",
+                "89",
+                "89",
+                "89",
+                "85",
+                "85",
+                "85",
+                "85",
+                "76",
+                "76",
+                "76",
+                "76",
+                "76",
+                "76",
+                "76",
+                "76",
+                "76",
+                "75",
+                "70",
+                "70",
+                "70",
+                "70",
+                "70",
+                "66",
+                "66",
+                "66",
+                "66",
+                "61",
+                "61",
+                "61",
+                "61",
+                "61",
+                "60",
+                "55",
+                "55",
+                "55",
+                "55",
+                "55",
+                "52",
+                "52",
+                "52",
+                "44",
+                "44",
+                "44",
+                "44",
+                "44",
+                "44",
+                "44",
+                "44",
+                "41",
+                "41",
+                "41",
+                "40",
+                "38",
+                "38",
+                "36",
+                "36",
+                "35",
+                "32",
+                "32",
+                "32",
+                "29",
+                "29",
+                "29",
+                "28",
+                "26",
+                "26",
+                "25",
+                "24",
+                "23",
+                "21",
+                "21",
+                "20",
+                "18",
+                "18",
+                "16",
+                "16",
+                "15",
+                "14",
+                "13",
+                "11",
+                "11",
+                "8",
+                "8",
+                "8",
+                "7",
+                "6",
+                "5",
+                "4",
+                "3",
+                "2",
+                "1"
+            ]
+        }
+    ],
+    "title": [
+        {
+            "show": true,
+            "target": "blank",
+            "subtarget": "blank",
+            "padding": 5,
+            "itemGap": 10,
+            "textAlign": "auto",
+            "textVerticalAlign": "auto",
+            "triggerEvent": false
+        }
+    ]
+};
+                    
+                    option_vote_chart.grid = {
+                        left: '15%',
+                        right: '15%',
+                        top: '2%',
+                        bottom: '5%',
+                        containLabel: true
+                    };
+                    
+                    chart_vote_chart.setOption(option_vote_chart);
+                    
+                    window.addEventListener('resize', function() {
+                        chart_vote_chart.resize();
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <include src="../../../templates/footer.html"></include>
+    <script type="module" src="../../../js/common/template-loader.js"></script>
+    <script src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
+    <script src="../../../js/visualization/visualization.js"></script>
+</body>
+</html>

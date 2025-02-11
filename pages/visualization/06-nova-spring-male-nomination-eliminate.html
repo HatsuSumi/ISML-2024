@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../../css/visualization/visualization.css">
+</head>
+<body>
+<include src="../../../templates/header.html"></include>
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="button-container">
+                <a href="javascript:history.back()" class="home-btn">返回上一页</a>
+                <a href="../tables/06-nova-spring-male-nomination-table.html" class="table-btn">查看表格</a>
+                <div class="size-controls">
+                    <div class="slider-container">
+                        <label for="width-slider">宽度: <span id="width-value">1800</span>px</label>
+                        <input type="range" id="width-slider" min="100" max="2500" value="1800" step="100">
+                    </div>
+                    <div class="slider-container">
+                        <label for="height-slider">高度: <span id="height-value">2200</span>px</label>
+                        <input type="range" id="height-slider" min="100" max="5000" value="2200" step="100">
+                    </div>
+                    <button id="reset-size" class="reset-btn">重置大小</button>
+                </div>
+            </div>
+            <div class="content-scroll">
+                <div class="chart-wrapper">
+                    <div class="custom-legend">
+                        <div class="legend-item">
+                            <span class="legend-color eliminate"></span>
+                            <span class="legend-text">未晋级</span>
+                        </div>
+                    </div>
+                    <div id="vote_chart" class="chart-container"></div>
+                </div>
+            </div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const widthSlider = document.getElementById('width-slider');
+                    const heightSlider = document.getElementById('height-slider');
+                    const widthValue = document.getElementById('width-value');
+                    const heightValue = document.getElementById('height-value');
+                    const chartContainer = document.querySelector('.chart-container');
+                    const chartWrapper = document.querySelector('.chart-wrapper');
+                    const resetBtn = document.getElementById('reset-size');
+
+                    const defaultWidth = 1800;
+                    const defaultHeight = 2200;
+
+                    function resetSize() {
+                        widthSlider.value = defaultWidth;
+                        heightSlider.value = defaultHeight;
+                        widthValue.textContent = defaultWidth;
+                        heightValue.textContent = defaultHeight;
+                        chartContainer.style.maxWidth = `${defaultWidth}px`;
+                        chartWrapper.style.maxWidth = `${defaultWidth}px`;
+                        chartContainer.style.height = `${defaultHeight}px`;
+                        if (chart_vote_chart) {
+                            chart_vote_chart.resize();
+                        }
+                    }
+
+                    resetBtn.addEventListener('click', resetSize);
+
+                    function updateSize() {
+                        const width = Math.min(Math.max(widthSlider.value, 100), 2500);
+                        const height = Math.min(Math.max(heightSlider.value, 100), 5000);
+                        widthValue.textContent = width;
+                        heightValue.textContent = height;
+                        chartContainer.style.maxWidth = `${width}px`;
+                        chartWrapper.style.maxWidth = `${width}px`;
+                        chartContainer.style.height = `${height}px`;
+                        if (chart_vote_chart) {
+                            chart_vote_chart.resize();
+                        }
+                    }
+
+                    widthSlider.addEventListener('input', updateSize);
+                    heightSlider.addEventListener('input', updateSize);
+
+                    var titleContainer = document.createElement('div');
+                    titleContainer.className = 'title-container';
+                    
+                    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svg.style.width = '100%';
+                    svg.style.height = '75px';
+                    
+                    var title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    title.textContent = '01.07-01.14 - 新星组冬季赛提名-男性组别（未晋级）';
+                    title.setAttribute('x', '50%');
+                    title.setAttribute('y', '25');
+                    title.setAttribute('text-anchor', 'middle');
+                    title.style.fontSize = '24px';
+                    title.setAttribute('font-weight', 'bold');
+
+                    var subtitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    subtitle.textContent = '共24名角色晋级至主赛事新星组预选赛阶段';
+                    subtitle.setAttribute('x', '50%');
+                    subtitle.setAttribute('y', '50');
+                    subtitle.setAttribute('text-anchor', 'middle');
+                    subtitle.style.fontSize = '14px';
+                    subtitle.setAttribute('fill', '#9370DB');
+
+                    var legendHint = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    legendHint.textContent = '点击图例可隐藏/显示系列';
+                    legendHint.setAttribute('x', '50%');
+                    legendHint.setAttribute('y', '70');
+                    legendHint.setAttribute('text-anchor', 'middle');
+                    legendHint.style.fontSize = '14px';
+                    legendHint.setAttribute('fill', '#9370DB');
+
+                    var gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+                    gradient.id = 'titleGradient';
+                    gradient.setAttribute('x1', '0%');
+                    gradient.setAttribute('y1', '0%');
+                    gradient.setAttribute('x2', '100%');
+                    gradient.setAttribute('y2', '0%');
+                    
+                    var stops = [
+                        {offset: '0%', color: '#ff6b6b'},
+                        {offset: '40%', color: '#4a90e2'},
+                        {offset: '100%', color: '#3eaf7c'}
+                    ];
+                    
+                    stops.forEach(function(stop) {
+                        var stopEl = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+                        stopEl.setAttribute('offset', stop.offset);
+                        stopEl.setAttribute('stop-color', stop.color);
+                        gradient.appendChild(stopEl);
+                    });
+                    
+                    svg.appendChild(gradient);
+                    title.setAttribute('fill', 'url(#titleGradient)');
+                    svg.appendChild(title);
+                    svg.appendChild(subtitle);
+                    svg.appendChild(legendHint);
+                    
+                    titleContainer.appendChild(svg);
+                    document.querySelector('.chart-wrapper').insertBefore(titleContainer, document.querySelector('#vote_chart'));
+                    
+                    window.chart_vote_chart = echarts.init(
+                        document.getElementById('vote_chart'), 'dark', {renderer: 'canvas'});
+                    var option_vote_chart = {
+    "backgroundColor": "#1a1a1a",
+    "animation": true,
+    "animationThreshold": 2000,
+    "animationDuration": 1000,
+    "animationEasing": "cubicOut",
+    "animationDelay": 0,
+    "animationDurationUpdate": 300,
+    "animationEasingUpdate": "cubicOut",
+    "animationDelayUpdate": 0,
+    "aria": {
+        "enabled": false
+    },
+    "series": [
+        {
+            "type": "bar",
+            "name": "\u672a\u664b\u7ea7",
+            "legendHoverLink": true,
+            "data": [
+                3
+            ],
+            "realtimeSort": false,
+            "showBackground": false,
+            "stackStrategy": "samesign",
+            "cursor": "pointer",
+            "barMinHeight": 0,
+            "barCategoryGap": "40%",
+            "barGap": "0%",
+            "large": false,
+            "largeThreshold": 400,
+            "seriesLayoutBy": "column",
+            "datasetIndex": 0,
+            "clip": true,
+            "zlevel": 0,
+            "z": 2,
+            "label": {
+                "show": true,
+                "position": "right",
+                "margin": 8,
+                "formatter":                 function(params) {                    var labels = JSON.parse('[\"\u5343\u65e9\u77ac\u5e73\uff08\u5931\u5fc6\u6295\u6355\uff09\"]');                    if (params.value === null) return '';                    return '{vote|' + params.value + '\u7968}{name| - ' + labels[params.dataIndex] + '}';                }            ,
+                "rich": {
+                    "avatar": {
+                        "padding": [
+                            0,
+                            5,
+                            0,
+                            0
+                        ]
+                    },
+                    "vote": {
+                        "color": "#ff7875",
+                        "fontSize": 13,
+                        "fontWeight": "bold",
+                        "padding": [
+                            0,
+                            5,
+                            0,
+                            5
+                        ]
+                    },
+                    "name": {
+                        "color": "#a6c1ee",
+                        "fontSize": 12
+                    }
+                },
+                "valueAnimation": false
+            },
+            "itemStyle": {
+                "color":                 new echarts.graphic.LinearGradient(0, 0, 1, 0, [{                    offset: 0,                    color: '#744444'                }, {                    offset: 0.5,                    color: '#a65d5d'                }, {                    offset: 1,                    color: '#a65d5d'                }])            
+            }
+        }
+    ],
+    "legend": [
+        {
+            "data": [
+                "\u672a\u664b\u7ea7"
+            ],
+            "selected": {},
+            "show": false,
+            "padding": 5,
+            "itemGap": 10,
+            "itemWidth": 25,
+            "itemHeight": 14,
+            "backgroundColor": "transparent",
+            "borderColor": "#ccc",
+            "borderRadius": 0,
+            "pageButtonItemGap": 5,
+            "pageButtonPosition": "end",
+            "pageFormatter": "{current}/{total}",
+            "pageIconColor": "#2f4554",
+            "pageIconInactiveColor": "#aaa",
+            "pageIconSize": 15,
+            "animationDurationUpdate": 800,
+            "selector": false,
+            "selectorPosition": "auto",
+            "selectorItemGap": 7,
+            "selectorButtonGap": 10
+        }
+    ],
+    "tooltip": {
+        "show": true,
+        "trigger": "axis",
+        "triggerOn": "mousemove|click",
+        "axisPointer": {
+            "type": "line"
+        },
+        "showContent": true,
+        "alwaysShowContent": false,
+        "showDelay": 0,
+        "hideDelay": 100,
+        "enterable": false,
+        "confine": false,
+        "appendToBody": false,
+        "transitionDuration": 0.4,
+        "formatter":                 function(params) {                    var labels = JSON.parse('[\"\u5343\u65e9\u77ac\u5e73\uff08\u5931\u5fc6\u6295\u6355\uff09\"]');                    var ranks = JSON.parse('[\"25\"]');                    for (var i = 0; i < params.length; i++) {                        if (params[i].value !== null && !isNaN(params[i].value)) {                            params = params[i];                            break;                        }                    }                    if (params.dataIndex >= labels.length) {                        return '';                    }                    if (!params.value || isNaN(params.value)) return '';                    return params.seriesName + '<br/>' +                           labels[params.dataIndex] + '<br/>' +                           '\u5f97\u7968\u6570\uff1a' + params.value + '\u7968<br/>' +                           '\u6392\u540d\uff1a' + ranks[params.dataIndex];                }            ,
+        "textStyle": {
+            "color": "#a6c1ee",
+            "fontFamily": "Microsoft YaHei",
+            "fontSize": 14
+        },
+        "backgroundColor": "rgba(50, 50, 50, 0.9)",
+        "borderColor": "rgba(50, 50, 50, 0.9)",
+        "borderWidth": 0,
+        "padding": 5,
+        "order": "seriesAsc"
+    },
+    "xAxis": [
+        {
+            "name": "\u5f97\u7968\u6570",
+            "show": true,
+            "scale": false,
+            "nameLocation": "end",
+            "nameGap": 15,
+            "gridIndex": 0,
+            "axisLabel": {
+                "show": true,
+                "margin": 8,
+                "fontSize": 12,
+                "fontFamily": "Microsoft YaHei",
+                "valueAnimation": false
+            },
+            "inverse": false,
+            "position": "center",
+            "offset": 0,
+            "splitNumber": 5,
+            "minInterval": 0,
+            "splitLine": {
+                "show": true,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 0.3,
+                    "curveness": 0,
+                    "type": "dashed"
+                }
+            },
+            "animation": true,
+            "animationThreshold": 2000,
+            "animationDuration": 1000,
+            "animationEasing": "cubicOut",
+            "animationDelay": 0,
+            "animationDurationUpdate": 300,
+            "animationEasingUpdate": "cubicOut",
+            "animationDelayUpdate": 0
+        }
+    ],
+    "yAxis": [
+        {
+            "type": "category",
+            "name": "\u6392\u540d",
+            "show": true,
+            "scale": false,
+            "nameLocation": "end",
+            "nameGap": 15,
+            "gridIndex": 0,
+            "axisLine": {
+                "show": true,
+                "onZero": true,
+                "onZeroAxisIndex": 0,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid",
+                    "color": "#333"
+                }
+            },
+            "axisLabel": {
+                "show": true,
+                "margin": 8,
+                "interval": 0,
+                "fontFamily": "Microsoft YaHei",
+                "formatter": "{value}",
+                "valueAnimation": false
+            },
+            "inverse": false,
+            "position": "center",
+            "offset": 0,
+            "splitNumber": 5,
+            "minInterval": 0,
+            "splitLine": {
+                "show": true,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid"
+                }
+            },
+            "animation": true,
+            "animationThreshold": 2000,
+            "animationDuration": 1000,
+            "animationEasing": "cubicOut",
+            "animationDelay": 0,
+            "animationDurationUpdate": 300,
+            "animationEasingUpdate": "cubicOut",
+            "animationDelayUpdate": 0,
+            "data": [
+                "25"
+            ]
+        }
+    ],
+    "title": [
+        {
+            "show": true,
+            "target": "blank",
+            "subtarget": "blank",
+            "left": "center",
+            "top": "0",
+            "padding": 5,
+            "itemGap": 10,
+            "textAlign": "auto",
+            "textVerticalAlign": "auto",
+            "triggerEvent": false,
+            "textStyle": {
+                "color": "transparent",
+                "fontWeight": "bold",
+                "fontFamily": "Microsoft YaHei",
+                "fontSize": 24
+            },
+            "subtextStyle": {
+                "color": "transparent",
+                "fontFamily": "Microsoft YaHei",
+                "fontSize": 14
+            }
+        }
+    ]
+};
+                    
+                    option_vote_chart.grid = {
+                        left: '15%',
+                        right: '15%',
+                        top: '2%',
+                        bottom: '5%',
+                        containLabel: true
+                    };
+                    
+                    chart_vote_chart.setOption(option_vote_chart);
+                    
+                    window.addEventListener('resize', function() {
+                        chart_vote_chart.resize();
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <include src="../../../templates/footer.html"></include>
+    <script type="module" src="../../../js/common/template-loader.js"></script>
+    <script src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
+    <script src="../../../js/visualization/visualization.js"></script>
+</body>
+</html>

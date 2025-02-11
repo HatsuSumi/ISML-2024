@@ -1,0 +1,559 @@
+.navbar {
+    background: linear-gradient(145deg, #222, #2a2a2a);
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.nav-container {
+    max-width: 1350px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-logo {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #FFD700, #FFA500, #FF8C00, #FF4500);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 300% 300%;
+    animation: nav-gradient-shift 3s ease infinite;
+}
+
+.nav-logo:hover {
+    opacity: 1;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-subtitle {
+    color: #888;
+    font-size: 16px;
+    padding-left: 15px;
+    border-left: 1px solid #444;
+    background: linear-gradient(45deg, #4A90E2, #67B8E3, #9370DB, #B4A7D6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 300% 300%;
+    animation: nav-gradient-shift 3s ease infinite;
+}
+
+.nav-subtitle:hover {
+    opacity: 1;
+}
+
+.nav-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-group-title {
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.nav-group-links {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 15px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #FFD700;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, #4a90e2, #3eaf7c);
+    transition: all 0.3s;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+@keyframes nav-gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+} 
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-author {
+    font-size: 14px;
+    padding-left: 20px;
+    border-left: 1px solid #444;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.nav-author span {
+    display: inline-block;
+    background: linear-gradient(45deg, #E6A23C, #F56C6C, #E066FF, #B794F4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 300% 300%;
+    animation: 
+        nav-gradient-shift 3s ease infinite,
+        breathing 2s ease-in-out infinite;
+    animation-delay: 0.15s;
+}
+
+@keyframes breathing {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.nav-author:hover {
+    opacity: 0.8;
+}
+
+.nav-links .nav-link.active {
+    color: #FFD700;
+    font-weight: 500;
+}
+
+.nav-links .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 2px;
+    background: linear-gradient(90deg, #FFD700, #FFA500);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.nav-links .nav-link.active:hover::after {
+    width: 40px;
+}
+
+.nav-links .nav-link:hover {
+    color: #FFD700;
+}
+
+/* 下拉菜单容器 */
+.dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* 下拉菜单触发区域 */
+.dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 20px;  /* 减小过渡区域的高度 */
+}
+
+/* 下拉菜单 */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background: #2a2a2a;
+    min-width: 200px;
+    border-radius: 8px;
+    padding: 0.8rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* 显示下拉菜单 */
+.dropdown:hover .dropdown-menu,
+.dropdown-menu:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* 下拉菜单项 */
+.dropdown-menu li {
+    list-style: none;
+    white-space: nowrap;
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 1.2rem;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #FFD700;
+}
+
+.dropdown-menu i {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.nav-link[data-page="statistics"] + .dropdown-menu {
+    width: 190px;  
+    min-width: 190px; 
+}
+
+.nav-link[data-page="statistics"] + .dropdown-menu i {
+    margin-right: 8px; 
+}
+
+.nav-link[data-page="comparison"] + .dropdown-menu {
+    width: 180px;
+    min-width: 180px;
+}
+
+.nav-link[data-page="comparison"] + .dropdown-menu i {
+    margin-right: 8px;
+}
+
+/* 弹幕设置按钮 */
+.danmaku-settings-container {
+    position: fixed;
+    right: 20px;
+    top: 15px;
+    z-index: 1001;
+}
+
+.danmaku-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 15px;
+    font-size: 16px;
+}
+
+.danmaku-btn:hover {
+    color: #FFD700;
+}
+
+.modal-content .setting-item {
+    margin: 0;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-content .setting-item:first-child {
+    padding: 15px 0;
+}
+
+.modal-content .setting-item:last-child {
+    border-bottom: none;
+}
+
+.danmaku-settings label {
+    display: block;
+    margin-bottom: 12px;
+    color: #fff;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.range-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.range-container input[type="range"] {
+    flex: 1;
+    margin: 5px 0;
+    outline: none;  /* 禁用焦点时的白色边框 */
+}
+
+/* 禁用滑块的焦点样式 */
+.range-container input[type="range"]:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.value-input {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.number-input {
+    width: 50px;
+    padding: 2px 4px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background: #333;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    outline: none;
+}
+
+.number-input:focus {
+    border-color: #666;
+    background: #444;
+}
+
+.number-input::-webkit-inner-spin-button,
+.number-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.unit {
+    color: #fff;
+    margin-left: 4px;
+    font-size: 14px;
+}
+
+/* 开关样式 */
+.switch-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* 模态框样式 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 2000;
+    opacity: 0;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.modal.show {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    background: #2a2a2a;
+    padding: 25px;
+    border-radius: 8px;
+    min-width: 400px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal.show .modal-content {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h3 {
+    font-size: 20px;
+    color: #fff;
+    margin: 0;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #FFD700;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.setting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.screen-width {
+    color: #666;
+    font-size: 12px;
+}
+
+.setting-item {
+    margin-bottom: 20px;
+}
+
+.position-container {
+    width: 100%;
+    margin-top: 15px;  
+}
+
+#danmakuPosition {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    background: #333;
+    color: #fff;
+    border: 1px solid #444;
+    outline: none;
+    cursor: pointer;
+}
+
+#danmakuPosition:hover {
+    background: #3a3a3a;
+}
+
+#danmakuPosition:focus {
+    border-color: #4a90e2;
+}

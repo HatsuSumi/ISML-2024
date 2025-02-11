@@ -1,0 +1,105 @@
+/* CSS */
+.animation-container {
+    position: fixed;
+    width: 100%;
+    height: calc(30px * 3 + 20px); 
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* 弹幕文本 */
+.message-text {
+    position: absolute;
+    white-space: nowrap;
+    color: white;
+    font-size: 13px;
+    padding: 5px 10px;
+    padding-right: 25px;
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid rgba(147, 112, 219, 0.5);
+    border-radius: 15px;
+    backdrop-filter: blur(2px);
+    will-change: transform;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    transform: translateZ(0);
+    pointer-events: auto;
+}
+
+/* 弹幕类型样式 */
+.message-text[data-type] {
+    border-width: 1px;
+    border-style: solid;
+}
+
+.message-text[data-type="cheer"] {
+    border-color: rgba(255, 182, 193, 0.6);
+}
+
+.message-text[data-type="encourage"] {
+    border-color: rgba(135, 206, 250, 0.6);
+}
+
+.message-text[data-type="rule"] {
+    border-color: rgba(255, 215, 0, 0.6);
+}
+
+
+/* 欢迎弹幕样式 */
+.message-text[data-type="welcome"] {
+    background: linear-gradient(45deg, rgba(255, 215, 0, 0.8), rgba(255, 165, 0, 0.8));
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    padding: 8px 15px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.message-text[data-type="welcome"]:hover {
+    background: linear-gradient(45deg, rgba(255, 215, 0, 0.9), rgba(255, 165, 0, 0.9));
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* 响应式隐藏 */
+@media (max-width: 768px) {
+    .animation-container {
+        display: none;
+    }
+}
+
+/* 复制图标 */
+.message-text .copy-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.message-text:hover .copy-icon {
+    opacity: 1;
+}
+
+/* 复制提示框 */
+.copy-tip {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    pointer-events: none;
+    transition: transform 0.2s;
+}
+
+.copy-tip.show {
+    transform: translate(-50%, -50%) scale(1);
+}

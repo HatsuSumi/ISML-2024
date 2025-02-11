@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../css/comparison/character-comparison.css">
+</head>
+<body>
+    <include src="../../templates/header.html"></include>
+
+    <div class="container">
+        <h1 class="page-title">角色数据对比</h1>
+
+        <template id="groupTemplate">
+            <div class="character-group">
+                <span class="base-group-tag"></span>
+                <div class="group-characters">
+                    <button class="delete-group-btn"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="group-footer">
+                        <input type="text" class="group-name" placeholder="组名">
+                </div>
+            </div>
+        </template>
+
+        <div class="main-content">
+            <div class="total-votes hidden">
+                <span class="total-votes-label">当前赛事总选票数：</span>
+                <span class="total-votes-value">0</span>
+                <span class="total-votes-valid">（有效：0）</span>
+            </div>
+            <div class="event-select">
+                <div class="custom-select" id="eventSelect">
+                    <div class="select-trigger">
+                        <div class="select-value">请选择赛事...</div>
+                        <div class="select-arrow"></div>
+                    </div>
+                    <div class="select-options">
+                    </div>
+                </div>
+            </div>
+
+            <div class="character-comparison">
+                <div class="character-card" id="character1" draggable="false">
+                    <input type="text" class="search-input" placeholder="选择角色1...">
+                    <div class="search-results hidden"></div>
+                </div>
+                
+                <div class="divider hidden"></div>
+  
+                <div class="character-card" id="character2" draggable="false">
+                    <input type="text" class="search-input" placeholder="选择角色2...">
+                    <div class="search-results hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="button-group">
+                <button id="addCharacterBtn" class="btn">
+                    <i class="fas fa-plus"></i> 添加角色
+                </button>
+                <button id="addGroupBtn" class="btn" style="display: none;">
+                    <i class="fas fa-plus"></i> 添加组
+                </button>
+                <button id="compareBtn" class="btn primary">
+                    <i class="fas fa-exchange-alt"></i> 开始对比
+                </button>
+                <button id="resetBtn" class="btn">  
+                    <i class="fas fa-redo"></i> 重置
+                </button>
+            </div>
+
+            <div class="quick-compare" id="quickCompareSection">
+                <button id="cvCompareBtn" class="btn">
+                    <i class="fas fa-microphone"></i> 一键添加同声优角色
+                </button>
+                <button id="ipCompareBtn" class="btn">
+                    <i class="fas fa-tv"></i> 一键添加同IP角色
+                </button>
+            </div>
+ 
+            <div class="compare-type-wrapper">
+                <select id="compareType">
+                    <option value="oneToOne">一对一对比</option>
+                    <option value="baseCompare">和基准角色对比（一对多）</option>
+                    <option value="avgCompare">取平均值对比（一对多）</option>
+                    <option value="groupBaseTotalCompare">组基准总票数对比（多对多）</option>
+                    <option value="groupBaseAvgCompare">组基准平均值对比（多对多）</option>
+                    <option value="groupTotalCompare">组总票数对比（多对多）</option>
+                    <option value="groupAvgCompare">组平均值对比（多对多）</option>
+                    <option value="about">❓ 不知道选哪种对比？</option>
+                </select>
+                <div class="compare-type-arrow"></div>
+
+            </div>
+        </div>
+
+        <div id="comparisonResult" class="comparison-result"></div>
+    </div>
+
+    <div class="cv-modal" id="cvModal">
+        <div class="cv-modal-content">
+            <div class="cv-modal-header">
+                <h3>请选择要对比的声优</h3>
+                <button class="cv-modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="cv-modal-body">
+                <div class="cv-select-wrapper">
+                    <div class="cv-select" id="cvSelect">
+                        <div class="cv-select-trigger">
+                            <span class="cv-select-value">请选择声优...</span>
+                            <div class="cv-select-arrow"></div>
+                        </div>
+                        <div class="cv-select-options">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cv-modal-footer">
+                <button class="cv-modal-btn cancel">取消</button>
+                <button class="cv-modal-btn confirm" disabled>确定</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="ip-modal" id="ipModal">
+        <div class="ip-modal-content">
+            <div class="ip-modal-header">
+                <h3>请选择要对比的IP</h3>
+                <button class="ip-modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="ip-modal-body">
+                <div class="ip-select-wrapper">
+                    <div class="ip-select" id="ipSelect">
+                        <div class="ip-select-trigger">
+                            <span class="ip-select-value">请选择IP...</span>
+                            <div class="ip-select-arrow"></div>
+                        </div>
+                        <div class="ip-select-options">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ip-modal-footer">
+                <button class="ip-modal-btn cancel">取消</button>
+                <button class="ip-modal-btn confirm" disabled>确定</button>
+            </div>
+        </div>
+    </div>
+
+    <template id="characterSelectModal">
+        <div class="character-select-modal">
+            <div class="character-select-container">
+                <div class="character-select-header">
+                    <h3>添加角色</h3>
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="搜索角色名/IP/CV...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <button class="quick-select-btn">
+                        <i class="fas fa-magic"></i>
+                        一键勾选
+                    </button>
+                    <button class="close-modal-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="character-grid">
+                </div>
+                <div class="character-select-footer">
+                    <button class="confirm-btn">确定</button>
+                    <button class="cancel-btn">取消</button>
+                </div>
+                <div class="quick-select-modal">
+                    <div class="quick-select-content">
+                        <div class="quick-select-header">
+                            <h3>一键勾选</h3>
+                            <button class="close-quick-select-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="quick-select-options">
+                            <div class="quick-select-group">
+                                <i class="fas fa-microphone"></i>
+                                <div class="quick-select-dropdown" data-type="cv">
+                                    <div class="quick-select-trigger">
+                                        <span class="select-value">选择声优...</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="quick-select-options-list"></div>
+                                </div>
+                            </div>
+                            <div class="quick-select-divider">或 or ||</div>
+                            <div class="quick-select-group">
+                                <i class="fas fa-tv"></i>
+                                <div class="quick-select-dropdown" data-type="ip">
+                                    <div class="quick-select-trigger">
+                                        <span class="select-value">选择IP...</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="quick-select-options-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="quick-select-footer">
+                            <button class="quick-select-btn cancel">取消</button>
+                            <button class="quick-select-btn confirm" disabled>确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- 组基准总票数对比模板 -->
+    <template id="group-base-total-template">
+        <div class="basic-info group-comparison">
+            <!-- 基准组 -->
+            <div class="group-card">
+                <div class="rank-number">基准组</div>
+                <div class="group-total-votes">
+                    <div class="vote-count">组总票数：0票</div>
+                    <div class="vote-rate">0%</div>
+                </div>
+                <div class="group-character-list"></div>
+            </div>
+
+            <!-- 对比组 -->
+            <div class="group-card">
+                <div class="rank-number">对比组</div>
+                <div class="group-total-votes">
+                    <div class="vote-count">组总票数：0票</div>
+                    <div class="vote-rate">0%</div>
+                </div>
+                <div class="group-character-list"></div>
+                <div class="vote-diff">
+                    <div class="diff-label">与基准组差距</div>
+                    <div class="diff-value">0票</div>
+                    <div class="diff-rate">0%</div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- 组总票数对比模板 -->
+    <template id="group-total-template">
+        <div class="basic-info group-comparison">
+            <!-- 组卡片 -->
+            <div class="group-card">
+                <div class="rank-number">第 1 名</div>
+                <div class="group-total-votes">
+                    <div class="vote-count">组总票数：0票</div>
+                    <div class="vote-rate">0%</div>
+                </div>
+                <div class="group-character-list"></div>
+                <div class="vote-diff">
+                    <div class="diff-label">领先第2名</div>
+                    <div class="diff-value">0票</div>
+                    <div class="diff-rate">0%</div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- 组基准平均值对比模板 -->
+    <template id="group-base-avg-template">
+        <div class="basic-info group-comparison">
+            <!-- 基准组 -->
+            <div class="group-card">
+                <div class="rank-number">基准组</div>
+                <div class="group-avg-votes">
+                    <div class="vote-label">基准轮次平均票数</div>
+                    <div class="vote-count">0票</div>
+                    <div class="vote-rate">0%</div>
+                </div>
+                <div class="group-character-list"></div>
+            </div>
+
+            <!-- 对比组 -->
+            <div class="group-card">
+                <div class="rank-number">对比组</div>
+                <div class="group-avg-votes">
+                    <div class="vote-label">基准轮次平均票数</div>
+                    <div class="vote-count">0票</div>
+                    <div class="vote-rate">0%</div>
+                </div>
+                <div class="group-character-list"></div>
+                <div class="vote-diff">
+                    <div class="diff-label">与基准组差距</div>
+                    <div class="diff-value">0票</div>
+                    <div class="diff-rate">0%</div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- 组平均值对比模板 -->
+    <template id="group-avg-template">
+        <div class="basic-info group-comparison">
+            <!-- 组卡片 -->
+            <div class="group-card">
+                <div class="rank-number">第 1 名</div>
+                <div class="group-avg-votes">
+                    <div class="vote-count">组平均票数：0票</div>
+                    <div class="vote-rate">0%</div>
+                </div>
+                <div class="group-character-list"></div>
+                <div class="vote-diff">
+                    <div class="diff-label">领先第2名</div>
+                    <div class="diff-value">0票</div>
+                    <div class="diff-rate">0%</div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <include src="../../templates/footer.html"></include>
+
+    <script type="module" src="../../js/common/template-loader.js"></script>
+    <script type="module" src="../../js/comparison/character-comparison.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+   
+</body>
+</html>

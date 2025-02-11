@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../css/characters-data/characters-data.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <include src="../../templates/header.html"></include>
+    <div class="characters-data-container">
+        <!-- 电梯导航 -->
+        <nav class="elevator-nav">
+            <ul class="elevator-nav-list">
+                <div class="elevator-nav-item" data-target="stellar">
+                    <img src="../../images/Isml-stella.png" class="nav-icon" alt="恒星组">
+                    <span>恒星组</span>
+                </div>
+                <!-- 新星组及其子元素 -->
+                <div class="elevator-nav-group">
+                    <div class="elevator-nav-item" data-target="nova">
+                        <img src="../../images/isml-nova.png" class="nav-icon" alt="新星组">
+                        <span>新星组</span>
+                        <i class="fas fa-chevron-down collapse-icon"></i>
+                    </div>
+                    <!-- 季节赛作为新星组的子元素 -->
+                    <div class="elevator-nav-item sub-item" data-target="winter" data-season="winter">
+                        <span class="icon">❄️</span>
+                        <span>冬季赛</span>
+                    </div>
+                    <div class="elevator-nav-item sub-item" data-target="spring" data-season="spring">
+                        <span class="icon">🌸</span>
+                        <span>春季赛</span>
+                    </div>
+                    <div class="elevator-nav-item sub-item" data-target="summer" data-season="summer">
+                        <span class="icon">☀️</span>
+                        <span>夏季赛</span>
+                    </div>
+                    <div class="elevator-nav-item sub-item" data-target="autumn" data-season="autumn">
+                        <span class="icon">🍁</span>
+                        <span>秋季赛</span>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+        
+        <div class="search-section">
+            <div class="search-box">
+                <div class="search-input-wrapper">
+                    <input type="text" id="searchInput" placeholder="搜索角色，作品或声优...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="search-options">
+                    <label>
+                        <input type="checkbox" id="exactMatch">
+                        <span>全词匹配</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="useRegex">
+                        <span>使用正则表达式</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="crossGender">
+                        <span>全局搜索</span>
+                        <span class="tooltip-icon" data-tooltip="在所有性别标签页中搜索，而不仅限于当前标签页">?</span>
+                    </label>
+                </div>
+                <div class="search-tips">
+                    <p>多个关键词之间可用空格或逗号分隔</p>
+                    <p>多个搜索结果之间可用回车键切换</p>
+                    <p>直接增加或删除关键词不会执行重新搜索</p>
+                    <p>需要按Shift+Enter执行重新搜索</p>
+                </div>
+            </div>
+            <button id="searchBtn">搜索</button>
+        </div>
+        
+        <div class="group-section">
+            <template id="character-card-template">
+                <div class="character-card">
+                    <div class="character-avatar">
+                        <img loading="lazy" alt="">
+                    </div>
+                    <div class="character-name"></div>
+                    <div class="character-ip"></div>
+                    <div class="character-cv"></div>
+                </div>
+            </template>
+            
+            <div class="group-container stellar">
+                <h2>恒星组</h2>
+                <div class="filter-section">
+                    <div class="gender-tabs">
+                        <button class="tab-btn active" data-gender="female">女性角色</button>
+                        <button class="tab-btn" data-gender="male">男性角色</button>
+                    </div>
+                </div>
+                <div class="rank-groups">
+                </div>
+            </div>
+            
+            <div class="group-container nova">
+                <h2>新星组</h2>
+                <div class="filter-section">
+                    <div class="gender-tabs">
+                        <button class="tab-btn active" data-gender="female">女性角色</button>
+                        <button class="tab-btn" data-gender="male">男性角色</button>
+                    </div>
+                </div>
+                <div class="rank-groups">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <include src="../../templates/footer.html"></include>
+    <script type="module" src="../../js/common/template-loader.js"></script>
+    <script type="module" src="../../js/characters-data/characters-data.js"></script>
+</body>
+</html> 

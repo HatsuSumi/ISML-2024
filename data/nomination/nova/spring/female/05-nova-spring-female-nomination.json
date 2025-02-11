@@ -1,0 +1,294 @@
+{
+  "date": "01.14-01.21",
+  "event": "新星组春季赛提名-女性组别",
+  "data": [
+    {
+      "name": "井芹仁菜",
+      "ip": "GIRLS BAND CRY",
+      "cv": "理名",
+      "votes": 112,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 1
+    },
+    {
+      "name": "安和昴",
+      "ip": "GIRLS BAND CRY",
+      "cv": "美怜",
+      "votes": 106,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 2
+    },
+    {
+      "name": "河原木桃香",
+      "ip": "GIRLS BAND CRY",
+      "cv": "夕莉",
+      "votes": 98,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 3
+    },
+    {
+      "name": "光月真昼",
+      "ip": "夜晚的水母不会游泳",
+      "cv": "伊藤美来",
+      "votes": 75,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 4
+    },
+    {
+      "name": "山之内花音",
+      "ip": "夜晚的水母不会游泳",
+      "cv": "高桥李依",
+      "votes": 60,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 5
+    },
+    {
+      "name": "木野日鞠",
+      "ip": "恋语轻唱",
+      "cv": "岛野花",
+      "votes": 49,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 6
+    },
+    {
+      "name": "朝凪依",
+      "ip": "恋语轻唱",
+      "cv": "濑户麻沙美",
+      "votes": 48,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 7
+    },
+    {
+      "name": "泉志帆",
+      "ip": "恋语轻唱",
+      "cv": "根本优奈",
+      "votes": 48,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 8
+    },
+    {
+      "name": "芬里丝",
+      "ip": "从Lv2开始开外挂的前勇者候补过着悠哉异世界生活",
+      "cv": "钉宫理惠",
+      "votes": 41,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 9
+    },
+    {
+      "name": "上原步梦",
+      "ip": "LoveLive!系列",
+      "cv": "大西亚玖璃",
+      "votes": 26,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 10
+    },
+    {
+      "name": "赫萝",
+      "ip": "狼与香辛料",
+      "cv": "小清水亚美",
+      "votes": 24,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 11
+    },
+    {
+      "name": "钟岚珠",
+      "ip": "LoveLive!系列",
+      "cv": "法元明菜",
+      "votes": 22,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 12
+    },
+    {
+      "name": "莎拉·达·奥丁",
+      "ip": "怪人的沙拉碗",
+      "cv": "矢野妃菜喜",
+      "votes": 21,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 13
+    },
+    {
+      "name": "夜樱六美",
+      "ip": "夜樱家的大作战",
+      "cv": "本渡枫",
+      "votes": 15,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 14
+    },
+    {
+      "name": "渡边千佳",
+      "ip": "声优广播的幕前幕后",
+      "cv": "丰田萌绘",
+      "votes": 12,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 15
+    },
+    {
+      "name": "志摩凛",
+      "ip": "摇曳露营△",
+      "cv": "东山奈央",
+      "votes": 12,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 16
+    },
+    {
+      "name": "斋藤依音",
+      "ip": "老夫老妻重返青春",
+      "cv": "能登麻美子",
+      "votes": 11,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 17
+    },
+    {
+      "name": "小鸟游星野",
+      "ip": "蔚蓝档案",
+      "cv": "花守由美里",
+      "votes": 10,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 18
+    },
+    {
+      "name": "飞羽",
+      "ip": "单人房、日照一般、附天使。",
+      "cv": "远野光",
+      "votes": 9,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 19
+    },
+    {
+      "name": "中川夏纪",
+      "ip": "吹响！上低音号",
+      "cv": "藤村鼓乃美",
+      "votes": 9,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 20
+    },
+    {
+      "name": "阿库娅",
+      "ip": "为美好的世界献上祝福！",
+      "cv": "雨宫天",
+      "votes": 9,
+      "avatar": "https://pic1.imgdb.cn/item/674138f4d29ded1a8c82126e.png",
+      "is_advanced": true,
+      "rank": 21
+    },
+    {
+      "name": "崇宫澪",
+      "ip": "约会大作战",
+      "cv": "远藤绫",
+      "votes": 8,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 22
+    },
+    {
+      "name": "东云晶",
+      "ip": "末班列车去哪里？",
+      "cv": "木野日菜",
+      "votes": 7,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 23
+    },
+    {
+      "name": "千仓静留",
+      "ip": "末班列车去哪里？",
+      "cv": "安济知佳",
+      "votes": 7,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 24
+    },
+    {
+      "name": "涅菲莉亚",
+      "ip": "身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？",
+      "cv": "市之濑加那",
+      "votes": 7,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 25
+    },
+    {
+      "name": "佐藤由美子",
+      "ip": "声优广播的幕前幕后",
+      "cv": "伊藤美来",
+      "votes": 11,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 26
+    },
+    {
+      "name": "砂狼白子",
+      "ip": "蔚蓝档案",
+      "cv": "小仓唯",
+      "votes": 9,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 27
+    },
+    {
+      "name": "爱丽丝",
+      "ip": "为美好的世界献上祝福！",
+      "cv": "高尾奏音",
+      "votes": 8,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 28
+    },
+    {
+      "name": "黑江真由",
+      "ip": "吹响！上低音号",
+      "cv": "户松遥",
+      "votes": 8,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 29
+    },
+    {
+      "name": "各务原抚子",
+      "ip": "摇曳露营△",
+      "cv": "花守由美里",
+      "votes": 8,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 30
+    },
+    {
+      "name": "中须霞",
+      "ip": "LoveLive!系列",
+      "cv": "相良茉优",
+      "votes": 20,
+      "avatar": "",
+      "is_advanced": false,
+      "rank": 31
+    },
+    {
+      "name": "海老冢智",
+      "ip": "GIRLS BAND CRY",
+      "cv": "凪都",
+      "votes": 12,
+      "avatar": "",
+      "is_advanced": false,
+      "rank": 32
+    }
+  ]
+}

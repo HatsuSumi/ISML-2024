@@ -1,0 +1,210 @@
+body {
+    background-color: #121212;
+}
+
+.container {
+    padding: 80px 20px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+.filter-section {
+    width: 100%;
+    background: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.filter-group {
+    transition: all 0.3s ease-in-out;
+    max-height: 200px;
+    opacity: 1;
+    overflow: hidden;
+    margin: 0;
+    padding: 10px;
+    background: #333;
+    border-radius: 8px;
+    width: 200px;
+    flex: 0 0 200px;
+}
+
+.filter-group h3 {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #444;
+}
+
+.filter-group label {
+    color: #fff;
+    cursor: pointer;
+}
+
+.filter-group input[type="radio"],
+.filter-group input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.filter-section #nova-filters label {
+    display: inline-block;
+    margin: 4px 8px;
+}
+
+.filter-section .filter-group:not(#nova-filters) label {
+    display: block;
+    margin: 8px 0;
+}
+
+.filter-group.hidden {
+    max-height: 0;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    width: 0;
+    flex: 0;
+    visibility: hidden;
+    position: absolute;
+}
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* 让萌属性分布图的容器占满一行 */
+.chart-container:last-child {
+    grid-column: 1 / -1;
+}
+
+.chart-container {
+    background: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.chart-container h3 {
+    text-align: center;
+    margin-top: 15px;
+    color: #888;
+}
+
+.chart {
+    width: 100%;
+    height: 400px;
+}
+
+/* 图表标题容器 */
+.chart-title {
+    position: relative;
+    text-align: center;
+}
+
+/* 问号样式 */
+.tooltip-trigger {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 50%;
+    background: #444;
+    color: #fff;
+    font-size: 12px;
+    cursor: help;
+    margin-left: 5px;
+    vertical-align: top;
+}
+
+/* 提示框样式 */
+.tooltip-text {
+    visibility: hidden;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background: #333;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1;
+    opacity: 0;
+    transition: 
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0s linear 0.3s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 显示提示框 */
+.tooltip-trigger:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    transition: 
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0s linear 0s;
+}
+
+/* 添加小箭头 */
+.tooltip-text::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 5px 5px 5px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+}
+
+.view-more {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: #888;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.view-more:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.view-more:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .stats-section {
+        grid-template-columns: 1fr;
+    }
+} 

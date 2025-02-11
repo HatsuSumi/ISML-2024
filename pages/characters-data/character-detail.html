@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../css/characters-data/character-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <include src="../../templates/header.html"></include>
+    
+    <div class="character-detail-container">
+        <!-- 对战记录模板 -->
+        <template id="battle-record-template">
+            <div class="battle-record">
+                <div class="record-content">
+                    <!-- 数据行将被动态添加到这里 -->
+                </div>
+                <div class="record-links">
+                    <button class="links-btn">
+                        <i class="fas fa-link"></i>
+                        相关链接
+                    </button>
+                    <div class="links-dropdown">
+                        <!-- 链接将被动态添加到这里 -->
+                    </div>
+                </div>
+            </div>
+        </template>
+        
+        <!-- 左侧：角色基本信息 -->
+        <div class="character-info">
+            <div class="info-section basic-info">
+                <div class="character-avatar">
+                    <img src="" alt="">
+                </div>
+                <div class="character-details">
+                    <h1 class="character-name"></h1>
+                    <div class="info-row">
+                        <span class="label">作品：</span>
+                        <span class="character-ip"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">声优：</span>
+                        <span class="character-cv"></span>
+                    </div>
+                    <div class="info-row birthday-row" style="display: none;">
+                        <span class="label">生日：</span>
+                        <span class="character-birthday"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="info-section character-nav">
+                <h3 class="section-title">其他角色</h3>
+                <div class="nav-filters">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="cv">同声优</button>
+                    <button class="filter-btn" data-filter="ip">同作品</button>
+                </div>
+                <div class="characters-list">
+                    <!-- 角色列表将由 JS 动态生成 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 中间：赛事战报 -->
+        <div class="battle-reports">
+            <!-- 赛事模板 -->
+            <template id="event-report-template">
+                <div class="event-report">
+                    <h2 class="event-title"></h2>
+                    <div class="battle-list">
+                        <!-- 将由JS使用battle-record-template填充 -->
+                    </div>
+                </div>
+            </template>
+        </div>
+        
+        <!-- 右侧：电梯导航 -->
+        <template id="nav-item-template">
+            <li class="nav-item">
+                <a href=""></a>
+            </li>
+        </template>
+        <div class="event-nav">
+            <ul class="nav-list">
+            </ul>
+        </div>
+    </div>
+    
+    <include src="../../templates/footer.html"></include>
+    <script type="module" src="../../js/common/template-loader.js"></script>
+    <script type="module" src="../../js/characters-data/character-detail.js"></script>
+</body>
+</html>

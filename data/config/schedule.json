@@ -1,0 +1,600 @@
+{
+    "phases": {
+        "mainNomination": {
+            "title": "主赛事提名阶段",
+            "matches": [
+                {
+                    "title": "恒星组提名",
+                    "dateRange": {
+                        "start": "2024-12-31 20:00:00",
+                        "end": "2025-01-07 19:59:59",
+                        "result": "2025-01-13"
+                    },
+                    "details": {
+                        "requirements": "2024年1月1日前在符合主赛事资格的标准时长动画中登场的角色",
+                        "participants": {
+                            "total": 340,
+                            "female": 168,
+                            "male": 172
+                        },
+                        "votes": {
+                            "total": 1357,
+                            "valid": 669
+                        },
+                        "qualified": {
+                            "total": 258,
+                            "female": 129,
+                            "male": 129
+                        }
+                    },
+                    "links": {
+                        "completed": {
+                            "items": [
+                                {
+                                    "text": "查看女子组结果",
+                                    "url": "../../pages/visualization/01-stellar-female-nomination.html"
+                                },
+                                {
+                                    "text": "查看男子组结果",
+                                    "url": "../../pages/visualization/02-stellar-male-nomination.html"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "title": "新星组冬季赛提名",
+                    "dateRange": {
+                        "start": "2025-01-07 20:00:00",
+                        "end": "2025-01-14 19:59:59",
+                        "result": "2025-01-16"
+                    },
+                    "details": {
+                        "requirements": "2024年1月1日至2024年3月31日期间在符合主赛事资格的标准时长动画中登场的角色。对于电影或其他放映范围受限的作品，取其在第三个洲的上映日期和BD/DVD发售日期中的较早日期判断参赛资格",
+                        "participants": {
+                            "total": 62,
+                            "female": 37,
+                            "male": 25
+                        },
+                        "votes": {
+                            "total": 449,
+                            "valid": 51
+                        },
+                        "qualified": {
+                            "total": 50,
+                            "female": 26,
+                            "male": 24
+                        }
+                    },
+                    "links": {
+                        "completed": {
+                            "items": [
+                                {
+                                    "text": "查看女子组结果",
+                                    "url": "../../pages/visualization/03-nova-winter-female-nomination.html"
+                                },
+                                {
+                                    "text": "查看男子组结果",
+                                    "url": "../../pages/visualization/04-nova-winter-male-nomination.html"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "title": "新星组春季赛提名",
+                    "dateRange": {
+                        "start": "2025-01-14 20:00:00",
+                        "end": "2025-01-21 19:59:59",
+                        "result": "2025-01-24"
+                    },
+                    "details": {
+                        "requirements": "2024年4月1日至2024年6月30日期间在符合主赛事资格的标准时长动画中登场的角色。对于电影或其他放映范围受限的作品，取其在第三个洲的上映日期和BD/DVD发售日期中的较早日期判断参赛资格",
+                        "participants": {
+                            "total": 57,
+                            "female": 32,
+                            "male": 25
+                        },
+                        "votes": {
+                            "total": 402,
+                            "valid": 141
+                        },
+                        "qualified": {
+                            "total": 54,
+                            "female": 30,
+                            "male": 24
+                        }
+                    },
+                    "links": {
+                        "completed": {
+                            "items": [
+                                {
+                                    "text": "查看女子组结果",
+                                    "url": "../../pages/visualization/05-nova-spring-female-nomination.html"
+                                },
+                                {
+                                    "text": "查看男子组结果",
+                                    "url": "../../pages/visualization/06-nova-spring-male-nomination.html"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "title": "新星组夏季赛提名",
+
+                    "dateRange": {
+                        "start": "2025-01-21 20:00:00",
+                        "end": "2025-01-28 19:59:59",
+                        "result": "2025-02-01"
+                    },
+                    "details": {
+                        "requirements": "2024年7月1日至2024年9月30日期间在符合主赛事资格的标准时长动画中登场的角色。对于电影或其他放映范围受限的作品，取其在第三个洲的上映日期和BD/DVD发售日期中的较早日期判断参赛资格",
+                        "participants": {
+                            "total": 74,
+                            "female": 42,
+                            "male": 32
+                        },
+                        "votes": { 
+                            "total": 804,
+                            "valid": 542
+                        },
+                        "qualified": {
+                            "total": 57,
+                            "female": 26,
+                            "male": 31
+                        }
+                    },
+                    "links": {
+                        "completed": {
+                            "items": [
+                                {
+                                    "text": "查看女子组结果",
+                                    "url": "../../pages/visualization/07-nova-summer-female-nomination.html"
+                                },
+                                {
+                                    "text": "查看男子组结果",
+                                    "url": "../../pages/visualization/08-nova-summer-male-nomination.html"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "title": "新星组秋季赛提名",
+                    "dateRange": {
+                        "start": "2025-01-28 20:00:00",
+                        "end": "2025-02-03 19:59:59"
+                    },
+                    "details": {
+                        "requirements": "2024年秋季新番角色"
+                    }
+                }
+            ]
+        },
+        "preliminary": {
+            "title": "预选赛阶段",
+            "matches": [
+                {
+                    "title": "预选赛第一轮",
+                    "dateRange": {
+                        "start": "2025-02-13 20:00:00",
+                        "end": "2025-02-14 19:59:59"
+                    },
+                    "details": {
+                        "format": {
+                            "恒星组预选赛": "赞成投票制",
+                            "新星组预选赛": "赞成投票制"
+                        }
+                    }
+                },
+                {
+                    "title": "预选赛第二轮",
+                    "dateRange": {
+                        "start": "2025-02-14 20:00:00",
+                        "end": "2025-02-15 19:59:59"
+                    },
+                    "details": {
+                        "format": "赞成投票制"
+                    }
+                },
+                {
+                    "title": "预选赛第三轮",
+                    "dateRange": {
+                        "start": "2025-02-20 20:00:00",
+                        "end": "2025-02-21 19:59:59"
+                    },
+                    "details": {
+                        "format": "赞成投票制"
+                    }
+                },
+                {
+                    "title": "预选赛第四轮",
+                    "dateRange": {
+                        "start": "2025-02-21 20:00:00",
+                        "end": "2025-02-22 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "预选赛第五轮",
+                    "dateRange": {
+                        "start": "2025-02-27 20:00:00",
+                        "end": "2025-02-28 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "预选赛第六轮",
+                    "dateRange": {
+                        "start": "2025-02-28 20:00:00",
+                        "end": "2025-03-01 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                }
+            ]
+        },
+        "phase1": {
+            "title": "第一阶段",
+            "matches": [
+                {
+                    "title": "第一阶段第一轮",
+                    "dateRange": {
+                        "start": "2025-03-10 20:00:00",
+                        "end": "2025-03-11 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第一阶段第二轮",
+                    "dateRange": {
+                        "start": "2025-03-14 20:00:00",
+                        "end": "2025-03-15 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第一阶段第三轮",
+                    "dateRange": {
+                        "start": "2025-03-17 20:00:00",
+                        "end": "2025-03-18 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第一阶段第四轮",
+                    "dateRange": {
+                        "start": "2025-03-21 20:00:00",
+                        "end": "2025-03-22 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第一阶段第五轮",
+                    "dateRange": {
+                        "start": "2025-03-24 20:00:00",
+                        "end": "2025-03-25 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第一阶段第六轮",
+                    "dateRange": {
+                        "start": "2025-03-28 20:00:00",
+                        "end": "2025-03-29 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                }
+            ]
+        },
+        "phase2": {
+            "title": "第二阶段",
+            "matches": [
+                {
+                    "title": "第二阶段第一轮",
+                    "dateRange": {
+                        "start": "2025-04-07 20:00:00",
+                        "end": "2025-04-08 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第二阶段第二轮",
+                    "dateRange": {
+                        "start": "2025-04-11 20:00:00",
+                        "end": "2025-04-12 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第二阶段第三轮",
+                    "dateRange": {
+                        "start": "2025-04-14 20:00:00",
+                        "end": "2025-04-15 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第二阶段第四轮",
+                    "dateRange": {
+                        "start": "2025-04-18 20:00:00",
+                        "end": "2025-04-19 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第二阶段第五轮",
+                    "dateRange": {
+                        "start": "2025-04-21 20:00:00",
+                        "end": "2025-04-22 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第二阶段第六轮",
+                    "dateRange": {
+                        "start": "2025-04-25 20:00:00",
+                        "end": "2025-04-26 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                }
+            ]
+        },
+        "phase3": {
+            "title": "第三阶段",
+            "matches": [
+                {
+                    "title": "第三阶段第一轮",
+                    "dateRange": {
+                        "start": "2025-05-05 20:00:00",
+                        "end": "2025-05-06 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第三阶段第二轮",
+                    "dateRange": {
+                        "start": "2025-05-09 20:00:00",
+                        "end": "2025-05-10 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第三阶段第三轮",
+                    "dateRange": {
+                        "start": "2025-05-12 20:00:00",
+                        "end": "2025-05-13 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第三阶段第四轮",
+                    "dateRange": {
+                        "start": "2025-05-16 20:00:00",
+                        "end": "2025-05-17 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第三阶段第五轮",
+                    "dateRange": {
+                        "start": "2025-05-19 20:00:00",
+                        "end": "2025-05-20 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第三阶段第六轮",
+                    "dateRange": {
+                        "start": "2025-05-23 20:00:00",
+                        "end": "2025-05-24 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                }
+            ]
+        },
+        "phase4": {
+            "title": "第四阶段",
+            "matches": [
+                {
+                    "title": "第四阶段第一轮",
+                    "dateRange": {
+                        "start": "2025-06-02 20:00:00",
+                        "end": "2025-06-03 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第四阶段第二轮",
+                    "dateRange": {
+                        "start": "2025-06-06 20:00:00",
+                        "end": "2025-06-07 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第四阶段第三轮",
+                    "dateRange": {
+                        "start": "2025-06-09 20:00:00",
+                        "end": "2025-06-10 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第四阶段第四轮",
+                    "dateRange": {
+                        "start": "2025-06-13 20:00:00",
+                        "end": "2025-06-14 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第四阶段第五轮",
+                    "dateRange": {
+                        "start": "2025-06-16 20:00:00",
+                        "end": "2025-06-17 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "第四阶段第六轮",
+                    "dateRange": {
+                        "start": "2025-06-20 20:00:00",
+                        "end": "2025-06-21 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                }
+            ]
+        },
+        "knockout": {
+            "title": "淘汰赛阶段",
+            "matches": [
+                {
+                    "title": "淘汰赛第一轮",
+                    "dateRange": {
+                        "start": "2025-06-30 20:00:00",
+                        "end": "2025-07-01 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "淘汰赛第二轮",
+                    "dateRange": {
+                        "start": "2025-07-04 20:00:00",
+                        "end": "2025-07-05 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "淘汰赛第三轮",
+                    "dateRange": {
+                        "start": "2025-07-07 20:00:00",
+                        "end": "2025-07-08 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "淘汰赛第四轮",
+                    "dateRange": {
+                        "start": "2025-07-11 20:00:00",
+                        "end": "2025-07-12 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "淘汰赛第五轮",
+                    "dateRange": {
+                        "start": "2025-07-14 20:00:00",
+                        "end": "2025-07-15 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "淘汰赛第六轮",
+                    "dateRange": {
+                        "start": "2025-07-18 20:00:00",
+                        "end": "2025-07-19 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "淘汰赛第七轮",
+                    "dateRange": {
+                        "start": "2025-07-21 20:00:00",
+                        "end": "2025-07-22 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "淘汰赛第八轮",
+                    "dateRange": {
+                        "start": "2025-07-25 20:00:00",
+                        "end": "2025-07-26 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰"
+                    }
+                },
+                {
+                    "title": "淘汰赛第九轮",
+                    "dateRange": {
+                        "start": "2025-08-01 20:00:00",
+                        "end": "2025-08-02 19:59:59"
+                    },
+                    "details": {
+                        "format": "1v1 单败淘汰",
+                        "note": "总决赛"
+                    }
+                }
+            ]
+        }
+    }
+} 

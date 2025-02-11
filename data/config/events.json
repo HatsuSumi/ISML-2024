@@ -1,0 +1,300 @@
+{
+    "months": {
+        "2024-12": {
+            "title": "2024年12月",
+            "events": [
+                {
+                    "dateRange": {
+                        "start": "2024-12-31 20:00:00",
+                        "end": "2025-01-07 19:59:59",
+                        "result": "2025-01-13"
+                    },
+                    "stats": {
+                        "votes": {
+                            "total": 1357,
+                            "valid": 669
+                        }
+                    },
+                    "matches": [
+                        {
+                            "title": "恒星组提名-女性组别",
+                            "id": "nomination/stellar/female",
+                            "phase": "主赛事提名阶段",
+                            "details": {
+                                "qualified": {
+                                    "description": "前92名晋级至主赛事恒星组预选赛阶段"
+                                }
+                            },
+                            "links": {
+                                "visualization": "../visualization/01-stellar-female-nomination.html",
+                                "table": "../tables/01-stellar-female-nomination-table.html",
+                                "data": "data/nomination/stellar/female/01-female-nomination.json"
+                            }
+                        },
+                        {
+                            "title": "恒星组提名-男性组别",
+                            "id": "nomination/stellar/male",
+                            "phase": "主赛事提名阶段",
+                            "details": {
+                                "qualified": {
+                                    "description": "前99名晋级至主赛事恒星组预选赛阶段"
+                                }
+                            },
+
+                            "links": {
+                                "visualization": "../visualization/02-stellar-male-nomination.html",
+                                "table": "../tables/02-stellar-male-nomination-table.html",
+                                "data": "data/nomination/stellar/male/02-male-nomination.json"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "2025-01": {
+            "title": "2025年1月",
+            "events": [
+                {
+                    "dateRange": {
+                        "start": "2025-01-07 20:00:00",
+                        "end": "2025-01-14 19:59:59",
+                        "result": "2025-01-16"
+                    },
+                    "stats": {
+                        "votes": {
+                            "total": 449,
+                            "valid": 51
+                        }
+                    },
+                    "matches": [
+                        {
+                            "title": "新星组冬季赛提名-女性组别",
+                            "id": "nomination/nova/winter/female",
+                            "phase": "主赛事提名阶段",
+                            "details": {
+                                "qualified": {
+
+                                    "description": "共26名角色晋级至主赛事新星组冬季赛预选赛阶段"
+                                }
+                            },
+                            "links": {
+                                "visualization": "../visualization/03-nova-winter-female-nomination.html",
+                                "table": "../tables/03-nova-winter-female-nomination-table.html",
+                                "data": "data/nomination/nova/winter/female/03-nova-winter-female-nomination.json"
+                            }
+                        },
+                        {
+                            "title": "新星组冬季赛提名-男性组别",
+                            "id": "nomination/nova/winter/male",
+                            "phase": "主赛事提名阶段",
+                            "details": {
+                                "qualified": {
+
+                                    "description": "共24名角色晋级至主赛事新星组冬季赛预选赛阶段"
+                                }
+                            },
+                            "links": {
+                                "visualization": "../visualization/04-nova-winter-male-nomination.html",
+                                "table": "../tables/04-nova-winter-male-nomination-table.html",
+                                "data": "data/nomination/nova/winter/male/04-nova-winter-male-nomination.json"
+                            }
+
+                        }
+                    ]
+                },
+                {
+                    "dateRange": {
+                        "start": "2025-01-14 20:00:00",
+                        "end": "2025-01-21 19:59:59",
+                        "result": "2025-01-24"
+                    },
+                    "stats": {
+                        "votes": {
+                            "total": 402,
+                            "valid": 141
+                        }
+                    },
+                    "matches": [
+                        {
+                            "title": "新星组春季赛提名-女性组别",
+                            "id": "nomination/nova/spring/female",
+                            "phase": "主赛事提名阶段",
+                            "details": {
+                                "qualified": {
+                                    "description": "共30名角色晋级至主赛事新星组春季赛预选赛阶段"
+                                }
+                            },
+                            "links": {
+                                "visualization": "../visualization/05-nova-spring-female-nomination.html",
+                                "table": "../tables/05-nova-spring-female-nomination-table.html",
+                                "data": "data/nomination/nova/spring/female/05-nova-spring-female-nomination.json"
+                            }
+
+                        },
+                        {
+                            "title": "新星组春季赛提名-男性组别",
+                            "id": "nomination/nova/spring/male",
+                            "phase": "主赛事提名阶段",
+                            "details": {
+                                "qualified": {
+                                    "description": "共24名角色晋级至主赛事新星组春季赛预选赛阶段"
+                                }
+                            },
+                            "links": {
+                                "visualization": "../visualization/06-nova-spring-male-nomination.html",
+                                "table": "../tables/06-nova-spring-male-nomination-table.html",
+                                "data": "data/nomination/nova/spring/male/06-nova-spring-male-nomination.json"
+                            }
+                        }
+                    ]
+
+                },
+                {
+                    "dateRange": {
+                        "start": "2025-01-21 20:00:00",
+                        "end": "2025-01-28 19:59:59",
+                        "result": "2025-02-01"
+                    },
+                    "stats": {
+                        "votes": {
+                            "total": 804,
+                            "valid": 542
+                        }
+                    },
+                    "matches": [
+                        {
+                            "title": "新星组夏季赛提名-女性组别",
+                            "id": "nomination/nova/summer/female",
+                            "phase": "主赛事提名阶段",
+                            "details": {
+                                "qualified": {
+                                    "description": "共26名角色晋级至主赛事新星组夏季赛预选赛阶段"
+                                }
+                            },
+                            "links": {
+                                "visualization": "../visualization/07-nova-summer-female-nomination.html",
+                                "table": "../tables/07-nova-summer-female-nomination-table.html",
+                                "data": "data/nomination/nova/summer/female/07-nova-summer-female-nomination.json"
+                            }
+                        },
+                        {
+                            "title": "新星组夏季赛提名-男性组别",
+                            "id": "nomination/nova/summer/male",
+                            "phase": "主赛事提名阶段",
+                            "details": {
+                                "qualified": {
+                                    "description": "共26名角色晋级至主赛事新星组夏季赛预选赛阶段"
+                                }
+                            },
+                            "links": {
+                                "visualization": "../visualization/08-nova-summer-male-nomination.html",
+                                "table": "../tables/08-nova-summer-male-nomination-table.html",
+                                "data": "data/nomination/nova/summer/male/08-nova-summer-male-nomination.json"
+                            }
+                        }
+                    ]
+                },
+
+                {
+                    "dateRange": {
+                        "start": "2025-01-28 20:00:00",
+                        "end": "2025-02-03 19:59:59"
+                    },
+                    "matches": [
+                        {
+                            "title": "新星组秋季赛提名-女性组别",
+                            "phase": "主赛事提名阶段"
+                        },
+                        {
+                            "title": "新星组秋季赛提名-男性组别",
+                            "phase": "主赛事提名阶段"
+                        }
+                    ]
+                }
+            ]
+        },
+        "2025-02": {
+            "title": "2025年2月",
+            "events": [
+                {
+                    "dateRange": {
+                        "start": "2025-02-13 20:00:00",
+                        "end": "2025-02-14 19:59:59"
+                    },
+                    "matches": [
+                        {
+                            "title": "预选赛第一轮",
+                            "phase": "预选赛阶段",
+                            "format": "赞成投票制"
+                        }
+                    ]
+                },
+                {
+                    "dateRange": {
+                        "start": "2025-02-14 20:00:00",
+                        "end": "2025-02-15 19:59:59"
+                    },
+                    "matches": [
+                        {
+                            "title": "预选赛第二轮",
+                            "phase": "预选赛阶段",
+                            "format": "赞成投票制"
+                        }
+                    ]
+                },
+                {
+                    "dateRange": {
+                        "start": "2025-02-20 20:00:00",
+                        "end": "2025-02-21 19:59:59"
+                    },
+                    "matches": [
+                        {
+                            "title": "预选赛第三轮",
+                            "phase": "预选赛阶段",
+                            "format": "赞成投票制"
+                        }
+                    ]
+                },
+                {
+                    "dateRange": {
+                        "start": "2025-02-21 20:00:00",
+                        "end": "2025-02-22 19:59:59"
+                    },
+                    "matches": [
+                        {
+                            "title": "预选赛第四轮",
+                            "phase": "预选赛阶段",
+                            "format": "赞成投票制"
+                        }
+                    ]
+                },
+                {
+                    "dateRange": {
+                        "start": "2025-02-27 20:00:00",
+                        "end": "2025-02-28 19:59:59"
+                    },
+                    "matches": [
+                        {
+                            "title": "预选赛第五轮",
+                            "phase": "预选赛阶段",
+                            "format": "赞成投票制"
+                        }
+                    ]
+                },
+                {
+                    "dateRange": {
+                        "start": "2025-02-28 20:00:00",
+                        "end": "2025-03-01 19:59:59"
+                    },
+                    "matches": [
+                        {
+                            "title": "预选赛第六轮",
+                            "phase": "预选赛阶段",
+                            "format": "赞成投票制"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+} 
