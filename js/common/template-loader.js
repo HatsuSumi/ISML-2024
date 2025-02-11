@@ -6,12 +6,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // 动态路径处理函数
     function getResourcePath(path) {
-        const processedPath = isGitHubPages ? `/ISML-2024/${path}` : path;
+        // 移除路径开头的 '/'，避免双斜杠
+        const cleanPath = path.replace(/^\//, '');
+        const processedPath = isGitHubPages ? `/ISML-2024/${cleanPath}` : path;
+        
         console.log(`Path Processing:
 - Original Path: ${path}
+- Cleaned Path: ${cleanPath}
 - Is GitHub Pages: ${isGitHubPages}
 - Processed Path: ${processedPath}
 - Current Hostname: ${window.location.hostname}`);
+        
         return processedPath;
     }
 
