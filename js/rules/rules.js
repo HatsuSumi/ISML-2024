@@ -67,7 +67,7 @@ class Rules {
         rules.forEach((rule, index) => {
             setTimeout(() => {
                 rule.classList.add('slide-in');
-            }, index * 100);  // 每条规则延迟 100ms
+            }, index * 100);  
         });
     }
 }
@@ -77,5 +77,3 @@ document.addEventListener('DOMContentLoaded', () => {
     const rules = new Rules();
     rules.init();
 }); 
-
-// 我是注释
