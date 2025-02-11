@@ -10,13 +10,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         const cleanPath = path.replace(/^\/+/, '');
         const processedPath = isGitHubPages ? `/ISML-2024/${cleanPath}` : cleanPath;
         
-        console.log(`Path Processing:
-- Original Path: ${path}
-- Cleaned Path: ${cleanPath}
-- Is GitHub Pages: ${isGitHubPages}
-- Processed Path: ${processedPath}
-- Current Hostname: ${window.location.hostname}`);
-        
+        console.info('Path Processing Details:', {
+            originalPath: path,
+            cleanedPath: cleanPath,
+            isGitHubPages: isGitHubPages,
+            processedPath: processedPath,
+            currentHostname: window.location.hostname
+        });
+        //
         return processedPath;
     }
 
