@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/common/index.css">
+</head>
+<body>
+    <include src="templates/header.html"></include>
+    <div id="danmaku-container" class="animation-container"></div>
+    <main>
+        <div class="search-container">
+            <div class="search-icon">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </div>
+            <input type="text" id="searchInput" placeholder="搜索角色，作品或声优（多个关键词之间用空格或逗号分隔）">
+            <label class="exact-match-label">
+                <input type="checkbox" id="exactMatch">
+                全词匹配
+            </label>
+
+            <div class="group-options">
+                <div class="group-section">
+                    <label class="group-label">
+                        <input type="checkbox" value="stellar" checked> 恒星组
+                    </label>
+                    <div class="sub-options stellar-options">
+                        <label><input type="checkbox" value="stellar-female" checked> 女性</label>
+                        <label><input type="checkbox" value="stellar-male" checked> 男性</label>
+                    </div>
+                </div>
+
+                <div class="group-section">
+                    <label class="group-label">
+                        <input type="checkbox" value="nova" checked> 新星组
+                    </label>
+                    <div class="sub-options nova-options">
+                        <div class="season-section" data-season="winter">
+                            <label class="season-label">
+                                <input type="checkbox" value="winter" checked> 冬季
+                            </label>
+                            <div class="gender-options">
+                                <label><input type="checkbox" value="winter-female" checked> 女性</label>
+                                <label><input type="checkbox" value="winter-male" checked> 男性</label>
+                            </div>
+                        </div>
+
+                        <div class="season-section" data-season="spring">
+                            <label class="season-label">
+                                <input type="checkbox" value="spring" checked> 春季
+                            </label>
+                            <div class="gender-options">
+                                <label><input type="checkbox" value="spring-female" checked> 女性</label>
+                                <label><input type="checkbox" value="spring-male" checked> 男性</label>
+                            </div>
+                        </div>
+                        
+                        <div class="season-section" data-season="summer">
+                            <label class="season-label">
+                                <input type="checkbox" value="summer" checked> 夏季
+                            </label>
+                            <div class="gender-options">
+                                <label><input type="checkbox" value="summer-female" checked> 女性</label>
+                                <label><input type="checkbox" value="summer-male" checked> 男性</label>
+                            </div>
+                        </div>
+                        
+                        <div class="season-section" data-season="autumn">
+                            <label class="season-label">
+                                <input type="checkbox" value="autumn" checked> 秋季
+                            </label>
+                            <div class="gender-options">
+                                <label><input type="checkbox" value="autumn-female" checked> 女性</label>
+                                <label><input type="checkbox" value="autumn-male" checked> 男性</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="search-results-container" style="display: none;">
+            <h2 class="search-results-title">搜索结果</h2>
+            <div class="search-results-content">
+                <div class="stellar-results"></div>
+                <div class="nova-results"></div>
+            </div>
+        </div>
+        
+        <section class="tournament-section">
+            <h1 class="main-title">欢迎来到2024赛季国际最萌大会数据统计主页！</h1>
+            <p class="main-subtitle">以下是本赛季主赛事所有参赛角色</p>
+            <div class="loading-tip">正在加载角色数据，请稍候...</div>
+            
+            <section class="division stellar">
+                <div class="division-header">
+                    <div class="status-filter-placeholder"></div>
+                    <h2>恒星组</h2>
+                    <div class="status-filter">
+                        <label><input type="checkbox" value="active" checked> 参赛中</label>
+                        <label><input type="checkbox" value="eliminated" checked> 已淘汰</label>
+                    </div>
+                </div>
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-group="stellar" data-gender="female">女性组别</button>
+                        <button class="tab-btn" data-group="stellar" data-gender="male">男性组别</button>
+                    </div>
+                    <div class="tab-slider"></div>
+                </div>
+                <div class="character-panels">
+                    <div class="character-panel active" id="stellar-female">
+                        <div class="character-card loaded">
+                        </div>
+                    </div>
+                    <div class="character-panel" id="stellar-male">
+                        <div class="character-card loaded">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="division nova">
+                <div class="division-header">
+                    <div class="status-filter-placeholder"></div>
+                    <h2>新星组</h2>
+                    <div class="status-filter">
+                        <label><input type="checkbox" value="active" checked> 参赛中</label>
+                        <label><input type="checkbox" value="eliminated" checked> 已淘汰</label>
+                    </div>
+                </div>
+                
+                <div class="season-section" data-season="winter">
+                    <h3>冬季</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" data-group="nova" data-season="winter" data-gender="female">女性组别</button>
+                            <button class="tab-btn" data-group="nova" data-season="winter" data-gender="male">男性组别</button>
+                        </div>
+                        <div class="tab-slider"></div>
+                    </div>
+                    <div class="character-panels">
+                        <div class="character-panel active" id="nova-winter-female">
+                            <div class="character-card loaded">
+                            </div>
+                        </div>
+                        <div class="character-panel" id="nova-winter-male">
+                            <div class="character-card loaded">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="season-section" data-season="spring">
+                    <h3>春季</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" data-group="nova" data-season="spring" data-gender="female">女性组别</button>
+                            <button class="tab-btn" data-group="nova" data-season="spring" data-gender="male">男性组别</button>
+                        </div>
+                        <div class="tab-slider"></div>
+                    </div>
+                    <div class="character-panels">
+                        <div class="character-panel active" id="nova-spring-female">
+                            <div class="character-card loaded">
+                            </div>
+                        </div>
+                        <div class="character-panel" id="nova-spring-male">
+                            <div class="character-card loaded">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="season-section" data-season="summer">
+                    <h3>夏季</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" data-group="nova" data-season="summer" data-gender="female">女性组别</button>
+                            <button class="tab-btn" data-group="nova" data-season="summer" data-gender="male">男性组别</button>
+                        </div>
+                        <div class="tab-slider"></div>
+                    </div>
+                    <div class="character-panels">
+                        <div class="character-panel active" id="nova-summer-female">
+                            <div class="character-card loaded">
+                            </div>
+                        </div>
+                        <div class="character-panel" id="nova-summer-male">
+                            <div class="character-card loaded">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="season-section" data-season="autumn">
+                    <h3>秋季</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" data-group="nova" data-season="autumn" data-gender="female">女性组别</button>
+                            <button class="tab-btn" data-group="nova" data-season="autumn" data-gender="male">男性组别</button>
+                        </div>
+                        <div class="tab-slider"></div>
+                    </div>
+                    <div class="character-panels">
+                        <div class="character-panel active" id="nova-autumn-female">
+                            <div class="character-card loaded">
+                            </div>
+                        </div>
+                        <div class="character-panel" id="nova-autumn-male">
+                            <div class="character-card loaded">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <include src="templates/footer.html"></include>
+    <script type="module" src="js/common/template-loader.js"></script>
+    <script type="module" src="js/common/index.js"></script>
+</body>
+</html>
