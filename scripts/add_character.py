@@ -18,7 +18,7 @@ def clear_characters():
     file_path = os.path.join(get_project_root(), 'data', 'characters', 'characterData.json')
     data = load_json(file_path)
     
-    # 保留config，清空characters。
+    # 保留config，清空characters
     data['characters'] = {}
     
     save_json(data, file_path)
