@@ -1,0 +1,65 @@
+.footer {
+    padding: 20px 0;
+    background: linear-gradient(145deg, #222, #2a2a2a);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-content {
+    color: #888;
+    font-size: 14px;
+}
+
+.footer-content p {
+    margin: 5px 0;
+}
+
+.footer-content a {
+    color: #4a90e2;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-content a:hover {
+    color: #b085f5;
+}
+
+.contact-text {
+    color: #999;
+}
+
+.contact-email {
+    color: #7e57c2;
+    margin: 0 4px;
+    cursor: pointer;
+    position: relative;
+}
+
+.contact-email:hover {
+    color: #b085f5;
+}
+
+.copy-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    animation: fadeInOut 1.5s ease;
+    pointer-events: none;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}

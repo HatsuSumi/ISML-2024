@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../css/schedule/schedule.css">
+</head>
+<body>
+    <include src="../../templates/header.html"></include>
+    
+    <div class="site-wrapper">
+        <div class="schedule-container">
+            <h1 class="schedule-title">ISML 2024 赛事日程</h1>
+            
+            <div class="search-container">
+                <div class="character-search">
+                    <input type="text" id="characterSearch" placeholder="输入角色名称查看参赛历史...">
+                </div>
+                <div class="no-character"></div>
+            </div>
+            
+            <div id="characterHistory" class="character-history" style="display: none;">
+                <h2 class="character-name"></h2>
+                <div class="match-list"></div>
+            </div>
+            
+            <div id="timeline" class="timeline">    
+            </div>
+        </div>
+        <include src="../../templates/footer.html"></include>
+    </div>
+    
+    <script type="module" src="../../js/common/template-loader.js"></script>
+    <script src="../../js/schedule/schedule.js"></script>
+    <script>
+        if (sessionStorage.getItem(SCROLL_POSITION_KEY)) {
+            history.scrollRestoration = 'manual';
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
+

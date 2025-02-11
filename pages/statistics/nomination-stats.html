@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <include src="../../templates/header.html"></include>
+    <link rel="stylesheet" href="../../css/statistics/nomination-stats.css">
+</head>
+<body>
+    
+    <div class="container">
+        <h1>提名阶段统计</h1>
+        
+        <div class="filter-section">
+            <div class="filter-group">
+                <h3>组别筛选</h3>
+                <label><input type="radio" name="group" value="stellar" checked> 恒星组</label>
+                <label><input type="radio" name="group" value="nova"> 新星组</label>
+            </div>
+
+            <div class="filter-group hidden" id="nova-filters">
+                <h3>季节筛选</h3>
+                <label><input type="checkbox" name="season" value="winter" checked> 冬季</label>
+                <label><input type="checkbox" name="season" value="spring" checked> 春季</label>
+                <label><input type="checkbox" name="season" value="summer" checked> 夏季</label>
+                <label><input type="checkbox" name="season" value="autumn" checked> 秋季</label>
+            </div>
+
+            <div class="filter-group">
+                <h3>性别筛选</h3>
+                <label><input type="checkbox" name="gender" value="female" checked> 女性角色</label>
+                <label><input type="checkbox" name="gender" value="male" checked> 男性角色</label>
+            </div>
+
+            <div class="filter-group">
+                <h3>状态筛选</h3>
+                <label><input type="checkbox" name="status" value="advance" checked> 晋级</label>
+                <label><input type="checkbox" name="status" value="eliminate" checked> 未晋级</label>
+            </div>
+        </div>
+        
+        <div class="stats-section">
+            <div class="chart-container">
+                <div id="ipDistribution" class="chart"></div>
+                <h3>IP分布</h3>
+                <div class="view-more">查看更多</div>
+            </div>
+            
+            <div class="chart-container">
+                <div id="genderDistribution" class="chart"></div>
+                <h3>性别分布</h3>
+            </div>
+            
+            <div class="chart-container">
+                <div id="cvDistribution" class="chart"></div>
+                <h3>声优分布</h3>
+                <div class="view-more">查看更多</div>
+            </div>
+            
+            <div class="chart-container">
+                <div id="yearDistribution" class="chart"></div>
+                <div class="chart-title">
+                    <h3>IP年份分布
+                        <span class="tooltip-trigger">?
+                            <span class="tooltip-text">只统计动画第一季或原版（如果是）的首映年份，不一定为该角色的初登场年份</span>
+                        </span>
+                    </h3>
+                </div>
+                <div class="view-more">查看更多</div>
+            </div>
+
+            <div class="chart-container">
+                <div id="studioChart" class="chart"></div>
+            </div>
+
+            <div class="chart-container">
+                <div id="sourceChart" class="chart"></div>
+            </div>
+
+            <div class="chart-container">
+                <div id="moeMeterChart" class="chart"></div>
+            </div>
+        </div>
+    </div>
+
+    <include src="../../templates/footer.html"></include>
+    <script type="module" src="../../js/common/template-loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="../../js/statistics/nomination-stats.js"></script>
+</body>
+</html>

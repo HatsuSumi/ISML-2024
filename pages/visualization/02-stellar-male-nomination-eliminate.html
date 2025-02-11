@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../../css/visualization/visualization.css">
+</head>
+<body>
+<include src="../../../templates/header.html"></include>
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="button-container">
+                <a href="javascript:history.back()" class="home-btn">返回上一页</a>
+                <a href="../tables/02-stellar-male-nomination-table.html" class="table-btn">查看表格</a>
+                <div class="size-controls">
+                    <div class="slider-container">
+                        <label for="width-slider">宽度: <span id="width-value">1800</span>px</label>
+                        <input type="range" id="width-slider" min="100" max="2500" value="1800" step="100">
+                    </div>
+                    <div class="slider-container">
+                        <label for="height-slider">高度: <span id="height-value">2200</span>px</label>
+                        <input type="range" id="height-slider" min="100" max="5000" value="2200" step="100">
+                    </div>
+                    <button id="reset-size" class="reset-btn">重置大小</button>
+                </div>
+            </div>
+            <div class="content-scroll">
+                <div class="chart-wrapper">
+                    <div class="custom-legend">
+                        <div class="legend-item">
+                            <span class="legend-color advance"></span>
+                            <span class="legend-text">晋级</span>
+                        </div>
+                    </div>
+                    <div id="vote_chart" class="chart-container"></div>
+                </div>
+            </div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const widthSlider = document.getElementById('width-slider');
+                    const heightSlider = document.getElementById('height-slider');
+                    const widthValue = document.getElementById('width-value');
+                    const heightValue = document.getElementById('height-value');
+                    const chartContainer = document.querySelector('.chart-container');
+                    const chartWrapper = document.querySelector('.chart-wrapper');
+                    const resetBtn = document.getElementById('reset-size');
+
+                    const defaultWidth = 1800;
+                    const defaultHeight = 2200;
+
+                    function resetSize() {
+                        widthSlider.value = defaultWidth;
+                        heightSlider.value = defaultHeight;
+                        widthValue.textContent = defaultWidth;
+                        heightValue.textContent = defaultHeight;
+                        chartContainer.style.maxWidth = `${defaultWidth}px`;
+                        chartWrapper.style.maxWidth = `${defaultWidth}px`;
+                        chartContainer.style.height = `${defaultHeight}px`;
+                        if (chart_vote_chart) {
+                            chart_vote_chart.resize();
+                        }
+                    }
+
+                    resetBtn.addEventListener('click', resetSize);
+
+                    function updateSize() {
+                        const width = Math.min(Math.max(widthSlider.value, 100), 2500);
+                        const height = Math.min(Math.max(heightSlider.value, 100), 5000);
+                        widthValue.textContent = width;
+                        heightValue.textContent = height;
+                        chartContainer.style.maxWidth = `${width}px`;
+                        chartWrapper.style.maxWidth = `${width}px`;
+                        chartContainer.style.height = `${height}px`;
+                        if (chart_vote_chart) {
+                            chart_vote_chart.resize();
+                        }
+                    }
+
+                    widthSlider.addEventListener('input', updateSize);
+                    heightSlider.addEventListener('input', updateSize);
+
+                    var titleContainer = document.createElement('div');
+                    titleContainer.className = 'title-container';
+                    
+                    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svg.style.width = '100%';
+                    svg.style.height = '75px';
+                    
+                    var title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    title.textContent = '12.31-01.07 - 恒星组提名-男性组别（未晋级）';
+                    title.setAttribute('x', '50%');
+                    title.setAttribute('y', '25');
+                    title.setAttribute('text-anchor', 'middle');
+                    title.style.fontSize = '24px';
+                    title.setAttribute('font-weight', 'bold');
+
+                    var subtitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    subtitle.textContent = '前92名晋级至主赛事恒星组预选赛阶段';
+                    subtitle.setAttribute('x', '50%');
+                    subtitle.setAttribute('y', '50');
+                    subtitle.setAttribute('text-anchor', 'middle');
+                    subtitle.style.fontSize = '14px';
+                    subtitle.setAttribute('fill', '#9370DB');
+                    
+                    var gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+                    gradient.id = 'titleGradient';
+                    gradient.setAttribute('x1', '0%');
+                    gradient.setAttribute('y1', '0%');
+                    gradient.setAttribute('x2', '100%');
+                    gradient.setAttribute('y2', '0%');
+                    
+                    var stops = [
+                        {offset: '0%', color: '#ff6b6b'},
+                        {offset: '40%', color: '#4a90e2'},
+                        {offset: '100%', color: '#3eaf7c'}
+                    ];
+                    
+                    stops.forEach(function(stop) {
+                        var stopEl = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+                        stopEl.setAttribute('offset', stop.offset);
+                        stopEl.setAttribute('stop-color', stop.color);
+                        gradient.appendChild(stopEl);
+                    });
+                    
+                    svg.appendChild(gradient);
+                    title.setAttribute('fill', 'url(#titleGradient)');
+                    svg.appendChild(title);
+                    svg.appendChild(subtitle);
+                    
+                    titleContainer.appendChild(svg);
+                    document.querySelector('.chart-wrapper').insertBefore(titleContainer, document.querySelector('#vote_chart'));
+                    
+                    window.chart_vote_chart = echarts.init(
+                        document.getElementById('vote_chart'), 'dark', {renderer: 'canvas'});
+                    var option_vote_chart = {
+    "backgroundColor": "#1a1a1a",
+    "animation": true,
+    "animationThreshold": 2000,
+    "animationDuration": 1000,
+    "animationEasing": "cubicOut",
+    "animationDelay": 0,
+    "animationDurationUpdate": 300,
+    "animationEasingUpdate": "cubicOut",
+    "animationDelayUpdate": 0,
+    "aria": {
+        "enabled": false
+    },
+    "series": [
+        {
+            "type": "bar",
+            "name": "\u672a\u664b\u7ea7",
+            "legendHoverLink": true,
+            "data": [
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                9,
+                10,
+                10,
+                10,
+                10,
+                10,
+                10,
+                10,
+                10,
+                10,
+                10,
+                10
+            ],
+            "realtimeSort": false,
+            "showBackground": false,
+            "stackStrategy": "samesign",
+            "cursor": "pointer",
+            "barMinHeight": 0,
+            "barCategoryGap": "40%",
+            "barGap": "0%",
+            "large": false,
+            "largeThreshold": 400,
+            "seriesLayoutBy": "column",
+            "datasetIndex": 0,
+            "clip": true,
+            "zlevel": 0,
+            "z": 2,
+            "label": {
+                "show": true,
+                "position": "right",
+                "margin": 8,
+                "formatter":             function(params) {                var labels = JSON.parse('[\"\u6a31\u5ddd\u4e5d\u90ce\uff08\u865a\u6784\u63a8\u7406\uff09\", \"\u4e9a\u65af\u5854\uff08\u9ed1\u8272\u56db\u53f6\u8349\uff09\", \"\u706b\u6751\u5915\uff08\u60a0\u4e45\u4e4b\u7ffc\uff09\", \"\u53e4\u6cb3\u79cb\u751f\uff08CLANNAD\uff09\", \"\u81ea\u6765\u4e5f\uff08\u706b\u5f71\u5fcd\u8005\uff09\", \"\u9c81\u90a6\u4e09\u4e16\uff08\u9c81\u90a6\u4e09\u4e16\uff09\", \"\u7eea\u65b9\u4fee\uff08\u5951\u7ea6\u4e4b\u543b\uff09\", \"\u76f4\u679d\u7406\u6811\uff08Little Busters!\uff09\", \"\u5b87\u667a\u6ce2\u6591\uff08\u706b\u5f71\u5fcd\u8005\uff09\", \"\u5927\u536b\u00b7\u9a6c\u4e01\u5185\u65af\uff08\u8d5b\u535a\u670b\u514b \u8fb9\u7f18\u884c\u8005\uff09\", \"\u5b87\u667a\u6ce2\u5e26\u571f\uff08\u706b\u5f71\u5fcd\u8005\uff09\", \"\u4e5d\u5934\u9f99\u516b\u4e00\uff08\u9f99\u738b\u7684\u5de5\u4f5c\uff01\uff09\", \"\u7893\u51b0\u62d3\u6d77\uff08\u4f1a\u957f\u662f\u5973\u4ec6\u5927\u4eba\uff01\uff09\", \"\u4e54\u745f\u592b\u00b7\u4e54\u65af\u8fbe\uff08JoJo\u7684\u5947\u5999\u5192\u9669\uff09\", \"\u8fea\u5965\u00b7\u5e03\u5170\u5ea6\uff08JoJo\u7684\u5947\u5999\u5192\u9669\uff09\", \"\u5c24\u5409\u6b27\uff08\u5200\u5251\u795e\u57df\uff09\", \"\u4e2d\u539f\u4e2d\u4e5f\uff08\u6587\u8c6a\u91ce\u72ac\uff09\", \"\u5e93\u00b7\u4e18\u6797\uff08Fate\u7cfb\u5217\uff09\", \"\u827e\u672d\u514b\u00b7\u4f5b\u65af\u7279\uff08\u6740\u622e\u7684\u5929\u4f7f\uff09\", \"\u591c\u5b88\u5149\uff08\u5f7b\u591c\u4e4b\u6b4c\uff09\", \"\u54e5\u5e03\u6797\u730e\u4eba\uff08\u54e5\u5e03\u6797\u730e\u4eba\uff09\", \"\u83b1\u56e0\u54c8\u7279\u00b7\u51af\u00b7\u7f57\u4e25\u514b\u62c9\u59c6\uff08\u94f6\u6cb3\u82f1\u96c4\u4f20\u8bf4\uff09\", \"\u4f0a\u7406\u6237\u6c34\u6597\uff08\u7ee7\u6bcd\u7684\u62d6\u6cb9\u74f6\u662f\u6211\u7684\u524d\u5973\u53cb\uff09\", \"\u72db\u679d\u51ea\u6597\uff08\u5f39\u4e38\u8bba\u7834\uff09\", \"\u6768\u5a01\u5229\uff08\u94f6\u6cb3\u82f1\u96c4\u4f20\u8bf4\uff09\", \"\u4e54\u9c81\u8bfa\u00b7\u4e54\u5df4\u62ff\uff08JoJo\u7684\u5947\u5999\u5192\u9669\uff09\", \"\u6d77\u5d0e\u65b0\u592a\uff08ReLIFE\uff09\", \"\u5f71\u5c71\u8302\u592b\uff08\u8def\u4eba\u8d85\u80fd100\uff09\", \"\u7eeb\u5d0e\u98d2\uff08\u65cb\u98ce\u7ba1\u5bb6\uff09\", \"\u6c5f\u6237\u5ddd\u4e71\u6b65\uff08\u6587\u8c6a\u91ce\u72ac\uff09\", \"\u738b\u8000\uff08\u9ed1\u5854\u5229\u4e9a\uff09\", \"\u5e73\u8d3a\u624d\u4eba\uff08\u96f6\u4e4b\u4f7f\u9b54\uff09\", \"\u82a5\u5ddd\u9f99\u4e4b\u4ecb\uff08\u6587\u8c6a\u91ce\u72ac\uff09\", \"\u698a\u539f\u6052\u4e00\uff08Another\uff09\", \"\u7887\u771f\u55e3\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u96e8\u5bab\u83b2\uff08\u5973\u795e\u5f02\u95fb\u5f555\uff09\", \"\u9ad8\u5742\u4eac\u4ecb\uff08\u6211\u7684\u59b9\u59b9\u54ea\u6709\u8fd9\u4e48\u53ef\u7231\uff01\uff09\", \"\u82d7\u6728\u8bda\uff08\u5f39\u4e38\u8bba\u7834\uff09\", \"\u5947\u72bd\u00b7\u63cd\u654c\u5ba2\uff08HUNTER\u00d7HUNTER\uff09\", \"\u53f8\u6ce2\u8fbe\u4e5f\uff08\u9b54\u6cd5\u79d1\u9ad8\u4e2d\u7684\u52a3\u7b49\u751f\uff09\", \"\u5b89\u5179\u00b7\u4e4c\u5c14\u00b7\u606d\uff08OVERLORD\uff09\"]');                if (params.value === null) return '';                return '{vote|' + params.value + '\u7968}{name| - ' + labels[params.dataIndex] + '}';            }        ,
+                "rich": {
+                    "vote": {
+                        "color": "#ff7875",
+                        "fontSize": 13,
+                        "fontWeight": "bold",
+                        "padding": [
+                            0,
+                            5,
+                            0,
+                            5
+                        ]
+                    },
+                    "name": {
+                        "color": "#a6c1ee",
+                        "fontSize": 12
+                    }
+                },
+                "valueAnimation": false
+            },
+            "itemStyle": {
+                "color":                 new echarts.graphic.LinearGradient(0, 0, 1, 0, [{                    offset: 0,                    color: '#744444'                }, {                    offset: 0.5,                    color: '#a65d5d'                }, {                    offset: 1,                    color: '#a65d5d'                }])            
+            }
+        }
+    ],
+    "legend": [
+        {
+            "data": [
+                "\u672a\u664b\u7ea7"
+            ],
+            "selected": {},
+            "show": false,
+            "padding": 5,
+            "itemGap": 10,
+            "itemWidth": 25,
+            "itemHeight": 14,
+            "backgroundColor": "transparent",
+            "borderColor": "#ccc",
+            "borderRadius": 0,
+            "pageButtonItemGap": 5,
+            "pageButtonPosition": "end",
+            "pageFormatter": "{current}/{total}",
+            "pageIconColor": "#2f4554",
+            "pageIconInactiveColor": "#aaa",
+            "pageIconSize": 15,
+            "animationDurationUpdate": 800,
+            "selector": false,
+            "selectorPosition": "auto",
+            "selectorItemGap": 7,
+            "selectorButtonGap": 10
+        }
+    ],
+    "tooltip": {
+        "show": true,
+        "trigger": "axis",
+        "triggerOn": "mousemove|click",
+        "axisPointer": {
+            "type": "line"
+        },
+        "showContent": true,
+        "alwaysShowContent": false,
+        "showDelay": 0,
+        "hideDelay": 100,
+        "enterable": false,
+        "confine": false,
+        "appendToBody": false,
+        "transitionDuration": 0.4,
+        "formatter":             function(params) {                var labels = JSON.parse('[\"\u6a31\u5ddd\u4e5d\u90ce\uff08\u865a\u6784\u63a8\u7406\uff09\", \"\u4e9a\u65af\u5854\uff08\u9ed1\u8272\u56db\u53f6\u8349\uff09\", \"\u706b\u6751\u5915\uff08\u60a0\u4e45\u4e4b\u7ffc\uff09\", \"\u53e4\u6cb3\u79cb\u751f\uff08CLANNAD\uff09\", \"\u81ea\u6765\u4e5f\uff08\u706b\u5f71\u5fcd\u8005\uff09\", \"\u9c81\u90a6\u4e09\u4e16\uff08\u9c81\u90a6\u4e09\u4e16\uff09\", \"\u7eea\u65b9\u4fee\uff08\u5951\u7ea6\u4e4b\u543b\uff09\", \"\u76f4\u679d\u7406\u6811\uff08Little Busters!\uff09\", \"\u5b87\u667a\u6ce2\u6591\uff08\u706b\u5f71\u5fcd\u8005\uff09\", \"\u5927\u536b\u00b7\u9a6c\u4e01\u5185\u65af\uff08\u8d5b\u535a\u670b\u514b \u8fb9\u7f18\u884c\u8005\uff09\", \"\u5b87\u667a\u6ce2\u5e26\u571f\uff08\u706b\u5f71\u5fcd\u8005\uff09\", \"\u4e5d\u5934\u9f99\u516b\u4e00\uff08\u9f99\u738b\u7684\u5de5\u4f5c\uff01\uff09\", \"\u7893\u51b0\u62d3\u6d77\uff08\u4f1a\u957f\u662f\u5973\u4ec6\u5927\u4eba\uff01\uff09\", \"\u4e54\u745f\u592b\u00b7\u4e54\u65af\u8fbe\uff08JoJo\u7684\u5947\u5999\u5192\u9669\uff09\", \"\u8fea\u5965\u00b7\u5e03\u5170\u5ea6\uff08JoJo\u7684\u5947\u5999\u5192\u9669\uff09\", \"\u5c24\u5409\u6b27\uff08\u5200\u5251\u795e\u57df\uff09\", \"\u4e2d\u539f\u4e2d\u4e5f\uff08\u6587\u8c6a\u91ce\u72ac\uff09\", \"\u5e93\u00b7\u4e18\u6797\uff08Fate\u7cfb\u5217\uff09\", \"\u827e\u672d\u514b\u00b7\u4f5b\u65af\u7279\uff08\u6740\u622e\u7684\u5929\u4f7f\uff09\", \"\u591c\u5b88\u5149\uff08\u5f7b\u591c\u4e4b\u6b4c\uff09\", \"\u54e5\u5e03\u6797\u730e\u4eba\uff08\u54e5\u5e03\u6797\u730e\u4eba\uff09\", \"\u83b1\u56e0\u54c8\u7279\u00b7\u51af\u00b7\u7f57\u4e25\u514b\u62c9\u59c6\uff08\u94f6\u6cb3\u82f1\u96c4\u4f20\u8bf4\uff09\", \"\u4f0a\u7406\u6237\u6c34\u6597\uff08\u7ee7\u6bcd\u7684\u62d6\u6cb9\u74f6\u662f\u6211\u7684\u524d\u5973\u53cb\uff09\", \"\u72db\u679d\u51ea\u6597\uff08\u5f39\u4e38\u8bba\u7834\uff09\", \"\u6768\u5a01\u5229\uff08\u94f6\u6cb3\u82f1\u96c4\u4f20\u8bf4\uff09\", \"\u4e54\u9c81\u8bfa\u00b7\u4e54\u5df4\u62ff\uff08JoJo\u7684\u5947\u5999\u5192\u9669\uff09\", \"\u6d77\u5d0e\u65b0\u592a\uff08ReLIFE\uff09\", \"\u5f71\u5c71\u8302\u592b\uff08\u8def\u4eba\u8d85\u80fd100\uff09\", \"\u7eeb\u5d0e\u98d2\uff08\u65cb\u98ce\u7ba1\u5bb6\uff09\", \"\u6c5f\u6237\u5ddd\u4e71\u6b65\uff08\u6587\u8c6a\u91ce\u72ac\uff09\", \"\u738b\u8000\uff08\u9ed1\u5854\u5229\u4e9a\uff09\", \"\u5e73\u8d3a\u624d\u4eba\uff08\u96f6\u4e4b\u4f7f\u9b54\uff09\", \"\u82a5\u5ddd\u9f99\u4e4b\u4ecb\uff08\u6587\u8c6a\u91ce\u72ac\uff09\", \"\u698a\u539f\u6052\u4e00\uff08Another\uff09\", \"\u7887\u771f\u55e3\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u96e8\u5bab\u83b2\uff08\u5973\u795e\u5f02\u95fb\u5f555\uff09\", \"\u9ad8\u5742\u4eac\u4ecb\uff08\u6211\u7684\u59b9\u59b9\u54ea\u6709\u8fd9\u4e48\u53ef\u7231\uff01\uff09\", \"\u82d7\u6728\u8bda\uff08\u5f39\u4e38\u8bba\u7834\uff09\", \"\u5947\u72bd\u00b7\u63cd\u654c\u5ba2\uff08HUNTER\u00d7HUNTER\uff09\", \"\u53f8\u6ce2\u8fbe\u4e5f\uff08\u9b54\u6cd5\u79d1\u9ad8\u4e2d\u7684\u52a3\u7b49\u751f\uff09\", \"\u5b89\u5179\u00b7\u4e4c\u5c14\u00b7\u606d\uff08OVERLORD\uff09\"]');                var ranks = JSON.parse('[\"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"122\", \"111\", \"111\", \"111\", \"111\", \"111\", \"111\", \"111\", \"111\", \"111\", \"111\", \"111\", \"100\", \"100\", \"100\", \"100\", \"100\", \"100\", \"100\", \"100\", \"100\", \"100\", \"100\"]');                for (var i = 0; i < params.length; i++) {                    if (params[i].value !== null && !isNaN(params[i].value)) {                        params = params[i];                        break;                    }                }                if (params.dataIndex >= labels.length) {                    return '';                }                if (!params.value || isNaN(params.value)) return '';                return params.seriesName + '<br/>' +                       labels[params.dataIndex] + '<br/>' +                       '\u5f97\u7968\u6570\uff1a' + params.value + '\u7968<br/>' +                       '\u6392\u540d\uff1a' + ranks[params.dataIndex];            }        ,
+        "textStyle": {
+            "color": "#a6c1ee",
+            "fontFamily": "Microsoft YaHei",
+            "fontSize": 14
+        },
+        "backgroundColor": "rgba(50, 50, 50, 0.9)",
+        "borderColor": "rgba(50, 50, 50, 0.9)",
+        "borderWidth": 0,
+        "padding": 5,
+        "order": "seriesAsc"
+    },
+    "xAxis": [
+        {
+            "name": "\u5f97\u7968\u6570",
+            "show": true,
+            "scale": false,
+            "nameLocation": "end",
+            "nameGap": 15,
+            "gridIndex": 0,
+            "axisLabel": {
+                "show": true,
+                "margin": 8,
+                "fontSize": 12,
+                "fontFamily": "Microsoft YaHei",
+                "valueAnimation": false
+            },
+            "inverse": false,
+            "position": "center",
+            "offset": 0,
+            "splitNumber": 5,
+            "minInterval": 0,
+            "splitLine": {
+                "show": true,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 0.3,
+                    "curveness": 0,
+                    "type": "dashed"
+                }
+            },
+            "animation": true,
+            "animationThreshold": 2000,
+            "animationDuration": 1000,
+            "animationEasing": "cubicOut",
+            "animationDelay": 0,
+            "animationDurationUpdate": 300,
+            "animationEasingUpdate": "cubicOut",
+            "animationDelayUpdate": 0
+        }
+    ],
+    "yAxis": [
+        {
+            "type": "category",
+            "name": "\u6392\u540d",
+            "show": true,
+            "scale": false,
+            "nameLocation": "end",
+            "nameGap": 15,
+            "gridIndex": 0,
+            "axisLine": {
+                "show": true,
+                "onZero": true,
+                "onZeroAxisIndex": 0,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid",
+                    "color": "#333"
+                }
+            },
+            "axisLabel": {
+                "show": true,
+                "margin": 8,
+                "interval": 0,
+                "fontFamily": "Microsoft YaHei",
+                "formatter": "{value}",
+                "valueAnimation": false
+            },
+            "inverse": false,
+            "position": "center",
+            "offset": 0,
+            "splitNumber": 5,
+            "minInterval": 0,
+            "splitLine": {
+                "show": true,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid"
+                }
+            },
+            "animation": true,
+            "animationThreshold": 2000,
+            "animationDuration": 1000,
+            "animationEasing": "cubicOut",
+            "animationDelay": 0,
+            "animationDurationUpdate": 300,
+            "animationEasingUpdate": "cubicOut",
+            "animationDelayUpdate": 0,
+            "data": [
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "122",
+                "111",
+                "111",
+                "111",
+                "111",
+                "111",
+                "111",
+                "111",
+                "111",
+                "111",
+                "111",
+                "111",
+                "100",
+                "100",
+                "100",
+                "100",
+                "100",
+                "100",
+                "100",
+                "100",
+                "100",
+                "100",
+                "100"
+            ]
+        }
+    ],
+    "title": [
+        {
+            "show": true,
+            "target": "blank",
+            "subtarget": "blank",
+            "padding": 5,
+            "itemGap": 10,
+            "textAlign": "auto",
+            "textVerticalAlign": "auto",
+            "triggerEvent": false
+        }
+    ]
+};
+                    
+                    option_vote_chart.grid = {
+                        left: '15%',
+                        right: '15%',
+                        top: '2%',
+                        bottom: '5%',
+                        containLabel: true
+                    };
+                    
+                    chart_vote_chart.setOption(option_vote_chart);
+                    
+                    window.addEventListener('resize', function() {
+                        chart_vote_chart.resize();
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <include src="../../../templates/footer.html"></include>
+    <script type="module" src="../../../js/common/template-loader.js"></script>
+    <script src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
+    <script src="../../../js/visualization/visualization.js"></script>
+</body>
+</html>

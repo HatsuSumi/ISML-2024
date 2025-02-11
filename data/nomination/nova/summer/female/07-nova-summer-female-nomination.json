@@ -1,0 +1,294 @@
+{
+  "date": "01.21-01.28",
+  "event": "新星组夏季赛提名-女性组别",
+  "data": [
+    {
+      "name": "八奈见杏菜",
+      "ip": "败犬女主太多了！",
+      "cv": "远野光",
+      "votes": 457,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 1
+    },
+    {
+      "name": "亚托莉",
+      "ip": "ATRI -My Dear Moments-",
+      "cv": "赤尾光",
+      "votes": 442,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 2
+    },
+    {
+      "name": "绫濑沙季",
+      "ip": "义妹生活",
+      "cv": "中岛由贵",
+      "votes": 408,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 3
+    },
+    {
+      "name": "小鞠知花",
+      "ip": "败犬女主太多了！",
+      "cv": "寺泽百花",
+      "votes": 370,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 4
+    },
+    {
+      "name": "玛利亚·米哈伊罗夫纳·九条",
+      "ip": "不时轻声地以俄语遮羞的邻座艾莉同学",
+      "cv": "藤井幸代",
+      "votes": 253,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 5
+    },
+    {
+      "name": "七仓凛",
+      "ip": "疑似后宫",
+      "cv": "早见沙织",
+      "votes": 232,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 6
+    },
+    {
+      "name": "周防有希",
+      "ip": "不时轻声地以俄语遮羞的邻座艾莉同学",
+      "cv": "丸冈和佳奈",
+      "votes": 222,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 7
+    },
+    {
+      "name": "艾莉莎·米哈伊罗夫纳·九条",
+      "ip": "不时轻声地以俄语遮羞的邻座艾莉同学",
+      "cv": "上坂堇",
+      "votes": 145,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 8
+    },
+    {
+      "name": "神白水菜萌",
+      "ip": "ATRI -My Dear Moments-",
+      "cv": "高桥未奈美",
+      "votes": 97,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 9
+    },
+    {
+      "name": "鹿乃子乃子",
+      "ip": "鹿乃子乃子乃子虎视眈眈",
+      "cv": "潘惠美",
+      "votes": 41,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 10
+    },
+    {
+      "name": "虎视虎子",
+      "ip": "鹿乃子乃子乃子虎视眈眈",
+      "cv": "藤田咲",
+      "votes": 37,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 11
+    },
+    {
+      "name": "小佐内由纪",
+      "ip": "小市民系列",
+      "cv": "羊宫妃那",
+      "votes": 32,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 12
+    },
+    {
+      "name": "橘美花莉",
+      "ip": "2.5次元的诱惑",
+      "cv": "鬼头明里",
+      "votes": 30,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 13
+    },
+    {
+      "name": "读卖栞",
+      "ip": "义妹生活",
+      "cv": "铃木实里",
+      "votes": 30,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 13
+    },
+    {
+      "name": "苍井咲",
+      "ip": "前辈是男孩子",
+      "cv": "关根明良",
+      "votes": 24,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 15
+    },
+    {
+      "name": "深森白夜",
+      "ip": "魔法少女与邪恶曾经敌对。",
+      "cv": "中原麻衣",
+      "votes": 24,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 15
+    },
+    {
+      "name": "藤野步",
+      "ip": "蓦然回首",
+      "cv": "河合优实",
+      "votes": 22,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 17
+    },
+    {
+      "name": "心音淡雪",
+      "ip": "身为VTuber的我因为忘记关台而成了传说",
+      "cv": "佐仓绫音",
+      "votes": 20,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 18
+    },
+    {
+      "name": "园上真咲",
+      "ip": "深夜Punch",
+      "cv": "长谷川育美",
+      "votes": 17,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 19
+    },
+    {
+      "name": "雫",
+      "ip": "擅长逃跑的殿下",
+      "cv": "高木遥香",
+      "votes": 12,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 20
+    },
+    {
+      "name": "柯蕾特·卢瓦尔",
+      "ip": "杖与剑的魔剑谭",
+      "cv": "天野聪美",
+      "votes": 11,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 21
+    },
+    {
+      "name": "忍野忍",
+      "ip": "物语系列",
+      "cv": "坂本真绫",
+      "votes": 11,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 21
+    },
+    {
+      "name": "哈莉·奎茵",
+      "ip": "异世界自杀小队",
+      "cv": "永濑安奈",
+      "votes": 10,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 23
+    },
+    {
+      "name": "贝尔",
+      "ip": "地下城里的人们",
+      "cv": "铃代纱弓",
+      "votes": 5,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 24
+    },
+    {
+      "name": "美空彼方",
+      "ip": "亦叶亦花",
+      "cv": "中川梨花",
+      "votes": 5,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 24
+    },
+    {
+      "name": "MEM啾",
+      "ip": "【我推的孩子】",
+      "cv": "大久保瑠美",
+      "votes": 5,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 24
+    },
+    {
+      "name": "温水佳树",
+      "ip": "败犬女主太多了！",
+      "cv": "田中美海",
+      "votes": 98,
+      "avatar": "",
+      "is_advanced": false,
+      "rank": 27
+    },
+    {
+      "name": "天乃莉莉纱",
+      "ip": "2.5次元的诱惑",
+      "cv": "前田佳织里",
+      "votes": 22,
+      "avatar": "",
+      "is_advanced": false,
+      "rank": 28
+    },
+    {
+      "name": "京本",
+      "ip": "蓦然回首",
+      "cv": "吉田美月喜",
+      "votes": 17,
+      "avatar": "",
+      "is_advanced": false,
+      "rank": 29
+    },
+    {
+      "name": "烧盐柠檬",
+      "ip": "败犬女主太多了！",
+      "cv": "若山诗音",
+      "votes": 15,
+      "avatar": "",
+      "is_advanced": false,
+      "rank": 30
+    },
+    {
+      "name": "马剃天爱星",
+      "ip": "败犬女主太多了！",
+      "cv": "诸星堇",
+      "votes": 12,
+      "avatar": "",
+      "is_advanced": false,
+      "rank": 31
+    },
+    {
+      "name": "虎视馅子",
+      "ip": "鹿乃子乃子乃子虎视眈眈",
+      "cv": "田边留依",
+      "votes": 10,
+      "avatar": "",
+      "is_advanced": false,
+      "rank": 32
+    }
+  ]
+}

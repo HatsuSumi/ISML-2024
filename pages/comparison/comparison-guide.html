@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../css/comparison/comparison-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+    <include src="../../templates/header.html"></include>
+
+    <main class="guide-container">
+        <!-- 左侧导航栏 -->
+        <nav class="guide-nav">
+            <div class="nav-header">
+                <h3>📖 对比类型</h3>
+            </div>
+            <div class="nav-list">
+                <a href="#one-to-one" class="nav-item active">
+                    <i class="fas fa-exchange-alt"></i>
+                    一对一对比
+                </a>
+                <a href="#base-compare" class="nav-item">
+                    <i class="fas fa-dot-circle"></i>
+                    基准角色对比
+                </a>
+                <a href="#avg-compare" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    平均值对比
+                </a>
+                <div class="nav-subtitle">
+                    <i class="fas fa-users"></i>
+                    组对比
+                </div>
+                <a href="#group-total" class="nav-item">
+                    <i class="fas fa-chart-bar"></i>
+                    组总票数对比
+                </a>
+                <a href="#group-avg" class="nav-item">
+                    <i class="fas fa-calculator"></i>
+                    组平均值对比
+                </a>
+                <a href="#group-base-total" class="nav-item">
+                    <i class="fas fa-bullseye"></i>
+                    组基准总票对比
+                </a>
+                <a href="#group-base-avg" class="nav-item">
+                    <i class="fas fa-balance-scale"></i>
+                    组基准平均值对比
+                </a>
+            </div>
+        </nav>
+
+        <!-- 中间内容区 -->
+        <div class="guide-content">
+            <section id="one-to-one" class="type-section">
+                <h2>一对一对比</h2>
+                <div class="type-intro">
+                    <div class="type-tags">
+                        <span class="tag">基础</span>
+                        <span class="tag">直观</span>
+                    </div>
+                    <p>直接比较两个角色的得票情况，最基础的对比方式。</p>
+                </div>
+                <div class="type-details">
+                    <div class="usage-card">
+                        <h3>🎯 使用场景</h3>
+                        <ul>
+                            <li>想知道两个角色谁更受欢迎</li>
+                            <li>分析两个角色的票数差距</li>
+                            <li>对比同IP不同角色的表现</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h3>💡 功能说明</h3>
+                        <div class="detail-item">
+                            <h4>票数对比</h4>
+                            <p>直接展示两个角色的得票数和票数差距</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>得票率</h4>
+                            <p>计算每个角色在总投票中的占比</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>自动晋级</h4>
+                            <p>支持对比包含自动晋级的角色，但是自动晋级角色不会参与计算</p>
+                        </div>
+                    </div>
+                    <div class="example-card">
+                        <h3>📝 例子</h3>
+                        <div class="example-item">
+                            <h4>基本对比</h4>
+                            <p class="total-votes">总选票数: 10000票</p>
+                            <p>角色A: 1000票 (10.0%)</p>
+                            <p>角色B: 800票 (8.0%)</p>
+                            <p>差距: +200票（+2.0%）</p>
+                        </div>
+                        <div class="example-item">
+                            <h4>包含自动晋级</h4>
+                            <p class="total-votes">总选票数: 10000票</p>
+                            <p>角色A: 自动晋级</p>
+                            <p>角色B: 800票 (8.0%)</p>
+                            <p>差距: 无法计算 (自动晋级)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="base-compare" class="type-section">
+                <h2>基准角色对比</h2>
+                <div class="type-intro">
+                    <div class="type-tags">
+                        <span class="tag">多角色</span>
+                        <span class="tag">基准比较</span>
+                    </div>
+                    <p>选择一个基准角色，其他角色都与TA进行对比。</p>
+                </div>
+                <div class="type-details">
+                    <div class="usage-card">
+                        <h3>🎯 使用场景</h3>
+                        <ul>
+                            <li>分析多个角色与热门角色的差距</li>
+                            <li>以某个特定角色为参照</li>
+                            <li>了解角色间的相对实力</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h3>💡 功能说明</h3>
+                        <div class="detail-item">
+                            <h4>基准选择</h4>
+                            <p>第一个选择的角色将作为基准</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>差距计算</h4>
+                            <p>显示其他角色与基准的票数差距和比例</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>自动晋级</h4>
+                            <p>支持对比包含自动晋级的角色，但是自动晋级角色不会参与计算</p>
+                        </div>
+                    </div>
+                    <div class="example-card">
+                        <h3>📝 例子</h3>
+                        <div class="example-item">
+                            <h4>基准对比</h4>
+                            <p class="total-votes">总选票数: 10000票</p>
+                            <p>基准角色: 1500票 (15.0%)</p>
+                            <p>角色A: 1200票 (12.0%, -300票)</p>
+                            <p>角色B: 1800票 (18.0%, +300票)</p>
+                        </div>
+                        <div class="example-item">
+                            <h4>包含自动晋级</h4>
+                            <p class="total-votes">总选票数: 10000票</p>
+                            <p>基准角色: 1500票 (15.0%)</p>
+                            <p>角色A: 自动晋级</p>
+                            <p>角色B: 1800票 (18.0%, +300票)</p>
+                            <p>差距: 仅计算角色B与基准的差距</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="avg-compare" class="type-section">
+                <h2>平均值对比</h2>
+                <div class="type-intro">
+                    <div class="type-tags">
+                        <span class="tag">多角色</span>
+                        <span class="tag">平均比较</span>
+                    </div>
+                    <p>计算所有角色的平均票数，分析每个角色与平均水平的差距。</p>
+                </div>
+                <div class="type-details">
+                    <div class="usage-card">
+                        <h3>🎯 使用场景</h3>
+                        <ul>
+                            <li>了解角色在整体中的表现</li>
+                            <li>分析与平均水平的差距</li>
+                            <li>识别表现突出的角色</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h3>💡 功能说明</h3>
+                        <div class="detail-item">
+                            <h4>平均计算</h4>
+                            <p>自动计算所有角色的平均票数</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>差异分析</h4>
+                            <p>显示每个角色与平均值的差距</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>自动晋级</h4>
+                            <p>支持对比包含自动晋级的角色，但是自动晋级角色不会参与计算</p>
+                        </div>
+                    </div>
+                    <div class="example-card">
+                        <h3>📝 例子</h3>
+                        <div class="example-item">
+                            <h4>平均值计算</h4>
+                            <p class="total-votes">总选票数: 10000票（不影响当前平均值对比）</p>
+                            <p>平均票数: 1000票</p>
+                            <p>角色A: 1200票 (+200票)</p>
+                            <p>角色B: 800票 (-200票)</p>
+                            <p>角色C: 1000票 (持平)</p>
+                        </div>
+                        <div class="example-item">
+                            <h4>包含自动晋级</h4>
+                            <p class="total-votes">总选票数: 10000票</p>
+                            <p>平均票数: 900票</p>
+                            <p>角色A: 1200票 (+300票)</p>
+                            <p>角色B: 自动晋级</p>
+                            <p>角色C: 900票 (持平)</p>
+                            <p>角色D: 600票 (-300票)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="group-total" class="type-section">
+                <h2>组总票数对比</h2>
+                <div class="type-intro">
+                    <div class="type-tags">
+                        <span class="tag">组对比</span>
+                        <span class="tag">总票数</span>
+                    </div>
+                    <p>直接比较不同组的总得票数，适合分析组整体实力。</p>
+                </div>
+                <div class="type-details">
+                    <div class="usage-card">
+                        <h3>🎯 使用场景</h3>
+                        <ul>
+                            <li>比较不同组的总体人气</li>
+                            <li>分析组间的整体实力差距</li>
+                            <li>了解组合效应</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h3>💡 功能说明</h3>
+                        <div class="detail-item">
+                            <h4>总票数计算</h4>
+                            <p>自动累加组内所有角色的票数</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>组间差距</h4>
+                            <p>显示相邻排名组之间的票数差距</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>包含自动晋级</h4>
+                            <p>支持对比包含自动晋级的角色，但是自动晋级角色不会参与计算</p>
+                        </div>
+                    </div>
+                    <div class="example-card">
+                        <h3>📝 例子</h3>
+                        <div class="example-item">
+                            <h4>总票数统计</h4>
+                            <p class="total-votes">总选票数: 10000票（不影响当前组总票数对比）</p>
+                            <p>组A总票数: 5000票</p>
+                            <p>组B总票数: 4200票</p>
+                            <p>组C总票数: 2600票</p>
+                            <p>差距: 组A > 组B > 组C</p>
+                        </div>
+                        <div class="example-item">
+                            <h4>组内明细</h4>
+                            <p>组A: 1500 + 1800 + 1700</p>
+                            <p>组B: 1400 + 1500 + 1300</p>
+                            <p>组C: 1000 + 自动晋级 + 1600</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="group-avg" class="type-section">
+                <h2>组平均值对比</h2>
+                <div class="type-intro">
+                    <div class="type-tags">
+                        <span class="tag">组对比</span>
+                        <span class="tag">平均值</span>
+                    </div>
+                    <p>比较不同组的平均票数，适合组内人数不同的情况。</p>
+                </div>
+                <div class="type-details">
+                    <div class="usage-card">
+                        <h3>🎯 使用场景</h3>
+                        <ul>
+                            <li>组内人数不同时的公平比较</li>
+                            <li>分析组内角色的平均实力</li>
+                            <li>评估组整体水平</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h3>💡 功能说明</h3>
+                        <div class="detail-item">
+                            <h4>平均值计算</h4>
+                            <p>计算每组的平均票数</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>相对总平均</h4>
+                            <p>显示与所有组平均值的对比</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>包含自动晋级</h4>
+                            <p>支持对比包含自动晋级的角色，但是自动晋级角色不会参与计算</p>
+                        </div>
+                    </div>
+                    <div class="example-card">
+                        <h3>📝 例子</h3>
+                        <div class="example-item">
+                            <h4>平均值统计</h4>
+                            <p class="total-votes">总选票数: 10000票（不影响当前组平均值对比）</p>
+                            <p>所有组平均: 1500票</p>
+                            <p>组A平均: 1666票 (+166票)</p>
+                            <p>组B平均: 1400票 (-100票)</p>
+                            <p>组C平均: 1300票 (-200票)</p>
+                            <p>差距：组A > 组B > 组C</p>
+                        </div>
+                        <div class="example-item">
+                            <h4>组内明细</h4>
+                            <p>组A: (1500 + 1800 + 1700) ÷ 3</p>
+                            <p>组B: (1400 + 1500 + 1300) ÷ 3</p>
+                            <p>组C: (1000 + 自动晋级 + 1600) ÷ 2 (排除自动晋级)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="group-base-total" class="type-section">
+                <h2>组基准总票数对比</h2>
+                <div class="type-intro">
+                    <div class="type-tags">
+                        <span class="tag">组对比</span>
+                        <span class="tag">基准组</span>
+                        <span class="tag">总票数</span>
+                    </div>
+                    <p>选择一个基准组，其他组都与它的总票数进行对比。</p>
+                </div>
+                <div class="type-details">
+                    <div class="usage-card">
+                        <h3>🎯 使用场景</h3>
+                        <ul>
+                            <li>分析与特定组的总票数差距</li>
+                            <li>以热门组为参照进行对比</li>
+                            <li>了解组间实力差距</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h3>💡 功能说明</h3>
+                        <div class="detail-item">
+                            <h4>基准组选择</h4>
+                            <p>第一个选择的组将作为基准组</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>总票数差距</h4>
+                            <p>显示其他组与基准组的总票数差异</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>包含自动晋级</h4>
+                            <p>支持对比包含自动晋级的角色，但是自动晋级角色不会参与计算</p>
+                        </div>
+                    </div>
+                    <div class="example-card">
+                        <h3>📝 例子</h3>
+                        <div class="example-item">
+                            <h4>基准组对比</h4>
+                            <p class="total-votes">总选票数: 10000票（不影响当前组基准总票数对比）</p>
+                            <p>基准组: 5000票 (50.0%)</p>
+                            <p>组A: 4500票 (45.0%, -500票)</p>
+                            <p>组B: 4000票 (40.0%, -1000票)</p>
+                        </div>
+                        <div class="example-item">
+                            <h4>组内明细</h4>
+                            <p>基准组: 1500 + 1800 + 1700</p>
+                            <p>组A: 1400 + 1500 + 1600</p>
+                            <p>组B: 1000 + 1500 + 自动晋级 + 1500</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="group-base-avg" class="type-section">
+                <h2>组基准平均值对比</h2>
+                <div class="type-intro">
+                    <div class="type-tags">
+                        <span class="tag">组对比</span>
+                        <span class="tag">基准组</span>
+                        <span class="tag">平均值</span>
+                    </div>
+                    <p>选择一个基准组，其他组都与它的平均票数进行对比。</p>
+                </div>
+                <div class="type-details">
+                    <div class="usage-card">
+                        <h3>🎯 使用场景</h3>
+                        <ul>
+                            <li>组内人数不同时的基准对比</li>
+                            <li>分析与特定组的平均实力差距</li>
+                            <li>公平评估组间差异</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h3>💡 功能说明</h3>
+                        <div class="detail-item">
+                            <h4>基准组平均值</h4>
+                            <p>计算基准组的平均票数</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>平均值差距</h4>
+                            <p>显示其他组与基准组的平均票数差异</p>
+                        </div>
+                        <div class="detail-item">  
+                            <h4>包含自动晋级</h4>
+                            <p>支持对比包含自动晋级的角色，但是自动晋级角色不会参与计算</p>
+                        </div>
+                    </div>
+                    <div class="example-card">
+                        <h3>📝 例子</h3>
+                        <div class="example-item">
+                            <h4>基准组平均</h4>
+                            <p class="total-votes">总选票数: 10000票（不影响当前组基准平均值对比）</p>
+                            <p>基准组: 1666票 (基准平均)</p>
+                            <p>组A: 1500票 (-166票)</p>
+                            <p>组B: 1333票 (-333票)</p>
+                        </div>
+                        <div class="example-item">
+                            <h4>组内明细</h4>
+                            <p>基准组: (1500 + 1800 + 1700) ÷ 3</p>
+                            <p>组A: (1400 + 1500 + 1600) ÷ 3</p>
+                            <p>组B: (1000 + 1500 + 自动晋级 + 1500) ÷ 3 (排除自动晋级)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 右侧代码区 -->
+        <aside class="code-panel">
+            <button class="toggle-panel">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="panel-header">
+                <h3>💻 实现细节</h3>
+            </div>
+            <!-- 添加 tab 栏 -->
+            <div class="code-tabs">
+                <button class="tab-item active" data-type="one-to-one">一对一</button>
+                <button class="tab-item" data-type="base">基准对比</button>
+                <button class="tab-item" data-type="avg">平均值</button>
+                <button class="tab-item" data-type="group-total">组总票数</button>
+                <button class="tab-item" data-type="group-avg">组平均值</button>
+                <button class="tab-item" data-type="group-base-total">组基准总票数</button>
+                <button class="tab-item" data-type="group-base-avg">组基准平均值</button>
+            </div>
+            <div class="code-content">
+                <!-- 每个 tab 对应的代码块 -->
+                <div class="code-section active" data-type="one-to-one">
+                    <div class="code-header">
+                        <span>一对一对比计算逻辑</span>
+                        <button class="toggle-code">
+                            <i class="fas fa-code"></i>
+                        </button>
+                    </div>
+                    <div class="code-block">
+                        <pre><code class="language-javascript"></code></pre>
+                    </div>
+                </div>
+                <div class="code-section" data-type="base">
+                    <div class="code-header">
+                        <span>基准对比计算逻辑</span>
+                        <button class="toggle-code">
+                            <i class="fas fa-code"></i>
+                        </button>
+                    </div>
+                    <div class="code-block">
+                        <pre><code class="language-javascript"></code></pre>
+                    </div>
+                </div>
+                <div class="code-section" data-type="avg">
+                    <div class="code-header">
+                        <span>平均值对比计算逻辑</span>
+                        <button class="toggle-code">
+                            <i class="fas fa-code"></i>
+                        </button>
+                    </div>
+                    <div class="code-block">
+                        <pre><code class="language-javascript"></code></pre>
+                    </div>
+                </div>
+                <div class="code-section" data-type="group-total">
+                    <div class="code-header">
+                        <span>组总票数对比计算逻辑</span>
+                        <button class="toggle-code">
+                            <i class="fas fa-code"></i>
+                        </button>
+                    </div>
+                    <div class="code-block">
+                        <pre><code class="language-javascript"></code></pre>
+                    </div>
+                </div>
+                <div class="code-section" data-type="group-avg">
+                    <div class="code-header">
+                        <span>组平均值对比计算逻辑</span>
+                        <button class="toggle-code">
+                            <i class="fas fa-code"></i>
+                        </button>
+                    </div>
+                    <div class="code-block">
+                        <pre><code class="language-javascript"></code></pre>
+                    </div>
+                </div>
+                <div class="code-section" data-type="group-base-total">
+                    <div class="code-header">
+                        <span>组基准总票数对比计算逻辑</span>
+                        <button class="toggle-code">
+                            <i class="fas fa-code"></i>
+                        </button>
+                    </div>
+                    <div class="code-block">
+                        <pre><code class="language-javascript"></code></pre>
+                    </div>
+                </div>
+                <div class="code-section" data-type="group-base-avg">
+                    <div class="code-header">
+                        <span>组基准平均值对比计算逻辑</span>
+                        <button class="toggle-code">
+                            <i class="fas fa-code"></i>
+                        </button>
+                    </div>
+                    <div class="code-block">
+                        <pre><code class="language-javascript"></code></pre>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <include src="../../templates/footer.html"></include>
+
+    <script type="module" src="../../js/common/template-loader.js"></script>
+    <script type="module" src="../../js/comparison/comparison-guide.js"></script>
+</body>
+</html>

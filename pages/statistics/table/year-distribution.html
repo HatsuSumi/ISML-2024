@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <include src="../../../templates/header.html"></include>
+    <link rel="stylesheet" href="../../../css/statistics/table/year-distribution.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <div class="back-section">
+            <a href="../nomination-stats.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> 返回提名统计
+            </a>
+        </div>
+        <h1>年份分布详情</h1>
+        
+        <!-- 筛选区域 -->
+        <div class="filter-section">
+            <div class="filter-group">
+                <h3>组别筛选</h3>
+                <label><input type="radio" name="group" value="stellar" checked> 恒星组</label>
+                <label><input type="radio" name="group" value="nova"> 新星组</label>
+            </div>
+
+            <div class="filter-group hidden" id="nova-filters">
+                <h3>季节筛选</h3>
+                <label><input type="checkbox" name="season" value="winter" checked> 冬季</label>
+                <label><input type="checkbox" name="season" value="spring" checked> 春季</label>
+                <label><input type="checkbox" name="season" value="summer" checked> 夏季</label>
+                <label><input type="checkbox" name="season" value="autumn" checked> 秋季</label>
+            </div>
+
+            <div class="filter-group">
+                <h3>性别筛选</h3>
+                <label><input type="checkbox" name="gender" value="female" checked> 女性角色</label>
+                <label><input type="checkbox" name="gender" value="male" checked> 男性角色</label>
+            </div>
+
+            <div class="filter-group">
+                <h3>状态筛选</h3>
+                <label><input type="checkbox" name="status" value="advance" checked> 晋级</label>
+                <label><input type="checkbox" name="status" value="eliminate" checked> 未晋级</label>
+            </div>
+        </div>
+
+        <!-- 搜索框 -->
+        <div class="search-section">
+            <div class="search-box">
+                <div class="search-input-wrapper">
+                    <input type="text" id="searchInput" placeholder="搜索年份或角色名...">
+                    <i class="fas fa-search search-icon"></i>
+                    <span class="search-count" style="display: none;"></span>
+                </div>
+                <button id="searchBtn">搜索</button>
+            </div>
+        </div>
+
+        <!-- 表格区域 -->
+        <div class="table-section">
+            <table id="yearTable">
+                <thead>
+                    <tr>
+                        <th data-column="year">年份</th>
+                        <th data-column="winter">冬季</th>
+                        <th data-column="spring">春季</th>
+                        <th data-column="summer">夏季</th>
+                        <th data-column="autumn">秋季</th>
+                        <th data-column="total">总计</th>
+                        <th data-column="percentage">占比</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 弹窗 -->
+        <div class="modal" id="characterModal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2 id="modalTitle"></h2>
+                <div class="character-lists">
+                    <div class="character-group">
+                        <h3>该季度角色列表</h3>
+                        <ul id="characterList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <include src="../../../templates/footer.html"></include>
+    <script type="module" src="../../../js/common/template-loader.js"></script>
+    <script src="../../../js/statistics/table/year-distribution.js"></script>
+</body>
+</html> 

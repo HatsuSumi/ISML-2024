@@ -1,0 +1,231 @@
+{
+  "date": "01.14-01.21",
+  "event": "新星组春季赛提名-男性组别",
+  "data": [
+    {
+      "name": "夏尔·凡多姆海恩",
+      "ip": "黑执事",
+      "cv": "坂本真绫",
+      "votes": 69,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 1
+    },
+    {
+      "name": "塞巴斯蒂安·米卡利斯",
+      "ip": "黑执事",
+      "cv": "小野大辅",
+      "votes": 67,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 2
+    },
+    {
+      "name": "费里欧",
+      "ip": "从Lv2开始开外挂的前勇者候补过着悠哉异世界生活",
+      "cv": "日野聪",
+      "votes": 53,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 3
+    },
+    {
+      "name": "克拉福·罗伦斯",
+      "ip": "狼与香辛料",
+      "cv": "福山润",
+      "votes": 18,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 4
+    },
+    {
+      "name": "斋藤正藏",
+      "ip": "老夫老妻重返青春",
+      "cv": "三木真一郎",
+      "votes": 16,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 5
+    },
+    {
+      "name": "朝野太阳",
+      "ip": "夜樱家的大作战",
+      "cv": "川岛零士",
+      "votes": 14,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 6
+    },
+    {
+      "name": "洛伊德·迪·沙鲁姆",
+      "ip": "转生七王子的魔法全解",
+      "cv": "小市真琴",
+      "votes": 12,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 7
+    },
+    {
+      "name": "清峰叶流火",
+      "ip": "失忆投捕",
+      "cv": "增田俊树",
+      "votes": 11,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 8
+    },
+    {
+      "name": "要圭",
+      "ip": "失忆投捕",
+      "cv": "宫野真守",
+      "votes": 10,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 9
+    },
+    {
+      "name": "老师",
+      "ip": "蔚蓝档案",
+      "cv": "坂田将吾",
+      "votes": 9,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 10
+    },
+    {
+      "name": "镝矢惣助",
+      "ip": "怪人的沙拉碗",
+      "cv": "古川慎",
+      "votes": 8,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 11
+    },
+    {
+      "name": "斋藤治",
+      "ip": "雀魂麻将",
+      "cv": "安元洋贵",
+      "votes": 8,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 11
+    },
+    {
+      "name": "樱遥",
+      "ip": "WIND BREAKER 防风铃",
+      "cv": "内田雄马",
+      "votes": 7,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 13
+    },
+    {
+      "name": "少爷",
+      "ip": "死神少爷与黑女仆",
+      "cv": "花江夏树",
+      "votes": 7,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 13
+    },
+    {
+      "name": "日比野卡夫卡",
+      "ip": "怪兽8号",
+      "cv": "福西胜也",
+      "votes": 5,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 15
+    },
+    {
+      "name": "萨冈",
+      "ip": "身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？",
+      "cv": "小林裕介",
+      "votes": 5,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 15
+    },
+    {
+      "name": "斐伊·提欧·菲尔斯",
+      "ip": "渴求游戏之神",
+      "cv": "岛崎信长",
+      "votes": 4,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 17
+    },
+    {
+      "name": "保罗·格雷拉特",
+      "ip": "无职转生",
+      "cv": "森川智之",
+      "votes": 4,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 17
+    },
+    {
+      "name": "阿诺斯·波鲁迪戈乌多",
+      "ip": "魔王学院的不适任者",
+      "cv": "梅原裕一郎",
+      "votes": 4,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 17
+    },
+    {
+      "name": "花野井飒生",
+      "ip": "花野井同学和相思病",
+      "cv": "小林千晃",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 20
+    },
+    {
+      "name": "奥斯卡",
+      "ip": "Unnamed Memory",
+      "cv": "中岛良树",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 20
+    },
+    {
+      "name": "佐佐仓溜",
+      "ip": "调酒师",
+      "cv": "寺岛拓笃",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 20
+    },
+    {
+      "name": "嘴平伊之助",
+      "ip": "鬼灭之刃",
+      "cv": "松冈祯丞",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 20
+    },
+    {
+      "name": "司波达也",
+      "ip": "魔法科高中的劣等生",
+      "cv": "中村悠一",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 20
+    },
+    {
+      "name": "千早瞬平",
+      "ip": "失忆投捕",
+      "cv": "岛崎信长",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": false,
+      "rank": 25
+    }
+  ]
+}

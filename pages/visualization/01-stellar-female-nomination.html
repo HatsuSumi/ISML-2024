@@ -1,97 +1,151 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>ISML 2024 恒星组提名赛 - 女子组</title>
-    <link rel="stylesheet" href="../../css/navbar.css">
-    <link rel="stylesheet" href="../../css/footer.css">
-    <link rel="stylesheet" href="../../css/visualization.css">
-    <script src="../../js/navbar.js"></script>
-    <script src="../../js/footer.js"></script>
-    <script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
+    <link rel="stylesheet" href="../../../css/visualization/visualization.css">
 </head>
 <body>
-    <!-- 导航栏会被 navbar.js 自动插入到这里 -->
-    <div class="button-container">
-        <a href="../../index.html" class="home-btn">返回主页</a>
-        <a href="../tables/01-stellar-female-nomination-table.html" class="table-btn">查看表格</a>
-    </div>
-    <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Awesome-pyecharts</title>
-                <script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
-
-</head>
-<body >
-    <div id="vote_chart" class="chart-container" style="width:1500px; height:1500px; "></div>
-    <script>
-        var chart_vote_chart = echarts.init(
-            document.getElementById('vote_chart'), 'dark', {renderer: 'canvas'});
+<include src="../../../templates/header.html"></include>
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="button-container">
+                <a href="javascript:history.back()" class="home-btn">返回上一页</a>
+                <a href="../tables/01-stellar-female-nomination-table.html" class="table-btn">查看表格</a>
+                <div class="size-controls">
+                    <div class="slider-container">
+                        <label for="width-slider">宽度: <span id="width-value">1800</span>px</label>
+                        <input type="range" id="width-slider" min="100" max="2500" value="1800" step="100">
+                    </div>
+                    <div class="slider-container">
+                        <label for="height-slider">高度: <span id="height-value">2200</span>px</label>
+                        <input type="range" id="height-slider" min="100" max="5000" value="2200" step="100">
+                    </div>
+                    <button id="reset-size" class="reset-btn">重置大小</button>
+                </div>
+            </div>
+            <div class="content-scroll">
+                <div class="chart-wrapper">
+                    <div class="custom-legend">
+                        <div class="legend-item">
+                            <span class="legend-color advance"></span>
+                            <span class="legend-text">晋级</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color eliminate"></span>
+                            <span class="legend-text">未晋级</span>
+                        </div>
+                    </div>
+                    <div id="vote_chart" class="chart-container"></div>
+                </div>
+            </div>
             
-        document.body.style.backgroundColor = '#1a1a1a';
-        
-        // 创建标题容器
-        var titleContainer = document.createElement('div');
-        titleContainer.style.width = '1500px';
-        titleContainer.style.margin = '0 auto';
-        titleContainer.style.marginTop = '80px';
-        titleContainer.style.textAlign = 'center';
-        
-        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('width', '1500');
-        svg.setAttribute('height', '70');
-        
-        var title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        title.textContent = '12.31-1.7 - 恒星组提名-女性组别';
-        title.setAttribute('x', '750');
-        title.setAttribute('y', '25');
-        title.setAttribute('text-anchor', 'middle');
-        title.setAttribute('font-size', '24');
-        title.setAttribute('font-weight', 'bold');
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const widthSlider = document.getElementById('width-slider');
+                    const heightSlider = document.getElementById('height-slider');
+                    const widthValue = document.getElementById('width-value');
+                    const heightValue = document.getElementById('height-value');
+                    const chartContainer = document.querySelector('.chart-container');
+                    const chartWrapper = document.querySelector('.chart-wrapper');
+                    const resetBtn = document.getElementById('reset-size');
 
-        var subtitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        subtitle.textContent = '前52名晋级至主赛事恒星组预选赛阶段';
-        subtitle.setAttribute('x', '750');
-        subtitle.setAttribute('y', '50');
-        subtitle.setAttribute('text-anchor', 'middle');
-        subtitle.setAttribute('font-size', '14');
-        subtitle.setAttribute('fill', '#9370DB');
+                    const defaultWidth = 1800;
+                    const defaultHeight = 2200;
 
-        var gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-        gradient.id = 'titleGradient';
-        gradient.setAttribute('x1', '0%');
-        gradient.setAttribute('y1', '0%');
-        gradient.setAttribute('x2', '100%');
-        gradient.setAttribute('y2', '0%');
-        
-        var stops = [
-            {offset: '0%', color: '#ff6b6b'},
-            {offset: '40%', color: '#4a90e2'},
-            {offset: '100%', color: '#3eaf7c'}
-        ];
-        
-        stops.forEach(function(stop) {
-            var stopEl = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-            stopEl.setAttribute('offset', stop.offset);
-            stopEl.setAttribute('stop-color', stop.color);
-            gradient.appendChild(stopEl);
-        });
-        
-        svg.appendChild(gradient);
-        title.setAttribute('fill', 'url(#titleGradient)');
-        svg.appendChild(title);
-        svg.appendChild(subtitle);  
-        
-        titleContainer.appendChild(svg);
-        document.querySelector('#vote_chart').parentNode.insertBefore(titleContainer, document.querySelector('#vote_chart'));
-        
-        // 调整图表容器样式
-        document.querySelector('#vote_chart').style.margin = '0 auto';
-        document.querySelector('#vote_chart').style.textAlign = 'center';
-    
-        var option_vote_chart = {
+                    function resetSize() {
+                        widthSlider.value = defaultWidth;
+                        heightSlider.value = defaultHeight;
+                        widthValue.textContent = defaultWidth;
+                        heightValue.textContent = defaultHeight;
+                        chartContainer.style.maxWidth = `${defaultWidth}px`;
+                        chartWrapper.style.maxWidth = `${defaultWidth}px`;
+                        chartContainer.style.height = `${defaultHeight}px`;
+                        if (chart_vote_chart) {
+                            chart_vote_chart.resize();
+                        }
+                    }
+
+                    resetBtn.addEventListener('click', resetSize);
+
+                    function updateSize() {
+                        const width = Math.min(Math.max(widthSlider.value, 100), 2500);
+                        const height = Math.min(Math.max(heightSlider.value, 100), 5000);
+                        widthValue.textContent = width;
+                        heightValue.textContent = height;
+                        chartContainer.style.maxWidth = `${width}px`;
+                        chartWrapper.style.maxWidth = `${width}px`;
+                        chartContainer.style.height = `${height}px`;
+                        if (chart_vote_chart) {
+                            chart_vote_chart.resize();
+                        }
+                    }
+
+                    widthSlider.addEventListener('input', updateSize);
+                    heightSlider.addEventListener('input', updateSize);
+
+                    var titleContainer = document.createElement('div');
+                    titleContainer.className = 'title-container';
+                    
+                    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svg.style.width = '100%';
+                    svg.style.height = '75px';
+                    
+                    var title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    title.textContent = '12.31-01.07 - 恒星组提名-女性组别';
+                    title.setAttribute('x', '50%');
+                    title.setAttribute('y', '25');
+                    title.setAttribute('text-anchor', 'middle');
+                    title.style.fontSize = '24px';
+                    title.setAttribute('font-weight', 'bold');
+
+                    var subtitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    subtitle.textContent = '前92名晋级至主赛事恒星组预选赛阶段';
+                    subtitle.setAttribute('x', '50%');
+                    subtitle.setAttribute('y', '50');
+                    subtitle.setAttribute('text-anchor', 'middle');
+                    subtitle.style.fontSize = '14px';
+                    subtitle.setAttribute('fill', '#9370DB');
+
+                    var legendHint = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    legendHint.textContent = '点击图例可隐藏/显示系列';
+                    legendHint.setAttribute('x', '50%');
+                    legendHint.setAttribute('y', '70');
+                    legendHint.setAttribute('text-anchor', 'middle');
+                    legendHint.style.fontSize = '14px';
+                    legendHint.setAttribute('fill', '#9370DB');
+
+                    var gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+                    gradient.id = 'titleGradient';
+                    gradient.setAttribute('x1', '0%');
+                    gradient.setAttribute('y1', '0%');
+                    gradient.setAttribute('x2', '100%');
+                    gradient.setAttribute('y2', '0%');
+                    
+                    var stops = [
+                        {offset: '0%', color: '#ff6b6b'},
+                        {offset: '40%', color: '#4a90e2'},
+                        {offset: '100%', color: '#3eaf7c'}
+                    ];
+                    
+                    stops.forEach(function(stop) {
+                        var stopEl = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+                        stopEl.setAttribute('offset', stop.offset);
+                        stopEl.setAttribute('stop-color', stop.color);
+                        gradient.appendChild(stopEl);
+                    });
+                    
+                    svg.appendChild(gradient);
+                    title.setAttribute('fill', 'url(#titleGradient)');
+                    svg.appendChild(title);
+                    svg.appendChild(subtitle);
+                    svg.appendChild(legendHint);
+                    
+                    titleContainer.appendChild(svg);
+                    document.querySelector('.chart-wrapper').insertBefore(titleContainer, document.querySelector('#vote_chart'));
+                    
+                    window.chart_vote_chart = echarts.init(
+                        document.getElementById('vote_chart'), 'dark', {renderer: 'canvas'});
+                    var option_vote_chart = {
     "backgroundColor": "#1a1a1a",
     "animation": true,
     "animationThreshold": 2000,
@@ -130,66 +184,125 @@
                 null,
                 null,
                 null,
-                171,
-                172,
-                172,
-                176,
-                181,
-                184,
-                189,
-                193,
-                193,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                29,
+                29,
+                29,
+                30,
+                31,
+                31,
+                31,
+                31,
+                32,
+                32,
+                32,
+                34,
+                34,
+                35,
+                36,
+                37,
+                37,
+                38,
+                38,
+                38,
+                38,
+                38,
+                39,
+                39,
+                39,
+                40,
+                40,
+                40,
+                40,
+                41,
+                42,
+                42,
+                43,
+                43,
+                44,
+                50,
+                51,
+                52,
+                52,
+                53,
+                55,
+                55,
+                55,
+                56,
+                57,
+                59,
+                60,
+                60,
+                61,
+                62,
+                62,
+                63,
+                63,
+                64,
+                64,
+                65,
+                67,
+                67,
+                67,
+                67,
+                68,
+                70,
+                71,
+                72,
+                74,
+                75,
+                78,
+                78,
+                80,
+                81,
+                82,
+                84,
+                85,
+                89,
+                91,
+                95,
+                96,
+                104,
+                112,
+                137,
+                138,
+                142,
+                149,
+                152,
+                157,
+                162,
                 194,
-                196,
-                197,
                 198,
-                201,
-                209,
-                214,
-                217,
-                222,
-                225,
-                225,
-                225,
-                226,
-                228,
-                230,
-                230,
-                231,
-                234,
-                234,
-                238,
-                245,
-                250,
-                254,
-                258,
-                264,
-                280,
-                294,
-                303,
-                303,
-                305,
-                312,
-                316,
-                317,
-                320,
-                320,
-                329,
-                342,
-                343,
-                351,
-                369,
-                373,
-                475,
-                511
+                199,
+                212,
+                215,
+                235
             ],
             "realtimeSort": false,
             "showBackground": false,
             "stackStrategy": "samesign",
             "cursor": "pointer",
             "barMinHeight": 0,
-            "barCategoryGap": "20%",
-            "barGap": "30%",
+            "barCategoryGap": "40%",
+            "barGap": "0%",
             "large": false,
             "largeThreshold": 400,
             "seriesLayoutBy": "column",
@@ -201,7 +314,7 @@
                 "show": true,
                 "position": "right",
                 "margin": 8,
-                "formatter":                 function(params) {                    var labels = JSON.parse('[\"\u521d\u97f3\u672a\u6765\uff08VOCALOID\uff09\", \"\u89c1\u5d0e\u9e23\uff08Another\uff09\", \"\u5c0f\u821f\u6f6e\uff08\u590f\u65e5\u91cd\u73b0\uff09\", \"C.C.\uff08Code Geass\uff09\", \"\u4e00\u4e4b\u6fd1\u5343\u9e64\uff08\u79df\u501f\u5973\u53cb\uff09\", \"\u690e\u540d\u771f\u7531\u7406\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u5742\u4e0a\u667a\u4ee3\uff08CLANNAD\uff09\", \"\u971e\u4e4b\u4e18\u8bd7\u7fbd\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u5eb7\u5a1c\u5361\u59c6\u4f9d\uff08\u5c0f\u6797\u5bb6\u7684\u9f99\u5973\u4ec6\uff09\", \"\u7ea6\u5c14\u00b7\u798f\u6770\uff08\u95f4\u8c0d\u8fc7\u5bb6\u5bb6\uff09\", \"\u6cfd\u6751\u00b7\u65af\u6f58\u585e\u00b7\u82f1\u68a8\u68a8\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u672c\u95f4\u82bd\u8863\u5b50\uff08\u6211\u4eec\u4ecd\u672a\u77e5\u9053\u90a3\u5929\u6240\u770b\u89c1\u7684\u82b1\u7684\u540d\u5b57\u3002\uff09\", \"\u4e94\u66f4\u7409\u7483\uff08\u6211\u7684\u59b9\u59b9\u54ea\u6709\u8fd9\u4e48\u53ef\u7231\uff01\uff09\", \"\u5800\u4eac\u5b50\uff08\u5800\u4e0e\u5bab\u6751\uff09\", \"\u4e2d\u91ce\u4e94\u6708\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u5929\u91ce\u9633\u83dc\uff08\u5929\u6c14\u4e4b\u5b50\uff09\", \"\u85e4\u539f\u5343\u82b1\uff08\u8f89\u591c\u5927\u5c0f\u59d0\u60f3\u8ba9\u6211\u544a\u767d\uff5e\u5929\u624d\u4eec\u7684\u604b\u7231\u5934\u8111\u6218\uff5e\uff09\", \"\u4f11\u6bd4\u00b7\u591a\u62c9\uff08NO GAME NO LIFE \u6e38\u620f\u4eba\u751f\uff09\", \"\u963f\u5c3c\u4e9a\u00b7\u798f\u6770\uff08\u95f4\u8c0d\u8fc7\u5bb6\u5bb6\uff09\", \"\u96f6\u4e8c\uff08Darling in the FranXX\uff09\", \"\u9e22\u4e00\u6298\u7eb8\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u5800\u5317\u94c3\u97f3\uff08\u6b22\u8fce\u6765\u5230\u5b9e\u529b\u81f3\u4e0a\u4e3b\u4e49\u7684\u6559\u5ba4\uff09\", \"\u827e\u8389\u4e1d\u00b7\u4f2f\u96f7\u4e9a\u65af\u00b7\u683c\u96f7\u62c9\u7279\uff08\u65e0\u804c\u8f6c\u751f\uff09\", \"\u4e95\u4e4b\u4e0a\u6cf7\u5948\uff08\u8389\u53ef\u4e3d\u4e1d\uff09\", \"\u6817\u5c71\u672a\u6765\uff08\u5883\u754c\u7684\u5f7c\u65b9\uff09\", \"\u6850\u5d0e\u5343\u68d8\uff08\u4f2a\u604b\uff09\", \"\u559c\u591a\u5ddd\u6d77\u68a6\uff08\u66f4\u8863\u4eba\u5076\u5760\u5165\u7231\u6cb3\uff09\", \"\u4e00\u8272\u4f0a\u5415\u6ce2\uff08\u6211\u7684\u9752\u6625\u604b\u7231\u7269\u8bed\u679c\u7136\u6709\u95ee\u9898\u3002\uff09\", \"\u7531\u5d0e\u53f8\uff08\u603b\u4e4b\u5c31\u662f\u975e\u5e38\u53ef\u7231\uff09\", \"\u4e2d\u91ce\u4e8c\u4e43\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u591c\u5200\u795e\u5341\u9999\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u4e94\u6cb3\u7434\u91cc\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u7eeb\u6ce2\u4e3d\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u6653\u7f8e\u7130\uff08\u9b54\u6cd5\u5c11\u5973\u5c0f\u5706\uff09\", \"\u963f\u5e93\u5a05\uff08\u4e3a\u7f8e\u597d\u7684\u4e16\u754c\u732e\u4e0a\u795d\u798f\uff01\uff09\", \"\u7530\u4e95\u4e2d\u5f8b\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u73c2\u6735\u8389\u00b7\u8bfa\u5854\u00b7\u745f\u5c3c\u6b27\u91cc\u65af\uff08\u672b\u65e5\u65f6\u5728\u505a\u4ec0\u4e48\uff1f\u6709\u6ca1\u6709\u7a7a\uff1f\u53ef\u4ee5\u6765\u62ef\u6551\u5417\uff1f\uff09\", \"\u4f0a\u5730\u77e5\u8679\u590f\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u8fdc\u5742\u51db\uff08Fate\u7cfb\u5217\uff09\", \"\u897f\u5bab\u785d\u5b50\uff08\u58f0\u4e4b\u5f62\uff09\", \"\u767d\u4e95\u9ed1\u5b50\uff08\u9b54\u6cd5\u7981\u4e66\u76ee\u5f55\uff09\", \"\u6cc9\u6b64\u65b9\uff08\u5e78\u8fd0\u2606\u661f\uff09\", \"\u4f1e\u6728\u5e0c\u7f8e\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u5bab\u6c34\u4e09\u53f6\uff08\u4f60\u7684\u540d\u5b57\u3002\uff09\", \"\u548c\u6cc9\u7eb1\u96fe\uff08\u57c3\u7f57\u8292\u963f\u8001\u5e08\uff09\", \"\u4e1c\u6d77\u5e1d\u738b\uff08\u8d5b\u9a6c\u5a18 Pretty Derby\uff09\", \"\u60e3\u6d41\u00b7\u660e\u65e5\u9999\u00b7\u5170\u683c\u96f7\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u9e7f\u76ee\u5706\uff08\u9b54\u6cd5\u5c11\u5973\u5c0f\u5706\uff09\", \"\u7434\u5439\u4337\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u51c9\u5bab\u6625\u65e5\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u6625\u65e5\u91ce\u7a79\uff08\u7f18\u4e4b\u7a7a\uff09\", \"\u4e09\u7b20\u00b7\u963f\u514b\u66fc\uff08\u8fdb\u51fb\u7684\u5de8\u4eba\uff09\", \"\u5bab\u56ed\u85b0\uff08\u56db\u6708\u662f\u4f60\u7684\u8c0e\u8a00\uff09\", \"\u5c71\u7530\u51c9\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u957f\u95e8\u6709\u5e0c\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u53e4\u6cb3\u6e1a\uff08CLANNAD\uff09\", \"\u94e0\u51a2\u9719\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u7acb\u534e\u594f\uff08Angel Beats\uff01\uff09\", \"\u4e2d\u91ce\u6893\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u963f\u5c14\u6258\u8389\u96c5\u00b7\u6f58\u5fb7\u62c9\u8d21\uff08Fate\u7cfb\u5217\uff09\", \"\u696a\u7948\uff08\u7f6a\u6076\u738b\u51a0\uff09\", \"\u9022\u5742\u5927\u6cb3\uff08\u9f99\u4e0e\u864e\uff09\", \"\u60e0\u60e0\uff08\u4e3a\u7f8e\u597d\u7684\u4e16\u754c\u732e\u4e0a\u795d\u798f\uff01\uff09\", \"\u827e\u62c9\uff08\u53ef\u5851\u6027\u8bb0\u5fc6\uff09\", \"\u7231\u871c\u8389\u96c5\uff08Re:\u4ece\u96f6\u5f00\u59cb\u7684\u5f02\u4e16\u754c\u751f\u6d3b\uff09\", \"\u767d\uff08NO GAME NO LIFE \u6e38\u620f\u4eba\u751f\uff09\", \"\u5317\u767d\u5ddd\u7389\u5b50\uff08\u7389\u5b50\u5e02\u573a\uff09\", \"\u6d1b\u742a\u5e0c\u00b7\u7c73\u683c\u8def\u8fea\u4e9a\uff08\u65e0\u804c\u8f6c\u751f\uff09\", \"\u7267\u6fd1\u7ea2\u8389\u6816\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u7ed3\u57ce\u660e\u65e5\u5948\uff08\u5200\u5251\u795e\u57df\uff09\", \"\u8299\u62c9\u8482\u857e\u5a1c\u00b7\u7c73\u5229\u6770\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u9ec4\u524d\u4e45\u7f8e\u5b50\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\"]');                    var avatars = JSON.parse('[\"https://pic1.imgdb.cn/item/677fc598d0e0a243d4f2cac6.png\", \"https://pic1.imgdb.cn/item/677fc553d0e0a243d4f2cab0.png\", \"https://pic1.imgdb.cn/item/677fc515d0e0a243d4f2caa7.png\", \"https://pic1.imgdb.cn/item/677fc328d0e0a243d4f2ca57.png\", \"https://pic1.imgdb.cn/item/677fc2f4d0e0a243d4f2ca52.png\", \"https://pic1.imgdb.cn/item/677fc2d2d0e0a243d4f2ca4e.png\", \"https://pic1.imgdb.cn/item/677fc2add0e0a243d4f2ca49.png\", \"https://pic1.imgdb.cn/item/677fbee0d0e0a243d4f2c99f.png\", \"https://pic1.imgdb.cn/item/677fbec3d0e0a243d4f2c997.png\", \"https://pic1.imgdb.cn/item/677fbeb6d0e0a243d4f2c994.png\", \"https://pic1.imgdb.cn/item/677fbddad0e0a243d4f2c966.png\", \"https://pic1.imgdb.cn/item/677fbdafd0e0a243d4f2c954.png\", \"https://pic1.imgdb.cn/item/677fbd7dd0e0a243d4f2c934.pngv\", \"https://pic1.imgdb.cn/item/677fbcd5d0e0a243d4f2c905.png\", \"https://pic1.imgdb.cn/item/677fbcc8d0e0a243d4f2c900.png\", \"https://pic1.imgdb.cn/item/677fbca6d0e0a243d4f2c8f5.png\", \"https://pic1.imgdb.cn/item/677fbc90d0e0a243d4f2c8eb.png\", \"https://pic1.imgdb.cn/item/677fbc71d0e0a243d4f2c8d3.png\", \"https://pic1.imgdb.cn/item/677fba37d0e0a243d4f2c800.png\", \"https://pic1.imgdb.cn/item/677fba15d0e0a243d4f2c7c3.png\", \"https://pic1.imgdb.cn/item/67408f5fd29ded1a8c0ef0c4.png\", \"https://pic1.imgdb.cn/item/673e9378d29ded1a8c7d417b.png\", \"https://pic1.imgdb.cn/item/67413890d29ded1a8c81b570.png\", \"https://pic1.imgdb.cn/item/673abe6ed29ded1a8c43cd2d.png\", \"https://pic1.imgdb.cn/item/674139a4d29ded1a8c82bdde.png\", \"https://pic1.imgdb.cn/item/674139ebd29ded1a8c82ff0c.png\", \"https://pic1.imgdb.cn/item/67418e3fd29ded1a8cd920fd.png\", \"https://pic1.imgdb.cn/item/6741390dd29ded1a8c822b9c.png\", \"https://pic1.imgdb.cn/item/6741ad7bd29ded1a8cf60d88.png\", \"https://pic1.imgdb.cn/item/6744343188c538a9b5bb9e21.png\", \"https://pic1.imgdb.cn/item/67413926d29ded1a8c824556.png\", \"https://pic1.imgdb.cn/item/673be110d29ded1a8c2750be.png\", \"https://pic1.imgdb.cn/item/67419547d29ded1a8cde6dfe.png\", \"https://pic1.imgdb.cn/item/674086b0d29ded1a8c07b0d0.png\", \"https://pic1.imgdb.cn/item/674138f4d29ded1a8c82126e.png\", \"https://pic1.imgdb.cn/item/673b3c52d29ded1a8cb70e5b.png\", \"https://pic1.imgdb.cn/item/67413954d29ded1a8c8270bd.png\", \"https://pic1.imgdb.cn/item/673abde9d29ded1a8c437a20.png\", \"https://pic1.imgdb.cn/item/673961a9d29ded1a8c46a1f0.png\", \"https://pic1.imgdb.cn/item/673abe15d29ded1a8c439492.png\", \"https://pic1.imgdb.cn/item/6736eaa2d29ded1a8c5a7413.png\", \"https://pic1.imgdb.cn/item/674138ded29ded1a8c82004e.png\", \"https://pic1.imgdb.cn/item/6736023ed29ded1a8cbb10be.png\", \"https://pic1.imgdb.cn/item/67395e68d29ded1a8c4429ed.png\", \"https://pic1.imgdb.cn/item/6739684cd29ded1a8c4b1e5e.png\", \"https://pic1.imgdb.cn/item/67419ca3d29ded1a8ce4ecc8.png\", \"https://pic1.imgdb.cn/item/673a9839d29ded1a8c27348b.png\", \"https://pic1.imgdb.cn/item/6735f305d29ded1a8cade1ab.png\", \"https://pic1.imgdb.cn/item/6739b369d29ded1a8c895375.png\", \"https://pic1.imgdb.cn/item/67418d25d29ded1a8cd84d64.png\", \"https://pic1.imgdb.cn/item/673aa700d29ded1a8c30cdf0.png\", \"https://pic1.imgdb.cn/item/6740434dd29ded1a8ccc22c7.png\", \"https://pic1.imgdb.cn/item/6742b49688c538a9b5bb432f.png\", \"https://pic1.imgdb.cn/item/67396860d29ded1a8c4b2e6b.png\", \"https://pic1.imgdb.cn/item/674138bbd29ded1a8c81e277.png\", \"https://pic1.imgdb.cn/item/67419468d29ded1a8cddcff0.png\", \"https://pic1.imgdb.cn/item/67408d6cd29ded1a8c0d1f24.png\", \"https://pic1.imgdb.cn/item/673abe88d29ded1a8c43e672.png\", \"https://pic1.imgdb.cn/item/67395e7cd29ded1a8c443a4c.png\", \"https://pic1.imgdb.cn/item/6739c600d29ded1a8c978285.pngv\", \"https://pic1.imgdb.cn/item/67409786d29ded1a8c162b2b.png\", \"https://pic1.imgdb.cn/item/6742aa2888c538a9b5bb4148.png\", \"https://pic1.imgdb.cn/item/67404a34d29ded1a8cd26270.png\", \"https://pic1.imgdb.cn/item/673961bad29ded1a8c46ac2a.png\", \"https://pic1.imgdb.cn/item/67396195d29ded1a8c469653.png\", \"https://pic1.imgdb.cn/item/67396180d29ded1a8c468667.png\", \"https://pic1.imgdb.cn/item/67396817d29ded1a8c4afe96.png\", \"https://pic1.imgdb.cn/item/673be698d29ded1a8c2b0709.png\", \"https://pic1.imgdb.cn/item/67395e28d29ded1a8c43f6d9.png\", \"https://pic1.imgdb.cn/item/6739616cd29ded1a8c4679d2.png\", \"https://pic1.imgdb.cn/item/67396158d29ded1a8c466c38.png\", \"https://pic1.imgdb.cn/item/6739683bd29ded1a8c4b144a.png\"]');                    if (params.value === null) return '';                    return '{vote|' + params.value + '\u7968}{name| - ' + labels[params.dataIndex] + '}';                }            ,
+                "formatter":                 function(params) {                    var labels = JSON.parse('[\"\u9ad8\u5742\u4e3d\u5948\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u8d6b\u841d\uff08\u72fc\u4e0e\u9999\u8f9b\u6599\uff09\", \"\u4f0a\u8389\u96c5\u4e1d\u83f2\u5c14\u00b7\u51af\u00b7\u7231\u56e0\u5179\u8d1d\u4f26\uff08Fate\u7cfb\u5217\uff09\", \"\u65e9\u5742\u7231\uff08\u8f89\u591c\u5927\u5c0f\u59d0\u60f3\u8ba9\u6211\u544a\u767d\uff5e\u5929\u624d\u4eec\u7684\u604b\u7231\u5934\u8111\u6218\uff5e\uff09\", \"\u5404\u52a1\u539f\u629a\u5b50\uff08\u6447\u66f3\u9732\u8425\u25b3\uff09\", \"\u65e5\u4ee3\u5343\u9e64\uff08ReLIFE\uff09\", \"\u5bab\u5185\u83b2\u534e\uff08\u60a0\u54c9\u65e5\u5e38\u5927\u738b\uff09\", \"\u4f0a\u5730\u77e5\u661f\u6b4c\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u67ca\u7b71\u5a05\uff08\u7ec8\u7ed3\u7684\u70bd\u5929\u4f7f\uff09\", \"\u5b89\u8fbe\u6a31\uff08\u5b89\u8fbe\u4e0e\u5c9b\u6751\uff09\", \"\u7267\u4e4b\u539f\u7fd4\u5b50\uff08\u9752\u6625\u732a\u5934\u5c11\u5e74\uff09\", \"\u6218\u573a\u539f\u9ed1\u4eea\uff08\u7269\u8bed\u7cfb\u5217\uff09\", \"\u671d\u7530\u8bd7\u4e43\uff08\u5200\u5251\u795e\u57df\uff09\", \"\u4e45\u4fdd\u6e1a\u54b2\uff08\u4e45\u4fdd\u540c\u5b66\u4e0d\u653e\u8fc7\u6211\uff09\", \"\u6728\u66f4\uff08\u5951\u7ea6\u4e4b\u543b\uff09\", \"\u4e2d\u5ddd\u590f\u7eaa\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u6237\u5c71\u9999\u6f84\uff08BanG Dream!\uff09\", \"\u5b89\u539f\u7ed8\u9ebb\uff08\u767d\u7bb1\uff09\", \"\u4e03\u8349\u8360\uff08\u5f7b\u591c\u4e4b\u6b4c\uff09\", \"\u5c0f\u821f\u6f6e\uff08\u590f\u65e5\u91cd\u73b0\uff09\", \"\u98df\u8702\u64cd\u7948\uff08\u9b54\u6cd5\u7981\u4e66\u76ee\u5f55\uff09\", \"\u8f7b\u4e95\u6cfd\u60e0\uff08\u6b22\u8fce\u6765\u5230\u5b9e\u529b\u81f3\u4e0a\u4e3b\u4e49\u7684\u6559\u5ba4\uff09\", \"\u8d64\u77b3\uff08\u65a9\u00b7\u8d64\u7ea2\u4e4b\u77b3\uff01\uff09\", \"\u5929\u771f\u00b7\u73c8\u767e\u7483\u00b7\u6000\u7279\uff08\u73c8\u767e\u7483\u7684\u5815\u843d\uff09\", \"\u7530\u4e2d\u660e\u65e5\u9999\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u571f\u95f4\u57cb\uff08\u5e72\u7269\u59b9\u5c0f\u57cb\uff09\", \"\u7c73\u6d74\uff08\u8d5b\u9a6c\u5a18 Pretty Derby\uff09\", \"\u5188\u5d0e\u6c50\uff08CLANNAD\uff09\", \"\u6c34\u91ce\u831c\uff08\u6708\u8272\u771f\u7f8e\uff09\", \"\u963f\u5e93\u5a05\uff08\u4e3a\u7f8e\u597d\u7684\u4e16\u754c\u732e\u4e0a\u795d\u798f\uff01\uff09\", \"\u67ca\u955c\uff08\u5e78\u8fd0\u2606\u661f\uff09\", \"\u82b1\u57ce\u674f\u5b50\uff08\u901a\u5f80\u590f\u5929\u7684\u96a7\u9053\uff0c\u518d\u89c1\u7684\u51fa\u53e3\uff09\", \"\u671d\u96fe\u53f2\u7ec7\uff08\u7389\u5b50\u5e02\u573a\uff09\", \"\u5e38\u76d8\u7eff\uff08\u7389\u5b50\u5e02\u573a\uff09\", \"\u4e09\u7b20\u00b7\u963f\u514b\u66fc\uff08\u8fdb\u51fb\u7684\u5de8\u4eba\uff09\", \"\u690e\u540d\u771f\u7531\u7406\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u4e03\u6d77\u5343\u79cb\uff08\u5f39\u4e38\u8bba\u7834\uff09\", \"\u591c\u5200\u795e\u5341\u9999\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u672c\u95f4\u82bd\u8863\u5b50\uff08\u6211\u4eec\u4ecd\u672a\u77e5\u9053\u90a3\u5929\u6240\u770b\u89c1\u7684\u82b1\u7684\u540d\u5b57\u3002\uff09\", \"\u82e5\u53f6\u7766\uff08BanG Dream!\uff09\", \"\u5343\u6597\u4e94\u5341\u94c3\uff08\u7518\u57ce\u5149\u8f89\u6e38\u4e50\u56ed\uff09\", \"\u6258\u5c14\uff08\u5c0f\u6797\u5bb6\u7684\u9f99\u5973\u4ec6\uff09\", \"\u8981\u4e50\u5948\uff08BanG Dream!\uff09\", \"\u7267\u91ce\u795e\u5948\uff08\u7389\u5b50\u5e02\u573a\uff09\", \"\u6728\u4e4b\u672c\u6a31\uff08\u9b54\u5361\u5c11\u5973\u6a31\uff09\", \"\u9999\u98ce\u667a\u4e43\uff08\u8bf7\u95ee\u60a8\u4eca\u5929\u8981\u6765\u70b9\u5154\u5b50\u5417\uff1f\uff09\", \"\u9e22\u4e00\u6298\u7eb8\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u4e03\u5bab\u667a\u97f3\uff08\u4e2d\u4e8c\u75c5\u4e5f\u8981\u8c08\u604b\u7231\uff01\uff09\", \"\u89c1\u5d0e\u9e23\uff08Another\uff09\", \"\u585e\u897f\u8389\u4e9a\uff08\u767d\u5723\u5973\u4e0e\u9ed1\u7267\u5e08\uff09\", \"\u6bdb\u5229\u5170\uff08\u540d\u4fa6\u63a2\u67ef\u5357\uff09\", \"\u5800\u4eac\u5b50\uff08\u5800\u4e0e\u5bab\u6751\uff09\", \"\u4f18\u6728\u96ea\u83dc\uff08LoveLive!\u7cfb\u5217\uff09\", \"\u971e\u4e4b\u4e18\u8bd7\u7fbd\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u795e\u5c3e\u89c2\u94c3\uff08AIR\uff09\", \"\u85e4\u539f\u5343\u82b1\uff08\u8f89\u591c\u5927\u5c0f\u59d0\u60f3\u8ba9\u6211\u544a\u767d\uff5e\u5929\u624d\u4eec\u7684\u604b\u7231\u5934\u8111\u6218\uff5e\uff09\", \"\u897f\u6728\u91ce\u771f\u59ec\uff08LoveLive!\u7cfb\u5217\uff09\", \"\u5eb7\u5a1c\u5361\u59c6\u4f9d\uff08\u5c0f\u6797\u5bb6\u7684\u9f99\u5973\u4ec6\uff09\", \"\u521d\u97f3\u672a\u6765\uff08VOCALOID\uff09\", \"\u696a\u7948\uff08\u7f6a\u6076\u738b\u51a0\uff09\", \"\u6d1b\u742a\u5e0c\u00b7\u7c73\u683c\u8def\u8fea\u4e9a\uff08\u65e0\u804c\u8f6c\u751f\uff09\", \"\u6817\u5c71\u672a\u6765\uff08\u5883\u754c\u7684\u5f7c\u65b9\uff09\", \"\u4f1e\u6728\u5e0c\u7f8e\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u690e\u540d\u7acb\u5e0c\uff08BanG Dream!\uff09\", \"\u95f4\u6850\u6a31\uff08Fate\u7cfb\u5217\uff09\", \"\u60e3\u6d41\u00b7\u660e\u65e5\u9999\u00b7\u5170\u683c\u96f7\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u6e21\u8fb9\u66dc\uff08LoveLive!\u7cfb\u5217\uff09\", \"\u6850\u5d0e\u5343\u68d8\uff08\u4f2a\u604b\uff09\", \"\u7eeb\u6ce2\u4e3d\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u94e0\u51a2\u9719\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u4e00\u8272\u4f0a\u5415\u6ce2\uff08\u6211\u7684\u9752\u6625\u604b\u7231\u7269\u8bed\u679c\u7136\u6709\u95ee\u9898\u3002\uff09\", \"\u732b\u732b\uff08\u836f\u5c4b\u5c11\u5973\u7684\u5462\u5583\uff09\", \"\u9ed1\u5ddd\u831c\uff08\u3010\u6211\u63a8\u7684\u5b69\u5b50\u3011\uff09\", \"\u6cfd\u6751\u00b7\u65af\u6f58\u585e\u00b7\u82f1\u68a8\u68a8\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u4f50\u4ed3\u5343\u4ee3\uff08\u6708\u520a\u5c11\u5973\u91ce\u5d0e\u541b\uff09\", \"\u957f\u95e8\u6709\u5e0c\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u9752\u5c71\u4e03\u6d77\uff08\u6a31\u82b1\u5e84\u7684\u5ba0\u7269\u5973\u5b69\uff09\", \"\u897f\u5bab\u785d\u5b50\uff08\u58f0\u4e4b\u5f62\uff09\", \"\u4e2d\u91ce\u4e00\u82b1\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"02\uff08Darling in the FranXX\uff09\", \"\u73c2\u6735\u8389\u00b7\u8bfa\u5854\u00b7\u745f\u5c3c\u6b27\u91cc\u65af\uff08\u672b\u65e5\u65f6\u5728\u505a\u4ec0\u4e48\uff1f\u6709\u6ca1\u6709\u7a7a\uff1f\u53ef\u4ee5\u6765\u62ef\u6551\u5417\uff1f\uff09\", \"\u4e1c\u6d77\u5e1d\u738b\uff08\u8d5b\u9a6c\u5a18 Pretty Derby\uff09\", \"\u6cc9\u6b64\u65b9\uff08\u5e78\u8fd0\u2606\u661f\uff09\", \"\u963f\u5c14\u6258\u8389\u96c5\u00b7\u6f58\u5fb7\u62c9\u8d21\uff08Fate\u7cfb\u5217\uff09\", \"\u6653\u7f8e\u7130\uff08\u9b54\u6cd5\u5c11\u5973\u5c0f\u5706\uff09\", \"\u8fdc\u5742\u51db\uff08Fate\u7cfb\u5217\uff09\", \"\u5929\u91ce\u9633\u83dc\uff08\u5929\u6c14\u4e4b\u5b50\uff09\", \"\u56db\u5bab\u8f89\u591c\uff08\u8f89\u591c\u5927\u5c0f\u59d0\u60f3\u8ba9\u6211\u544a\u767d\uff5e\u5929\u624d\u4eec\u7684\u604b\u7231\u5934\u8111\u6218\uff5e\uff09\", \"\u9e7f\u76ee\u5706\uff08\u9b54\u6cd5\u5c11\u5973\u5c0f\u5706\uff09\", \"\u6625\u65e5\u91ce\u7a79\uff08\u7f18\u4e4b\u7a7a\uff09\", \"\u5c3c\u7984\u00b7\u514b\u52b3\u72c4\u4e4c\u65af\uff08Fate\u7cfb\u5217\uff09\", \"\u5c71\u7530\u674f\u5948\uff08\u6211\u5fc3\u91cc\u5371\u9669\u7684\u4e1c\u897f\uff09\", \"\u4e94\u6cb3\u7434\u91cc\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u7531\u5d0e\u53f8\uff08\u603b\u4e4b\u5c31\u662f\u975e\u5e38\u53ef\u7231\uff09\", \"\u6709\u9a6c\u52a0\u5948\uff08\u3010\u6211\u63a8\u7684\u5b69\u5b50\u3011\uff09\", \"\u4e24\u4eea\u5f0f\uff08\u7a7a\u4e4b\u5883\u754c\uff09\", \"\u9ad8\u6728\uff08\u64c5\u957f\u6349\u5f04\u7684\u9ad8\u6728\u540c\u5b66\uff09\", \"\u4e94\u66f4\u7409\u7483\uff08\u6211\u7684\u59b9\u59b9\u54ea\u6709\u8fd9\u4e48\u53ef\u7231\uff01\uff09\", \"\u4e95\u4e4b\u4e0a\u6cf7\u5948\uff08\u8389\u53ef\u4e3d\u4e1d\uff09\", \"\u5bab\u6c34\u4e09\u53f6\uff08\u4f60\u7684\u540d\u5b57\u3002\uff09\", \"\u5b89\u742a\u00b7\u827e\u739b\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u548c\u6cc9\u7eb1\u96fe\uff08\u57c3\u7f57\u8292\u963f\u8001\u5e08\uff09\", \"\u53ef\u857e\u5a1c\u00b7\u5e93\u514b\u7c73\u62c9\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u4f0a\u539f\u6469\u8036\u82b1\uff08\u51b0\u83d3\uff09\", \"\u51f8\u5b88\u65e9\u82d7\uff08\u4e2d\u4e8c\u75c5\u4e5f\u8981\u8c08\u604b\u7231\uff01\uff09\", \"\u4e2d\u91ce\u56db\u53f6\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u4e2d\u91ce\u4e94\u6708\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u9022\u5742\u5927\u6cb3\uff08\u9f99\u4e0e\u864e\uff09\", \"\u51c9\u5bab\u6625\u65e5\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u7531\u6bd4\u6ee8\u7ed3\u8863\uff08\u6211\u7684\u9752\u6625\u604b\u7231\u7269\u8bed\u679c\u7136\u6709\u95ee\u9898\u3002\uff09\", \"\u7267\u6fd1\u7ea2\u8389\u6816\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u53e4\u6cb3\u6e1a\uff08CLANNAD\uff09\", \"\u4e39\u751f\u8c37\u68ee\u590f\uff08\u4e2d\u4e8c\u75c5\u4e5f\u8981\u8c08\u604b\u7231\uff01\uff09\", \"\u7070\u539f\u54c0\uff08\u540d\u4fa6\u63a2\u67ef\u5357\uff09\", \"\u4e2d\u91ce\u4e8c\u4e43\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u5510\u53ef\u53ef\uff08LoveLive!\u7cfb\u5217\uff09\", \"\u8299\u857e\u5fb7\u5229\u5609\u00b7\u7f57\u68ee\u83f2\u5c14\u7279\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u5bab\u56ed\u85b0\uff08\u56db\u6708\u662f\u4f60\u7684\u8c0e\u8a00\uff09\", \"\u767d\u4e95\u9ed1\u5b50\uff08\u9b54\u6cd5\u7981\u4e66\u76ee\u5f55\uff09\", \"\u5e73\u6cfd\u5fe7\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u60e0\u60e0\uff08\u4e3a\u7f8e\u597d\u7684\u4e16\u754c\u732e\u4e0a\u795d\u798f\uff01\uff09\", \"\u4f0a\u5730\u77e5\u8679\u590f\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u5c71\u7530\u51c9\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u7acb\u534e\u594f\uff08Angel Beats!\uff09\", \"\u4e45\u77f3\u594f\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u7434\u5439\u4337\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u7530\u4e95\u4e2d\u5f8b\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u4f11\u6bd4\u00b7\u591a\u62c9\uff08NO GAME NO LIFE \u6e38\u620f\u4eba\u751f\uff09\", \"\u65f6\u5d0e\u72c2\u4e09\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u827e\u62c9\uff08\u53ef\u5851\u6027\u8bb0\u5fc6\uff09\", \"\u5343\u53cd\u7530\u7231\u7460\uff08\u51b0\u83d3\uff09\"]');                    if (params.value === null) return '';                    return '{vote|' + params.value + '\u7968}{name| - ' + labels[params.dataIndex] + '}';                }            ,
                 "rich": {
                     "avatar": {
                         "padding": [
@@ -238,26 +351,85 @@
             "name": "\u672a\u664b\u7ea7",
             "legendHoverLink": true,
             "data": [
-                134,
-                135,
-                135,
-                137,
-                141,
-                142,
-                142,
-                143,
-                145,
-                148,
-                149,
-                151,
-                152,
-                154,
-                158,
-                159,
-                159,
-                159,
-                162,
-                166,
+                21,
+                21,
+                21,
+                21,
+                21,
+                21,
+                21,
+                22,
+                22,
+                22,
+                22,
+                22,
+                22,
+                22,
+                23,
+                23,
+                23,
+                23,
+                23,
+                23,
+                23,
+                24,
+                24,
+                24,
+                25,
+                25,
+                26,
+                26,
+                26,
+                26,
+                26,
+                26,
+                27,
+                27,
+                27,
+                27,
+                28,
+                28,
+                28,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -316,8 +488,8 @@
             "stackStrategy": "samesign",
             "cursor": "pointer",
             "barMinHeight": 0,
-            "barCategoryGap": "20%",
-            "barGap": "30%",
+            "barCategoryGap": "40%",
+            "barGap": "0%",
             "large": false,
             "largeThreshold": 400,
             "seriesLayoutBy": "column",
@@ -329,7 +501,7 @@
                 "show": true,
                 "position": "right",
                 "margin": 8,
-                "formatter":                 function(params) {                    var labels = JSON.parse('[\"\u521d\u97f3\u672a\u6765\uff08VOCALOID\uff09\", \"\u89c1\u5d0e\u9e23\uff08Another\uff09\", \"\u5c0f\u821f\u6f6e\uff08\u590f\u65e5\u91cd\u73b0\uff09\", \"C.C.\uff08Code Geass\uff09\", \"\u4e00\u4e4b\u6fd1\u5343\u9e64\uff08\u79df\u501f\u5973\u53cb\uff09\", \"\u690e\u540d\u771f\u7531\u7406\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u5742\u4e0a\u667a\u4ee3\uff08CLANNAD\uff09\", \"\u971e\u4e4b\u4e18\u8bd7\u7fbd\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u5eb7\u5a1c\u5361\u59c6\u4f9d\uff08\u5c0f\u6797\u5bb6\u7684\u9f99\u5973\u4ec6\uff09\", \"\u7ea6\u5c14\u00b7\u798f\u6770\uff08\u95f4\u8c0d\u8fc7\u5bb6\u5bb6\uff09\", \"\u6cfd\u6751\u00b7\u65af\u6f58\u585e\u00b7\u82f1\u68a8\u68a8\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u672c\u95f4\u82bd\u8863\u5b50\uff08\u6211\u4eec\u4ecd\u672a\u77e5\u9053\u90a3\u5929\u6240\u770b\u89c1\u7684\u82b1\u7684\u540d\u5b57\u3002\uff09\", \"\u4e94\u66f4\u7409\u7483\uff08\u6211\u7684\u59b9\u59b9\u54ea\u6709\u8fd9\u4e48\u53ef\u7231\uff01\uff09\", \"\u5800\u4eac\u5b50\uff08\u5800\u4e0e\u5bab\u6751\uff09\", \"\u4e2d\u91ce\u4e94\u6708\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u5929\u91ce\u9633\u83dc\uff08\u5929\u6c14\u4e4b\u5b50\uff09\", \"\u85e4\u539f\u5343\u82b1\uff08\u8f89\u591c\u5927\u5c0f\u59d0\u60f3\u8ba9\u6211\u544a\u767d\uff5e\u5929\u624d\u4eec\u7684\u604b\u7231\u5934\u8111\u6218\uff5e\uff09\", \"\u4f11\u6bd4\u00b7\u591a\u62c9\uff08NO GAME NO LIFE \u6e38\u620f\u4eba\u751f\uff09\", \"\u963f\u5c3c\u4e9a\u00b7\u798f\u6770\uff08\u95f4\u8c0d\u8fc7\u5bb6\u5bb6\uff09\", \"\u96f6\u4e8c\uff08Darling in the FranXX\uff09\", \"\u9e22\u4e00\u6298\u7eb8\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u5800\u5317\u94c3\u97f3\uff08\u6b22\u8fce\u6765\u5230\u5b9e\u529b\u81f3\u4e0a\u4e3b\u4e49\u7684\u6559\u5ba4\uff09\", \"\u827e\u8389\u4e1d\u00b7\u4f2f\u96f7\u4e9a\u65af\u00b7\u683c\u96f7\u62c9\u7279\uff08\u65e0\u804c\u8f6c\u751f\uff09\", \"\u4e95\u4e4b\u4e0a\u6cf7\u5948\uff08\u8389\u53ef\u4e3d\u4e1d\uff09\", \"\u6817\u5c71\u672a\u6765\uff08\u5883\u754c\u7684\u5f7c\u65b9\uff09\", \"\u6850\u5d0e\u5343\u68d8\uff08\u4f2a\u604b\uff09\", \"\u559c\u591a\u5ddd\u6d77\u68a6\uff08\u66f4\u8863\u4eba\u5076\u5760\u5165\u7231\u6cb3\uff09\", \"\u4e00\u8272\u4f0a\u5415\u6ce2\uff08\u6211\u7684\u9752\u6625\u604b\u7231\u7269\u8bed\u679c\u7136\u6709\u95ee\u9898\u3002\uff09\", \"\u7531\u5d0e\u53f8\uff08\u603b\u4e4b\u5c31\u662f\u975e\u5e38\u53ef\u7231\uff09\", \"\u4e2d\u91ce\u4e8c\u4e43\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u591c\u5200\u795e\u5341\u9999\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u4e94\u6cb3\u7434\u91cc\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u7eeb\u6ce2\u4e3d\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u6653\u7f8e\u7130\uff08\u9b54\u6cd5\u5c11\u5973\u5c0f\u5706\uff09\", \"\u963f\u5e93\u5a05\uff08\u4e3a\u7f8e\u597d\u7684\u4e16\u754c\u732e\u4e0a\u795d\u798f\uff01\uff09\", \"\u7530\u4e95\u4e2d\u5f8b\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u73c2\u6735\u8389\u00b7\u8bfa\u5854\u00b7\u745f\u5c3c\u6b27\u91cc\u65af\uff08\u672b\u65e5\u65f6\u5728\u505a\u4ec0\u4e48\uff1f\u6709\u6ca1\u6709\u7a7a\uff1f\u53ef\u4ee5\u6765\u62ef\u6551\u5417\uff1f\uff09\", \"\u4f0a\u5730\u77e5\u8679\u590f\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u8fdc\u5742\u51db\uff08Fate\u7cfb\u5217\uff09\", \"\u897f\u5bab\u785d\u5b50\uff08\u58f0\u4e4b\u5f62\uff09\", \"\u767d\u4e95\u9ed1\u5b50\uff08\u9b54\u6cd5\u7981\u4e66\u76ee\u5f55\uff09\", \"\u6cc9\u6b64\u65b9\uff08\u5e78\u8fd0\u2606\u661f\uff09\", \"\u4f1e\u6728\u5e0c\u7f8e\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u5bab\u6c34\u4e09\u53f6\uff08\u4f60\u7684\u540d\u5b57\u3002\uff09\", \"\u548c\u6cc9\u7eb1\u96fe\uff08\u57c3\u7f57\u8292\u963f\u8001\u5e08\uff09\", \"\u4e1c\u6d77\u5e1d\u738b\uff08\u8d5b\u9a6c\u5a18 Pretty Derby\uff09\", \"\u60e3\u6d41\u00b7\u660e\u65e5\u9999\u00b7\u5170\u683c\u96f7\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u9e7f\u76ee\u5706\uff08\u9b54\u6cd5\u5c11\u5973\u5c0f\u5706\uff09\", \"\u7434\u5439\u4337\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u51c9\u5bab\u6625\u65e5\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u6625\u65e5\u91ce\u7a79\uff08\u7f18\u4e4b\u7a7a\uff09\", \"\u4e09\u7b20\u00b7\u963f\u514b\u66fc\uff08\u8fdb\u51fb\u7684\u5de8\u4eba\uff09\", \"\u5bab\u56ed\u85b0\uff08\u56db\u6708\u662f\u4f60\u7684\u8c0e\u8a00\uff09\", \"\u5c71\u7530\u51c9\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u957f\u95e8\u6709\u5e0c\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u53e4\u6cb3\u6e1a\uff08CLANNAD\uff09\", \"\u94e0\u51a2\u9719\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u7acb\u534e\u594f\uff08Angel Beats\uff01\uff09\", \"\u4e2d\u91ce\u6893\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u963f\u5c14\u6258\u8389\u96c5\u00b7\u6f58\u5fb7\u62c9\u8d21\uff08Fate\u7cfb\u5217\uff09\", \"\u696a\u7948\uff08\u7f6a\u6076\u738b\u51a0\uff09\", \"\u9022\u5742\u5927\u6cb3\uff08\u9f99\u4e0e\u864e\uff09\", \"\u60e0\u60e0\uff08\u4e3a\u7f8e\u597d\u7684\u4e16\u754c\u732e\u4e0a\u795d\u798f\uff01\uff09\", \"\u827e\u62c9\uff08\u53ef\u5851\u6027\u8bb0\u5fc6\uff09\", \"\u7231\u871c\u8389\u96c5\uff08Re:\u4ece\u96f6\u5f00\u59cb\u7684\u5f02\u4e16\u754c\u751f\u6d3b\uff09\", \"\u767d\uff08NO GAME NO LIFE \u6e38\u620f\u4eba\u751f\uff09\", \"\u5317\u767d\u5ddd\u7389\u5b50\uff08\u7389\u5b50\u5e02\u573a\uff09\", \"\u6d1b\u742a\u5e0c\u00b7\u7c73\u683c\u8def\u8fea\u4e9a\uff08\u65e0\u804c\u8f6c\u751f\uff09\", \"\u7267\u6fd1\u7ea2\u8389\u6816\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u7ed3\u57ce\u660e\u65e5\u5948\uff08\u5200\u5251\u795e\u57df\uff09\", \"\u8299\u62c9\u8482\u857e\u5a1c\u00b7\u7c73\u5229\u6770\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u9ec4\u524d\u4e45\u7f8e\u5b50\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\"]');                    var avatars = JSON.parse('[\"https://pic1.imgdb.cn/item/677fc598d0e0a243d4f2cac6.png\", \"https://pic1.imgdb.cn/item/677fc553d0e0a243d4f2cab0.png\", \"https://pic1.imgdb.cn/item/677fc515d0e0a243d4f2caa7.png\", \"https://pic1.imgdb.cn/item/677fc328d0e0a243d4f2ca57.png\", \"https://pic1.imgdb.cn/item/677fc2f4d0e0a243d4f2ca52.png\", \"https://pic1.imgdb.cn/item/677fc2d2d0e0a243d4f2ca4e.png\", \"https://pic1.imgdb.cn/item/677fc2add0e0a243d4f2ca49.png\", \"https://pic1.imgdb.cn/item/677fbee0d0e0a243d4f2c99f.png\", \"https://pic1.imgdb.cn/item/677fbec3d0e0a243d4f2c997.png\", \"https://pic1.imgdb.cn/item/677fbeb6d0e0a243d4f2c994.png\", \"https://pic1.imgdb.cn/item/677fbddad0e0a243d4f2c966.png\", \"https://pic1.imgdb.cn/item/677fbdafd0e0a243d4f2c954.png\", \"https://pic1.imgdb.cn/item/677fbd7dd0e0a243d4f2c934.pngv\", \"https://pic1.imgdb.cn/item/677fbcd5d0e0a243d4f2c905.png\", \"https://pic1.imgdb.cn/item/677fbcc8d0e0a243d4f2c900.png\", \"https://pic1.imgdb.cn/item/677fbca6d0e0a243d4f2c8f5.png\", \"https://pic1.imgdb.cn/item/677fbc90d0e0a243d4f2c8eb.png\", \"https://pic1.imgdb.cn/item/677fbc71d0e0a243d4f2c8d3.png\", \"https://pic1.imgdb.cn/item/677fba37d0e0a243d4f2c800.png\", \"https://pic1.imgdb.cn/item/677fba15d0e0a243d4f2c7c3.png\", \"https://pic1.imgdb.cn/item/67408f5fd29ded1a8c0ef0c4.png\", \"https://pic1.imgdb.cn/item/673e9378d29ded1a8c7d417b.png\", \"https://pic1.imgdb.cn/item/67413890d29ded1a8c81b570.png\", \"https://pic1.imgdb.cn/item/673abe6ed29ded1a8c43cd2d.png\", \"https://pic1.imgdb.cn/item/674139a4d29ded1a8c82bdde.png\", \"https://pic1.imgdb.cn/item/674139ebd29ded1a8c82ff0c.png\", \"https://pic1.imgdb.cn/item/67418e3fd29ded1a8cd920fd.png\", \"https://pic1.imgdb.cn/item/6741390dd29ded1a8c822b9c.png\", \"https://pic1.imgdb.cn/item/6741ad7bd29ded1a8cf60d88.png\", \"https://pic1.imgdb.cn/item/6744343188c538a9b5bb9e21.png\", \"https://pic1.imgdb.cn/item/67413926d29ded1a8c824556.png\", \"https://pic1.imgdb.cn/item/673be110d29ded1a8c2750be.png\", \"https://pic1.imgdb.cn/item/67419547d29ded1a8cde6dfe.png\", \"https://pic1.imgdb.cn/item/674086b0d29ded1a8c07b0d0.png\", \"https://pic1.imgdb.cn/item/674138f4d29ded1a8c82126e.png\", \"https://pic1.imgdb.cn/item/673b3c52d29ded1a8cb70e5b.png\", \"https://pic1.imgdb.cn/item/67413954d29ded1a8c8270bd.png\", \"https://pic1.imgdb.cn/item/673abde9d29ded1a8c437a20.png\", \"https://pic1.imgdb.cn/item/673961a9d29ded1a8c46a1f0.png\", \"https://pic1.imgdb.cn/item/673abe15d29ded1a8c439492.png\", \"https://pic1.imgdb.cn/item/6736eaa2d29ded1a8c5a7413.png\", \"https://pic1.imgdb.cn/item/674138ded29ded1a8c82004e.png\", \"https://pic1.imgdb.cn/item/6736023ed29ded1a8cbb10be.png\", \"https://pic1.imgdb.cn/item/67395e68d29ded1a8c4429ed.png\", \"https://pic1.imgdb.cn/item/6739684cd29ded1a8c4b1e5e.png\", \"https://pic1.imgdb.cn/item/67419ca3d29ded1a8ce4ecc8.png\", \"https://pic1.imgdb.cn/item/673a9839d29ded1a8c27348b.png\", \"https://pic1.imgdb.cn/item/6735f305d29ded1a8cade1ab.png\", \"https://pic1.imgdb.cn/item/6739b369d29ded1a8c895375.png\", \"https://pic1.imgdb.cn/item/67418d25d29ded1a8cd84d64.png\", \"https://pic1.imgdb.cn/item/673aa700d29ded1a8c30cdf0.png\", \"https://pic1.imgdb.cn/item/6740434dd29ded1a8ccc22c7.png\", \"https://pic1.imgdb.cn/item/6742b49688c538a9b5bb432f.png\", \"https://pic1.imgdb.cn/item/67396860d29ded1a8c4b2e6b.png\", \"https://pic1.imgdb.cn/item/674138bbd29ded1a8c81e277.png\", \"https://pic1.imgdb.cn/item/67419468d29ded1a8cddcff0.png\", \"https://pic1.imgdb.cn/item/67408d6cd29ded1a8c0d1f24.png\", \"https://pic1.imgdb.cn/item/673abe88d29ded1a8c43e672.png\", \"https://pic1.imgdb.cn/item/67395e7cd29ded1a8c443a4c.png\", \"https://pic1.imgdb.cn/item/6739c600d29ded1a8c978285.pngv\", \"https://pic1.imgdb.cn/item/67409786d29ded1a8c162b2b.png\", \"https://pic1.imgdb.cn/item/6742aa2888c538a9b5bb4148.png\", \"https://pic1.imgdb.cn/item/67404a34d29ded1a8cd26270.png\", \"https://pic1.imgdb.cn/item/673961bad29ded1a8c46ac2a.png\", \"https://pic1.imgdb.cn/item/67396195d29ded1a8c469653.png\", \"https://pic1.imgdb.cn/item/67396180d29ded1a8c468667.png\", \"https://pic1.imgdb.cn/item/67396817d29ded1a8c4afe96.png\", \"https://pic1.imgdb.cn/item/673be698d29ded1a8c2b0709.png\", \"https://pic1.imgdb.cn/item/67395e28d29ded1a8c43f6d9.png\", \"https://pic1.imgdb.cn/item/6739616cd29ded1a8c4679d2.png\", \"https://pic1.imgdb.cn/item/67396158d29ded1a8c466c38.png\", \"https://pic1.imgdb.cn/item/6739683bd29ded1a8c4b144a.png\"]');                    if (params.value === null) return '';                    return '{vote|' + params.value + '\u7968}{name| - ' + labels[params.dataIndex] + '}';                }            ,
+                "formatter":                 function(params) {                    var labels = JSON.parse('[\"\u9ad8\u5742\u4e3d\u5948\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u8d6b\u841d\uff08\u72fc\u4e0e\u9999\u8f9b\u6599\uff09\", \"\u4f0a\u8389\u96c5\u4e1d\u83f2\u5c14\u00b7\u51af\u00b7\u7231\u56e0\u5179\u8d1d\u4f26\uff08Fate\u7cfb\u5217\uff09\", \"\u65e9\u5742\u7231\uff08\u8f89\u591c\u5927\u5c0f\u59d0\u60f3\u8ba9\u6211\u544a\u767d\uff5e\u5929\u624d\u4eec\u7684\u604b\u7231\u5934\u8111\u6218\uff5e\uff09\", \"\u5404\u52a1\u539f\u629a\u5b50\uff08\u6447\u66f3\u9732\u8425\u25b3\uff09\", \"\u65e5\u4ee3\u5343\u9e64\uff08ReLIFE\uff09\", \"\u5bab\u5185\u83b2\u534e\uff08\u60a0\u54c9\u65e5\u5e38\u5927\u738b\uff09\", \"\u4f0a\u5730\u77e5\u661f\u6b4c\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u67ca\u7b71\u5a05\uff08\u7ec8\u7ed3\u7684\u70bd\u5929\u4f7f\uff09\", \"\u5b89\u8fbe\u6a31\uff08\u5b89\u8fbe\u4e0e\u5c9b\u6751\uff09\", \"\u7267\u4e4b\u539f\u7fd4\u5b50\uff08\u9752\u6625\u732a\u5934\u5c11\u5e74\uff09\", \"\u6218\u573a\u539f\u9ed1\u4eea\uff08\u7269\u8bed\u7cfb\u5217\uff09\", \"\u671d\u7530\u8bd7\u4e43\uff08\u5200\u5251\u795e\u57df\uff09\", \"\u4e45\u4fdd\u6e1a\u54b2\uff08\u4e45\u4fdd\u540c\u5b66\u4e0d\u653e\u8fc7\u6211\uff09\", \"\u6728\u66f4\uff08\u5951\u7ea6\u4e4b\u543b\uff09\", \"\u4e2d\u5ddd\u590f\u7eaa\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u6237\u5c71\u9999\u6f84\uff08BanG Dream!\uff09\", \"\u5b89\u539f\u7ed8\u9ebb\uff08\u767d\u7bb1\uff09\", \"\u4e03\u8349\u8360\uff08\u5f7b\u591c\u4e4b\u6b4c\uff09\", \"\u5c0f\u821f\u6f6e\uff08\u590f\u65e5\u91cd\u73b0\uff09\", \"\u98df\u8702\u64cd\u7948\uff08\u9b54\u6cd5\u7981\u4e66\u76ee\u5f55\uff09\", \"\u8f7b\u4e95\u6cfd\u60e0\uff08\u6b22\u8fce\u6765\u5230\u5b9e\u529b\u81f3\u4e0a\u4e3b\u4e49\u7684\u6559\u5ba4\uff09\", \"\u8d64\u77b3\uff08\u65a9\u00b7\u8d64\u7ea2\u4e4b\u77b3\uff01\uff09\", \"\u5929\u771f\u00b7\u73c8\u767e\u7483\u00b7\u6000\u7279\uff08\u73c8\u767e\u7483\u7684\u5815\u843d\uff09\", \"\u7530\u4e2d\u660e\u65e5\u9999\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u571f\u95f4\u57cb\uff08\u5e72\u7269\u59b9\u5c0f\u57cb\uff09\", \"\u7c73\u6d74\uff08\u8d5b\u9a6c\u5a18 Pretty Derby\uff09\", \"\u5188\u5d0e\u6c50\uff08CLANNAD\uff09\", \"\u6c34\u91ce\u831c\uff08\u6708\u8272\u771f\u7f8e\uff09\", \"\u963f\u5e93\u5a05\uff08\u4e3a\u7f8e\u597d\u7684\u4e16\u754c\u732e\u4e0a\u795d\u798f\uff01\uff09\", \"\u67ca\u955c\uff08\u5e78\u8fd0\u2606\u661f\uff09\", \"\u82b1\u57ce\u674f\u5b50\uff08\u901a\u5f80\u590f\u5929\u7684\u96a7\u9053\uff0c\u518d\u89c1\u7684\u51fa\u53e3\uff09\", \"\u671d\u96fe\u53f2\u7ec7\uff08\u7389\u5b50\u5e02\u573a\uff09\", \"\u5e38\u76d8\u7eff\uff08\u7389\u5b50\u5e02\u573a\uff09\", \"\u4e09\u7b20\u00b7\u963f\u514b\u66fc\uff08\u8fdb\u51fb\u7684\u5de8\u4eba\uff09\", \"\u690e\u540d\u771f\u7531\u7406\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u4e03\u6d77\u5343\u79cb\uff08\u5f39\u4e38\u8bba\u7834\uff09\", \"\u591c\u5200\u795e\u5341\u9999\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u672c\u95f4\u82bd\u8863\u5b50\uff08\u6211\u4eec\u4ecd\u672a\u77e5\u9053\u90a3\u5929\u6240\u770b\u89c1\u7684\u82b1\u7684\u540d\u5b57\u3002\uff09\", \"\u82e5\u53f6\u7766\uff08BanG Dream!\uff09\", \"\u5343\u6597\u4e94\u5341\u94c3\uff08\u7518\u57ce\u5149\u8f89\u6e38\u4e50\u56ed\uff09\", \"\u6258\u5c14\uff08\u5c0f\u6797\u5bb6\u7684\u9f99\u5973\u4ec6\uff09\", \"\u8981\u4e50\u5948\uff08BanG Dream!\uff09\", \"\u7267\u91ce\u795e\u5948\uff08\u7389\u5b50\u5e02\u573a\uff09\", \"\u6728\u4e4b\u672c\u6a31\uff08\u9b54\u5361\u5c11\u5973\u6a31\uff09\", \"\u9999\u98ce\u667a\u4e43\uff08\u8bf7\u95ee\u60a8\u4eca\u5929\u8981\u6765\u70b9\u5154\u5b50\u5417\uff1f\uff09\", \"\u9e22\u4e00\u6298\u7eb8\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u4e03\u5bab\u667a\u97f3\uff08\u4e2d\u4e8c\u75c5\u4e5f\u8981\u8c08\u604b\u7231\uff01\uff09\", \"\u89c1\u5d0e\u9e23\uff08Another\uff09\", \"\u585e\u897f\u8389\u4e9a\uff08\u767d\u5723\u5973\u4e0e\u9ed1\u7267\u5e08\uff09\", \"\u6bdb\u5229\u5170\uff08\u540d\u4fa6\u63a2\u67ef\u5357\uff09\", \"\u5800\u4eac\u5b50\uff08\u5800\u4e0e\u5bab\u6751\uff09\", \"\u4f18\u6728\u96ea\u83dc\uff08LoveLive!\u7cfb\u5217\uff09\", \"\u971e\u4e4b\u4e18\u8bd7\u7fbd\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u795e\u5c3e\u89c2\u94c3\uff08AIR\uff09\", \"\u85e4\u539f\u5343\u82b1\uff08\u8f89\u591c\u5927\u5c0f\u59d0\u60f3\u8ba9\u6211\u544a\u767d\uff5e\u5929\u624d\u4eec\u7684\u604b\u7231\u5934\u8111\u6218\uff5e\uff09\", \"\u897f\u6728\u91ce\u771f\u59ec\uff08LoveLive!\u7cfb\u5217\uff09\", \"\u5eb7\u5a1c\u5361\u59c6\u4f9d\uff08\u5c0f\u6797\u5bb6\u7684\u9f99\u5973\u4ec6\uff09\", \"\u521d\u97f3\u672a\u6765\uff08VOCALOID\uff09\", \"\u696a\u7948\uff08\u7f6a\u6076\u738b\u51a0\uff09\", \"\u6d1b\u742a\u5e0c\u00b7\u7c73\u683c\u8def\u8fea\u4e9a\uff08\u65e0\u804c\u8f6c\u751f\uff09\", \"\u6817\u5c71\u672a\u6765\uff08\u5883\u754c\u7684\u5f7c\u65b9\uff09\", \"\u4f1e\u6728\u5e0c\u7f8e\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u690e\u540d\u7acb\u5e0c\uff08BanG Dream!\uff09\", \"\u95f4\u6850\u6a31\uff08Fate\u7cfb\u5217\uff09\", \"\u60e3\u6d41\u00b7\u660e\u65e5\u9999\u00b7\u5170\u683c\u96f7\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u6e21\u8fb9\u66dc\uff08LoveLive!\u7cfb\u5217\uff09\", \"\u6850\u5d0e\u5343\u68d8\uff08\u4f2a\u604b\uff09\", \"\u7eeb\u6ce2\u4e3d\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u94e0\u51a2\u9719\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u4e00\u8272\u4f0a\u5415\u6ce2\uff08\u6211\u7684\u9752\u6625\u604b\u7231\u7269\u8bed\u679c\u7136\u6709\u95ee\u9898\u3002\uff09\", \"\u732b\u732b\uff08\u836f\u5c4b\u5c11\u5973\u7684\u5462\u5583\uff09\", \"\u9ed1\u5ddd\u831c\uff08\u3010\u6211\u63a8\u7684\u5b69\u5b50\u3011\uff09\", \"\u6cfd\u6751\u00b7\u65af\u6f58\u585e\u00b7\u82f1\u68a8\u68a8\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u4f50\u4ed3\u5343\u4ee3\uff08\u6708\u520a\u5c11\u5973\u91ce\u5d0e\u541b\uff09\", \"\u957f\u95e8\u6709\u5e0c\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u9752\u5c71\u4e03\u6d77\uff08\u6a31\u82b1\u5e84\u7684\u5ba0\u7269\u5973\u5b69\uff09\", \"\u897f\u5bab\u785d\u5b50\uff08\u58f0\u4e4b\u5f62\uff09\", \"\u4e2d\u91ce\u4e00\u82b1\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"02\uff08Darling in the FranXX\uff09\", \"\u73c2\u6735\u8389\u00b7\u8bfa\u5854\u00b7\u745f\u5c3c\u6b27\u91cc\u65af\uff08\u672b\u65e5\u65f6\u5728\u505a\u4ec0\u4e48\uff1f\u6709\u6ca1\u6709\u7a7a\uff1f\u53ef\u4ee5\u6765\u62ef\u6551\u5417\uff1f\uff09\", \"\u4e1c\u6d77\u5e1d\u738b\uff08\u8d5b\u9a6c\u5a18 Pretty Derby\uff09\", \"\u6cc9\u6b64\u65b9\uff08\u5e78\u8fd0\u2606\u661f\uff09\", \"\u963f\u5c14\u6258\u8389\u96c5\u00b7\u6f58\u5fb7\u62c9\u8d21\uff08Fate\u7cfb\u5217\uff09\", \"\u6653\u7f8e\u7130\uff08\u9b54\u6cd5\u5c11\u5973\u5c0f\u5706\uff09\", \"\u8fdc\u5742\u51db\uff08Fate\u7cfb\u5217\uff09\", \"\u5929\u91ce\u9633\u83dc\uff08\u5929\u6c14\u4e4b\u5b50\uff09\", \"\u56db\u5bab\u8f89\u591c\uff08\u8f89\u591c\u5927\u5c0f\u59d0\u60f3\u8ba9\u6211\u544a\u767d\uff5e\u5929\u624d\u4eec\u7684\u604b\u7231\u5934\u8111\u6218\uff5e\uff09\", \"\u9e7f\u76ee\u5706\uff08\u9b54\u6cd5\u5c11\u5973\u5c0f\u5706\uff09\", \"\u6625\u65e5\u91ce\u7a79\uff08\u7f18\u4e4b\u7a7a\uff09\", \"\u5c3c\u7984\u00b7\u514b\u52b3\u72c4\u4e4c\u65af\uff08Fate\u7cfb\u5217\uff09\", \"\u5c71\u7530\u674f\u5948\uff08\u6211\u5fc3\u91cc\u5371\u9669\u7684\u4e1c\u897f\uff09\", \"\u4e94\u6cb3\u7434\u91cc\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u7531\u5d0e\u53f8\uff08\u603b\u4e4b\u5c31\u662f\u975e\u5e38\u53ef\u7231\uff09\", \"\u6709\u9a6c\u52a0\u5948\uff08\u3010\u6211\u63a8\u7684\u5b69\u5b50\u3011\uff09\", \"\u4e24\u4eea\u5f0f\uff08\u7a7a\u4e4b\u5883\u754c\uff09\", \"\u9ad8\u6728\uff08\u64c5\u957f\u6349\u5f04\u7684\u9ad8\u6728\u540c\u5b66\uff09\", \"\u4e94\u66f4\u7409\u7483\uff08\u6211\u7684\u59b9\u59b9\u54ea\u6709\u8fd9\u4e48\u53ef\u7231\uff01\uff09\", \"\u4e95\u4e4b\u4e0a\u6cf7\u5948\uff08\u8389\u53ef\u4e3d\u4e1d\uff09\", \"\u5bab\u6c34\u4e09\u53f6\uff08\u4f60\u7684\u540d\u5b57\u3002\uff09\", \"\u5b89\u742a\u00b7\u827e\u739b\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u548c\u6cc9\u7eb1\u96fe\uff08\u57c3\u7f57\u8292\u963f\u8001\u5e08\uff09\", \"\u53ef\u857e\u5a1c\u00b7\u5e93\u514b\u7c73\u62c9\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u4f0a\u539f\u6469\u8036\u82b1\uff08\u51b0\u83d3\uff09\", \"\u51f8\u5b88\u65e9\u82d7\uff08\u4e2d\u4e8c\u75c5\u4e5f\u8981\u8c08\u604b\u7231\uff01\uff09\", \"\u4e2d\u91ce\u56db\u53f6\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u4e2d\u91ce\u4e94\u6708\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u9022\u5742\u5927\u6cb3\uff08\u9f99\u4e0e\u864e\uff09\", \"\u51c9\u5bab\u6625\u65e5\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u7531\u6bd4\u6ee8\u7ed3\u8863\uff08\u6211\u7684\u9752\u6625\u604b\u7231\u7269\u8bed\u679c\u7136\u6709\u95ee\u9898\u3002\uff09\", \"\u7267\u6fd1\u7ea2\u8389\u6816\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u53e4\u6cb3\u6e1a\uff08CLANNAD\uff09\", \"\u4e39\u751f\u8c37\u68ee\u590f\uff08\u4e2d\u4e8c\u75c5\u4e5f\u8981\u8c08\u604b\u7231\uff01\uff09\", \"\u7070\u539f\u54c0\uff08\u540d\u4fa6\u63a2\u67ef\u5357\uff09\", \"\u4e2d\u91ce\u4e8c\u4e43\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u5510\u53ef\u53ef\uff08LoveLive!\u7cfb\u5217\uff09\", \"\u8299\u857e\u5fb7\u5229\u5609\u00b7\u7f57\u68ee\u83f2\u5c14\u7279\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u5bab\u56ed\u85b0\uff08\u56db\u6708\u662f\u4f60\u7684\u8c0e\u8a00\uff09\", \"\u767d\u4e95\u9ed1\u5b50\uff08\u9b54\u6cd5\u7981\u4e66\u76ee\u5f55\uff09\", \"\u5e73\u6cfd\u5fe7\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u60e0\u60e0\uff08\u4e3a\u7f8e\u597d\u7684\u4e16\u754c\u732e\u4e0a\u795d\u798f\uff01\uff09\", \"\u4f0a\u5730\u77e5\u8679\u590f\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u5c71\u7530\u51c9\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u7acb\u534e\u594f\uff08Angel Beats!\uff09\", \"\u4e45\u77f3\u594f\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u7434\u5439\u4337\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u7530\u4e95\u4e2d\u5f8b\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u4f11\u6bd4\u00b7\u591a\u62c9\uff08NO GAME NO LIFE \u6e38\u620f\u4eba\u751f\uff09\", \"\u65f6\u5d0e\u72c2\u4e09\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u827e\u62c9\uff08\u53ef\u5851\u6027\u8bb0\u5fc6\uff09\", \"\u5343\u53cd\u7530\u7231\u7460\uff08\u51b0\u83d3\uff09\"]');                    if (params.value === null) return '';                    return '{vote|' + params.value + '\u7968}{name| - ' + labels[params.dataIndex] + '}';                }            ,
                 "rich": {
                     "avatar": {
                         "padding": [
@@ -369,20 +541,11 @@
                 "\u672a\u664b\u7ea7"
             ],
             "selected": {},
-            "type": "scroll",
-            "selectedMode": true,
-            "show": true,
-            "right": "2%",
-            "top": "middle",
-            "orient": "vertical",
+            "show": false,
             "padding": 5,
             "itemGap": 10,
             "itemWidth": 25,
             "itemHeight": 14,
-            "textStyle": {
-                "color": "#d3d3d3",
-                "fontSize": 12
-            },
             "backgroundColor": "transparent",
             "borderColor": "#ccc",
             "borderRadius": 0,
@@ -401,7 +564,7 @@
     ],
     "tooltip": {
         "show": true,
-        "trigger": "item",
+        "trigger": "axis",
         "triggerOn": "mousemove|click",
         "axisPointer": {
             "type": "line"
@@ -414,10 +577,14 @@
         "confine": false,
         "appendToBody": false,
         "transitionDuration": 0.4,
-        "formatter":                 function(params) {                    var labels = JSON.parse('[\"\u521d\u97f3\u672a\u6765\uff08VOCALOID\uff09\", \"\u89c1\u5d0e\u9e23\uff08Another\uff09\", \"\u5c0f\u821f\u6f6e\uff08\u590f\u65e5\u91cd\u73b0\uff09\", \"C.C.\uff08Code Geass\uff09\", \"\u4e00\u4e4b\u6fd1\u5343\u9e64\uff08\u79df\u501f\u5973\u53cb\uff09\", \"\u690e\u540d\u771f\u7531\u7406\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u5742\u4e0a\u667a\u4ee3\uff08CLANNAD\uff09\", \"\u971e\u4e4b\u4e18\u8bd7\u7fbd\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u5eb7\u5a1c\u5361\u59c6\u4f9d\uff08\u5c0f\u6797\u5bb6\u7684\u9f99\u5973\u4ec6\uff09\", \"\u7ea6\u5c14\u00b7\u798f\u6770\uff08\u95f4\u8c0d\u8fc7\u5bb6\u5bb6\uff09\", \"\u6cfd\u6751\u00b7\u65af\u6f58\u585e\u00b7\u82f1\u68a8\u68a8\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u672c\u95f4\u82bd\u8863\u5b50\uff08\u6211\u4eec\u4ecd\u672a\u77e5\u9053\u90a3\u5929\u6240\u770b\u89c1\u7684\u82b1\u7684\u540d\u5b57\u3002\uff09\", \"\u4e94\u66f4\u7409\u7483\uff08\u6211\u7684\u59b9\u59b9\u54ea\u6709\u8fd9\u4e48\u53ef\u7231\uff01\uff09\", \"\u5800\u4eac\u5b50\uff08\u5800\u4e0e\u5bab\u6751\uff09\", \"\u4e2d\u91ce\u4e94\u6708\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u5929\u91ce\u9633\u83dc\uff08\u5929\u6c14\u4e4b\u5b50\uff09\", \"\u85e4\u539f\u5343\u82b1\uff08\u8f89\u591c\u5927\u5c0f\u59d0\u60f3\u8ba9\u6211\u544a\u767d\uff5e\u5929\u624d\u4eec\u7684\u604b\u7231\u5934\u8111\u6218\uff5e\uff09\", \"\u4f11\u6bd4\u00b7\u591a\u62c9\uff08NO GAME NO LIFE \u6e38\u620f\u4eba\u751f\uff09\", \"\u963f\u5c3c\u4e9a\u00b7\u798f\u6770\uff08\u95f4\u8c0d\u8fc7\u5bb6\u5bb6\uff09\", \"\u96f6\u4e8c\uff08Darling in the FranXX\uff09\", \"\u9e22\u4e00\u6298\u7eb8\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u5800\u5317\u94c3\u97f3\uff08\u6b22\u8fce\u6765\u5230\u5b9e\u529b\u81f3\u4e0a\u4e3b\u4e49\u7684\u6559\u5ba4\uff09\", \"\u827e\u8389\u4e1d\u00b7\u4f2f\u96f7\u4e9a\u65af\u00b7\u683c\u96f7\u62c9\u7279\uff08\u65e0\u804c\u8f6c\u751f\uff09\", \"\u4e95\u4e4b\u4e0a\u6cf7\u5948\uff08\u8389\u53ef\u4e3d\u4e1d\uff09\", \"\u6817\u5c71\u672a\u6765\uff08\u5883\u754c\u7684\u5f7c\u65b9\uff09\", \"\u6850\u5d0e\u5343\u68d8\uff08\u4f2a\u604b\uff09\", \"\u559c\u591a\u5ddd\u6d77\u68a6\uff08\u66f4\u8863\u4eba\u5076\u5760\u5165\u7231\u6cb3\uff09\", \"\u4e00\u8272\u4f0a\u5415\u6ce2\uff08\u6211\u7684\u9752\u6625\u604b\u7231\u7269\u8bed\u679c\u7136\u6709\u95ee\u9898\u3002\uff09\", \"\u7531\u5d0e\u53f8\uff08\u603b\u4e4b\u5c31\u662f\u975e\u5e38\u53ef\u7231\uff09\", \"\u4e2d\u91ce\u4e8c\u4e43\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u591c\u5200\u795e\u5341\u9999\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u4e94\u6cb3\u7434\u91cc\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u7eeb\u6ce2\u4e3d\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u6653\u7f8e\u7130\uff08\u9b54\u6cd5\u5c11\u5973\u5c0f\u5706\uff09\", \"\u963f\u5e93\u5a05\uff08\u4e3a\u7f8e\u597d\u7684\u4e16\u754c\u732e\u4e0a\u795d\u798f\uff01\uff09\", \"\u7530\u4e95\u4e2d\u5f8b\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u73c2\u6735\u8389\u00b7\u8bfa\u5854\u00b7\u745f\u5c3c\u6b27\u91cc\u65af\uff08\u672b\u65e5\u65f6\u5728\u505a\u4ec0\u4e48\uff1f\u6709\u6ca1\u6709\u7a7a\uff1f\u53ef\u4ee5\u6765\u62ef\u6551\u5417\uff1f\uff09\", \"\u4f0a\u5730\u77e5\u8679\u590f\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u8fdc\u5742\u51db\uff08Fate\u7cfb\u5217\uff09\", \"\u897f\u5bab\u785d\u5b50\uff08\u58f0\u4e4b\u5f62\uff09\", \"\u767d\u4e95\u9ed1\u5b50\uff08\u9b54\u6cd5\u7981\u4e66\u76ee\u5f55\uff09\", \"\u6cc9\u6b64\u65b9\uff08\u5e78\u8fd0\u2606\u661f\uff09\", \"\u4f1e\u6728\u5e0c\u7f8e\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u5bab\u6c34\u4e09\u53f6\uff08\u4f60\u7684\u540d\u5b57\u3002\uff09\", \"\u548c\u6cc9\u7eb1\u96fe\uff08\u57c3\u7f57\u8292\u963f\u8001\u5e08\uff09\", \"\u4e1c\u6d77\u5e1d\u738b\uff08\u8d5b\u9a6c\u5a18 Pretty Derby\uff09\", \"\u60e3\u6d41\u00b7\u660e\u65e5\u9999\u00b7\u5170\u683c\u96f7\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u9e7f\u76ee\u5706\uff08\u9b54\u6cd5\u5c11\u5973\u5c0f\u5706\uff09\", \"\u7434\u5439\u4337\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u51c9\u5bab\u6625\u65e5\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u6625\u65e5\u91ce\u7a79\uff08\u7f18\u4e4b\u7a7a\uff09\", \"\u4e09\u7b20\u00b7\u963f\u514b\u66fc\uff08\u8fdb\u51fb\u7684\u5de8\u4eba\uff09\", \"\u5bab\u56ed\u85b0\uff08\u56db\u6708\u662f\u4f60\u7684\u8c0e\u8a00\uff09\", \"\u5c71\u7530\u51c9\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u957f\u95e8\u6709\u5e0c\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u53e4\u6cb3\u6e1a\uff08CLANNAD\uff09\", \"\u94e0\u51a2\u9719\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u7acb\u534e\u594f\uff08Angel Beats\uff01\uff09\", \"\u4e2d\u91ce\u6893\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u963f\u5c14\u6258\u8389\u96c5\u00b7\u6f58\u5fb7\u62c9\u8d21\uff08Fate\u7cfb\u5217\uff09\", \"\u696a\u7948\uff08\u7f6a\u6076\u738b\u51a0\uff09\", \"\u9022\u5742\u5927\u6cb3\uff08\u9f99\u4e0e\u864e\uff09\", \"\u60e0\u60e0\uff08\u4e3a\u7f8e\u597d\u7684\u4e16\u754c\u732e\u4e0a\u795d\u798f\uff01\uff09\", \"\u827e\u62c9\uff08\u53ef\u5851\u6027\u8bb0\u5fc6\uff09\", \"\u7231\u871c\u8389\u96c5\uff08Re:\u4ece\u96f6\u5f00\u59cb\u7684\u5f02\u4e16\u754c\u751f\u6d3b\uff09\", \"\u767d\uff08NO GAME NO LIFE \u6e38\u620f\u4eba\u751f\uff09\", \"\u5317\u767d\u5ddd\u7389\u5b50\uff08\u7389\u5b50\u5e02\u573a\uff09\", \"\u6d1b\u742a\u5e0c\u00b7\u7c73\u683c\u8def\u8fea\u4e9a\uff08\u65e0\u804c\u8f6c\u751f\uff09\", \"\u7267\u6fd1\u7ea2\u8389\u6816\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u7ed3\u57ce\u660e\u65e5\u5948\uff08\u5200\u5251\u795e\u57df\uff09\", \"\u8299\u62c9\u8482\u857e\u5a1c\u00b7\u7c73\u5229\u6770\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u9ec4\u524d\u4e45\u7f8e\u5b50\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\"]');                    if (params.value === null) return '';                    return params.seriesName + '<br/>' +                           labels[params.dataIndex] + '<br/>' +                           '\u5f97\u7968\u6570\uff1a' + params.value + '\u7968<br/>' +                           '\u6392\u540d\uff1a' + (72 - params.dataIndex);                }            ,
+        "formatter":                 function(params) {                    var labels = JSON.parse('[\"\u9ad8\u5742\u4e3d\u5948\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u8d6b\u841d\uff08\u72fc\u4e0e\u9999\u8f9b\u6599\uff09\", \"\u4f0a\u8389\u96c5\u4e1d\u83f2\u5c14\u00b7\u51af\u00b7\u7231\u56e0\u5179\u8d1d\u4f26\uff08Fate\u7cfb\u5217\uff09\", \"\u65e9\u5742\u7231\uff08\u8f89\u591c\u5927\u5c0f\u59d0\u60f3\u8ba9\u6211\u544a\u767d\uff5e\u5929\u624d\u4eec\u7684\u604b\u7231\u5934\u8111\u6218\uff5e\uff09\", \"\u5404\u52a1\u539f\u629a\u5b50\uff08\u6447\u66f3\u9732\u8425\u25b3\uff09\", \"\u65e5\u4ee3\u5343\u9e64\uff08ReLIFE\uff09\", \"\u5bab\u5185\u83b2\u534e\uff08\u60a0\u54c9\u65e5\u5e38\u5927\u738b\uff09\", \"\u4f0a\u5730\u77e5\u661f\u6b4c\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u67ca\u7b71\u5a05\uff08\u7ec8\u7ed3\u7684\u70bd\u5929\u4f7f\uff09\", \"\u5b89\u8fbe\u6a31\uff08\u5b89\u8fbe\u4e0e\u5c9b\u6751\uff09\", \"\u7267\u4e4b\u539f\u7fd4\u5b50\uff08\u9752\u6625\u732a\u5934\u5c11\u5e74\uff09\", \"\u6218\u573a\u539f\u9ed1\u4eea\uff08\u7269\u8bed\u7cfb\u5217\uff09\", \"\u671d\u7530\u8bd7\u4e43\uff08\u5200\u5251\u795e\u57df\uff09\", \"\u4e45\u4fdd\u6e1a\u54b2\uff08\u4e45\u4fdd\u540c\u5b66\u4e0d\u653e\u8fc7\u6211\uff09\", \"\u6728\u66f4\uff08\u5951\u7ea6\u4e4b\u543b\uff09\", \"\u4e2d\u5ddd\u590f\u7eaa\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u6237\u5c71\u9999\u6f84\uff08BanG Dream!\uff09\", \"\u5b89\u539f\u7ed8\u9ebb\uff08\u767d\u7bb1\uff09\", \"\u4e03\u8349\u8360\uff08\u5f7b\u591c\u4e4b\u6b4c\uff09\", \"\u5c0f\u821f\u6f6e\uff08\u590f\u65e5\u91cd\u73b0\uff09\", \"\u98df\u8702\u64cd\u7948\uff08\u9b54\u6cd5\u7981\u4e66\u76ee\u5f55\uff09\", \"\u8f7b\u4e95\u6cfd\u60e0\uff08\u6b22\u8fce\u6765\u5230\u5b9e\u529b\u81f3\u4e0a\u4e3b\u4e49\u7684\u6559\u5ba4\uff09\", \"\u8d64\u77b3\uff08\u65a9\u00b7\u8d64\u7ea2\u4e4b\u77b3\uff01\uff09\", \"\u5929\u771f\u00b7\u73c8\u767e\u7483\u00b7\u6000\u7279\uff08\u73c8\u767e\u7483\u7684\u5815\u843d\uff09\", \"\u7530\u4e2d\u660e\u65e5\u9999\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u571f\u95f4\u57cb\uff08\u5e72\u7269\u59b9\u5c0f\u57cb\uff09\", \"\u7c73\u6d74\uff08\u8d5b\u9a6c\u5a18 Pretty Derby\uff09\", \"\u5188\u5d0e\u6c50\uff08CLANNAD\uff09\", \"\u6c34\u91ce\u831c\uff08\u6708\u8272\u771f\u7f8e\uff09\", \"\u963f\u5e93\u5a05\uff08\u4e3a\u7f8e\u597d\u7684\u4e16\u754c\u732e\u4e0a\u795d\u798f\uff01\uff09\", \"\u67ca\u955c\uff08\u5e78\u8fd0\u2606\u661f\uff09\", \"\u82b1\u57ce\u674f\u5b50\uff08\u901a\u5f80\u590f\u5929\u7684\u96a7\u9053\uff0c\u518d\u89c1\u7684\u51fa\u53e3\uff09\", \"\u671d\u96fe\u53f2\u7ec7\uff08\u7389\u5b50\u5e02\u573a\uff09\", \"\u5e38\u76d8\u7eff\uff08\u7389\u5b50\u5e02\u573a\uff09\", \"\u4e09\u7b20\u00b7\u963f\u514b\u66fc\uff08\u8fdb\u51fb\u7684\u5de8\u4eba\uff09\", \"\u690e\u540d\u771f\u7531\u7406\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u4e03\u6d77\u5343\u79cb\uff08\u5f39\u4e38\u8bba\u7834\uff09\", \"\u591c\u5200\u795e\u5341\u9999\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u672c\u95f4\u82bd\u8863\u5b50\uff08\u6211\u4eec\u4ecd\u672a\u77e5\u9053\u90a3\u5929\u6240\u770b\u89c1\u7684\u82b1\u7684\u540d\u5b57\u3002\uff09\", \"\u82e5\u53f6\u7766\uff08BanG Dream!\uff09\", \"\u5343\u6597\u4e94\u5341\u94c3\uff08\u7518\u57ce\u5149\u8f89\u6e38\u4e50\u56ed\uff09\", \"\u6258\u5c14\uff08\u5c0f\u6797\u5bb6\u7684\u9f99\u5973\u4ec6\uff09\", \"\u8981\u4e50\u5948\uff08BanG Dream!\uff09\", \"\u7267\u91ce\u795e\u5948\uff08\u7389\u5b50\u5e02\u573a\uff09\", \"\u6728\u4e4b\u672c\u6a31\uff08\u9b54\u5361\u5c11\u5973\u6a31\uff09\", \"\u9999\u98ce\u667a\u4e43\uff08\u8bf7\u95ee\u60a8\u4eca\u5929\u8981\u6765\u70b9\u5154\u5b50\u5417\uff1f\uff09\", \"\u9e22\u4e00\u6298\u7eb8\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u4e03\u5bab\u667a\u97f3\uff08\u4e2d\u4e8c\u75c5\u4e5f\u8981\u8c08\u604b\u7231\uff01\uff09\", \"\u89c1\u5d0e\u9e23\uff08Another\uff09\", \"\u585e\u897f\u8389\u4e9a\uff08\u767d\u5723\u5973\u4e0e\u9ed1\u7267\u5e08\uff09\", \"\u6bdb\u5229\u5170\uff08\u540d\u4fa6\u63a2\u67ef\u5357\uff09\", \"\u5800\u4eac\u5b50\uff08\u5800\u4e0e\u5bab\u6751\uff09\", \"\u4f18\u6728\u96ea\u83dc\uff08LoveLive!\u7cfb\u5217\uff09\", \"\u971e\u4e4b\u4e18\u8bd7\u7fbd\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u795e\u5c3e\u89c2\u94c3\uff08AIR\uff09\", \"\u85e4\u539f\u5343\u82b1\uff08\u8f89\u591c\u5927\u5c0f\u59d0\u60f3\u8ba9\u6211\u544a\u767d\uff5e\u5929\u624d\u4eec\u7684\u604b\u7231\u5934\u8111\u6218\uff5e\uff09\", \"\u897f\u6728\u91ce\u771f\u59ec\uff08LoveLive!\u7cfb\u5217\uff09\", \"\u5eb7\u5a1c\u5361\u59c6\u4f9d\uff08\u5c0f\u6797\u5bb6\u7684\u9f99\u5973\u4ec6\uff09\", \"\u521d\u97f3\u672a\u6765\uff08VOCALOID\uff09\", \"\u696a\u7948\uff08\u7f6a\u6076\u738b\u51a0\uff09\", \"\u6d1b\u742a\u5e0c\u00b7\u7c73\u683c\u8def\u8fea\u4e9a\uff08\u65e0\u804c\u8f6c\u751f\uff09\", \"\u6817\u5c71\u672a\u6765\uff08\u5883\u754c\u7684\u5f7c\u65b9\uff09\", \"\u4f1e\u6728\u5e0c\u7f8e\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u690e\u540d\u7acb\u5e0c\uff08BanG Dream!\uff09\", \"\u95f4\u6850\u6a31\uff08Fate\u7cfb\u5217\uff09\", \"\u60e3\u6d41\u00b7\u660e\u65e5\u9999\u00b7\u5170\u683c\u96f7\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u6e21\u8fb9\u66dc\uff08LoveLive!\u7cfb\u5217\uff09\", \"\u6850\u5d0e\u5343\u68d8\uff08\u4f2a\u604b\uff09\", \"\u7eeb\u6ce2\u4e3d\uff08\u65b0\u4e16\u7eaa\u798f\u97f3\u6218\u58eb\uff09\", \"\u94e0\u51a2\u9719\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u4e00\u8272\u4f0a\u5415\u6ce2\uff08\u6211\u7684\u9752\u6625\u604b\u7231\u7269\u8bed\u679c\u7136\u6709\u95ee\u9898\u3002\uff09\", \"\u732b\u732b\uff08\u836f\u5c4b\u5c11\u5973\u7684\u5462\u5583\uff09\", \"\u9ed1\u5ddd\u831c\uff08\u3010\u6211\u63a8\u7684\u5b69\u5b50\u3011\uff09\", \"\u6cfd\u6751\u00b7\u65af\u6f58\u585e\u00b7\u82f1\u68a8\u68a8\uff08\u8def\u4eba\u5973\u4e3b\u7684\u517b\u6210\u65b9\u6cd5\uff09\", \"\u4f50\u4ed3\u5343\u4ee3\uff08\u6708\u520a\u5c11\u5973\u91ce\u5d0e\u541b\uff09\", \"\u957f\u95e8\u6709\u5e0c\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u9752\u5c71\u4e03\u6d77\uff08\u6a31\u82b1\u5e84\u7684\u5ba0\u7269\u5973\u5b69\uff09\", \"\u897f\u5bab\u785d\u5b50\uff08\u58f0\u4e4b\u5f62\uff09\", \"\u4e2d\u91ce\u4e00\u82b1\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"02\uff08Darling in the FranXX\uff09\", \"\u73c2\u6735\u8389\u00b7\u8bfa\u5854\u00b7\u745f\u5c3c\u6b27\u91cc\u65af\uff08\u672b\u65e5\u65f6\u5728\u505a\u4ec0\u4e48\uff1f\u6709\u6ca1\u6709\u7a7a\uff1f\u53ef\u4ee5\u6765\u62ef\u6551\u5417\uff1f\uff09\", \"\u4e1c\u6d77\u5e1d\u738b\uff08\u8d5b\u9a6c\u5a18 Pretty Derby\uff09\", \"\u6cc9\u6b64\u65b9\uff08\u5e78\u8fd0\u2606\u661f\uff09\", \"\u963f\u5c14\u6258\u8389\u96c5\u00b7\u6f58\u5fb7\u62c9\u8d21\uff08Fate\u7cfb\u5217\uff09\", \"\u6653\u7f8e\u7130\uff08\u9b54\u6cd5\u5c11\u5973\u5c0f\u5706\uff09\", \"\u8fdc\u5742\u51db\uff08Fate\u7cfb\u5217\uff09\", \"\u5929\u91ce\u9633\u83dc\uff08\u5929\u6c14\u4e4b\u5b50\uff09\", \"\u56db\u5bab\u8f89\u591c\uff08\u8f89\u591c\u5927\u5c0f\u59d0\u60f3\u8ba9\u6211\u544a\u767d\uff5e\u5929\u624d\u4eec\u7684\u604b\u7231\u5934\u8111\u6218\uff5e\uff09\", \"\u9e7f\u76ee\u5706\uff08\u9b54\u6cd5\u5c11\u5973\u5c0f\u5706\uff09\", \"\u6625\u65e5\u91ce\u7a79\uff08\u7f18\u4e4b\u7a7a\uff09\", \"\u5c3c\u7984\u00b7\u514b\u52b3\u72c4\u4e4c\u65af\uff08Fate\u7cfb\u5217\uff09\", \"\u5c71\u7530\u674f\u5948\uff08\u6211\u5fc3\u91cc\u5371\u9669\u7684\u4e1c\u897f\uff09\", \"\u4e94\u6cb3\u7434\u91cc\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u7531\u5d0e\u53f8\uff08\u603b\u4e4b\u5c31\u662f\u975e\u5e38\u53ef\u7231\uff09\", \"\u6709\u9a6c\u52a0\u5948\uff08\u3010\u6211\u63a8\u7684\u5b69\u5b50\u3011\uff09\", \"\u4e24\u4eea\u5f0f\uff08\u7a7a\u4e4b\u5883\u754c\uff09\", \"\u9ad8\u6728\uff08\u64c5\u957f\u6349\u5f04\u7684\u9ad8\u6728\u540c\u5b66\uff09\", \"\u4e94\u66f4\u7409\u7483\uff08\u6211\u7684\u59b9\u59b9\u54ea\u6709\u8fd9\u4e48\u53ef\u7231\uff01\uff09\", \"\u4e95\u4e4b\u4e0a\u6cf7\u5948\uff08\u8389\u53ef\u4e3d\u4e1d\uff09\", \"\u5bab\u6c34\u4e09\u53f6\uff08\u4f60\u7684\u540d\u5b57\u3002\uff09\", \"\u5b89\u742a\u00b7\u827e\u739b\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u548c\u6cc9\u7eb1\u96fe\uff08\u57c3\u7f57\u8292\u963f\u8001\u5e08\uff09\", \"\u53ef\u857e\u5a1c\u00b7\u5e93\u514b\u7c73\u62c9\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u4f0a\u539f\u6469\u8036\u82b1\uff08\u51b0\u83d3\uff09\", \"\u51f8\u5b88\u65e9\u82d7\uff08\u4e2d\u4e8c\u75c5\u4e5f\u8981\u8c08\u604b\u7231\uff01\uff09\", \"\u4e2d\u91ce\u56db\u53f6\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u4e2d\u91ce\u4e94\u6708\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u9022\u5742\u5927\u6cb3\uff08\u9f99\u4e0e\u864e\uff09\", \"\u51c9\u5bab\u6625\u65e5\uff08\u51c9\u5bab\u6625\u65e5\u7684\u5fe7\u90c1\uff09\", \"\u7531\u6bd4\u6ee8\u7ed3\u8863\uff08\u6211\u7684\u9752\u6625\u604b\u7231\u7269\u8bed\u679c\u7136\u6709\u95ee\u9898\u3002\uff09\", \"\u7267\u6fd1\u7ea2\u8389\u6816\uff08\u547d\u8fd0\u77f3\u4e4b\u95e8\uff09\", \"\u53e4\u6cb3\u6e1a\uff08CLANNAD\uff09\", \"\u4e39\u751f\u8c37\u68ee\u590f\uff08\u4e2d\u4e8c\u75c5\u4e5f\u8981\u8c08\u604b\u7231\uff01\uff09\", \"\u7070\u539f\u54c0\uff08\u540d\u4fa6\u63a2\u67ef\u5357\uff09\", \"\u4e2d\u91ce\u4e8c\u4e43\uff08\u4e94\u7b49\u5206\u7684\u65b0\u5a18\uff09\", \"\u5510\u53ef\u53ef\uff08LoveLive!\u7cfb\u5217\uff09\", \"\u8299\u857e\u5fb7\u5229\u5609\u00b7\u7f57\u68ee\u83f2\u5c14\u7279\uff0886 -\u4e0d\u5b58\u5728\u7684\u6218\u533a-\uff09\", \"\u5bab\u56ed\u85b0\uff08\u56db\u6708\u662f\u4f60\u7684\u8c0e\u8a00\uff09\", \"\u767d\u4e95\u9ed1\u5b50\uff08\u9b54\u6cd5\u7981\u4e66\u76ee\u5f55\uff09\", \"\u5e73\u6cfd\u5fe7\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u60e0\u60e0\uff08\u4e3a\u7f8e\u597d\u7684\u4e16\u754c\u732e\u4e0a\u795d\u798f\uff01\uff09\", \"\u4f0a\u5730\u77e5\u8679\u590f\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u5c71\u7530\u51c9\uff08\u5b64\u72ec\u6447\u6eda\uff01\uff09\", \"\u7acb\u534e\u594f\uff08Angel Beats!\uff09\", \"\u4e45\u77f3\u594f\uff08\u5439\u54cd\uff01\u4e0a\u4f4e\u97f3\u53f7\uff09\", \"\u7434\u5439\u4337\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u7530\u4e95\u4e2d\u5f8b\uff08\u8f7b\u97f3\u5c11\u5973\uff09\", \"\u4f11\u6bd4\u00b7\u591a\u62c9\uff08NO GAME NO LIFE \u6e38\u620f\u4eba\u751f\uff09\", \"\u65f6\u5d0e\u72c2\u4e09\uff08\u7ea6\u4f1a\u5927\u4f5c\u6218\uff09\", \"\u827e\u62c9\uff08\u53ef\u5851\u6027\u8bb0\u5fc6\uff09\", \"\u5343\u53cd\u7530\u7231\u7460\uff08\u51b0\u83d3\uff09\"]');                    var ranks = JSON.parse('[\"125\", \"125\", \"125\", \"125\", \"125\", \"125\", \"125\", \"118\", \"118\", \"118\", \"118\", \"118\", \"118\", \"118\", \"111\", \"111\", \"111\", \"111\", \"111\", \"111\", \"111\", \"108\", \"108\", \"108\", \"106\", \"106\", \"100\", \"100\", \"100\", \"100\", \"100\", \"100\", \"96\", \"96\", \"96\", \"96\", \"93\", \"93\", \"93\", \"90\", \"90\", \"90\", \"89\", \"85\", \"85\", \"85\", \"85\", \"82\", \"82\", \"82\", \"80\", \"80\", \"79\", \"78\", \"76\", \"76\", \"71\", \"71\", \"71\", \"71\", \"71\", \"68\", \"68\", \"68\", \"64\", \"64\", \"64\", \"64\", \"63\", \"61\", \"61\", \"59\", \"59\", \"58\", \"57\", \"56\", \"54\", \"54\", \"53\", \"50\", \"50\", \"50\", \"49\", \"48\", \"47\", \"45\", \"45\", \"44\", \"42\", \"42\", \"40\", \"40\", \"38\", \"38\", \"37\", \"33\", \"33\", \"33\", \"33\", \"32\", \"31\", \"30\", \"29\", \"28\", \"27\", \"25\", \"25\", \"24\", \"23\", \"22\", \"21\", \"20\", \"19\", \"18\", \"17\", \"16\", \"15\", \"14\", \"13\", \"12\", \"11\", \"10\", \"9\", \"8\", \"7\", \"6\", \"5\", \"4\", \"3\", \"2\", \"1\"]');                    for (var i = 0; i < params.length; i++) {                        if (params[i].value !== null && !isNaN(params[i].value)) {                            params = params[i];                            break;                        }                    }                    if (params.dataIndex >= labels.length) {                        return '';                    }                    if (!params.value || isNaN(params.value)) return '';                    return params.seriesName + '<br/>' +                           labels[params.dataIndex] + '<br/>' +                           '\u5f97\u7968\u6570\uff1a' + params.value + '\u7968<br/>' +                           '\u6392\u540d\uff1a' + ranks[params.dataIndex];                }            ,
         "textStyle": {
+            "color": "#a6c1ee",
+            "fontFamily": "Microsoft YaHei",
             "fontSize": 14
         },
+        "backgroundColor": "rgba(50, 50, 50, 0.9)",
+        "borderColor": "rgba(50, 50, 50, 0.9)",
         "borderWidth": 0,
         "padding": 5,
         "order": "seriesAsc"
@@ -434,9 +601,11 @@
                 "show": true,
                 "margin": 8,
                 "fontSize": 12,
+                "fontFamily": "Microsoft YaHei",
                 "valueAnimation": false
             },
             "inverse": false,
+            "position": "center",
             "offset": 0,
             "splitNumber": 5,
             "minInterval": 0,
@@ -462,6 +631,7 @@
     ],
     "yAxis": [
         {
+            "type": "category",
             "name": "\u6392\u540d",
             "show": true,
             "scale": false,
@@ -484,10 +654,13 @@
             "axisLabel": {
                 "show": true,
                 "margin": 8,
+                "interval": 0,
+                "fontFamily": "Microsoft YaHei",
                 "formatter": "{value}",
                 "valueAnimation": false
             },
             "inverse": false,
+            "position": "center",
             "offset": 0,
             "splitNumber": 5,
             "minInterval": 0,
@@ -510,45 +683,104 @@
             "animationEasingUpdate": "cubicOut",
             "animationDelayUpdate": 0,
             "data": [
-                "72",
+                "125",
+                "125",
+                "125",
+                "125",
+                "125",
+                "125",
+                "125",
+                "118",
+                "118",
+                "118",
+                "118",
+                "118",
+                "118",
+                "118",
+                "111",
+                "111",
+                "111",
+                "111",
+                "111",
+                "111",
+                "111",
+                "108",
+                "108",
+                "108",
+                "106",
+                "106",
+                "100",
+                "100",
+                "100",
+                "100",
+                "100",
+                "100",
+                "96",
+                "96",
+                "96",
+                "96",
+                "93",
+                "93",
+                "93",
+                "90",
+                "90",
+                "90",
+                "89",
+                "85",
+                "85",
+                "85",
+                "85",
+                "82",
+                "82",
+                "82",
+                "80",
+                "80",
+                "79",
+                "78",
+                "76",
+                "76",
                 "71",
-                "70",
-                "69",
+                "71",
+                "71",
+                "71",
+                "71",
                 "68",
-                "67",
-                "66",
-                "65",
+                "68",
+                "68",
+                "64",
+                "64",
+                "64",
                 "64",
                 "63",
-                "62",
                 "61",
-                "60",
+                "61",
+                "59",
                 "59",
                 "58",
                 "57",
                 "56",
-                "55",
+                "54",
                 "54",
                 "53",
-                "52",
-                "51",
+                "50",
+                "50",
                 "50",
                 "49",
                 "48",
                 "47",
-                "46",
+                "45",
                 "45",
                 "44",
-                "43",
                 "42",
-                "41",
+                "42",
                 "40",
-                "39",
+                "40",
+                "38",
                 "38",
                 "37",
-                "36",
-                "35",
-                "34",
+                "33",
+                "33",
+                "33",
                 "33",
                 "32",
                 "31",
@@ -556,7 +788,7 @@
                 "29",
                 "28",
                 "27",
-                "26",
+                "25",
                 "25",
                 "24",
                 "23",
@@ -591,7 +823,7 @@
             "target": "blank",
             "subtarget": "blank",
             "left": "center",
-            "top": "5px",
+            "top": "0",
             "padding": 5,
             "itemGap": 10,
             "textAlign": "auto",
@@ -599,37 +831,41 @@
             "triggerEvent": false,
             "textStyle": {
                 "color": "transparent",
+                "fontWeight": "bold",
+                "fontFamily": "Microsoft YaHei",
                 "fontSize": 24
             },
             "subtextStyle": {
                 "color": "transparent",
+                "fontFamily": "Microsoft YaHei",
                 "fontSize": 14
             }
         }
-    ],
-    "dataZoom": {
-        "show": true,
-        "type": "inside",
-        "showDetail": true,
-        "showDataShadow": true,
-        "realtime": true,
-        "start": 0,
-        "end": 100,
-        "orient": "vertical",
-        "zoomLock": false,
-        "filterMode": "filter",
-        "disabled": false,
-        "zoomOnMouseWheel": true,
-        "moveOnMouseMove": true,
-        "moveOnMouseWheel": true,
-        "preventDefaultMouseMove": true
-    }
+    ]
 };
-        chart_vote_chart.setOption(option_vote_chart);
-    </script>
-</body>
-</html>
-
-    <!-- 页尾会被 footer.js 自动插入到这里 -->
+                    
+                    option_vote_chart.grid = {
+                        left: '15%',
+                        right: '15%',
+                        top: '2%',
+                        bottom: '5%',
+                        containLabel: true
+                    };
+                    
+                    chart_vote_chart.setOption(option_vote_chart);
+                    
+                    window.addEventListener('resize', function() {
+                        chart_vote_chart.resize();
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <include src="../../../templates/footer.html"></include>
+    <script type="module" src="../../../js/common/template-loader.js"></script>
+    <script src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
+    <script src="../../../js/visualization/visualization.js"></script>
+    <script src="../../../js/chart-legend/01-stellar-nomination-chart-legend.js"></script>
+    <script type="module" src="../../../js/common/event-links.js"></script>
 </body>
 </html>

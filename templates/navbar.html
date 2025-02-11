@@ -1,32 +1,135 @@
 <nav class="navbar">
     <div class="nav-container">
-        <a href="index.html" class="nav-logo">ISML 2024</a>
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="#" class="nav-link">赛事日程</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link">恒星组 ▾</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">提名赛</a></li>
-                    <li><a href="#">预选赛</a></li>
-                    <li><a href="#">正赛</a></li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link">彗星组 ▾</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">提名赛</a></li>
-                    <li><a href="#">预选赛</a></li>
-                    <li><a href="#">正赛</a></li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">数据统计</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">关于</a>
-            </li>
-        </ul>
+        <div class="nav-left">
+            <a href="/" class="nav-logo">ISML 2024</a>
+            <span class="nav-subtitle">数据可视化</span>
+        </div>
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="{{basePath}}index.html" class="nav-link" data-page="home">首页</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link" data-page="schedule">赛事日程</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{basePath}}pages/schedule/schedule.html">
+                                <i class="fas fa-stream"></i>
+                                时间线形式（可交互）
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{basePath}}pages/schedule/schedule-grid.html">
+                                <i class="fas fa-th"></i>
+                                图片形式（不可交互）
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="{{basePath}}pages/events-data/events-data.html" class="nav-link" data-page="events-data">赛事数据</a>
+                <a href="{{basePath}}pages/characters-data/characters-data.html" class="nav-link" data-page="characters-data">角色数据</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link" data-page="comparison">数据对比</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{basePath}}pages/comparison/character-comparison.html">
+                                <i class="fas fa-users"></i>
+                                角色数据对比
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{basePath}}pages/comparison/event-comparison.html">
+                                <i class="fas fa-chart-line"></i>
+                                赛事数据对比
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link" data-page="statistics">数据统计</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{basePath}}pages/statistics/nomination-stats.html">
+                                <i class="fas fa-chart-bar"></i>
+                                提名阶段统计
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-chart-line"></i>
+                                主赛事阶段统计
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="{{basePath}}pages/gallery/gallery.html" class="nav-link" data-page="gallery">图库</a>
+                <a href="{{basePath}}pages/about/about.html" class="nav-link" data-page="about">关于</a>
+                <a href="https://b23.tv/KBky1wX" class="nav-author" target="_blank"><span>by 初雪戈墨</span></a>
+            </div>
+        </div>
+        <div class="danmaku-settings-container">
+            <button class="danmaku-btn">
+                <i class="fas fa-comment"></i>
+                弹幕设置
+            </button>
+            <div class="modal" id="danmakuModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>弹幕设置</h3>
+                        <button class="close-btn">&times;</button>
+                    </div>
+                    <div class="setting-item">
+                        <div class="switch-container">
+                            <label for="danmakuEnabled">启用弹幕</label>
+                            <label class="switch">
+                                <input type="checkbox" id="danmakuEnabled" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label>弹幕位置</label>
+                        <div class="position-container">
+                            <select id="danmakuPosition">
+                                <option value="top">页面上方</option>
+                                <option value="middle">页面中央</option>
+                                <option value="bottom">页面下方</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label>弹幕大小</label>
+                        <div class="range-container">
+                            <input type="range" id="danmakuSize" min="12" max="24" step="1" value="14">
+                            <div class="value-input">
+                                <input type="number" class="number-input" value="14" min="12" max="24" step="1">
+                                <span class="unit">px</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label>生成间隔</label>
+                        <div class="range-container">
+                            <input type="range" id="danmakuInterval" min="0.1" max="1440" step="0.1" value="{{defaultInterval}}">
+                            <div class="value-input">
+                                <input type="number" class="number-input" value="{{defaultInterval}}" min="0.1" max="1440" step="0.1">
+                                <span class="unit" id="intervalUnit">m</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-header">
+                            <label>滚动时间</label>
+                            <span class="screen-width"></span>
+                        </div>
+                        <div class="range-container">
+                            <input type="range" id="danmakuSpeed" min="{{minSpeed}}" max="{{maxSpeed}}" step="1" value="{{defaultSpeed}}">
+                            <div class="value-input">
+                                <input type="number" class="number-input" value="{{defaultSpeed}}" min="{{minSpeed}}" max="{{maxSpeed}}" step="1">
+                                <span class="unit">秒</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </nav> 

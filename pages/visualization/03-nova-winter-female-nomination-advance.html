@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../../css/visualization/visualization.css">
+</head>
+<body>
+<include src="../../../templates/header.html"></include>
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="button-container">
+                <a href="javascript:history.back()" class="home-btn">返回上一页</a>
+                <a href="../tables/03-nova-winter-female-nomination-table.html" class="table-btn">查看表格</a>
+                <div class="size-controls">
+                    <div class="slider-container">
+                        <label for="width-slider">宽度: <span id="width-value">1800</span>px</label>
+                        <input type="range" id="width-slider" min="100" max="2500" value="1800" step="100">
+                    </div>
+                    <div class="slider-container">
+                        <label for="height-slider">高度: <span id="height-value">2200</span>px</label>
+                        <input type="range" id="height-slider" min="100" max="5000" value="2200" step="100">
+                    </div>
+                    <button id="reset-size" class="reset-btn">重置大小</button>
+                </div>
+            </div>
+            <div class="content-scroll">
+                <div class="chart-wrapper">
+                    <div class="custom-legend">
+                        <div class="legend-item">
+                            <span class="legend-color advance"></span>
+                            <span class="legend-text">晋级</span>
+                        </div>
+                    </div>
+                    <div id="vote_chart" class="chart-container"></div>
+                </div>
+            </div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const widthSlider = document.getElementById('width-slider');
+                    const heightSlider = document.getElementById('height-slider');
+                    const widthValue = document.getElementById('width-value');
+                    const heightValue = document.getElementById('height-value');
+                    const chartContainer = document.querySelector('.chart-container');
+                    const chartWrapper = document.querySelector('.chart-wrapper');
+                    const resetBtn = document.getElementById('reset-size');
+
+                    const defaultWidth = 1800;
+                    const defaultHeight = 2200;
+
+                    function resetSize() {
+                        widthSlider.value = defaultWidth;
+                        heightSlider.value = defaultHeight;
+                        widthValue.textContent = defaultWidth;
+                        heightValue.textContent = defaultHeight;
+                        chartContainer.style.maxWidth = `${defaultWidth}px`;
+                        chartWrapper.style.maxWidth = `${defaultWidth}px`;
+                        chartContainer.style.height = `${defaultHeight}px`;
+                        if (chart_vote_chart) {
+                            chart_vote_chart.resize();
+                        }
+                    }
+
+                    resetBtn.addEventListener('click', resetSize);
+
+                    function updateSize() {
+                        const width = Math.min(Math.max(widthSlider.value, 100), 2500);
+                        const height = Math.min(Math.max(heightSlider.value, 100), 5000);
+                        widthValue.textContent = width;
+                        heightValue.textContent = height;
+                        chartContainer.style.maxWidth = `${width}px`;
+                        chartWrapper.style.maxWidth = `${width}px`;
+                        chartContainer.style.height = `${height}px`;
+                        if (chart_vote_chart) {
+                            chart_vote_chart.resize();
+                        }
+                    }
+
+                    widthSlider.addEventListener('input', updateSize);
+                    heightSlider.addEventListener('input', updateSize);
+
+                    var titleContainer = document.createElement('div');
+                    titleContainer.className = 'title-container';
+                    
+                    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svg.style.width = '100%';
+                    svg.style.height = '75px';
+                    
+                    var title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    title.textContent = '01.07-01.14 - 新星组冬季赛提名-女性组别（晋级）';
+                    title.setAttribute('x', '50%');
+                    title.setAttribute('y', '25');
+                    title.setAttribute('text-anchor', 'middle');
+                    title.style.fontSize = '24px';
+                    title.setAttribute('font-weight', 'bold');
+
+                    var subtitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    subtitle.textContent = '共26名角色晋级至主赛事新星组预选赛阶段';
+                    subtitle.setAttribute('x', '50%');
+                    subtitle.setAttribute('y', '50');
+                    subtitle.setAttribute('text-anchor', 'middle');
+                    subtitle.style.fontSize = '14px';
+                    subtitle.setAttribute('fill', '#9370DB');
+
+                    var legendHint = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    legendHint.textContent = '点击图例可隐藏/显示系列';
+                    legendHint.setAttribute('x', '50%');
+                    legendHint.setAttribute('y', '70');
+                    legendHint.setAttribute('text-anchor', 'middle');
+                    legendHint.style.fontSize = '14px';
+                    legendHint.setAttribute('fill', '#9370DB');
+
+                    var gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+                    gradient.id = 'titleGradient';
+                    gradient.setAttribute('x1', '0%');
+                    gradient.setAttribute('y1', '0%');
+                    gradient.setAttribute('x2', '100%');
+                    gradient.setAttribute('y2', '0%');
+                    
+                    var stops = [
+                        {offset: '0%', color: '#ff6b6b'},
+                        {offset: '40%', color: '#4a90e2'},
+                        {offset: '100%', color: '#3eaf7c'}
+                    ];
+                    
+                    stops.forEach(function(stop) {
+                        var stopEl = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+                        stopEl.setAttribute('offset', stop.offset);
+                        stopEl.setAttribute('stop-color', stop.color);
+                        gradient.appendChild(stopEl);
+                    });
+                    
+                    svg.appendChild(gradient);
+                    title.setAttribute('fill', 'url(#titleGradient)');
+                    svg.appendChild(title);
+                    svg.appendChild(subtitle);
+                    svg.appendChild(legendHint);
+                    
+                    titleContainer.appendChild(svg);
+                    document.querySelector('.chart-wrapper').insertBefore(titleContainer, document.querySelector('#vote_chart'));
+                    
+                    window.chart_vote_chart = echarts.init(
+                        document.getElementById('vote_chart'), 'dark', {renderer: 'canvas'});
+                    var option_vote_chart = {
+    "backgroundColor": "#1a1a1a",
+    "animation": true,
+    "animationThreshold": 2000,
+    "animationDuration": 1000,
+    "animationEasing": "cubicOut",
+    "animationDelay": 0,
+    "animationDurationUpdate": 300,
+    "animationEasingUpdate": "cubicOut",
+    "animationDelayUpdate": 0,
+    "aria": {
+        "enabled": false
+    },
+    "series": [
+        {
+            "type": "bar",
+            "name": "\u664b\u7ea7",
+            "legendHoverLink": true,
+            "data": [
+                3,
+                3,
+                3,
+                3,
+                3,
+                4,
+                5,
+                5,
+                5,
+                6,
+                7,
+                7,
+                8,
+                8,
+                8,
+                8,
+                9,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                18,
+                21,
+                31
+            ],
+            "realtimeSort": false,
+            "showBackground": false,
+            "stackStrategy": "samesign",
+            "cursor": "pointer",
+            "barMinHeight": 0,
+            "barCategoryGap": "40%",
+            "barGap": "0%",
+            "large": false,
+            "largeThreshold": 400,
+            "seriesLayoutBy": "column",
+            "datasetIndex": 0,
+            "clip": true,
+            "zlevel": 0,
+            "z": 2,
+            "label": {
+                "show": true,
+                "position": "right",
+                "margin": 8,
+                "formatter":                 function(params) {                    var labels = JSON.parse('[\"\u514b\u8389\u4e1d\u6735\u00b7\u8bfa\u5df4\u63d0\u00b7\u8bfa\u5361\u90a3\u5824\u5361\uff08\u5a5a\u6212\u7269\u8bed\uff09\", \"\u7389\uff08\u6218\u56fd\u5996\u72d0\uff09\", \"\u96f7\u8499\u00b7\u5384\u6587\uff08\u7269\u7406\u9b54\u6cd5\u4f7f\u9a6c\u4fee\uff09\", \"\u6faa\uff08\u6708\u5149\u4e0b\u7684\u5f02\u4e16\u754c\u4e4b\u65c5\uff09\", \"\u62c9\u59c6\uff08\u798f\u661f\u5c0f\u5b50\uff09\", \"\u72ac\u9972\u5c0f\u9ea6\uff08\u7f8e\u5999\u5ba0\u7269 \u5149\u4e4b\u7f8e\u5c11\u5973\uff01\uff09\", \"\u9732\u7f07\uff08\u56e0\u4e3a\u4e0d\u662f\u771f\u6b63\u7684\u4f19\u4f34\u800c\u88ab\u9010\u51fa\u52c7\u8005\u961f\u4f0d\uff0c\u6d41\u843d\u5230\u8fb9\u5883\u5c55\u5f00\u6162\u6d3b\u4eba\u751f\uff09\", \"\u5411\u5742\u96eb\uff08\u6211\u72ec\u81ea\u5347\u7ea7\uff09\", \"\u5173\u6839\u840c\u5b50\uff08\u6211\u5fc3\u91cc\u5371\u9669\u7684\u4e1c\u897f\uff09\", \"\u5c24\u871c\u62c9\u00b7\u591a\u514b\u5c3c\u65af\uff08\u53cd\u6d3e\u5343\u91d1\u7b49\u7ea799\uff5e\u6211\u662f\u9690\u85cf\u5934\u76ee\u4f46\u4e0d\u662f\u9b54\u738b\uff5e\uff09\", \"\u83ca\u6c60\u98ce\u9999\uff08\u5f31\u52bf\u89d2\u8272\u53cb\u5d0e\u541b\uff09\", \"\u90bb\u5c45\u59b9\u59b9\uff08\u4f50\u4f50\u6728\u4e0e\u6587\u9e1f\u5c0f\u54d4\uff09\", \"\u690e\u540d\u65e5\u548c\uff08\u6b22\u8fce\u6765\u5230\u5b9e\u529b\u81f3\u4e0a\u4e3b\u4e49\u7684\u6559\u5ba4\uff09\", \"\u9732\u743c\u00b7\u96f7\u5fb7\u65af\u5854\uff08\u91d1\u5c5e\u53e3\u7ea2\uff09\", \"\u51ac\u6728\u7f8e\u6ce2\uff08\u5317\u6d77\u9053\u8fa3\u59b9\u8d3c\u62c9\u53ef\u7231\uff09\", \"\u827e\u7ef4\uff08\u6700\u5f31\u7684\u9a6f\u517b\u5e08\u5f00\u542f\u7684\u6361\u5783\u573e\u7684\u65c5\u9014\u3002\uff09\", \"\u7fbd\u524d\u4eac\u9999\uff08\u9b54\u90fd\u7cbe\u5175\u7684\u5974\u96b6\uff09\", \"\u5c24\u8d1d\u5c14\uff08\u846c\u9001\u7684\u8299\u8389\u83b2\uff09\", \"\u516c\u4e3b\uff08\u516c\u4e3b\u5927\u4eba\uff0c\u63a5\u4e0b\u6765\u662f\u201c\u62f7\u95ee\u201d\u65f6\u95f4\uff09\", \"\u4e00\u4e4b\u6fd1\u5e06\u6ce2\uff08\u6b22\u8fce\u6765\u5230\u5b9e\u529b\u81f3\u4e0a\u4e3b\u4e49\u7684\u6559\u5ba4\uff09\", \"\u5929\u97f3\u8389\u8389\uff08\u611a\u8822\u5929\u4f7f\u4e0e\u6076\u9b54\u5171\u821e\uff09\", \"\u8389\u96ea\u00b7\u4f0a\u8def\u59c6\u52a0\u5fb7\u00b7\u7ef4\u5c14\u5179\u7eb3\uff08\u8f6e\u56de\u4e03\u6b21\u7684\u6076\u5f79\u5343\u91d1\uff0c\u5728\u524d\u654c\u56fd\u4eab\u53d7\u968f\u5fc3\u6240\u6b32\u7684\u65b0\u5a5a\u751f\u6d3b\uff09\", \"\u7cf8\u6fd1\u96ea\uff08\u6307\u5c16\u76f8\u89e6\uff0c\u604b\u604b\u4e0d\u820d\uff09\", \"\u963f\u826f\u6cb3\u57fa\u7ef4\uff08\u61a7\u61ac\u6210\u4e3a\u9b54\u6cd5\u5c11\u5973\uff09\", \"\u739b\u9732\u897f\u5c14\uff08\u8ff7\u5bab\u996d\uff09\", \"\u67ca\u821e\u7f07\u5a1c\uff08\u61a7\u61ac\u6210\u4e3a\u9b54\u6cd5\u5c11\u5973\uff09\"]');                    if (params.value === null) return '';                    return '{vote|' + params.value + '\u7968}{name| - ' + labels[params.dataIndex] + '}';                }            ,
+                "rich": {
+                    "avatar": {
+                        "padding": [
+                            0,
+                            5,
+                            0,
+                            0
+                        ]
+                    },
+                    "vote": {
+                        "color": "#ff7875",
+                        "fontSize": 13,
+                        "fontWeight": "bold",
+                        "padding": [
+                            0,
+                            5,
+                            0,
+                            5
+                        ]
+                    },
+                    "name": {
+                        "color": "#a6c1ee",
+                        "fontSize": 12
+                    }
+                },
+                "valueAnimation": false
+            },
+            "itemStyle": {
+                "color":                 new echarts.graphic.LinearGradient(0, 0, 1, 0, [{                    offset: 0,                    color: '#3d7644'                }, {                    offset: 0.5,                    color: '#3e9d65'                }, {                    offset: 1,                    color: '#3e9d65'                }])            
+            }
+        }
+    ],
+    "legend": [
+        {
+            "data": [
+                "\u664b\u7ea7"
+            ],
+            "selected": {},
+            "show": false,
+            "padding": 5,
+            "itemGap": 10,
+            "itemWidth": 25,
+            "itemHeight": 14,
+            "backgroundColor": "transparent",
+            "borderColor": "#ccc",
+            "borderRadius": 0,
+            "pageButtonItemGap": 5,
+            "pageButtonPosition": "end",
+            "pageFormatter": "{current}/{total}",
+            "pageIconColor": "#2f4554",
+            "pageIconInactiveColor": "#aaa",
+            "pageIconSize": 15,
+            "animationDurationUpdate": 800,
+            "selector": false,
+            "selectorPosition": "auto",
+            "selectorItemGap": 7,
+            "selectorButtonGap": 10
+        }
+    ],
+    "tooltip": {
+        "show": true,
+        "trigger": "axis",
+        "triggerOn": "mousemove|click",
+        "axisPointer": {
+            "type": "line"
+        },
+        "showContent": true,
+        "alwaysShowContent": false,
+        "showDelay": 0,
+        "hideDelay": 100,
+        "enterable": false,
+        "confine": false,
+        "appendToBody": false,
+        "transitionDuration": 0.4,
+        "formatter":                 function(params) {                    var labels = JSON.parse('[\"\u514b\u8389\u4e1d\u6735\u00b7\u8bfa\u5df4\u63d0\u00b7\u8bfa\u5361\u90a3\u5824\u5361\uff08\u5a5a\u6212\u7269\u8bed\uff09\", \"\u7389\uff08\u6218\u56fd\u5996\u72d0\uff09\", \"\u96f7\u8499\u00b7\u5384\u6587\uff08\u7269\u7406\u9b54\u6cd5\u4f7f\u9a6c\u4fee\uff09\", \"\u6faa\uff08\u6708\u5149\u4e0b\u7684\u5f02\u4e16\u754c\u4e4b\u65c5\uff09\", \"\u62c9\u59c6\uff08\u798f\u661f\u5c0f\u5b50\uff09\", \"\u72ac\u9972\u5c0f\u9ea6\uff08\u7f8e\u5999\u5ba0\u7269 \u5149\u4e4b\u7f8e\u5c11\u5973\uff01\uff09\", \"\u9732\u7f07\uff08\u56e0\u4e3a\u4e0d\u662f\u771f\u6b63\u7684\u4f19\u4f34\u800c\u88ab\u9010\u51fa\u52c7\u8005\u961f\u4f0d\uff0c\u6d41\u843d\u5230\u8fb9\u5883\u5c55\u5f00\u6162\u6d3b\u4eba\u751f\uff09\", \"\u5411\u5742\u96eb\uff08\u6211\u72ec\u81ea\u5347\u7ea7\uff09\", \"\u5173\u6839\u840c\u5b50\uff08\u6211\u5fc3\u91cc\u5371\u9669\u7684\u4e1c\u897f\uff09\", \"\u5c24\u871c\u62c9\u00b7\u591a\u514b\u5c3c\u65af\uff08\u53cd\u6d3e\u5343\u91d1\u7b49\u7ea799\uff5e\u6211\u662f\u9690\u85cf\u5934\u76ee\u4f46\u4e0d\u662f\u9b54\u738b\uff5e\uff09\", \"\u83ca\u6c60\u98ce\u9999\uff08\u5f31\u52bf\u89d2\u8272\u53cb\u5d0e\u541b\uff09\", \"\u90bb\u5c45\u59b9\u59b9\uff08\u4f50\u4f50\u6728\u4e0e\u6587\u9e1f\u5c0f\u54d4\uff09\", \"\u690e\u540d\u65e5\u548c\uff08\u6b22\u8fce\u6765\u5230\u5b9e\u529b\u81f3\u4e0a\u4e3b\u4e49\u7684\u6559\u5ba4\uff09\", \"\u9732\u743c\u00b7\u96f7\u5fb7\u65af\u5854\uff08\u91d1\u5c5e\u53e3\u7ea2\uff09\", \"\u51ac\u6728\u7f8e\u6ce2\uff08\u5317\u6d77\u9053\u8fa3\u59b9\u8d3c\u62c9\u53ef\u7231\uff09\", \"\u827e\u7ef4\uff08\u6700\u5f31\u7684\u9a6f\u517b\u5e08\u5f00\u542f\u7684\u6361\u5783\u573e\u7684\u65c5\u9014\u3002\uff09\", \"\u7fbd\u524d\u4eac\u9999\uff08\u9b54\u90fd\u7cbe\u5175\u7684\u5974\u96b6\uff09\", \"\u5c24\u8d1d\u5c14\uff08\u846c\u9001\u7684\u8299\u8389\u83b2\uff09\", \"\u516c\u4e3b\uff08\u516c\u4e3b\u5927\u4eba\uff0c\u63a5\u4e0b\u6765\u662f\u201c\u62f7\u95ee\u201d\u65f6\u95f4\uff09\", \"\u4e00\u4e4b\u6fd1\u5e06\u6ce2\uff08\u6b22\u8fce\u6765\u5230\u5b9e\u529b\u81f3\u4e0a\u4e3b\u4e49\u7684\u6559\u5ba4\uff09\", \"\u5929\u97f3\u8389\u8389\uff08\u611a\u8822\u5929\u4f7f\u4e0e\u6076\u9b54\u5171\u821e\uff09\", \"\u8389\u96ea\u00b7\u4f0a\u8def\u59c6\u52a0\u5fb7\u00b7\u7ef4\u5c14\u5179\u7eb3\uff08\u8f6e\u56de\u4e03\u6b21\u7684\u6076\u5f79\u5343\u91d1\uff0c\u5728\u524d\u654c\u56fd\u4eab\u53d7\u968f\u5fc3\u6240\u6b32\u7684\u65b0\u5a5a\u751f\u6d3b\uff09\", \"\u7cf8\u6fd1\u96ea\uff08\u6307\u5c16\u76f8\u89e6\uff0c\u604b\u604b\u4e0d\u820d\uff09\", \"\u963f\u826f\u6cb3\u57fa\u7ef4\uff08\u61a7\u61ac\u6210\u4e3a\u9b54\u6cd5\u5c11\u5973\uff09\", \"\u739b\u9732\u897f\u5c14\uff08\u8ff7\u5bab\u996d\uff09\", \"\u67ca\u821e\u7f07\u5a1c\uff08\u61a7\u61ac\u6210\u4e3a\u9b54\u6cd5\u5c11\u5973\uff09\"]');                    var ranks = JSON.parse('[\"22\", \"22\", \"22\", \"22\", \"22\", \"21\", \"18\", \"18\", \"18\", \"17\", \"15\", \"15\", \"11\", \"11\", \"11\", \"11\", \"9\", \"9\", \"8\", \"7\", \"6\", \"5\", \"4\", \"3\", \"2\", \"1\"]');                    for (var i = 0; i < params.length; i++) {                        if (params[i].value !== null && !isNaN(params[i].value)) {                            params = params[i];                            break;                        }                    }                    if (params.dataIndex >= labels.length) {                        return '';                    }                    if (!params.value || isNaN(params.value)) return '';                    return params.seriesName + '<br/>' +                           labels[params.dataIndex] + '<br/>' +                           '\u5f97\u7968\u6570\uff1a' + params.value + '\u7968<br/>' +                           '\u6392\u540d\uff1a' + ranks[params.dataIndex];                }            ,
+        "textStyle": {
+            "color": "#a6c1ee",
+            "fontFamily": "Microsoft YaHei",
+            "fontSize": 14
+        },
+        "backgroundColor": "rgba(50, 50, 50, 0.9)",
+        "borderColor": "rgba(50, 50, 50, 0.9)",
+        "borderWidth": 0,
+        "padding": 5,
+        "order": "seriesAsc"
+    },
+    "xAxis": [
+        {
+            "name": "\u5f97\u7968\u6570",
+            "show": true,
+            "scale": false,
+            "nameLocation": "end",
+            "nameGap": 15,
+            "gridIndex": 0,
+            "axisLabel": {
+                "show": true,
+                "margin": 8,
+                "fontSize": 12,
+                "fontFamily": "Microsoft YaHei",
+                "valueAnimation": false
+            },
+            "inverse": false,
+            "position": "center",
+            "offset": 0,
+            "splitNumber": 5,
+            "minInterval": 0,
+            "splitLine": {
+                "show": true,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 0.3,
+                    "curveness": 0,
+                    "type": "dashed"
+                }
+            },
+            "animation": true,
+            "animationThreshold": 2000,
+            "animationDuration": 1000,
+            "animationEasing": "cubicOut",
+            "animationDelay": 0,
+            "animationDurationUpdate": 300,
+            "animationEasingUpdate": "cubicOut",
+            "animationDelayUpdate": 0
+        }
+    ],
+    "yAxis": [
+        {
+            "type": "category",
+            "name": "\u6392\u540d",
+            "show": true,
+            "scale": false,
+            "nameLocation": "end",
+            "nameGap": 15,
+            "gridIndex": 0,
+            "axisLine": {
+                "show": true,
+                "onZero": true,
+                "onZeroAxisIndex": 0,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid",
+                    "color": "#333"
+                }
+            },
+            "axisLabel": {
+                "show": true,
+                "margin": 8,
+                "interval": 0,
+                "fontFamily": "Microsoft YaHei",
+                "formatter": "{value}",
+                "valueAnimation": false
+            },
+            "inverse": false,
+            "position": "center",
+            "offset": 0,
+            "splitNumber": 5,
+            "minInterval": 0,
+            "splitLine": {
+                "show": true,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid"
+                }
+            },
+            "animation": true,
+            "animationThreshold": 2000,
+            "animationDuration": 1000,
+            "animationEasing": "cubicOut",
+            "animationDelay": 0,
+            "animationDurationUpdate": 300,
+            "animationEasingUpdate": "cubicOut",
+            "animationDelayUpdate": 0,
+            "data": [
+                "22",
+                "22",
+                "22",
+                "22",
+                "22",
+                "21",
+                "18",
+                "18",
+                "18",
+                "17",
+                "15",
+                "15",
+                "11",
+                "11",
+                "11",
+                "11",
+                "9",
+                "9",
+                "8",
+                "7",
+                "6",
+                "5",
+                "4",
+                "3",
+                "2",
+                "1"
+            ]
+        }
+    ],
+    "title": [
+        {
+            "show": true,
+            "target": "blank",
+            "subtarget": "blank",
+            "left": "center",
+            "top": "0",
+            "padding": 5,
+            "itemGap": 10,
+            "textAlign": "auto",
+            "textVerticalAlign": "auto",
+            "triggerEvent": false,
+            "textStyle": {
+                "color": "transparent",
+                "fontWeight": "bold",
+                "fontFamily": "Microsoft YaHei",
+                "fontSize": 24
+            },
+            "subtextStyle": {
+                "color": "transparent",
+                "fontFamily": "Microsoft YaHei",
+                "fontSize": 14
+            }
+        }
+    ]
+};
+                    
+                    option_vote_chart.grid = {
+                        left: '15%',
+                        right: '15%',
+                        top: '2%',
+                        bottom: '5%',
+                        containLabel: true
+                    };
+                    
+                    chart_vote_chart.setOption(option_vote_chart);
+                    
+                    window.addEventListener('resize', function() {
+                        chart_vote_chart.resize();
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <include src="../../../templates/footer.html"></include>
+    <script type="module" src="../../../js/common/template-loader.js"></script>
+    <script src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
+    <script src="../../../js/visualization/visualization.js"></script>
+</body>
+</html>
