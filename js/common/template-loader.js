@@ -1,15 +1,18 @@
 import { CONFIG } from './config.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
+    // 检测当前环境
+    const isGitHubPages = window.location.hostname === 'hatsusumi.github.io';
+    
+    // 动态路径处理函数
+    function getResourcePath(path) {
+        return isGitHubPages ? `/ISML-2024/${path}` : path;
+    }
+
     const depth = location.pathname.split('/').slice(1, -1).length;
     const pathToRoot = depth === 0 ? '.' : Array(depth).fill('..').join('/');
     const basePath = pathToRoot + '/';
     
-    // 辅助函数：构建资源路径
-    function getResourcePath(path) {
-        return basePath + path;
-    }
-
     async function processSpecialComponents() {
         // 检查弹幕功能是否开启
         if (!CONFIG.features.danmaku) {
@@ -132,6 +135,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     await processSpecialComponents();
 
     const emailScript = document.createElement('script');
-    emailScript.src = basePath + 'js/common/copy-email.js';
+    emailScript.src = getResourcePath('js/common/copy-email.js');
     document.body.appendChild(emailScript);
 }); 
