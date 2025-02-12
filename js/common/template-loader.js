@@ -156,7 +156,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             const matchedLink = Array.from(navLinks).find(link => {
                 const page = link.dataset.page;
                 const isMatched = Object.entries(pageMap).some(([path, mappedPage]) => {
-                    const matched = currentPath.includes(path) && page === mappedPage;
+                    // 更精确的匹配逻辑
+                    const matched = 
+                        (currentPath.includes(path) && page === mappedPage) ||
+                        (page === 'schedule' && currentPath.includes('/schedule/'));
+                    
                     if (matched) {
                         console.log('匹配成功:', {
                             currentPath,
