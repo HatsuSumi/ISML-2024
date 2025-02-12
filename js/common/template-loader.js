@@ -129,6 +129,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     await processSpecialComponents();
 
     const emailScript = document.createElement('script');
-    emailScript.src = "/js/common/copy-email.js";
+    emailScript.src = "js/common/copy-email.js";
     document.body.appendChild(emailScript);
 }); 
