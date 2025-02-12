@@ -124,24 +124,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     function setActiveNavLink() {
         setTimeout(() => {
             const currentPath = window.location.pathname;
-            console.log('当前路径:', currentPath);
-    
             const navLinks = document.querySelectorAll('a[data-page]');
-            console.log('导航链接数量:', navLinks.length);
-            
-            // 详细的路径匹配规则
+    
             const matchLink = (link) => {
                 const page = link.dataset.page;
                 const href = link.href;
-                
-                // 详细日志
-                console.log('检查链接:', {
-                    href,
-                    page,
-                    currentPath
-                });
     
-                // 复杂的匹配逻辑
                 const matchConditions = [
                     // 首页匹配
                     page === 'home' && (
@@ -150,30 +138,20 @@ document.addEventListener('DOMContentLoaded', async function() {
                         currentPath.includes('/index.html')
                     ),
                     
-                    // Schedule 页面匹配
+                    // 各页面精确匹配
                     page === 'schedule' && currentPath.includes('/schedule/'),
-                    
-                    // 其他页面精确匹配
                     page === 'events-data' && currentPath.includes('/events-data/'),
                     page === 'characters-data' && currentPath.includes('/characters-data/'),
                     page === 'gallery' && currentPath.includes('/gallery/'),
                     page === 'about' && currentPath.includes('/about/'),
+                    page === 'comparison' && currentPath.includes('/comparison/'),
+                    page === 'statistics' && currentPath.includes('/statistics/'),
                     
                     // 下拉菜单特殊处理
                     page === 'schedule' && href.includes('schedule.html')
                 ];
     
-                const matched = matchConditions.some(condition => condition);
-                
-                if (matched) {
-                    console.log('匹配成功:', {
-                        href,
-                        page,
-                        currentPath
-                    });
-                }
-    
-                return matched;
+                return matchConditions.some(condition => condition);
             };
     
             // 先移除所有高亮
@@ -183,10 +161,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             const matchedLink = Array.from(navLinks).find(matchLink);
     
             if (matchedLink) {
-                console.log('添加高亮:', matchedLink.href);
                 matchedLink.classList.add('active');
-            } else {
-                console.warn('未找到匹配的导航链接');
             }
         }, 100);
     }
