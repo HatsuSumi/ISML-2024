@@ -16,10 +16,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 item.addEventListener('click', function() {
                     const text = item.querySelector('.legend-text').textContent;
                     
+                    let targetUrl = '';
                     if (text === '未晋级') {
-                        window.location.href = `${baseUrl}-nomination-advance.html`;
+                        targetUrl = `pages/visualization/${baseUrl}-nomination-advance.html`;
                     } else if (text === '晋级') {
-                        window.location.href = `${baseUrl}-nomination-eliminate.html`;
+                        targetUrl = `pages/visualization/${baseUrl}-nomination-eliminate.html`;
+                    }
+
+                    if (targetUrl) {
+                        window.location.href = targetUrl;
                     }
                 });
             });
