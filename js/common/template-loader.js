@@ -140,23 +140,22 @@ document.addEventListener('DOMContentLoaded', async function() {
                 '/statistics/': 'statistics',
                 '/characters-data/': 'characters-data',
             };
-
+    
+            // 先移除所有高亮
             navLinks.forEach(link => link.classList.remove('active'));
             
-            navLinks.forEach(link => {
+            // 精确匹配
+            const matchedLink = Array.from(navLinks).find(link => {
                 const page = link.dataset.page;
-                
-                const cleanPath = currentPath.split('#')[0];
-    
-                for (const [path, mappedPage] of Object.entries(pageMap)) {
-                    if ((cleanPath === path || 
-                         cleanPath.includes(path)) && 
-                        page === mappedPage) {
-                        link.classList.add('active');
-                        break;
-                    }
-                }
+                return Object.entries(pageMap).some(([path, mappedPage]) => 
+                    (currentPath.includes(path) && page === mappedPage)
+                );
             });
+    
+            // 只高亮一个链接
+            if (matchedLink) {
+                matchedLink.classList.add('active');
+            }
         }, 100);
     }
 
