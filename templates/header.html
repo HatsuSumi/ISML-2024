@@ -2,8 +2,8 @@
 <html lang="zh">
   <head>
     <script>
-       document.addEventListener('DOMContentLoaded', () => {
-    if (location.hostname === "hatsusumi.github.io") {
+     document.addEventListener('DOMContentLoaded', () => {
+     if (location.hostname === "hatsusumi.github.io") {
         ['link', 'script', 'img', 'a'].forEach(tag => {
             document.querySelectorAll(`${tag}[href], ${tag}[src]`).forEach(el => {
                 const attr = el.hasAttribute('href') ? 'href' : 'src';
@@ -11,8 +11,15 @@
                 
                 // 只处理相对路径
                 if (originalPath && !originalPath.startsWith('/') && !originalPath.includes('://')) {
-                    // 移除开头的 ../
-                    const cleanPath = originalPath.replace(/^(\.\.\/)+/, '');
+                    // 获取当前页面路径
+                    const currentPath = window.location.pathname;
+                    
+                    // 计算正确的绝对路径
+                    const url = new URL(originalPath, `https://hatsusumi.github.io${currentPath}`);
+                    
+                    // 移除开头的 /
+                    const cleanPath = url.pathname.replace(/^\//, '');
+                    
                     const newPath = `/ISML-2024/${cleanPath}`;
                     el.setAttribute(attr, newPath);
                 }
