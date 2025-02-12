@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const response = await fetch(file);
                 let text = await response.text();
                 
+                console.log('处理模板:', file);
+                console.log('模板内容:', text);
+                
                 // 替换基础路径和配置值
                 text = text
                     .replace(/\{\{defaultInterval\}\}/g, (5 / 1000 / 60).toFixed(1))
@@ -25,14 +28,21 @@ document.addEventListener('DOMContentLoaded', async function() {
                 
                 // 处理 head 内容
                 const headContent = tempDiv.querySelector('head');
+                console.log('head内容:', headContent);
+                
                 if (headContent) {
                     headContent.childNodes.forEach(node => {
                         if (node.nodeType === 1) {  // 元素节点
+                            console.log('处理节点:', node);
+                            
                             // 特殊处理 favicon
                             if (node.tagName === 'LINK' && node.getAttribute('rel') === 'icon') {
+                                console.log('发现favicon:', node);
+                                
                                 // 移除已存在的 favicon
                                 const existingFavicon = document.head.querySelector('link[rel="icon"]');
                                 if (existingFavicon) {
+                                    console.log('移除已存在的favicon:', existingFavicon);
                                     existingFavicon.remove();
                                 }
                             }
@@ -44,7 +54,10 @@ document.addEventListener('DOMContentLoaded', async function() {
                             );
                             
                             if (!isDuplicate) {
+                                console.log('添加节点:', node);
                                 document.head.appendChild(node.cloneNode(true));
+                            } else {
+                                console.log('节点重复，未添加:', node);
                             }
                         }
                     });
