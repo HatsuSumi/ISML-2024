@@ -880,9 +880,10 @@ function renderMatchDetails(match, status) {
                 <div class="result-links-wrapper">
                     <div class="result-links-trigger">查看结果</div>
                     <div class="result-links-menu">
-                        ${match.links.completed.items.map(link => 
-                            `<a href="${link.url}?from=schedule">${link.text}</a>`
-                        ).join('')}
+                        ${match.links.completed.items.map(link => {
+                            const fullUrl = `${link.url}?from=schedule`;
+                            return `<a href="${fullUrl}" onclick="console.log('Clicked Link:', this.href)">${link.text}</a>`;
+                        }).join('')}
                     </div>
                 </div>
             ` : ''}
