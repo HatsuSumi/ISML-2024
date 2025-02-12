@@ -28,6 +28,15 @@ document.addEventListener('DOMContentLoaded', async function() {
                 if (headContent) {
                     headContent.childNodes.forEach(node => {
                         if (node.nodeType === 1) {  // 元素节点
+                            // 特殊处理 favicon
+                            if (node.tagName === 'LINK' && node.getAttribute('rel') === 'icon') {
+                                // 移除已存在的 favicon
+                                const existingFavicon = document.head.querySelector('link[rel="icon"]');
+                                if (existingFavicon) {
+                                    existingFavicon.remove();
+                                }
+                            }
+    
                             // 避免重复添加
                             const existingElements = Array.from(document.head.children);
                             const isDuplicate = existingElements.some(el => 
