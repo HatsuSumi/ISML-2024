@@ -11,32 +11,42 @@ document.addEventListener('DOMContentLoaded', async function() {
             try {
                 const response = await fetch(file);
                 let text = await response.text();
+    
+                if (file.includes('navbar.html')) {
+                    if (!CONFIG.features.danmaku) {
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = text;
+                        const danmakuSettings = tempDiv.querySelector('.danmaku-settings-container');
+                        if (danmakuSettings) {
+                            danmakuSettings.remove();
+                        }
+                        text = tempDiv.innerHTML;
+                    }
+                }
                 
-                console.log('处理模板:', file);
-                console.log('模板内容:', text);
+                // 替换基础路径和配置值
+                text = text
+                    .replace(/\{\{defaultInterval\}\}/g, (5 / 1000 / 60).toFixed(1))
+                    .replace(/\{\{minSpeed\}\}/g, 50)
+                    .replace(/\{\{maxSpeed\}\}/g, 200)
+                    .replace(/\{\{defaultSpeed\}\}/g, 100);
                 
                 // 使用正则表达式提取 head 内容
                 const headMatch = text.match(/<head>([\s\S]*?)<\/head>/i);
                 
                 if (headMatch) {
                     const headContent = headMatch[1];
-                    console.log('head内容:', headContent);
                     
                     // 创建临时 div 解析 head 内容
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = headContent;
                     
                     Array.from(tempDiv.children).forEach(node => {
-                        console.log('处理节点:', node);
-                        
                         // 特殊处理 favicon
                         if (node.tagName === 'LINK' && node.getAttribute('rel') === 'icon') {
-                            console.log('发现favicon:', node);
-                            
                             // 移除已存在的 favicon
                             const existingFavicon = document.head.querySelector('link[rel="icon"]');
                             if (existingFavicon) {
-                                console.log('移除已存在的favicon:', existingFavicon);
                                 existingFavicon.remove();
                             }
                         }
@@ -48,10 +58,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                         );
                         
                         if (!isDuplicate) {
-                            console.log('添加节点:', node);
                             document.head.appendChild(node.cloneNode(true));
-                        } else {
-                            console.log('节点重复，未添加:', node);
                         }
                     });
                 }
