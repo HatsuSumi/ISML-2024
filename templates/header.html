@@ -2,11 +2,23 @@
 <html lang="zh">
   <head>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
         if (location.hostname === "hatsusumi.github.io") {
-            const baseTag = document.createElement('base');
-            baseTag.href = "/ISML-2024/";
-            document.head.appendChild(baseTag);
-        }
+        // 处理所有 link 和 script 标签
+        ['link', 'script', 'img', 'a'].forEach(tag => {
+            document.querySelectorAll(`${tag}[href], ${tag}[src]`).forEach(el => {
+                const attr = el.hasAttribute('href') ? 'href' : 'src';
+                const originalPath = el.getAttribute(attr);
+                
+                // 只处理相对路径
+                if (originalPath && !originalPath.startsWith('/') && !originalPath.includes('://')) {
+                    const newPath = `/ISML-2024/${originalPath}`;
+                    el.setAttribute(attr, newPath);
+                }
+            });
+        });
+    }
+});
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
