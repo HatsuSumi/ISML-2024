@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 
                 // 替换基础路径和配置值
                 text = text
-                    .replace(/\{\{basePath\}\}/g, pathToRoot + '/')
+                    .replace(/\{\{basePath\}\}/g, '')
                     .replace(/\{\{defaultInterval\}\}/g, (CONFIG.danmaku.interval / 1000 / 60).toFixed(1))
                     .replace(/\{\{minSpeed\}\}/g, CONFIG.danmaku.minSpeed)
                     .replace(/\{\{maxSpeed\}\}/g, CONFIG.danmaku.maxSpeed)
