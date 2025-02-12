@@ -127,6 +127,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const navLinks = document.querySelectorAll('.nav-links a');
         
         const pageMap = {
+            '/': 'home',
             '/index.html': 'home',
             '/events-data/': 'events-data',
             '/visualization/': 'events-data',
