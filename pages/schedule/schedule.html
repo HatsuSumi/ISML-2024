@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="../../css/schedule/schedule.css">
+    <link rel="stylesheet" href="/css/schedule/schedule.css">
 </head>
 <body>
-    <include src="../../templates/header.html"></include>
+    <include src="/templates/header.html"></include>
     
     <div class="site-wrapper">
         <div class="schedule-container">
@@ -25,11 +25,11 @@
             <div id="timeline" class="timeline">    
             </div>
         </div>
-        <include src="../../templates/footer.html"></include>
+        <include src="/templates/footer.html"></include>
     </div>
     
-    <script type="module" src="../../js/common/template-loader.js"></script>
-    <script src="../../js/schedule/schedule.js"></script>
+    <script type="module" src="/js/common/template-loader.js"></script>
+    <script src="/js/schedule/schedule.js"></script>
     <script>
         if (sessionStorage.getItem(SCROLL_POSITION_KEY)) {
             history.scrollRestoration = 'manual';

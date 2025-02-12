@@ -3,19 +3,17 @@ import { CONFIG } from '/ISML-2024/js/common/config.js';
 document.addEventListener('DOMContentLoaded', async function() {    
     async function processIncludes() {
         const includes = document.querySelectorAll('include');
-
         if (includes.length === 0) return;
-
+    
         for (const element of includes) {
             const file = element.getAttribute('src');
-
+    
             try {
                 const response = await fetch(file);
                 let text = await response.text();
                 
                 // 替换基础路径和配置值
                 text = text
-                    .replace(/\{\{basePath\}\}/g, '')
                     .replace(/\{\{defaultInterval\}\}/g, (CONFIG.danmaku.interval / 1000 / 60).toFixed(1))
                     .replace(/\{\{minSpeed\}\}/g, CONFIG.danmaku.minSpeed)
                     .replace(/\{\{maxSpeed\}\}/g, CONFIG.danmaku.maxSpeed)
@@ -126,9 +124,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     await processSpecialComponents();
 
     const emailScript = document.createElement('script');
-    emailScript.src = 
-        location.hostname === "hatsusumi.github.io"
-            ? "/ISML-2024/js/common/copy-email.js"
-            : new URL('../../../js/common/copy-email.js', window.location.href).pathname;
+    emailScript.src = "/js/common/copy-email.js";
     document.body.appendChild(emailScript);
 }); 

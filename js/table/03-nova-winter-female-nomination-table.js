@@ -19,10 +19,7 @@ window.onclick = function(event) {
 
 // 下载功能
 window.downloadFile = function(format) {
-    const filePath = 
-    location.hostname === "hatsusumi.github.io"
-        ? `/ISML-2024/data/nomination/nova/winter/female/03-nova-winter-female-nomination.${format}`
-        : `../../data/nomination/nova/winter/female/03-nova-winter-female-nomination.${format}`;
+    const filePath = `/data/nomination/nova/winter/female/03-nova-winter-female-nomination.${format}`
 
 fetch(filePath)
     .then(response => {
@@ -392,11 +389,7 @@ function sortTable(columnIndex) {
 
 // 加载并排序数据
 function loadAndSortData(columnIndex, isAsc) {
-    fetch(
-        location.hostname === "hatsusumi.github.io"
-            ? "/ISML-2024/data/nomination/nova/winter/female/03-nova-winter-female-nomination.csv"
-            : "../../data/nomination/nova/winter/female/03-nova-winter-female-nomination.csv"
-    )
+    fetch("/data/nomination/nova/winter/female/03-nova-winter-female-nomination.csv")
         .then(response => response.text())
         .then(data => {
             const rows = data.split('\n').slice(1);

@@ -16,10 +16,7 @@ window.onclick = function(event) {
 }
 
 window.downloadFile = function(format) {
-    const filePath = 
-    location.hostname === "hatsusumi.github.io"
-        ? `/ISML-2024/data/nomination/stellar/female/01-female-nomination.${format}`
-        : `../../data/nomination/stellar/female/01-female-nomination.${format}`;
+    const filePath = `/data/nomination/stellar/female/01-female-nomination.${format}`;
 
 fetch(filePath)
     .then(response => {
@@ -124,9 +121,7 @@ function smoothScrollToTop(duration = 500) {
 }
 
 fetch(
-    location.hostname === "hatsusumi.github.io" 
-        ? "/ISML-2024/data/nomination/stellar/female/01-female-nomination.csv"
-        : "../../data/nomination/stellar/female/01-female-nomination.csv"
+    "/data/nomination/stellar/female/01-female-nomination.csv"
 )
 .then(response => response.text())
 .then(data => {
@@ -450,11 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 等淡出动画完成后重新加载数据
         setTimeout(() => {
-            fetch(
-                location.hostname === "hatsusumi.github.io" 
-                    ? "/ISML-2024/data/nomination/stellar/female/01-female-nomination.csv"
-                    : "../../data/nomination/stellar/female/01-female-nomination.csv"
-            )
+            fetch("/data/nomination/stellar/female/01-female-nomination.csv")
                 .then(response => response.text())
                 .then(data => {
                     const tableBody = document.getElementById('tableBody');

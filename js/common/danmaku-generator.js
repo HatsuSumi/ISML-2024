@@ -96,9 +96,7 @@ export class DanmakuGenerator {
     async loadData() {
         try {
             const response = await fetch(
-                location.hostname === "hatsusumi.github.io" 
-                    ? `/ISML-2024/${CONFIG.danmaku.dataUrl}`
-                    : CONFIG.danmaku.dataUrl
+                `/data/characters/${CONFIG.danmaku.dataUrl}`
             );
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

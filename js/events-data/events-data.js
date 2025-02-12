@@ -172,21 +172,9 @@ function getCurrentPhase(eventsData) {
 document.addEventListener('DOMContentLoaded', async function() {
     try {
         const [data, rankingData, charactersData] = await Promise.all([
-            fetch(
-                location.hostname === "hatsusumi.github.io" 
-                    ? "/ISML-2024/data/config/events.json"
-                    : "../../data/config/events.json"
-            ).then(r => r.json()),
-            fetch(
-                location.hostname === "hatsusumi.github.io" 
-                    ? "/ISML-2024/data/votes/top5-rankings.json"
-                    : "../../data/votes/top5-rankings.json"
-            ).then(r => r.json()),
-            fetch(
-                location.hostname === "hatsusumi.github.io" 
-                    ? "/ISML-2024/data/characters/base/characters-data.json"
-                    : "../../data/characters/base/characters-data.json"
-            ).then(r => r.json())
+            fetch("/data/config/events.json").then(r => r.json()),
+            fetch("/data/votes/top5-rankings.json").then(r => r.json()),
+            fetch("/data/characters/base/characters-data.json").then(r => r.json())
         ]);
         eventsData = data;
         

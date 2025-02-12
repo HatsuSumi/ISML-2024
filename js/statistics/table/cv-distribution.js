@@ -186,11 +186,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     // 初始化
     async function initTable() {
         try {
-            const data = await fetch(
-                location.hostname === "hatsusumi.github.io" 
-                    ? "/ISML-2024/data/statistics/nomination-stats.json"
-                    : "../../../data/statistics/nomination-stats.json"
-            ).then(r => r.json());
+            const data = await fetch("/data/statistics/nomination-stats.json").then(r => r.json());
             originalData = data;
             const filters = getFilters();
             const characters = filterCharacters(data, filters);

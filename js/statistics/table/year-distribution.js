@@ -204,13 +204,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     // 初始化表格
     async function initTable() {
         try {
-            const data = await fetch(
-                location.hostname === "hatsusumi.github.io" 
-                    ? "/ISML-2024/data/statistics/nomination-stats.json"
-                    : "../../../data/statistics/nomination-stats.json"
-            ).then(r => r.json());
+            const data = await fetch("/data/statistics/nomination-stats.json").then(r => r.json());
             originalData = await response.json();
-            
+    
             // 添加事件监听
             document.querySelectorAll('input[name="group"]').forEach(radio => {
                 radio.addEventListener('change', function() {
