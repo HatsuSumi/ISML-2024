@@ -129,63 +129,52 @@ document.addEventListener('DOMContentLoaded', async function() {
             const navLinks = document.querySelectorAll('a[data-page]');
             console.log('导航链接数量:', navLinks.length);
             
-            const pageMap = {
-                '/': 'home',
-                '/index.html': 'home',
-                '/ISML-2024/': 'home',
-                '/events-data/': 'events-data',
-                '/visualization/': 'events-data',
-                '/tables/': 'events-data',
-                '/comparison/': 'comparison',
-                '/gallery/': 'gallery',
-                '/about/': 'about',
-                '/schedule/': 'schedule',
-                '/statistics/': 'statistics',
-                '/characters-data/': 'characters-data',
-            };
-    
-            console.log('页面映射:', pageMap);
-            
-            // 先移除所有高亮
-            navLinks.forEach(link => {
-                console.log('重置链接:', link.href, 'data-page:', link.dataset.page);
-                link.classList.remove('active');
-            });
-            
-            // 精确匹配
-            const matchedLink = Array.from(navLinks).find(link => {
+            // 详细的路径匹配规则
+            const matchLink = (link) => {
                 const page = link.dataset.page;
+                const href = link.href;
+                const isSchedulePage = currentPath.includes('/schedule/');
                 
-                // 更复杂的匹配逻辑
+                // 详细日志
+                console.log('检查链接:', {
+                    href,
+                    page,
+                    currentPath
+                });
+    
+                // 复杂的匹配逻辑
                 const matchConditions = [
-                    // 精确路径匹配
-                    Object.entries(pageMap).some(([path, mappedPage]) => 
-                        currentPath.includes(path) && page === mappedPage
-                    ),
-                    // 特殊处理 schedule 页面
-                    (page === 'schedule' && currentPath.includes('/schedule/') && 
-                     link.dataset.page === 'schedule'),
-                    // 处理下拉菜单中的 schedule 链接
-                    (page === 'schedule' && currentPath.includes('/schedule/') && 
-                     link.href.includes('schedule'))
+                    // 精确页面匹配
+                    page === 'schedule' && isSchedulePage,
+                    
+                    // 处理下拉菜单
+                    page === 'schedule' && href.includes('schedule.html'),
+                    
+                    // 其他页面的匹配
+                    page === 'home' && currentPath.includes('/ISML-2024/index.html')
                 ];
     
-                const isMatched = matchConditions.some(condition => condition);
+                const matched = matchConditions.some(condition => condition);
                 
-                if (isMatched) {
+                if (matched) {
                     console.log('匹配成功:', {
-                        currentPath,
-                        linkHref: link.href,
-                        linkPage: page
+                        href,
+                        page,
+                        currentPath
                     });
                 }
-                
-                return isMatched;
-            });
     
-            // 只高亮一个链接
+                return matched;
+            };
+    
+            // 先移除所有高亮
+            navLinks.forEach(link => link.classList.remove('active'));
+    
+            // 找到并高亮匹配链接
+            const matchedLink = Array.from(navLinks).find(matchLink);
+    
             if (matchedLink) {
-                console.log('添加高亮:', matchedLink.href, 'data-page:', matchedLink.dataset.page);
+                console.log('添加高亮:', matchedLink.href);
                 matchedLink.classList.add('active');
             } else {
                 console.warn('未找到匹配的导航链接');
