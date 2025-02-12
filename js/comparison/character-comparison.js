@@ -6,8 +6,8 @@ import {
     LAYOUT_CLASSES,
     SELECTORS,
     generateSelectors
-} from '../common/config.js';
-import { SERIES_ALIASES } from '../aliases/aliases.js';
+} from '/ISML-2024/js/common/config.js';
+import { SERIES_ALIASES } from '/ISML-2024/js/aliases/aliases.js';
 
 class CharacterManager {
     constructor() {
@@ -26,7 +26,11 @@ class CharacterManager {
         const dataPath = `${CONFIG.rootPath}${event.links.data}`;
         
         try {
-            const response = await fetch(dataPath);
+            const response = await fetch(
+                location.hostname === "hatsusumi.github.io" 
+                    ? `/ISML-2024/${dataPath}`
+                    : dataPath
+            );
             
             if (!response.ok) {
                 console.error('加载失败:', await response.text());
@@ -52,7 +56,11 @@ class CharacterManager {
 
     async loadEvents() {
         try {
-            const response = await fetch(CONFIG.events.dataPath);
+            const response = await fetch(
+                location.hostname === "hatsusumi.github.io" 
+                    ? `/ISML-2024/${CONFIG.events.dataPath}`
+                    : CONFIG.events.dataPath
+            );
             const data = await response.json();
             this.events = data;
             

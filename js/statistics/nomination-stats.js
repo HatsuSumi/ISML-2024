@@ -97,7 +97,11 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     async function updateCharts() {
         try {
-            const data = await fetch('../../data/statistics/nomination-stats.json').then(r => r.json());
+            const data = await fetch(
+                location.hostname === "hatsusumi.github.io" 
+                    ? "/ISML-2024/data/statistics/nomination-stats.json"
+                    : "../../data/statistics/nomination-stats.json"
+            ).then(r => r.json());
 
             const filters = getFilters();
 

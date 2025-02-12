@@ -68,7 +68,11 @@ let characterData = null;
 async function loadCharacterData() {
     showLoading();
     try {
-        const response = await fetch('/ISML-2024/data/characters/stats/ISML2024-characters.json');
+        const response = await fetch(
+            location.hostname === "hatsusumi.github.io" 
+                ? "/ISML-2024/data/characters/stats/ISML2024-characters.json"
+                : "/data/characters/stats/ISML2024-characters.json"
+        );
         const data = await response.json();
         
         // 过滤掉未晋级的角色

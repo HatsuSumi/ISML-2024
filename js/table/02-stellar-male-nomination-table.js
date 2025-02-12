@@ -1,4 +1,4 @@
-import { SERIES_ALIASES } from '../../js/aliases/aliases.js';
+import { SERIES_ALIASES } from '/ISML-2024/js/aliases/aliases.js';
 
 window.toggleDropdown = function() {
     document.getElementById("downloadDropdown").classList.toggle("show");
@@ -16,9 +16,10 @@ window.onclick = function(event) {
 }
 
 window.downloadFile = function(format) {
-    const filePath = format === 'csv' ? '../../data/nomination/stellar/male/02-male-nomination.csv' : 
-                     format === 'xlsx' ? '../../data/nomination/stellar/male/02-male-nomination.xlsx' :
-                     '../../data/nomination/stellar/male/02-male-nomination.json';
+    const filePath = 
+    location.hostname === "hatsusumi.github.io"
+        ? `/ISML-2024/data/nomination/stellar/male/02-male-nomination.${format}`
+        : `../../data/nomination/stellar/male/02-male-nomination.${format}`;
     fetch(filePath)
         .then(response => {
             if (format === 'csv') {
@@ -96,7 +97,11 @@ window.sortTable = function(columnIndex, initialDirection = null) {
     }, 300);
 }
 
-fetch('../../data/nomination/stellar/male/02-male-nomination.csv')
+fetch(
+    location.hostname === "hatsusumi.github.io" 
+        ? "/ISML-2024/data/nomination/stellar/male/02-male-nomination.csv"
+        : "../../data/nomination/stellar/male/02-male-nomination.csv"
+)   
 .then(response => response.text())
 .then(data => {
     const rows = data.split('\n').slice(1); 
@@ -410,7 +415,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 等淡出动画完成后重新加载数据
         setTimeout(() => {
-            fetch('../../data/nomination/stellar/male/02-male-nomination.csv')
+            fetch(
+                location.hostname === "hatsusumi.github.io" 
+                    ? "/ISML-2024/data/nomination/stellar/male/02-male-nomination.csv"
+                    : "../../data/nomination/stellar/male/02-male-nomination.csv"
+            )
                 .then(response => response.text())
                 .then(data => {
                     const tableBody = document.getElementById('tableBody');

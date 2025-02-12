@@ -1,5 +1,5 @@
 // 导入别名配置
-import { SERIES_ALIASES } from '../../js/aliases/aliases.js';
+import { SERIES_ALIASES } from '/ISML-2024/js/aliases/aliases.js';
 
 // 下拉菜单功能
 window.toggleDropdown = function() {
@@ -19,37 +19,39 @@ window.onclick = function(event) {
 
 // 下载功能
 window.downloadFile = function(format) {
-    const filePath = format === 'csv' ? '../../data/nomination/nova/winter/female/03-nova-winter-female-nomination.csv' : 
-                     format === 'xlsx' ? '../../data/nomination/nova/winter/female/03-nova-winter-female-nomination.xlsx' :
-                     '../../data/nomination/nova/winter/female/03-nova-winter-female-nomination.json';
-    fetch(filePath)
-        .then(response => {
-            if (format === 'csv') {
-                return response.text();
-            } else if (format === 'json') {
-                return response.json();
-            } else {
-                return response.blob();  
-            }
-        })
-        .then(data => {
-            let blob;
-            if (format === 'csv') {
-                blob = new Blob([data], { type: 'text/csv' });
-            } else if (format === 'json') {
-                blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            } else {
-                blob = data;  
-            }
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `新星组冬季赛提名-女性组别.${format}`;
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        });
+    const filePath = 
+    location.hostname === "hatsusumi.github.io"
+        ? `/ISML-2024/data/nomination/nova/winter/female/03-nova-winter-female-nomination.${format}`
+        : `../../data/nomination/nova/winter/female/03-nova-winter-female-nomination.${format}`;
+
+fetch(filePath)
+    .then(response => {
+        if (format === 'csv') {
+            return response.text();
+        } else if (format === 'json') {
+            return response.json();
+        } else {
+            return response.blob();  
+        }
+    })
+    .then(data => {
+        let blob;
+        if (format === 'csv') {
+            blob = new Blob([data], { type: 'text/csv' });
+        } else if (format === 'json') {
+            blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        } else {
+            blob = data;  
+        }
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `新星组冬季赛提名-女性组别.${format}`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    });
 }
 
 // 下载功能
@@ -390,7 +392,11 @@ function sortTable(columnIndex) {
 
 // 加载并排序数据
 function loadAndSortData(columnIndex, isAsc) {
-    fetch('../../data/nomination/nova/winter/female/03-nova-winter-female-nomination.csv')
+    fetch(
+        location.hostname === "hatsusumi.github.io"
+            ? "/ISML-2024/data/nomination/nova/winter/female/03-nova-winter-female-nomination.csv"
+            : "../../data/nomination/nova/winter/female/03-nova-winter-female-nomination.csv"
+    )
         .then(response => response.text())
         .then(data => {
             const rows = data.split('\n').slice(1);

@@ -204,7 +204,8 @@ body {
     margin-bottom: 0.2rem;
 }
 
-.character-series {
+.character-series,
+.character-cv {
     font-size: 0.85rem;
     color: #aaa;
     display: -webkit-box;

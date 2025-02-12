@@ -26,7 +26,11 @@ class Rules {
     }
 
     async loadRules() {
-        const response = await fetch('../../data/rules/rules.json');
+        const response = await fetch(
+            location.hostname === "hatsusumi.github.io" 
+                ? "/ISML-2024/data/rules/rules.json"
+                : "../../data/rules/rules.json"
+        );
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

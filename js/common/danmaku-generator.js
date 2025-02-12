@@ -1,5 +1,5 @@
-import { Danmaku, initDanmakuSettings } from './danmaku.js';
-import { CONFIG } from './config.js';
+import { Danmaku, initDanmakuSettings } from '/ISML-2024/js/common/danmaku.js';
+import { CONFIG } from '/ISML-2024/js/common/config.js';
 
 export class DanmakuGenerator {
     constructor(container, options = {}) {
@@ -7,8 +7,7 @@ export class DanmakuGenerator {
         const savedSettings = localStorage.getItem(CONFIG.danmaku.storageKey);
         const settings = savedSettings ? JSON.parse(savedSettings) : {};
         
-        // 确保interval有正确的默认值
-        if (!settings.interval || settings.interval < 1000) {  // 如果间隔小于1秒或未设置
+        if (!settings.interval || settings.interval < 1000) {  
             settings.interval = CONFIG.danmaku.defaultInterval;
         }
         
@@ -96,7 +95,11 @@ export class DanmakuGenerator {
 
     async loadData() {
         try {
-            const response = await fetch(CONFIG.danmaku.dataUrl);
+            const response = await fetch(
+                location.hostname === "hatsusumi.github.io" 
+                    ? `/ISML-2024/${CONFIG.danmaku.dataUrl}`
+                    : CONFIG.danmaku.dataUrl
+            );
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

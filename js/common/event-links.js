@@ -1,8 +1,13 @@
-import { EVENT_LINKS } from '../aliases/aliases.js';
+import { EVENT_LINKS } from '/ISML-2024/js/aliases/aliases.js';
 
 async function checkPageExists(url) {
     try {
-        const response = await fetch(url, { method: 'HEAD' });
+        const response = await fetch(
+            location.hostname === "hatsusumi.github.io" 
+                ? `/ISML-2024/${url}`
+                : url, 
+            { method: 'HEAD' }
+        );
         return response.ok;
     } catch {
         return false;

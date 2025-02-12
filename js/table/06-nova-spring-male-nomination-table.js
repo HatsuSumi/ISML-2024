@@ -1,5 +1,5 @@
 // 导入别名配置
-import { SERIES_ALIASES } from '../../js/aliases/aliases.js';
+import { SERIES_ALIASES } from './ISML-2024/js/aliases/aliases.js';
 
 // 下拉菜单功能
 window.toggleDropdown = function() {
@@ -19,9 +19,10 @@ window.onclick = function(event) {
 
 // 下载功能
 window.downloadFile = function(format) {
-    const filePath = format === 'csv' ? '../../data/nomination/nova/spring/male/06-nova-spring-male-nomination.csv' : 
-                     format === 'xlsx' ? '../../data/nomination/nova/spring/male/06-nova-spring-male-nomination.xlsx' :
-                        '../../data/nomination/nova/spring/male/06-nova-spring-male-nomination.json';
+    const filePath = 
+    location.hostname === "hatsusumi.github.io"
+        ? `/ISML-2024/data/nomination/nova/spring/male/06-nova-spring-male-nomination.${format}`
+        : `../../data/nomination/nova/spring/male/06-nova-spring-male-nomination.${format}`;
     fetch(filePath)
 
         .then(response => {
@@ -429,7 +430,11 @@ function applySorting(data, columnIndex, isAsc) {
 
 // 加载并排序数据
 function loadAndSortData(columnIndex, isAsc) {
-    fetch('../../data/nomination/nova/spring/male/06-nova-spring-male-nomination.csv')
+    fetch(
+        location.hostname === "hatsusumi.github.io"
+            ? "/ISML-2024/data/nomination/nova/spring/male/06-nova-spring-male-nomination.csv"
+            : "../../data/nomination/nova/spring/male/06-nova-spring-male-nomination.csv"
+    )
         .then(response => response.text())
         .then(data => {
             const rows = data.split('\n').slice(1);
@@ -440,9 +445,9 @@ function loadAndSortData(columnIndex, isAsc) {
                     const columns = row.split(',').map(col => col.trim());
                     return {
                         columns: columns,
-                        votes: parseInt(columns[5]) || 0,  // 使用正确的列索引
+                        votes: parseInt(columns[5]) || 0, 
                         isAdvanced: columns[7] === "True",
-                        rank: parseInt(columns[9]) || 0,  // 使用正确的列索引
+                        rank: parseInt(columns[9]) || 0, 
                     };
                 });
 

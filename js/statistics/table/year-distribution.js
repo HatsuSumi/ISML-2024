@@ -204,7 +204,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     // 初始化表格
     async function initTable() {
         try {
-            const response = await fetch('../../../data/statistics/nomination-stats.json');
+            const data = await fetch(
+                location.hostname === "hatsusumi.github.io" 
+                    ? "/ISML-2024/data/statistics/nomination-stats.json"
+                    : "../../../data/statistics/nomination-stats.json"
+            ).then(r => r.json());
             originalData = await response.json();
             
             // 添加事件监听

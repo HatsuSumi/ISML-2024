@@ -1,76 +1,20 @@
-import { CONFIG } from './config.js';
+import { CONFIG } from '/ISML-2024/js/common/config.js';
 
-document.addEventListener('DOMContentLoaded', async function() {
-    // 检测当前环境
-    const isGitHubPages = window.location.hostname === 'hatsusumi.github.io';
-    
-    // 动态路径处理函数
-    function getResourcePath(path) {
-        // 处理相对路径和绝对路径
-        const cleanPath = path
-        .replace(/^(\/ISML-2024\/)?/, '')
-            .replace(/^\/+/, '')             
-            .replace(/^\.\.\//, '');       
+document.addEventListener('DOMContentLoaded', async function() {    
+    const pathToRoot = 
+        (typeof window !== 'undefined' && window.location.hostname === "hatsusumi.github.io")
+            ? '/ISML-2024'
+            : '';
 
-        const processedPath = isGitHubPages 
-            ? `/ISML-2024/${cleanPath}` 
-            : cleanPath;
-        
-        console.info('Path Processing Details:', {
-            originalPath: path,
-            cleanedPath: cleanPath,
-            isGitHubPages: isGitHubPages,
-            processedPath: processedPath,
-            currentHostname: window.location.hostname
-        });
-        
-        return processedPath;
-    }
-
-    const depth = location.pathname.split('/').slice(1, -1).length;
-    const pathToRoot = isGitHubPages 
-    ? '/ISML-2024' 
-    : (depth === 0 ? '.' : Array(depth).fill('..').join('/'));
-    
-    async function processSpecialComponents() {
-        // 检查弹幕功能是否开启
-        if (!CONFIG.features.danmaku) {
-            return;
-        }
-
-        // 添加复制提示框
-        const copyTip = document.createElement('div');
-        copyTip.className = 'copy-tip';
-        copyTip.textContent = '复制成功';
-        document.body.appendChild(copyTip);
-
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = getResourcePath('css/common/animation-container.css');
-        document.head.appendChild(link);
-        
-        // 创建弹幕容器
-        const container = document.createElement('div');
-        container.className = 'animation-container';
-        document.body.appendChild(container);
-
-        const script = document.createElement('script');
-        script.type = 'module';
-        const danmakuPath = getResourcePath('js/common/danmaku-generator.js');
-
-        script.textContent = `
-            import { DanmakuGenerator } from '${danmakuPath}';
-            
-            const container = document.querySelector('.animation-container');
-            if (container) {
-                new DanmakuGenerator(container);
-            } else {
-                console.error('找不到弹幕容器!');
+            function getResourcePath(path) {
+                // 移除开头的 'ISML2024/' 或 '/ISML-2024/'
+                const cleanPath = path.replace(/^(ISML2024\/|\/ISML-2024\/)?/, '');
+                
+                // 如果是 GitHub Pages 环境，添加前缀
+                return pathToRoot 
+                    ? `${pathToRoot}/${cleanPath}`
+                    : cleanPath;
             }
-        `;
-        document.body.appendChild(script);
-    }
-
     async function processIncludes() {
         const includes = document.querySelectorAll('include');
 
@@ -81,7 +25,11 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             try {
                 const filePath = getResourcePath(file);
-                const response = await fetch(filePath);
+                const response = await fetch(
+                    location.hostname === "hatsusumi.github.io" 
+                        ? `/ISML-2024/${filePath}`
+                        : filePath
+                );
                 let text = await response.text();
                 
                 // 替换基础路径和配置值
@@ -119,6 +67,49 @@ document.addEventListener('DOMContentLoaded', async function() {
         await processIncludes();
     }
 
+    async function processSpecialComponents() {
+        // 检查弹幕功能是否开启
+        if (!CONFIG.features.danmaku) {
+            return;
+        }
+
+        // 添加复制提示框
+        const copyTip = document.createElement('div');
+        copyTip.className = 'copy-tip';
+        copyTip.textContent = '复制成功';
+        document.body.appendChild(copyTip);
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = getResourcePath('css/common/animation-container.css');
+        document.head.appendChild(link);
+        
+        // 创建弹幕容器
+        const container = document.createElement('div');
+        container.className = 'animation-container';
+        document.body.appendChild(container);
+
+        const script = document.createElement('script');
+        script.type = 'module';
+        const danmakuPath = getResourcePath('js/common/danmaku-generator.js');
+
+        script.textContent = `
+        import { DanmakuGenerator } from '${
+            location.hostname === "hatsusumi.github.io"
+                ? '/ISML-2024/js/common/danmaku-generator.js'
+                : danmakuPath
+        }';
+        
+        const container = document.querySelector('.animation-container');
+        if (container) {
+            new DanmakuGenerator(container);
+        } else {
+            console.error('找不到弹幕容器!');
+        }
+    `;
+        document.body.appendChild(script);
+    }
+
     // 从navbar.js移过来的设置高亮函数
     function setActiveNavLink() {
         const currentPath = window.location.pathname;
@@ -154,6 +145,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     await processSpecialComponents();
 
     const emailScript = document.createElement('script');
-    emailScript.src = getResourcePath('js/common/copy-email.js');
+    emailScript.src = 
+        location.hostname === "hatsusumi.github.io"
+            ? "/ISML-2024/js/common/copy-email.js"
+            : new URL('../../../js/common/copy-email.js', window.location.href).pathname;
+    
+    console.log('Current window.location:', window.location);
+    console.log('Attempted email script src:', emailScript.src);
+    console.log('Full resolved URL:', new URL(emailScript.src, window.location.href).href);
+    
     document.body.appendChild(emailScript);
 }); 

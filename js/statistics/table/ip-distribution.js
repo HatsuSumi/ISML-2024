@@ -1,4 +1,4 @@
-import { SERIES_ALIASES } from '../../../js/aliases/aliases.js';
+import { SERIES_ALIASES } from '/ISML-2024/js/aliases/aliases.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     let currentPage = 1;
@@ -177,7 +177,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     async function initTable() {
         try {
             // 获取数据
-            const response = await fetch('../../../data/statistics/nomination-stats.json');
+            const data = await fetch(
+                location.hostname === "hatsusumi.github.io" 
+                    ? "/ISML-2024/data/statistics/nomination-stats.json"
+                    : "../../../data/statistics/nomination-stats.json"
+            ).then(r => r.json());
             originalData = await response.json();
             
             // 初始化搜索计数

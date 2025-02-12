@@ -1,4 +1,4 @@
-import { CONFIG } from '../common/config.js';
+import { CONFIG } from '/ISML-2024/js/common/config.js';
 
 class CharacterDetail {
     constructor() {
@@ -125,10 +125,13 @@ class CharacterDetail {
         try {
             // 并行加载所有数据
             const [charactersResponse, rulesResponse] = await Promise.all([
-                fetch('../../data/characters/characters-details.json'),
-                fetch('../../data/rules/rules.json')
+                fetch(location.hostname === "hatsusumi.github.io" 
+                    ? "/ISML-2024/data/characters/characters-details.json"
+                    : "../../data/characters/characters-details.json"),
+                fetch(location.hostname === "hatsusumi.github.io" 
+                    ? "/ISML-2024/data/rules/rules.json"
+                    : "../../data/rules/rules.json")
             ]);
-
             if (!charactersResponse.ok || !rulesResponse.ok) {
                 throw new Error('数据加载失败');
             }

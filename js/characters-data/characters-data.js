@@ -1,6 +1,6 @@
-import { CONFIG } from '../common/config.js';
-import { SERIES_ALIASES } from '../aliases/aliases.js';
-import { Router } from '../common/router.js';
+import { CONFIG } from '/ISML-2024/js/common/config.js';
+import { SERIES_ALIASES } from 'ISML-2024/js/aliases/aliases.js';
+import { Router } from '/ISML-2024/js/common/router.js';
 
 function normalizeSeriesName(name) {
     for (const [originalName, aliases] of Object.entries(SERIES_ALIASES)) {
@@ -22,7 +22,11 @@ const ipMap = new Map();
 
 async function loadCharactersData() {
     try {
-        const response = await fetch('/data/characters/roundsData.json');
+        const response = await fetch(
+            location.hostname === "hatsusumi.github.io" 
+                ? "/ISML-2024/data/characters/roundsData.json"
+                : "/data/characters/roundsData.json"
+        );
         const data = await response.json();
         renderCharacters(data);
     } catch (error) {
