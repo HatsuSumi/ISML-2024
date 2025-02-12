@@ -15,57 +15,52 @@ document.addEventListener('DOMContentLoaded', async function() {
                 console.log('处理模板:', file);
                 console.log('模板内容:', text);
                 
-                // 替换基础路径和配置值
-                text = text
-                    .replace(/\{\{defaultInterval\}\}/g, (5 / 1000 / 60).toFixed(1))
-                    .replace(/\{\{minSpeed\}\}/g, 50)
-                    .replace(/\{\{maxSpeed\}\}/g, 200)
-                    .replace(/\{\{defaultSpeed\}\}/g, 100);
+                // 使用正则表达式提取 head 内容
+                const headMatch = text.match(/<head>([\s\S]*?)<\/head>/i);
                 
-                // 创建临时容器解析 HTML
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = text;
-                
-                // 处理 head 内容
-                const headContent = tempDiv.querySelector('head');
-                console.log('head内容:', headContent);
-                
-                if (headContent) {
-                    headContent.childNodes.forEach(node => {
-                        if (node.nodeType === 1) {  // 元素节点
-                            console.log('处理节点:', node);
+                if (headMatch) {
+                    const headContent = headMatch[1];
+                    console.log('head内容:', headContent);
+                    
+                    // 创建临时 div 解析 head 内容
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = headContent;
+                    
+                    Array.from(tempDiv.children).forEach(node => {
+                        console.log('处理节点:', node);
+                        
+                        // 特殊处理 favicon
+                        if (node.tagName === 'LINK' && node.getAttribute('rel') === 'icon') {
+                            console.log('发现favicon:', node);
                             
-                            // 特殊处理 favicon
-                            if (node.tagName === 'LINK' && node.getAttribute('rel') === 'icon') {
-                                console.log('发现favicon:', node);
-                                
-                                // 移除已存在的 favicon
-                                const existingFavicon = document.head.querySelector('link[rel="icon"]');
-                                if (existingFavicon) {
-                                    console.log('移除已存在的favicon:', existingFavicon);
-                                    existingFavicon.remove();
-                                }
+                            // 移除已存在的 favicon
+                            const existingFavicon = document.head.querySelector('link[rel="icon"]');
+                            if (existingFavicon) {
+                                console.log('移除已存在的favicon:', existingFavicon);
+                                existingFavicon.remove();
                             }
+                        }
     
-                            // 避免重复添加
-                            const existingElements = Array.from(document.head.children);
-                            const isDuplicate = existingElements.some(el => 
-                                el.isEqualNode(node)
-                            );
-                            
-                            if (!isDuplicate) {
-                                console.log('添加节点:', node);
-                                document.head.appendChild(node.cloneNode(true));
-                            } else {
-                                console.log('节点重复，未添加:', node);
-                            }
+                        // 避免重复添加
+                        const existingElements = Array.from(document.head.children);
+                        const isDuplicate = existingElements.some(el => 
+                            el.isEqualNode(node)
+                        );
+                        
+                        if (!isDuplicate) {
+                            console.log('添加节点:', node);
+                            document.head.appendChild(node.cloneNode(true));
+                        } else {
+                            console.log('节点重复，未添加:', node);
                         }
                     });
                 }
                 
                 // 插入模板内容
-                const bodyContent = tempDiv.querySelector('body');
-                element.insertAdjacentHTML('afterend', bodyContent ? bodyContent.innerHTML : text);
+                const bodyMatch = text.match(/<body>([\s\S]*?)<\/body>/i);
+                const contentToInsert = bodyMatch ? bodyMatch[1] : text;
+                
+                element.insertAdjacentHTML('afterend', contentToInsert);
                 element.remove();
             } catch (error) {
                 console.error('include处理失败:', file, error);
