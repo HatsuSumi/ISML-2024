@@ -9,45 +9,41 @@ document.addEventListener('DOMContentLoaded', async function() {
             const file = element.getAttribute('src');
     
             try {
-                // 处理路径
-                const fullPath = location.hostname === "hatsusumi.github.io"
-                    ? `/ISML-2024/${file.replace(/^(\.\.\/)+/, '')}`
-                    : file;
-    
-                const response = await fetch(fullPath);
+                const response = await fetch(file);
                 let text = await response.text();
                 
-                // 替换基础路径和配置值
-                text = text
-                    .replace(/\{\{defaultInterval\}\}/g, (CONFIG.danmaku.interval / 1000 / 60).toFixed(1))
-                    .replace(/\{\{minSpeed\}\}/g, CONFIG.danmaku.minSpeed)
-                    .replace(/\{\{maxSpeed\}\}/g, CONFIG.danmaku.maxSpeed)
-                    .replace(/\{\{defaultSpeed\}\}/g, CONFIG.danmaku.speed);
+                // 创建临时容器解析 HTML
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = text;
                 
-                // 如果是导航栏，检查是否需要移除弹幕设置
-                if (file.includes('navbar.html')) {
-                    if (!CONFIG.features.danmaku) {
-                        const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = text;
-                        const danmakuSettings = tempDiv.querySelector('.danmaku-settings-container');
-                        if (danmakuSettings) {
-                            danmakuSettings.remove();
+                // 处理 head 内容
+                const headContent = tempDiv.querySelector('head');
+                if (headContent) {
+                    headContent.childNodes.forEach(node => {
+                        if (node.nodeType === 1) {  // 元素节点
+                            // 避免重复添加
+                            const existingElements = Array.from(document.head.children);
+                            const isDuplicate = existingElements.some(el => 
+                                el.isEqualNode(node)
+                            );
+                            
+                            if (!isDuplicate) {
+                                document.head.appendChild(node.cloneNode(true));
+                            }
                         }
-                        text = tempDiv.innerHTML;
-                    }
+                    });
                 }
                 
-                element.insertAdjacentHTML('afterend', text);
+                // 插入模板内容
+                const bodyContent = tempDiv.querySelector('body');
+                element.insertAdjacentHTML('afterend', bodyContent ? bodyContent.innerHTML : text);
                 element.remove();
-               
-                if (file.includes('navbar.html')) {
-                    setActiveNavLink();
-                }
             } catch (error) {
                 console.error('include处理失败:', file, error);
             }
         }
-        
+    
+        // 递归调用，处理嵌套的 include
         await processIncludes();
     }
 
