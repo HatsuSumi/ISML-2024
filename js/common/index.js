@@ -68,7 +68,7 @@ let characterData = null;
 async function loadCharacterData() {
     showLoading();
     try {
-        const response = await fetch("/data/characters/stats/ISML2024-characters.json");
+        const response = await fetch("data/characters/stats/ISML2024-characters.json");
         const data = await response.json();
         
         // 过滤掉未晋级的角色
