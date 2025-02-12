@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             const file = element.getAttribute('src');
 
             try {
-                const filePath = getResourcePath(file);
-                const response = await fetch(filePath);
+                const response = await fetch(file);
                 let text = await response.text();
                 
                 // 替换基础路径和配置值
@@ -42,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     setActiveNavLink();
                 }
             } catch (error) {
-                console.error('include处理失败:', filePath, error);
+                console.error('include处理失败:', file, error);
             }
         }
         
