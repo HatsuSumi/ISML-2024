@@ -2,9 +2,8 @@
 <html lang="zh">
   <head>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-        if (location.hostname === "hatsusumi.github.io") {
-        // 处理所有 link 和 script 标签
+       document.addEventListener('DOMContentLoaded', () => {
+    if (location.hostname === "hatsusumi.github.io") {
         ['link', 'script', 'img', 'a'].forEach(tag => {
             document.querySelectorAll(`${tag}[href], ${tag}[src]`).forEach(el => {
                 const attr = el.hasAttribute('href') ? 'href' : 'src';
@@ -12,7 +11,9 @@
                 
                 // 只处理相对路径
                 if (originalPath && !originalPath.startsWith('/') && !originalPath.includes('://')) {
-                    const newPath = `/ISML-2024/${originalPath}`;
+                    // 移除开头的 ../
+                    const cleanPath = originalPath.replace(/^(\.\.\/)+/, '');
+                    const newPath = `/ISML-2024/${cleanPath}`;
                     el.setAttribute(attr, newPath);
                 }
             });
