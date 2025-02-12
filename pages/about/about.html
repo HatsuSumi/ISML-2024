@@ -24,10 +24,10 @@
                 <div class="support-section">
                     <div class="support-grid">
                         <div class="support-item">
-                            <img src="../../images/support/wechat.png" alt="微信收款码">
+                            <img src="" data-original-src="../../images/support/wechat.png" alt="微信收款码" id="wechat-qr">
                         </div>
                         <div class="support-item">
-                            <img src="../../images/support/alipay.png" alt="支付宝收款码">
+                            <img src="" data-original-src="../../images/support/alipay.png" alt="支付宝收款码" id="alipay-qr">
                         </div>
                     </div>
                     <p class="support-note">可以备注喵~ 方便记录</p>
@@ -41,6 +41,17 @@
     <script type="module" src="../../js/common/template-loader.js"></script>
     <script src="../../js/common/copy-email.js"></script>
     <script>
+        const wechatQr = document.getElementById('wechat-qr');
+        const alipayQr = document.getElementById('alipay-qr');
+
+        wechatQr.src = location.hostname === "hatsusumi.github.io"
+            ? "/ISML-2024/images/support/wechat.png"
+            : wechatQr.getAttribute('data-original-src');
+
+        alipayQr.src = location.hostname === "hatsusumi.github.io"
+            ? "/ISML-2024/images/support/alipay.png"
+            : alipayQr.getAttribute('data-original-src');
+
     function copyLink() {
         const url = window.location.origin; 
         navigator.clipboard.writeText(url).then(() => {

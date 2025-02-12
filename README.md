@@ -33,14 +33,6 @@
 ### 图库
 - 角色图片：展示本赛季所有荣誉海报
 
-## 🛠️ 技术栈
-- HTML5
-- CSS3
-- JavaScript (ES6+)
-- 动画效果
-  - CSS Animations
-- Python
-
 ## 🔗 相关链接
 - [B站主页](https://b23.tv/KBky1wX)
 - [ISML 官网](https://www.internationalsaimoe.com/)

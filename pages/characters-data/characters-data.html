@@ -11,13 +11,13 @@
         <nav class="elevator-nav">
             <ul class="elevator-nav-list">
                 <div class="elevator-nav-item" data-target="stellar">
-                    <img src="../../images/Isml-stella.png" class="nav-icon" alt="恒星组">
+                    <img src="" data-original-src="../../images/Isml-stella.png" class="nav-icon" alt="恒星组" id="dynamic-image">
                     <span>恒星组</span>
                 </div>
                 <!-- 新星组及其子元素 -->
                 <div class="elevator-nav-group">
                     <div class="elevator-nav-item" data-target="nova">
-                        <img src="../../images/isml-nova.png" class="nav-icon" alt="新星组">
+                        <img src="" data-original-src="../../images/isml-nova.png" class="nav-icon" alt="新星组" id="dynamic-nova-image">
                         <span>新星组</span>
                         <i class="fas fa-chevron-down collapse-icon"></i>
                     </div>
@@ -110,7 +110,16 @@
             </div>
         </div>
     </div>
-    
+    <script>
+        const img = document.getElementById('dynamic-image');
+        img.src = location.hostname === "hatsusumi.github.io"
+            ? "/ISML-2024/images/Isml-stella.png"
+            : img.getAttribute('data-original-src');
+        const novaImg = document.getElementById('dynamic-nova-image');
+        novaImg.src = location.hostname === "hatsusumi.github.io"
+            ? "/ISML-2024/images/isml-nova.png"
+            : novaImg.getAttribute('data-original-src');
+    </script>
     <include src="../../templates/footer.html"></include>
     <script type="module" src="../../js/common/template-loader.js"></script>
     <script type="module" src="../../js/characters-data/characters-data.js"></script>
