@@ -5,7 +5,7 @@ const SCROLL_POSITION_KEY = 'schedule_scroll_position';
 // 加载赛程数据
 async function loadScheduleData() {
     try {
-        const response = await fetch("/data/config/schedule.json");
+        const response = await fetch("data/config/schedule.json");
         scheduleData = await response.json();
         renderSchedule(scheduleData); 
         return scheduleData;
@@ -982,7 +982,7 @@ document.getElementById('characterSearch').addEventListener('input',
         }
         
         try {
-            const response = await fetch("/data/matches/character-matches.json");
+            const response = await fetch("data/matches/character-matches.json");
             const data = await response.json();
             
             const matchedCharacters = Object.entries(data.matches).filter(([, char]) => 
