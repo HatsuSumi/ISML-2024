@@ -17,12 +17,12 @@ async function generateDropdownMenu() {
     const isTablePage = currentPage.includes('-table');
     
     const getTargetUrl = (id) => {
+        const basePath = 'pages/visualization/';
         if (isTablePage) {
-            return `${id}-table.html`;
+            return `${basePath}${id}-table.html`;
         }
-        return `${id}.html`;
+        return `${basePath}${id}.html`;
     };
-    
     const dropdown = document.createElement('div');
     dropdown.className = 'events-dropdown';
     
