@@ -32,11 +32,11 @@
                             "items": [
                                 {
                                     "text": "查看女子组结果",
-                                    "url": "../../pages/visualization/01-stellar-female-nomination.html"
+                                    "url": "ISML-2024/pages/visualization/01-stellar-female-nomination.html"
                                 },
                                 {
                                     "text": "查看男子组结果",
-                                    "url": "../../pages/visualization/02-stellar-male-nomination.html"
+                                    "url": "ISML-2024/pages/visualization/02-stellar-male-nomination.html"
                                 }
                             ]
                         }
