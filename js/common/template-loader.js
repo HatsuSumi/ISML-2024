@@ -9,7 +9,12 @@ document.addEventListener('DOMContentLoaded', async function() {
             const file = element.getAttribute('src');
     
             try {
-                const response = await fetch(file);
+                // 处理路径
+                const fullPath = location.hostname === "hatsusumi.github.io"
+                    ? `/ISML-2024/${file.replace(/^(\.\.\/)+/, '')}`
+                    : file;
+    
+                const response = await fetch(fullPath);
                 let text = await response.text();
                 
                 // 替换基础路径和配置值
