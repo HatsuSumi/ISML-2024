@@ -3,14 +3,18 @@ import { CONFIG } from '/ISML-2024/js/common/config.js';
 document.addEventListener('DOMContentLoaded', async function() {    
     async function processIncludes() {
         const includes = document.querySelectorAll('include');
-
         if (includes.length === 0) return;
-
+    
         for (const element of includes) {
             const file = element.getAttribute('src');
-
+    
             try {
-                const response = await fetch(file);
+                // 处理路径
+                const fullPath = location.hostname === "hatsusumi.github.io"
+                    ? `/ISML-2024/${file.replace(/^(\.\.\/)+/, '')}`
+                    : file;
+    
+                const response = await fetch(fullPath);
                 let text = await response.text();
                 
                 // 替换基础路径和配置值
