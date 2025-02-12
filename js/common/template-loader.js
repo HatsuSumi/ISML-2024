@@ -1,17 +1,6 @@
 import { CONFIG } from '/ISML-2024/js/common/config.js';
 
 document.addEventListener('DOMContentLoaded', async function() {    
-    const pathToRoot = 
-        (typeof window !== 'undefined' && window.location.hostname === "hatsusumi.github.io")
-            ? '/ISML-2024'
-            : '';
-
-            function getResourcePath(path) {
-                const cleanPath = path.replace(/^(ISML2024\/|\/ISML-2024\/)?/, '');        
-                return pathToRoot 
-                    ? `${pathToRoot}/${cleanPath}`
-                    : cleanPath;
-            }
     async function processIncludes() {
         const includes = document.querySelectorAll('include');
 
@@ -142,10 +131,5 @@ document.addEventListener('DOMContentLoaded', async function() {
         location.hostname === "hatsusumi.github.io"
             ? "/ISML-2024/js/common/copy-email.js"
             : new URL('../../../js/common/copy-email.js', window.location.href).pathname;
-    
-    console.log('Current window.location:', window.location);
-    console.log('Attempted email script src:', emailScript.src);
-    console.log('Full resolved URL:', new URL(emailScript.src, window.location.href).href);
-    
     document.body.appendChild(emailScript);
 }); 
