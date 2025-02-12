@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                         }
                         text = tempDiv.innerHTML;
                     }
+                    setActiveNavLink();
                 }
                 
                 // 替换基础路径和配置值
