@@ -7,10 +7,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             : '';
 
             function getResourcePath(path) {
-                // 移除开头的 'ISML2024/' 或 '/ISML-2024/'
-                const cleanPath = path.replace(/^(ISML2024\/|\/ISML-2024\/)?/, '');
-                
-                // 如果是 GitHub Pages 环境，添加前缀
+                const cleanPath = path.replace(/^(ISML2024\/|\/ISML-2024\/)?/, '');        
                 return pathToRoot 
                     ? `${pathToRoot}/${cleanPath}`
                     : cleanPath;
@@ -25,11 +22,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             try {
                 const filePath = getResourcePath(file);
-                const response = await fetch(
-                    location.hostname === "hatsusumi.github.io" 
-                        ? `/ISML-2024/${filePath}`
-                        : filePath
-                );
+                const response = await fetch(filePath);
                 let text = await response.text();
                 
                 // 替换基础路径和配置值
