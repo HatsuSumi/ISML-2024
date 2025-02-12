@@ -124,7 +124,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     function setActiveNavLink() {
         setTimeout(() => {
             const currentPath = window.location.pathname;
+            console.log('当前路径:', currentPath);
+    
             const navLinks = document.querySelectorAll('a[data-page]');
+            console.log('导航链接数量:', navLinks.length);
             
             const pageMap = {
                 '/': 'home',
@@ -141,20 +144,39 @@ document.addEventListener('DOMContentLoaded', async function() {
                 '/characters-data/': 'characters-data',
             };
     
+            console.log('页面映射:', pageMap);
+            
             // 先移除所有高亮
-            navLinks.forEach(link => link.classList.remove('active'));
+            navLinks.forEach(link => {
+                console.log('重置链接:', link.href, 'data-page:', link.dataset.page);
+                link.classList.remove('active');
+            });
             
             // 精确匹配
             const matchedLink = Array.from(navLinks).find(link => {
                 const page = link.dataset.page;
-                return Object.entries(pageMap).some(([path, mappedPage]) => 
-                    (currentPath.includes(path) && page === mappedPage)
-                );
+                const isMatched = Object.entries(pageMap).some(([path, mappedPage]) => {
+                    const matched = currentPath.includes(path) && page === mappedPage;
+                    if (matched) {
+                        console.log('匹配成功:', {
+                            currentPath,
+                            path,
+                            mappedPage,
+                            linkHref: link.href,
+                            linkPage: page
+                        });
+                    }
+                    return matched;
+                });
+                return isMatched;
             });
     
             // 只高亮一个链接
             if (matchedLink) {
+                console.log('添加高亮:', matchedLink.href, 'data-page:', matchedLink.dataset.page);
                 matchedLink.classList.add('active');
+            } else {
+                console.warn('未找到匹配的导航链接');
             }
         }, 100);
     }
