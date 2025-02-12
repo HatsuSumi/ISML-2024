@@ -124,11 +124,18 @@ document.addEventListener('DOMContentLoaded', async function() {
     function setActiveNavLink() {
         setTimeout(() => {
             const currentPath = window.location.pathname;
+            const urlParams = new URLSearchParams(window.location.search);
+            const from = urlParams.get('from');
             const navLinks = document.querySelectorAll('a[data-page]');
     
             const matchLink = (link) => {
                 const page = link.dataset.page;
                 const href = link.href;
+    
+                // 如果有 from 参数，直接匹配
+                if (from) {
+                    return page === from;
+                }
     
                 const matchConditions = [
                     // 首页匹配
@@ -139,16 +146,20 @@ document.addEventListener('DOMContentLoaded', async function() {
                     ),
                     
                     // 各页面精确匹配
-                    page === 'schedule' && currentPath.includes('/schedule/'),
-                    page === 'events-data' && currentPath.includes('/events-data/'),
+                    page === 'schedule' && (
+                        currentPath.includes('/schedule/') ||
+                        href.includes('schedule.html')
+                    ),
+                    page === 'events-data' && (
+                        currentPath.includes('/events-data/') ||
+                        currentPath.includes('/visualization/') ||
+                        currentPath.includes('/tables/')
+                    ),
                     page === 'characters-data' && currentPath.includes('/characters-data/'),
                     page === 'gallery' && currentPath.includes('/gallery/'),
                     page === 'about' && currentPath.includes('/about/'),
                     page === 'comparison' && currentPath.includes('/comparison/'),
-                    page === 'statistics' && currentPath.includes('/statistics/'),
-                    
-                    // 下拉菜单特殊处理
-                    page === 'schedule' && href.includes('schedule.html')
+                    page === 'statistics' && currentPath.includes('/statistics/')
                 ];
     
                 return matchConditions.some(condition => condition);

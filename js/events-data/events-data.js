@@ -122,10 +122,10 @@ function smoothScrollTo(targetPosition) {
 function getEventLinks(match, status) {
     if (match.links && status === 'completed') {
         return `
-            <a href="${match.links.visualization}" 
+            <a href="${match.links.visualization}?from=events-data" 
                class="event-link visualization-link"
                onclick="savePosition('visualization')">数据可视化</a>
-            <a href="${match.links.table}" 
+            <a href="${match.links.table}?from=events-data" 
                class="event-link table-link"
                onclick="savePosition('table')">查看表格</a>
         `;

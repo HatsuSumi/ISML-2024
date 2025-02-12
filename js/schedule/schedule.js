@@ -881,7 +881,7 @@ function renderMatchDetails(match, status) {
                     <div class="result-links-trigger">查看结果</div>
                     <div class="result-links-menu">
                         ${match.links.completed.items.map(link => 
-                            `<a href="${link.url}">${link.text}</a>`
+                            `<a href="${link.url}?from=schedule">${link.text}</a>`
                         ).join('')}
                     </div>
                 </div>
