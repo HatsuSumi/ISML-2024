@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const pageMap = {
             '/': 'home',
             '/index.html': 'home',
+            '/ISML-2024/': 'home',
             '/events-data/': 'events-data',
             '/visualization/': 'events-data',
             '/tables/': 'events-data',
