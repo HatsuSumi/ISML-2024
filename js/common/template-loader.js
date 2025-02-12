@@ -155,23 +155,31 @@ document.addEventListener('DOMContentLoaded', async function() {
             // 精确匹配
             const matchedLink = Array.from(navLinks).find(link => {
                 const page = link.dataset.page;
-                const isMatched = Object.entries(pageMap).some(([path, mappedPage]) => {
-                    // 更精确的匹配逻辑
-                    const matched = 
-                        (currentPath.includes(path) && page === mappedPage) ||
-                        (page === 'schedule' && currentPath.includes('/schedule/'));
-                    
-                    if (matched) {
-                        console.log('匹配成功:', {
-                            currentPath,
-                            path,
-                            mappedPage,
-                            linkHref: link.href,
-                            linkPage: page
-                        });
-                    }
-                    return matched;
-                });
+                
+                // 更复杂的匹配逻辑
+                const matchConditions = [
+                    // 精确路径匹配
+                    Object.entries(pageMap).some(([path, mappedPage]) => 
+                        currentPath.includes(path) && page === mappedPage
+                    ),
+                    // 特殊处理 schedule 页面
+                    (page === 'schedule' && currentPath.includes('/schedule/') && 
+                     link.dataset.page === 'schedule'),
+                    // 处理下拉菜单中的 schedule 链接
+                    (page === 'schedule' && currentPath.includes('/schedule/') && 
+                     link.href.includes('schedule'))
+                ];
+    
+                const isMatched = matchConditions.some(condition => condition);
+                
+                if (isMatched) {
+                    console.log('匹配成功:', {
+                        currentPath,
+                        linkHref: link.href,
+                        linkPage: page
+                    });
+                }
+                
                 return isMatched;
             });
     
