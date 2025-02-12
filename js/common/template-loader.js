@@ -12,6 +12,13 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const response = await fetch(file);
                 let text = await response.text();
                 
+                // 替换基础路径和配置值
+                text = text
+                    .replace(/\{\{defaultInterval\}\}/g, (5 / 1000 / 60).toFixed(1))
+                    .replace(/\{\{minSpeed\}\}/g, 50)
+                    .replace(/\{\{maxSpeed\}\}/g, 200)
+                    .replace(/\{\{defaultSpeed\}\}/g, 100);
+                
                 // 创建临时容器解析 HTML
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = text;
@@ -43,7 +50,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         }
     
-        // 递归调用，处理嵌套的 include
         await processIncludes();
     }
 
