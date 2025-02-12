@@ -124,7 +124,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     // 从navbar.js移过来的设置高亮函数
     function setActiveNavLink() {
         const currentPath = window.location.pathname;
+        console.log('当前路径:', currentPath);
+    
         const navLinks = document.querySelectorAll('.nav-links a');
+        console.log('导航链接数量:', navLinks.length);
         
         const pageMap = {
             '/': 'home',
@@ -140,12 +143,21 @@ document.addEventListener('DOMContentLoaded', async function() {
             '/statistics/': 'statistics',
             '/characters-data/': 'characters-data',
         };
+    
+        console.log('页面映射:', pageMap);
         
         navLinks.forEach(link => {
+            console.log('链接:', link.href, 'data-page:', link.dataset.page);
+    
             for (const [path, page] of Object.entries(pageMap)) {
-                if ((currentPath === '/' || currentPath === '/index.html') && page === 'home' || 
+                console.log('匹配:', path, page);
+    
+                if (currentPath === path || 
                     currentPath.includes(path)) {
+                    console.log('匹配成功:', path, page);
+    
                     if (link.dataset.page === page) {
+                        console.log('添加高亮:', link);
                         link.classList.add('active');
                         break;
                     }
