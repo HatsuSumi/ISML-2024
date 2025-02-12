@@ -133,7 +133,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             const matchLink = (link) => {
                 const page = link.dataset.page;
                 const href = link.href;
-                const isSchedulePage = currentPath.includes('/schedule/');
                 
                 // 详细日志
                 console.log('检查链接:', {
@@ -144,14 +143,24 @@ document.addEventListener('DOMContentLoaded', async function() {
     
                 // 复杂的匹配逻辑
                 const matchConditions = [
-                    // 精确页面匹配
-                    page === 'schedule' && isSchedulePage,
+                    // 首页匹配
+                    page === 'home' && (
+                        currentPath === '/' || 
+                        currentPath === '/ISML-2024/' || 
+                        currentPath.includes('/index.html')
+                    ),
                     
-                    // 处理下拉菜单
-                    page === 'schedule' && href.includes('schedule.html'),
+                    // Schedule 页面匹配
+                    page === 'schedule' && currentPath.includes('/schedule/'),
                     
-                    // 其他页面的匹配
-                    page === 'home' && currentPath.includes('/ISML-2024/index.html')
+                    // 其他页面精确匹配
+                    page === 'events-data' && currentPath.includes('/events-data/'),
+                    page === 'characters-data' && currentPath.includes('/characters-data/'),
+                    page === 'gallery' && currentPath.includes('/gallery/'),
+                    page === 'about' && currentPath.includes('/about/'),
+                    
+                    // 下拉菜单特殊处理
+                    page === 'schedule' && href.includes('schedule.html')
                 ];
     
                 const matched = matchConditions.some(condition => condition);
