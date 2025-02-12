@@ -882,7 +882,7 @@ function renderMatchDetails(match, status) {
                     <div class="result-links-menu">
                         ${match.links.completed.items.map(link => {
                             const fullUrl = `${link.url}?from=schedule`;
-                            return `<a href="${fullUrl}" onclick="console.log('Clicked Link:', this.href)">${link.text}</a>`;
+                            return `<a href="${fullUrl}">${link.text}</a>`;
                         }).join('')}
                     </div>
                 </div>
