@@ -14,15 +14,17 @@ async function generateDropdownMenu() {
     const currentPage = currentPath.split('/').pop().replace('.html', '');
     const currentPhase = EVENT_LINKS[currentPage]?.phase;
     
-    const isTablePage = currentPage.includes('-table');
-    
     const getTargetUrl = (id) => {
         const basePath = 'pages/visualization/';
+        const currentFrom = new URLSearchParams(window.location.search).get('from');
+        const fromParam = currentFrom ? `?from=${currentFrom}` : '';
+        
         if (isTablePage) {
-            return `${basePath}${id}-table.html`;
+            return `${basePath}${id}-table.html${fromParam}`;
         }
-        return `${basePath}${id}.html`;
+        return `${basePath}${id}.html${fromParam}`;
     };
+    
     const dropdown = document.createElement('div');
     dropdown.className = 'events-dropdown';
     
