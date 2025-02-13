@@ -1,4 +1,5 @@
-window.copyEmail = function(element) {
+window.copyEmail = function(element, event) {
+    event.preventDefault();
     const email = element.dataset.email;
     navigator.clipboard.writeText(email).then(() => {
         const toast = document.createElement('div');
