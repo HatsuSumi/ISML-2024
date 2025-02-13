@@ -23,7 +23,7 @@ class CharacterManager {
             throw new Error('找不到赛事数据路径');
         }
         
-        const dataPath = `${CONFIG.rootPath}${event.links.data}`;
+        const dataPath = event.links.data;
         
         try {
             const response = await fetch(dataPath);
