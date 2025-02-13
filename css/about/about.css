@@ -200,7 +200,7 @@ body {
     position: relative;
     color: transparent;
     background-color: black;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease;    
 }
 
 .hover-reveal:hover .hidden-text {

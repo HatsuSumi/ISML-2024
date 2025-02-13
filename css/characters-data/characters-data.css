@@ -808,6 +808,36 @@ input:-webkit-autofill:active {
     }
 }
 
+@media screen and (max-width: 1600px) {
+    .search-section {
+        position: fixed;
+        right: 10px; 
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .search-section {
+        width: 400px;
+        right: 5px;
+    }
+    
+    .search-box {
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .search-section {
+        position: static;
+        margin: 20px auto; 
+        width: 90%; 
+    }
+    
+    .search-box {
+        width: 100%; 
+    }
+}
+
 /* 自定义提示框样式 */
 .character-card .character-ip .custom-tooltip {
     position: absolute;
