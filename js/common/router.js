@@ -5,7 +5,7 @@ class Router {
     static getCharacterDetail(id) {
         // 当前是静态网站
         if (CONFIG.isStatic) {
-            return `character-detail.html?id=${id}`;
+            return `pages/characters-data/character-detail.html?id=${id}`;
         }
         
         // 未来改为动态网站

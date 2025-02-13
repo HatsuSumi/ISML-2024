@@ -125,8 +125,8 @@ class CharacterDetail {
         try {
             // 并行加载所有数据
             const [charactersResponse, rulesResponse] = await Promise.all([
-                fetch("/data/characters/characters-details.json"),
-                fetch("/data/rules/rules.json")
+                fetch("data/characters/characters-details.json"),
+                fetch("data/rules/rules.json")
             ]);
             if (!charactersResponse.ok || !rulesResponse.ok) {
                 throw new Error('数据加载失败');
