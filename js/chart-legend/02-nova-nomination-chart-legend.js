@@ -35,9 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     const text = item.querySelector('.legend-text').textContent;
                     
                     if (text === '未晋级') {
-                        window.location.href = `${baseUrl}-nomination-advance.html`;
+                        window.location.href = `/ISML-2024/pages/visualization/${baseUrl}-nomination-advance.html`;
                     } else if (text === '晋级') {
-                        window.location.href = `${baseUrl}-nomination-eliminate.html`;
+                        window.location.href = `/ISML-2024/pages/visualization/${baseUrl}-nomination-eliminate.html`;
                     }
                 });
             });
