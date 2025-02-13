@@ -538,13 +538,13 @@ document.addEventListener('DOMContentLoaded', async function() {
             // 只显示有角色的性别列表
             femaleList.parentElement.style.display = characters.female > 0 ? 'block' : 'none';
             maleList.parentElement.style.display = characters.male > 0 ? 'block' : 'none';
-            document.querySelector('.character-lists').style.gridTemplateColumns = 
+            document.querySelector('.ip-character-lists').style.gridTemplateColumns = 
                 characters.female > 0 && characters.male > 0 ? 'repeat(2, 1fr)' : '1fr';
         } else {
             const showFemale = gender === 'female';
             femaleList.parentElement.style.display = showFemale ? 'block' : 'none';
             maleList.parentElement.style.display = showFemale ? 'none' : 'block';
-            document.querySelector('.character-lists').style.gridTemplateColumns = '1fr';
+            document.querySelector('.ip-character-lists').style.gridTemplateColumns = '1fr';
         }
         
         // 分别获取男女角色并排序
