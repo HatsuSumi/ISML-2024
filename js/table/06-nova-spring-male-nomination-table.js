@@ -18,10 +18,11 @@ window.onclick = function(event) {
 }
 
 // 下载功能
-window.downloadFile = function(format) {
-    const filePath = `/data/nomination/nova/spring/male/06-nova-spring-male-nomination.${format}`
+window.downloadFile = function(format, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const filePath = `data/nomination/nova/spring/male/06-nova-spring-male-nomination.${format}`
     fetch(filePath)
-
         .then(response => {
             if (format === 'csv') {
                 return response.text();
@@ -53,7 +54,9 @@ window.downloadFile = function(format) {
 }
 
 // 下载功能
-window.downloadCurrentTable = function(format) {
+window.downloadCurrentTable = function(format, event) {
+    event.preventDefault();
+    event.stopPropagation();
     const table = document.querySelector('table');
     const headers = Array.from(table.querySelectorAll('th'))
         .map(th => th.textContent.trim());
@@ -427,7 +430,7 @@ function applySorting(data, columnIndex, isAsc) {
 
 // 加载并排序数据
 function loadAndSortData(columnIndex, isAsc) {
-    fetch("/data/nomination/nova/spring/male/06-nova-spring-male-nomination.csv")
+    fetch("data/nomination/nova/spring/male/06-nova-spring-male-nomination.csv")
         .then(response => response.text())
         .then(data => {
             const rows = data.split('\n').slice(1);

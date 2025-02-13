@@ -15,8 +15,10 @@ window.onclick = function(event) {
     }
 }
 
-window.downloadFile = function(format) {
-    const filePath = `/ISML-2024/data/nomination/stellar/male/02-male-nomination.${format}`;
+window.downloadFile = function(format, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const filePath = `data/nomination/stellar/male/02-male-nomination.${format}`;
 
     fetch(filePath)
         .then(response => {
@@ -419,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 等淡出动画完成后重新加载数据
         setTimeout(() => {
-            fetch("/data/nomination/stellar/male/02-male-nomination.csv")
+            fetch("data/nomination/stellar/male/02-male-nomination.csv")
                 .then(response => response.text())
                 .then(data => {
                     const tableBody = document.getElementById('tableBody');
