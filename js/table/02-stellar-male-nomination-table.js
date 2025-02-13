@@ -16,9 +16,13 @@ window.onclick = function(event) {
 }
 
 window.downloadFile = function(format) {
-    const filePath = `data/nomination/stellar/male/02-male-nomination.${format}`;
+    const filePath = `/ISML-2024/data/nomination/stellar/male/02-male-nomination.${format}`;
+
     fetch(filePath)
         .then(response => {
+            if (!response.ok) {
+                throw new Error('网络响应错误');
+            }
             if (format === 'csv') {
                 return response.text();
             } else if (format === 'json') {
@@ -36,14 +40,21 @@ window.downloadFile = function(format) {
             } else {
                 blob = data;  
             }
+            
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
+            a.style.display = 'none';
             a.href = url;
             a.download = `恒星组提名-男性组别.${format}`;
             document.body.appendChild(a);
             a.click();
+            
             window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
+        })
+        .catch(error => {
+            console.error('下载文件时出错:', error);
+            alert('下载文件失败，请检查控制台日志');
         });
 }
 
