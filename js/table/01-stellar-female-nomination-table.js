@@ -16,7 +16,7 @@ window.onclick = function(event) {
 }
 
 window.downloadFile = function(format) {
-    const filePath = `/data/nomination/stellar/female/01-female-nomination.${format}`;
+    const filePath = `data/nomination/stellar/female/01-female-nomination.${format}`;
 
 fetch(filePath)
     .then(response => {
@@ -120,9 +120,7 @@ function smoothScrollToTop(duration = 500) {
     requestAnimationFrame(scrollStep);
 }
 
-fetch(
-    "/data/nomination/stellar/female/01-female-nomination.csv"
-)
+fetch("data/nomination/stellar/female/01-female-nomination.csv")
 .then(response => response.text())
 .then(data => {
     const rows = data.split('\n').slice(1); 
