@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // 弹窗相关变量
     const modal = document.getElementById('characterModal');
-    const closeBtn = document.querySelector('.close-btn');
+    const closeBtn = document.querySelector('.ip-close-btn');
     const modalTitle = document.getElementById('modalTitle');
     const femaleList = document.getElementById('femaleList');
     const maleList = document.getElementById('maleList');

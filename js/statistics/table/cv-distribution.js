@@ -516,7 +516,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // 弹窗相关
     const modal = document.getElementById('characterModal');
-    const closeBtn = document.querySelector('.close-btn');
+    const closeBtn = document.querySelector('.cv-close-btn');
     const modalTitle = document.getElementById('modalTitle');
     const characterList = document.getElementById('characterList');
 

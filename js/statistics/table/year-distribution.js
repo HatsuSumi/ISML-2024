@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const modal = document.getElementById('characterModal');
     const modalTitle = document.getElementById('modalTitle');
     const characterList = document.getElementById('characterList');
-    const closeBtn = modal.querySelector('.close-btn');
+    const closeBtn = modal.querySelector('.year-close-btn');
 
     // 获取筛选条件
     function getFilters() {
