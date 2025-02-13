@@ -20,7 +20,7 @@ window.downloadFile = function(format) {
     console.log('当前位置:', window.location.href);
     console.log('Base URL:', document.querySelector('base').href);
 
-    const filePath = `data/nomination/stellar/female/01-female-nomination.${format}`;
+    const filePath = `../../data/nomination/stellar/female/01-female-nomination.${format}`;
     console.log('尝试下载文件:', filePath);
 
     fetch(filePath)
