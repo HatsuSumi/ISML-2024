@@ -172,9 +172,9 @@ function getCurrentPhase(eventsData) {
 document.addEventListener('DOMContentLoaded', async function() {
     try {
         const [data, rankingData, charactersData] = await Promise.all([
-            fetch("/data/config/events.json").then(r => r.json()),
-            fetch("/data/votes/top5-rankings.json").then(r => r.json()),
-            fetch("/data/characters/base/characters-data.json").then(r => r.json())
+            fetch("data/config/events.json").then(r => r.json()),
+            fetch("data/votes/top5-rankings.json").then(r => r.json()),
+            fetch("data/characters/base/characters-data.json").then(r => r.json())
         ]);
         eventsData = data;
         
