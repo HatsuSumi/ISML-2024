@@ -22,7 +22,7 @@ const ipMap = new Map();
 
 async function loadCharactersData() {
     try {
-        const response = await fetch("/data/characters/roundsData.json");
+        const response = await fetch("data/characters/roundsData.json");
         const data = await response.json();
         renderCharacters(data);
     } catch (error) {
