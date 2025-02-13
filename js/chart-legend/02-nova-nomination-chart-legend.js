@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const currentPage = window.location.pathname;
         
-        const urlParams = new URLSearchParams(window.location.search);
-        const fromParam = urlParams.get('from') || currentPage;
-        
+        const currentFrom = new URLSearchParams(window.location.search).get('from');
+        const fromParam = currentFrom ? `?from=${currentFrom}` : '';
+
         if (!currentPage.includes('-advance.html') && !currentPage.includes('-eliminate.html')) {
             const legendItems = document.querySelectorAll('.legend-item');
             
@@ -37,9 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     const text = item.querySelector('.legend-text').textContent;
                     
                     if (text === '未晋级') {
-                        window.location.href = `/ISML-2024/pages/visualization/${baseUrl}-nomination-advance.html?from=${fromParam}`;
+                        window.location.href = `/ISML-2024/pages/visualization/${baseUrl}-nomination-advance.html${fromParam}`;
                     } else if (text === '晋级') {
-                        window.location.href = `/ISML-2024/pages/visualization/${baseUrl}-nomination-eliminate.html?from=${fromParam}`;
+                        window.location.href = `/ISML-2024/pages/visualization/${baseUrl}-nomination-eliminate.html${fromParam}`;
                     }
                 });
             });
