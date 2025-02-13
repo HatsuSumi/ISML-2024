@@ -1360,7 +1360,7 @@ class UIManager {
         compareTypeSelect.addEventListener('change', () => {
             if (compareTypeSelect.value === COMPARISON_TYPES.about) {
                 compareTypeSelect.value = compareTypeSelect.dataset.previousValue || COMPARISON_TYPES.oneToOne;
-                window.open('comparison-guide.html', '_blank');
+                window.open('pages/comparison/comparison-guide.html', '_blank');
             } 
         
             const comparison = document.querySelector(SELECTORS.characterComparison);
@@ -2017,7 +2017,6 @@ class UIManager {
     }
 
     reset() {
-        console.log('开始重置...');
         
         const compareType = document.getElementById(LAYOUT_CLASSES.compareType);
         const currentType = compareType.value;
