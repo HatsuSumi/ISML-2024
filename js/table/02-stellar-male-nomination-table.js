@@ -16,7 +16,7 @@ window.onclick = function(event) {
 }
 
 window.downloadFile = function(format) {
-    const filePath = `/data/nomination/stellar/male/02-male-nomination.${format}`;
+    const filePath = `data/nomination/stellar/male/02-male-nomination.${format}`;
     fetch(filePath)
         .then(response => {
             if (format === 'csv') {
@@ -94,7 +94,7 @@ window.sortTable = function(columnIndex, initialDirection = null) {
     }, 300);
 }
 
-fetch("/data/nomination/stellar/male/02-male-nomination.csv")
+fetch("data/nomination/stellar/male/02-male-nomination.csv")
 .then(response => response.text())
 .then(data => {
     const rows = data.split('\n').slice(1); 
