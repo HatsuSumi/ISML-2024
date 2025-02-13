@@ -64,11 +64,9 @@ export const CONFIG = {
         }
     },
     events: {
-        dataPath: window.location.pathname.includes('/pages/')
-            ? '../../data/config/events.json'
-            : 'data/config/events.json'
+        dataPath: 'data/config/events.json'
     },
-    stages: {
+    stages: {   
         nomination: 'nomination',
         battle: 'battle',
         final: 'final'
