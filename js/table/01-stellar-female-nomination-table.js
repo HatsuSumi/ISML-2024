@@ -19,7 +19,7 @@ window.downloadFile = function(format, event) {
     event.preventDefault();
     event.stopPropagation();
 
-    const filePath = `/ISML-2024/data/nomination/stellar/female/01-female-nomination.${format}`;
+    const filePath = `data/nomination/stellar/female/01-female-nomination.${format}`;
 
     fetch(filePath)
         .then(response => {
@@ -552,7 +552,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 }); 
 
-window.downloadCurrentTable = function(format) {
+window.downloadCurrentTable = function(format, event) {
+    event.preventDefault();
+    event.stopPropagation();
     const table = document.querySelector('table');
     const headers = Array.from(table.querySelectorAll('th'))
         .map(th => th.textContent.trim());

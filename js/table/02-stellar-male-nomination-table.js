@@ -514,7 +514,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 }); 
 
-window.downloadCurrentTable = function(format) {
+window.downloadCurrentTable = function(format, event) {
+    event.preventDefault();
+    event.stopPropagation();
     const table = document.querySelector('table');
     const headers = Array.from(table.querySelectorAll('th'))
         .map(th => th.textContent.trim());
