@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         try {
             // 获取数据
             const data = await fetch("data/statistics/nomination-stats.json").then(r => r.json());
-            originalData = await response.json();
+            originalData = data;
             
             // 初始化搜索计数
             const searchCount = document.querySelector('.search-count');

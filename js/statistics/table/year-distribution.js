@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     async function initTable() {
         try {
             const data = await fetch("data/statistics/nomination-stats.json").then(r => r.json());
-            originalData = await response.json();
+            originalData = data;
     
             // 添加事件监听
             document.querySelectorAll('input[name="group"]').forEach(radio => {
