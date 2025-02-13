@@ -17,7 +17,7 @@ async function generateDropdownMenu() {
     const isTablePage = currentPage.includes('-table');
 
     const getTargetUrl = (id) => {
-        const basePath = 'pages/visualization/';
+        const basePath = isTablePage ? 'pages/tables/' : 'pages/visualization/';
         const currentFrom = new URLSearchParams(window.location.search).get('from');
         const fromParam = currentFrom ? `?from=${currentFrom}` : '';
         
