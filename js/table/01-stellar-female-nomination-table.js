@@ -16,36 +16,52 @@ window.onclick = function(event) {
 }
 
 window.downloadFile = function(format) {
-    const filePath = `data/nomination/stellar/female/01-female-nomination.${format}`;
+    // 添加调试日志
+    console.log('当前位置:', window.location.href);
+    console.log('Base URL:', document.querySelector('base').href);
 
-fetch(filePath)
-    .then(response => {
-        if (format === 'csv') {
-            return response.text();
-        } else if (format === 'json') {
-            return response.json();
-        } else {
-            return response.blob();  
-        }
-    })
-    .then(data => {
-        let blob;
-        if (format === 'csv') {
-            blob = new Blob([data], { type: 'text/csv' });
-        } else if (format === 'json') {
-            blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        } else {
-            blob = data;  
-        }
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `恒星组提名-女性组别.${format}`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-    });
+    const filePath = `data/nomination/stellar/female/01-female-nomination.${format}`;
+    console.log('尝试下载文件:', filePath);
+
+    fetch(filePath)
+        .then(response => {
+            console.log('响应状态:', response.status, response.ok);
+            if (!response.ok) {
+                throw new Error('网络响应错误');
+            }
+            if (format === 'csv') {
+                return response.text();
+            } else if (format === 'json') {
+                return response.json();
+            } else {
+                return response.blob();  
+            }
+        })
+        .then(data => {
+            let blob;
+            if (format === 'csv') {
+                blob = new Blob([data], { type: 'text/csv' });
+            } else if (format === 'json') {
+                blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            } else {
+                blob = data;  
+            }
+            
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = `恒星组提名-女性组别.${format}`;
+            document.body.appendChild(a);
+            a.click();
+            
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        })
+        .catch(error => {
+            console.error('下载文件时出错:', error);
+            alert('下载文件失败，请检查控制台日志');
+        });
 }
 
 function sortTable(columnIndex, initialDirection = null) {
