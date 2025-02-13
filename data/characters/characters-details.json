@@ -6,14 +6,14 @@
                     "提名时间": "2024-12-31 20:00:00 (周二) - 2025-01-07 19:59:59 (周二)",
                     "女性组别": {
                         "被提名角色数": 168,
-                        "visualization": "../visualization/01-stellar-female-nomination.html",
-                        "table": "../tables/01-stellar-female-nomination-table.html",
+                        "visualization": "pages/visualization/01-stellar-female-nomination.html",
+                        "table": "pages/tables/01-stellar-female-nomination-table.html",
                         "rules": "nomination.stellar"
                     },
                     "男性组别": {
                         "被提名角色数": 172,
-                        "visualization": "../visualization/02-stellar-male-nomination.html",
-                        "table": "../tables/02-stellar-male-nomination-table.html",
+                        "visualization": "pages/visualization/02-stellar-male-nomination.html",
+                        "table": "pages/tables/02-stellar-male-nomination-table.html",
                         "rules": ""
                     }
                 },
@@ -21,39 +21,39 @@
                     "冬季赛": {
                         "提名时间": "2025-01-07 20:00:00 (周二) - 2025-01-14 19:59:59 (周二)",
                         "女性组别": {
-                            "visualization": "../visualization/03-nova-winter-female-nomination.html",
-                            "table": "../tables/03-nova-winter-female-nomination-table.html",
+                            "visualization": "pages/visualization/03-nova-winter-female-nomination.html",
+                            "table": "pages/tables/03-nova-winter-female-nomination-table.html",
                             "rules": ""
                         },
                         "男性组别": {
-                            "visualization": "../visualization/04-nova-winter-male-nomination.html",
-                            "table": "../tables/04-nova-winter-male-nomination-table.html",
+                            "visualization": "pages/visualization/04-nova-winter-male-nomination.html",
+                            "table": "pages/tables/04-nova-winter-male-nomination-table.html",
                             "rules": ""
                         }
                     },
                     "春季赛": {
                         "提名时间": "2025-01-14 20:00:00 (周二) - 2025-01-21 19:59:59 (周二)",
                         "女性组别": {
-                            "visualization": "../visualization/05-nova-spring-female-nomination.html",
-                            "table": "../tables/05-nova-spring-female-nomination-table.html",
+                            "visualization": "pages/visualization/05-nova-spring-female-nomination.html",
+                            "table": "pages/tables/05-nova-spring-female-nomination-table.html",
                             "rules": ""
                         },
                         "男性组别": {
-                            "visualization": "../visualization/06-nova-spring-male-nomination.html",
-                            "table": "../tables/06-nova-spring-male-nomination-table.html",
+                            "visualization": "pages/visualization/06-nova-spring-male-nomination.html",
+                            "table": "pages/tables/06-nova-spring-male-nomination-table.html",
                             "rules": ""
                         }
                     },
                     "夏季赛": {
                         "提名时间": "2025-01-21 20:00:00 (周二) - 2025-01-28 19:59:59 (周二)",
                         "女性组别": {
-                            "visualization": "../visualization/07-nova-summer-female-nomination.html",
-                            "table": "../tables/07-nova-summer-female-nomination-table.html",
+                            "visualization": "pages/visualization/07-nova-summer-female-nomination.html",
+                            "table": "pages/tables/07-nova-summer-female-nomination-table.html",
                             "rules": ""
                         },
                         "男性组别": {
-                            "visualization": "../visualization/08-nova-summer-male-nomination.html",
-                            "table": "../tables/08-nova-summer-male-nomination-table.html",
+                            "visualization": "pages/visualization/08-nova-summer-male-nomination.html",
+                            "table": "pages/tables/08-nova-summer-male-nomination-table.html",
                             "rules": ""
                         }
                     },
