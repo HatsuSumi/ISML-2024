@@ -331,7 +331,7 @@ class CharacterDetail {
             .map(config => {
                 let url;
                 if (config.key === 'rules') {
-                    url = `../../pages/rules/rules.html?id=${roundConfig[config.key]}&from=characters-data`;
+                    url = `pages/rules/rules.html?id=${roundConfig[config.key]}&from=characters-data`;
                 } else {
                     url = roundConfig[config.key];
                     
