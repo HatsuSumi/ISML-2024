@@ -48,6 +48,9 @@
             
         if (urlParams.get('from') === 'github') {
             details.setAttribute('open', ''); 
+            supportSection.style.maxHeight = 'none';
+            supportSection.style.opacity = '1';
+            supportSection.style.transform = 'translateY(0)';
         }
     });
 
