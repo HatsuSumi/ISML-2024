@@ -319,7 +319,7 @@ h1 {
 }
 
 /* 弹窗样式 */
-.modal {
+.year-modal {
     display: none;
     position: fixed;
     top: 0;
@@ -333,14 +333,14 @@ h1 {
     backdrop-filter: blur(0);
 }
 
-.modal.show {
+.year-modal.show {
     display: block;
     opacity: 1;
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(3px);  
 }
 
-.modal-content {
+.year-modal-content {
     position: relative;
     background: #2a2a2a;
     margin: 50px auto;
@@ -356,12 +356,12 @@ h1 {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.modal.show .modal-content {
+.year-modal.show .year-modal-content {
     transform: scale(1) translateY(0); 
     opacity: 1;
 }
 
-.close-btn {
+.year-close-btn {
     position: absolute;
     right: 20px;
     top: 15px;
@@ -371,11 +371,11 @@ h1 {
     transition: color 0.3s ease;
 }
 
-.close-btn:hover {
+.year-close-btn:hover {
     color: #fff;
 }
 
-.modal h2 {
+.year-modal h2 {
     color: #fff;
     margin-bottom: 20px;
     padding-right: 30px;
