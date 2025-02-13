@@ -8,7 +8,7 @@
                         "被提名角色数": 168,
                         "visualization": "pages/visualization/01-stellar-female-nomination.html",
                         "table": "pages/tables/01-stellar-female-nomination-table.html",
-                        "rules": "nomination.stellar"
+                        "rules": ""
                     },
                     "男性组别": {
                         "被提名角色数": 172,
