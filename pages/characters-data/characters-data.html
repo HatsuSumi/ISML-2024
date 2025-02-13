@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/characters-data/characters-data.css">
+    <base href="https://hatsusumi.github.io/ISML-2024/">
+    <link rel="stylesheet" href="css/characters-data/characters-data.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <include src="/templates/header.html"></include>
+    <include src="templates/header.html"></include>
     <div class="characters-data-container">
         <!-- 电梯导航 -->
         <nav class="elevator-nav">
             <ul class="elevator-nav-list">
                 <div class="elevator-nav-item" data-target="stellar">
-                    <img src="/images/isml-stella.png" class="nav-icon" alt="恒星组">
+                    <img src="images/isml-stella.png" class="nav-icon" alt="恒星组">
                     <span>恒星组</span>
                 </div>
                 <!-- 新星组及其子元素 -->
                 <div class="elevator-nav-group">
                     <div class="elevator-nav-item" data-target="nova">
-                        <img src="/images/isml-nova.png" class="nav-icon" alt="新星组">
+                        <img src="images/isml-nova.png" class="nav-icon" alt="新星组">
                         <span>新星组</span>
                         <i class="fas fa-chevron-down collapse-icon"></i>
                     </div>
@@ -110,8 +111,8 @@
             </div>
         </div>
     </div>
-    <include src="/templates/footer.html"></include>
-    <script type="module" src="/js/common/template-loader.js"></script>
-    <script type="module" src="/js/characters-data/characters-data.js"></script>
+    <include src="templates/footer.html"></include>
+    <script type="module" src="js/common/template-loader.js"></script>
+    <script type="module" src="js/characters-data/characters-data.js"></script>
 </body>
 </html> 
