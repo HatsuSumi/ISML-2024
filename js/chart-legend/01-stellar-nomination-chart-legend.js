@@ -5,11 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const currentPage = window.location.pathname;
+        const currentPath = window.location.pathname;
         
-        if (!currentPage.includes('-advance.html') && !currentPage.includes('-eliminate.html')) {
+        if (!currentPath.includes('-advance.html') && !currentPath.includes('-eliminate.html')) {
             const legendItems = document.querySelectorAll('.legend-item');
-            const baseUrl = currentPage.includes('01-stellar-female') ? '01-stellar-female' : '02-stellar-male';
+            const baseUrl = currentPath.includes('01-stellar-female') ? '01-stellar-female' : '02-stellar-male';
+            
+            const currentFrom = new URLSearchParams(window.location.search).get('from');
+            const fromParam = currentFrom ? `?from=${currentFrom}` : '';
             
             legendItems.forEach((item) => {
                 item.style.cursor = 'pointer';
@@ -18,9 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     let targetUrl = '';
                     if (text === '未晋级') {
-                        targetUrl = `pages/visualization/${baseUrl}-nomination-advance.html`;
+                        targetUrl = `pages/visualization/${baseUrl}-nomination-advance.html${fromParam}`;
                     } else if (text === '晋级') {
-                        targetUrl = `pages/visualization/${baseUrl}-nomination-eliminate.html`;
+                        targetUrl = `pages/visualization/${baseUrl}-nomination-eliminate.html${fromParam}`;
                     }
 
                     if (targetUrl) {
