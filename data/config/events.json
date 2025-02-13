@@ -78,8 +78,8 @@
                                 }
                             },
                             "links": {
-                                "visualization": "../visualization/03-nova-winter-female-nomination.html",
-                                "table": "../tables/03-nova-winter-female-nomination-table.html",
+                                "visualization": "pages/visualization/03-nova-winter-female-nomination.html",
+                                "table": "pages/tables/03-nova-winter-female-nomination-table.html",
                                 "data": "data/nomination/nova/winter/female/03-nova-winter-female-nomination.json"
                             }
                         },
@@ -94,8 +94,8 @@
                                 }
                             },
                             "links": {
-                                "visualization": "../visualization/04-nova-winter-male-nomination.html",
-                                "table": "../tables/04-nova-winter-male-nomination-table.html",
+                                "visualization": "pages/visualization/04-nova-winter-male-nomination.html",
+                                "table": "pages/tables/04-nova-winter-male-nomination-table.html",
                                 "data": "data/nomination/nova/winter/male/04-nova-winter-male-nomination.json"
                             }
 
@@ -125,8 +125,8 @@
                                 }
                             },
                             "links": {
-                                "visualization": "../visualization/05-nova-spring-female-nomination.html",
-                                "table": "../tables/05-nova-spring-female-nomination-table.html",
+                                "visualization": "pages/visualization/05-nova-spring-female-nomination.html",
+                                "table": "pages/tables/05-nova-spring-female-nomination-table.html",
                                 "data": "data/nomination/nova/spring/female/05-nova-spring-female-nomination.json"
                             }
 
@@ -141,8 +141,8 @@
                                 }
                             },
                             "links": {
-                                "visualization": "../visualization/06-nova-spring-male-nomination.html",
-                                "table": "../tables/06-nova-spring-male-nomination-table.html",
+                                "visualization": "pages/visualization/06-nova-spring-male-nomination.html",
+                                "table": "pages/tables/06-nova-spring-male-nomination-table.html",
                                 "data": "data/nomination/nova/spring/male/06-nova-spring-male-nomination.json"
                             }
                         }
@@ -172,8 +172,8 @@
                                 }
                             },
                             "links": {
-                                "visualization": "../visualization/07-nova-summer-female-nomination.html",
-                                "table": "../tables/07-nova-summer-female-nomination-table.html",
+                                "visualization": "pages/visualization/07-nova-summer-female-nomination.html",
+                                "table": "pages/tables/07-nova-summer-female-nomination-table.html",
                                 "data": "data/nomination/nova/summer/female/07-nova-summer-female-nomination.json"
                             }
                         },
@@ -187,8 +187,8 @@
                                 }
                             },
                             "links": {
-                                "visualization": "../visualization/08-nova-summer-male-nomination.html",
-                                "table": "../tables/08-nova-summer-male-nomination-table.html",
+                                "visualization": "pages/visualization/08-nova-summer-male-nomination.html",
+                                "table": "pages/tables/08-nova-summer-male-nomination-table.html",
                                 "data": "data/nomination/nova/summer/male/08-nova-summer-male-nomination.json"
                             }
                         }
