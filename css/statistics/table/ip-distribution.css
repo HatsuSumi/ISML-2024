@@ -409,28 +409,28 @@ h1 {
     padding-right: 30px;
 }
 
-.character-lists {
+.ip-character-lists {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
 
-.character-group h3 {
+.ip-character-group h3 {
     color: #888;
     margin-bottom: 15px;
     padding-bottom: 8px;
     border-bottom: 1px solid #444;
 }
 
-.character-group ul {
+.ip-character-group ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.character-group li {
+.ip-character-group li {
     color: #fff;
-    padding: 10px 10px 10px 12px;  /* 左边距稍大以适应边框 */
+    padding: 10px 10px 10px 12px;  
     margin-bottom: 8px;
     border-radius: 4px;
     display: flex;
@@ -439,7 +439,7 @@ h1 {
     background: rgba(255, 255, 255, 0.02);
 }
 
-.character-group li:hover {
+.ip-character-group li:hover {
     background: rgba(255, 255, 255, 0.05);
 }
 

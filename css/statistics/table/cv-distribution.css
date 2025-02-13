@@ -413,7 +413,7 @@ h1 {
 }
 
 .cv-modal.show .cv-modal-content {
-    transform: scale(1) translateY(0);  /* 显示时恢复正常大小和位置 */
+    transform: scale(1) translateY(0);  
     opacity: 1;
 }
 
@@ -437,25 +437,25 @@ h1 {
     padding-right: 30px;
 }
 
-.character-lists {
-    display: block;  /* 改为块级布局 */
+.cv-character-lists {
+    display: block; 
     margin-top: 20px;
 }
 
-.character-group h3 {
+.cv-character-group h3 {
     color: #888;
     margin-bottom: 15px;
     padding-bottom: 8px;
     border-bottom: 1px solid #444;
 }
 
-.character-group ul {
+.cv-character-group ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.character-group li {
+.cv-character-group li {
     display: grid;
     grid-template-columns: auto 1fr auto; 
     gap: 15px;
@@ -466,7 +466,7 @@ h1 {
     background: rgba(255, 255, 255, 0.02);
 }
 
-.character-group li:hover {
+.cv-character-group li:hover {
     background: rgba(255, 255, 255, 0.05);
 }
 
