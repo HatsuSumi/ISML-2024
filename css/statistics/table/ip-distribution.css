@@ -556,51 +556,51 @@ h1 {
 }
 
 /* 添加角色列表的动画 */
-.character-group {
+.ip-character-group {
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.3s ease;
 }
 
-.modal.show .character-group {
+.ip-modal.show .ip-character-group {
     opacity: 1;
     transform: translateY(0);
 }
 
 /* 让第二个角色组延迟显示 */
-.character-group:nth-child(2) {
+.ip-character-group:nth-child(2) {
     transition-delay: 0.1s;
 }
 
 /* 角色列表项动画 */
-.character-group li {
+.ip-character-group li {
     opacity: 0;
     transform: translateX(-10px);
     transition: all 0.3s ease;
 }
 
-.modal.show .character-group li {
+.ip-modal.show .ip-character-group li {
     opacity: 1;
     transform: translateX(0);
 }
 
 /* 添加晋级状态样式 */
-.character-group li.promoted {
+.ip-character-group li.promoted {
     border-left: 3px solid #4CAF50;  
     background: rgba(76, 175, 80, 0.05); 
 }
 
-.character-group li.eliminated {
+.ip-character-group li.eliminated {
     border-left: 3px solid #f44336;  
     background: rgba(244, 67, 54, 0.05);  
 }
 
 /* 悬停效果 */
-.character-group li.promoted:hover {
+.ip-character-group li.promoted:hover {
     background: rgba(76, 175, 80, 0.1); 
 }
 
-.character-group li.eliminated:hover {
+.ip-character-group li.eliminated:hover {
     background: rgba(244, 67, 54, 0.1); 
 }
 
