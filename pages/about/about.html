@@ -42,6 +42,15 @@
     <script type="module" src="js/common/template-loader.js"></script>
     <script src="js/common/copy-email.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const details = document.querySelector('details.support-details');
+        const urlParams = new URLSearchParams(window.location.search);
+            
+        if (urlParams.get('from') === 'github') {
+            details.setAttribute('open', ''); 
+        }
+    });
+
     function copyLink() {
     const baseUrl = 'https://hatsusumi.github.io/ISML-2024/';
     
