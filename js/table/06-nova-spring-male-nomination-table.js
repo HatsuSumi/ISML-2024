@@ -1,5 +1,5 @@
 // 导入别名配置
-import { SERIES_ALIASES } from './ISML-2024/js/aliases/aliases.js';
+import { SERIES_ALIASES } from '/ISML-2024/js/aliases/aliases.js';
 
 // 下拉菜单功能
 window.toggleDropdown = function() {
