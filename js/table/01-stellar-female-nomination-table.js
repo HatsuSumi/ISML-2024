@@ -16,7 +16,7 @@ window.onclick = function(event) {
 }
 
 window.downloadFile = function(format) {
-    const filePath = `/ISML-2024/data/nomination/stellar/female/01-female-nomination.${format}`;
+    const filePath = `data/nomination/stellar/female/01-female-nomination.${format}`;
 
 fetch(filePath)
     .then(response => {
