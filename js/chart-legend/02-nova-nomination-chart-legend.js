@@ -7,10 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const currentPage = window.location.pathname;
         
+        const urlParams = new URLSearchParams(window.location.search);
+        const fromParam = urlParams.get('from') || currentPage;
+        
         if (!currentPage.includes('-advance.html') && !currentPage.includes('-eliminate.html')) {
             const legendItems = document.querySelectorAll('.legend-item');
             
-            // 从URL中提取赛季和性别信息
             const seasonMap = {
                 'winter': '03-04',
                 'spring': '05-06',
@@ -35,12 +37,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     const text = item.querySelector('.legend-text').textContent;
                     
                     if (text === '未晋级') {
-                        window.location.href = `/ISML-2024/pages/visualization/${baseUrl}-nomination-advance.html`;
+                        window.location.href = `/ISML-2024/pages/visualization/${baseUrl}-nomination-advance.html?from=${fromParam}`;
                     } else if (text === '晋级') {
-                        window.location.href = `/ISML-2024/pages/visualization/${baseUrl}-nomination-eliminate.html`;
+                        window.location.href = `/ISML-2024/pages/visualization/${baseUrl}-nomination-eliminate.html?from=${fromParam}`;
                     }
                 });
             });
         }
     }, 1000);
-}); 
+});
