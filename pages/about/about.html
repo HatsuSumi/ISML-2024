@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/about/about.css">
+    <base href="https://hatsusumi.github.io/ISML-2024/">
+    <link rel="stylesheet" href="css/about/about.css">
 </head>
 <body>
-    <include src="/templates/header.html"></include>
+    <include src="templates/header.html"></include>
     <canvas id="digitalRain"></canvas>
     <div class="container">
         <div class="about-section">
@@ -24,10 +25,10 @@
                 <div class="support-section">
                     <div class="support-grid">
                         <div class="support-item">
-                            <img src="/images/support/wechat.png" alt="微信收款码">
+                            <img src="images/support/wechat.png" alt="微信收款码">
                         </div>
                         <div class="support-item">
-                            <img src="/images/support/alipay.png" alt="支付宝收款码">
+                            <img src="images/support/alipay.png" alt="支付宝收款码">
                         </div>
                     </div>
                     <p class="support-note">可以备注喵~ 方便记录</p>
@@ -37,9 +38,9 @@
         </div>
     </div>
 
-    <include src="/templates/footer.html"></include>
-    <script type="module" src="/js/common/template-loader.js"></script>
-    <script src="/js/common/copy-email.js"></script>
+    <include src="templates/footer.html"></include>
+    <script type="module" src="js/common/template-loader.js"></script>
+    <script src="js/common/copy-email.js"></script>
     <script>
     function copyLink() {
         const url = window.location.origin; 
