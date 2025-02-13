@@ -190,3 +190,20 @@ body {
         filter: hue-rotate(360deg);
     }
 }
+
+.hover-reveal {
+    position: relative;
+    cursor: pointer;
+}
+
+.hidden-text {
+    position: relative;
+    color: transparent;
+    background-color: black;
+    transition: all 0.3s ease;
+}
+
+.hover-reveal:hover .hidden-text {
+    color: white;
+    background-color: transparent;
+}
