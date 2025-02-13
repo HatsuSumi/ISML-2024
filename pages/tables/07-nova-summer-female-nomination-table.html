@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/tables/07-nova-summer-nomination-table.css">
+    <base href="https://hatsusumi.github.io/ISML-2024/">
+    <link rel="stylesheet" href="css/tables/07-nova-summer-nomination-table.css">
 </head>
 <body>
-    <include src="/templates/header.html"></include>
+    <include src="templates/header.html"></include>
     <div class="container">
         <h1>新星组夏季赛提名-女性组别</h1>
         <div class="subtitle">点击表头可对数据进行排序</div>
@@ -41,7 +42,7 @@
         </div>
         <div class="button-container">
             <a href="javascript:history.back()" class="home-btn">返回上一页</a>
-            <a href="/visualization/07-nova-summer-female-nomination.html" class="visualization-btn">数据可视化</a>
+            <a href="pages/visualization/07-nova-summer-female-nomination.html" class="visualization-btn">数据可视化</a>
             <div class="dropdown">
                 <button class="download-btn" onclick="toggleDropdown()">下载表格</button>
                 <div id="downloadDropdown" class="dropdown-content">
@@ -72,10 +73,10 @@
         </table>
         <button class="back-to-top">↑</button>
     </div>
-    <include src="/templates/footer.html"></include>
+    <include src="templates/footer.html"></include>
     <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
-    <script type="module" src="/js/common/template-loader.js"></script>
-    <script type="module" src="/js/table/07-nova-summer-female-nomination-table.js"></script>
-    <script type="module" src="/js/common/event-links.js"></script>
+    <script type="module" src="js/common/template-loader.js"></script>
+    <script type="module" src="js/table/07-nova-summer-female-nomination-table.js"></script>
+    <script type="module" src="js/common/event-links.js"></script>
 </body>
 </html> 
