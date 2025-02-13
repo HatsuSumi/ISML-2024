@@ -16,11 +16,8 @@ window.onclick = function(event) {
 }
 
 window.downloadFile = function(format, event) {
-    // 如果传入了事件对象，阻止默认行为
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
+    event.preventDefault();
+    event.stopPropagation();
 
     const filePath = `/ISML-2024/data/nomination/stellar/female/01-female-nomination.${format}`;
 
