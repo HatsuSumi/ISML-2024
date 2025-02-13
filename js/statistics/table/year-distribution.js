@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     // 初始化表格
     async function initTable() {
         try {
-            const data = await fetch("/data/statistics/nomination-stats.json").then(r => r.json());
+            const data = await fetch("data/statistics/nomination-stats.json").then(r => r.json());
             originalData = await response.json();
     
             // 添加事件监听

@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     async function updateCharts() {
         try {
-            const data = await fetch("/data/statistics/nomination-stats.json").then(r => r.json());
+            const data = await fetch("data/statistics/nomination-stats.json").then(r => r.json());
 
             const filters = getFilters();
 
@@ -465,13 +465,13 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             switch(chartElement.id) {
                 case 'ipDistribution':
-                    window.location.href = '../statistics/table/ip-distribution.html';
+                    window.location.href = 'pages/statistics/table/ip-distribution.html';
                     break;
                 case 'cvDistribution':
-                    window.location.href = '../statistics/table/cv-distribution.html';
+                    window.location.href = 'pages/statistics/table/cv-distribution.html';
                     break;
                 case 'yearDistribution':
-                    window.location.href = '../statistics/table/year-distribution.html';
+                    window.location.href = 'pages/statistics/table/year-distribution.html';
                     break;
             }
         });

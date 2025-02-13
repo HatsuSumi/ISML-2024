@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     let sortDirection = 'desc';
     let filteredData = [];
     let originalData = null;
-    let previousPage = 1;  // 保存搜索前的页码
+    let previousPage = 1;  
     let currentMatchIndex = 0;  
     let currentSearchResults = [];
     let lastSearchText = '';
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     // 初始化
     async function initTable() {
         try {
-            const data = await fetch("/data/statistics/nomination-stats.json").then(r => r.json());
+            const data = await fetch("data/statistics/nomination-stats.json").then(r => r.json());
             originalData = data;
             const filters = getFilters();
             const characters = filterCharacters(data, filters);

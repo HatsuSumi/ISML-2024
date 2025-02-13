@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     async function initTable() {
         try {
             // 获取数据
-            const data = await fetch("/data/statistics/nomination-stats.json").then(r => r.json());
+            const data = await fetch("data/statistics/nomination-stats.json").then(r => r.json());
             originalData = await response.json();
             
             // 初始化搜索计数
