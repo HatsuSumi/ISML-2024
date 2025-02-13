@@ -320,22 +320,36 @@ class CharacterDetail {
             ];
 
             const links = linkConfigs
-                .filter(config => {
-                    if (config.key === 'rules') {
-                        // 检查规则是否存在
-                        const ruleKey = roundConfig?.[config.key];
-                        return ruleKey && this.rulesData[ruleKey];
+            .filter(config => {
+                if (config.key === 'rules') {
+                    // 检查规则是否存在
+                    const ruleKey = roundConfig?.[config.key];
+                    return ruleKey && this.rulesData[ruleKey];
+                }
+                return roundConfig?.[config.key];
+            })
+            .map(config => {
+                let url;
+                if (config.key === 'rules') {
+                    url = `../../pages/rules/rules.html?id=${roundConfig[config.key]}&from=characters-data`;
+                } else {
+                    url = roundConfig[config.key];
+                    
+                    // 为其他链接添加 from 参数
+                    if (url.includes('?')) {
+                        url += `&from=characters-data`;
+                    } else {
+                        url += `?from=characters-data`;
                     }
-                    return roundConfig?.[config.key];
-                })
-                .map(config => ({
+                }
+                
+                return {
                     key: config.key,
                     icon: config.icon,
                     text: config.text,
-                    url: config.key === 'rules' ? 
-                        `../../pages/rules/rules.html?id=${roundConfig[config.key]}` :
-                        roundConfig[config.key]
-                }));
+                    url: url
+                };
+            });
             
             // 如果有链接，显示链接按钮，否则隐藏
             const linksSection = record.querySelector('.record-links');
