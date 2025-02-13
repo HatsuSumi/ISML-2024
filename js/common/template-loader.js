@@ -102,14 +102,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         const script = document.createElement('script');
         script.type = 'module';
-        const danmakuPath = getResourcePath('js/common/danmaku-generator.js');
 
         script.textContent = `
-        import { DanmakuGenerator } from '${
-            location.hostname === "hatsusumi.github.io"
-                ? '/ISML-2024/js/common/danmaku-generator.js'
-                : danmakuPath
-        }';
+        import { DanmakuGenerator } from '/ISML-2024/js/common/danmaku-generator.js';
         
         const container = document.querySelector('.animation-container');
         if (container) {
