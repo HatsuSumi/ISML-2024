@@ -46,12 +46,12 @@
             <div class="dropdown">
                 <button class="download-btn" onclick="toggleDropdown()">下载表格</button>
                 <div id="downloadDropdown" class="dropdown-content">
-                    <a href="#" onclick="downloadFile('csv')">下载原始CSV</a>
-                    <a href="#" onclick="downloadFile('xlsx')">下载原始XLSX</a>
-                    <a href="#" onclick="downloadFile('json')">下载原始JSON</a>
-                    <a href="#" onclick="downloadCurrentTable('csv')">下载筛选后的CSV</a>
-                    <a href="#" onclick="downloadCurrentTable('xlsx')">下载筛选后的XLSX</a>
-                    <a href="#" onclick="downloadCurrentTable('json')">下载筛选后的JSON</a>
+                    <a href="#" onclick="downloadFile('csv', event)">下载原始CSV</a>
+                    <a href="#" onclick="downloadFile('xlsx', event)">下载原始XLSX</a>
+                    <a href="#" onclick="downloadFile('json', event)">下载原始JSON</a>
+                    <a href="#" onclick="downloadCurrentTable('csv', event)">下载筛选后的CSV</a>
+                    <a href="#" onclick="downloadCurrentTable('xlsx', event)">下载筛选后的XLSX</a>
+                    <a href="#" onclick="downloadCurrentTable('json', event)">下载筛选后的JSON</a>
                 </div>
             </div>
         </div>
