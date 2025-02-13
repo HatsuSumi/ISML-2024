@@ -16,16 +16,18 @@ window.onclick = function(event) {
 }
 
 window.downloadFile = function(format) {
-    // 添加调试日志
+    // 详细调试日志
     console.log('当前位置:', window.location.href);
     console.log('Base URL:', document.querySelector('base').href);
 
-    const filePath = `../../data/nomination/stellar/female/01-female-nomination.${format}`;
+    const filePath = `/ISML-2024/data/nomination/stellar/female/01-female-nomination.${format}`;
     console.log('尝试下载文件:', filePath);
 
     fetch(filePath)
         .then(response => {
             console.log('响应状态:', response.status, response.ok);
+            console.log('响应头:', Object.fromEntries(response.headers.entries()));
+            
             if (!response.ok) {
                 throw new Error('网络响应错误');
             }
@@ -52,6 +54,11 @@ window.downloadFile = function(format) {
             a.style.display = 'none';
             a.href = url;
             a.download = `恒星组提名-女性组别.${format}`;
+            
+            // 额外的调试日志
+            console.log('创建下载链接:', a.href);
+            console.log('下载文件名:', a.download);
+            
             document.body.appendChild(a);
             a.click();
             
@@ -60,6 +67,7 @@ window.downloadFile = function(format) {
         })
         .catch(error => {
             console.error('下载文件时出错:', error);
+            console.error('错误详情:', error.stack);
             alert('下载文件失败，请检查控制台日志');
         });
 }
