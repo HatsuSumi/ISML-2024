@@ -26,8 +26,8 @@
                                 }
                             },
                             "links": {
-                                "visualization": "../visualization/01-stellar-female-nomination.html",
-                                "table": "../tables/01-stellar-female-nomination-table.html",
+                                "visualization": "pages/visualization/01-stellar-female-nomination.html",
+                                "table": "pages/tables/01-stellar-female-nomination-table.html",
                                 "data": "data/nomination/stellar/female/01-female-nomination.json"
                             }
                         },
@@ -42,8 +42,8 @@
                             },
 
                             "links": {
-                                "visualization": "../visualization/02-stellar-male-nomination.html",
-                                "table": "../tables/02-stellar-male-nomination-table.html",
+                                "visualization": "pages/visualization/02-stellar-male-nomination.html",
+                                "table": "pages/tables/02-stellar-male-nomination-table.html",
                                 "data": "data/nomination/stellar/male/02-male-nomination.json"
                             }
                         }
