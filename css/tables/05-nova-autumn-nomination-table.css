@@ -75,33 +75,41 @@ th::after {
 th[data-sortable="true"] {
     cursor: pointer;
 }
+
 th[data-sortable="true"]::after {
     display: block; 
 }
+
 th.sort-asc::after {
-    border-top: 5px solid #48cae4;
+    border-top: 5px solid #e67e22;
     transform: translateY(-50%) rotate(180deg);
     animation: arrowPulse 1s infinite;
 }
+
 th.sort-desc::after {
-    border-top: 5px solid #48cae4;
+    border-top: 5px solid #e67e22;
     transform: translateY(-50%) rotate(0deg);
     animation: arrowPulse 1s infinite;
 }
+
 th[data-sortable="true"]:hover::after {
     border-top-color: #f39c12;
 }
+
 @keyframes arrowPulse {
     0% { transform: translateY(-50%) rotate(var(--rotation, 0deg)) scale(1); }
     50% { transform: translateY(-50%) rotate(var(--rotation, 0deg)) scale(1.2); }
     100% { transform: translateY(-50%) rotate(var(--rotation, 0deg)) scale(1); }
 }
+
 th.sort-asc::after {
     --rotation: 180deg;
 }
+
 th.sort-desc::after {
     --rotation: 0deg;
 }
+
 tr:hover {
     background-color: rgba(231, 126, 34, 0.1);
 }
@@ -116,7 +124,6 @@ tr:nth-child(even):hover {
 
 .rank {
     color: #e67e22;
-    font-weight: bold;
 }
 
 .votes {
@@ -172,7 +179,7 @@ tr:nth-child(even):hover {
     position: absolute;
     right: 0;
     top: 120%;
-    background: #2a2a2a;
+    background: #2c1810;
     width: 120px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.4);
     z-index: 1;
@@ -194,7 +201,7 @@ tr:nth-child(even):hover {
     transition: background 0.3s;
     font-size: 14px;
     text-align: center;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid #6d3b1a;
 }
 
 .dropdown-content a:nth-child(-n+3) {
@@ -338,7 +345,6 @@ tr:nth-child(even):hover {
     font-size: 14px;
     transition: all 0.3s;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    border: 1px solid #6d3b1a;
 }
 
 .vote-input:focus {
@@ -389,6 +395,10 @@ tr:nth-child(even):hover {
     z-index: 1;
     border-radius: 5px;
     border: 1px solid #3d2314;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(10px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .events-dropdown-content::before {
@@ -449,15 +459,40 @@ tr:nth-child(even):hover {
     }
 }
 
-.rank {
-    color: #e67e22;
-    font-weight: bold;
+/* 调整其他列的宽度 */
+th:nth-child(1), td:nth-child(1) { width: 5%; }   /* 排名 */
+th:nth-child(2), td:nth-child(2) { width: 8%; }   /* 日期 */
+th:nth-child(3), td:nth-child(3) { width: 18%; }  /* 赛事名称 */
+th:nth-child(4), td:nth-child(4) { width: 4%; }   /* 头像 */
+th:nth-child(5), td:nth-child(5) { width: 12%; }  /* 角色名 */
+th:nth-child(6), td:nth-child(6) { width: 26%; }  /* 作品名 */
+th:nth-child(7), td:nth-child(7) { width: 12%; }  /* 声优 */
+th:nth-child(8), td:nth-child(8) { width: 7%; }   /* 票数 */
+
+/* 防止浏览器自动填充时的背景色覆盖 */
+.search-input:-webkit-autofill,
+.search-input:-webkit-autofill:hover,
+.search-input:-webkit-autofill:focus,
+.search-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #4d2b1a inset !important;
+    -webkit-text-fill-color: #f4e1d2 !important;
 }
 
-.votes {
-    color: #f39c12;
+@keyframes sortFade {
+    from {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
+/* 排序时的动画效果 */
+.sorting {
+    animation: sortFade 0.3s ease-out forwards;
+}
+
+/* 返回顶部按钮 */
 .back-to-top {
     position: fixed;
     bottom: 20px;
@@ -492,6 +527,7 @@ tr:nth-child(even):hover {
     visibility: visible;
 }
 
+/* 重置按钮 */
 .reset-btn {
     padding: 8px 16px;
     background-color: #f39c12;
@@ -511,6 +547,11 @@ tr:nth-child(even):hover {
     box-shadow: 0 4px 12px rgba(231, 126, 34, 0.3);
 }
 
+/* 重置按钮动画 */
+.rotate-animation {
+    animation: rotate 0.5s ease-in-out forwards;
+}
+
 @keyframes rotate {
     from {
         transform: rotate(0deg);
@@ -520,6 +561,7 @@ tr:nth-child(even):hover {
     }
 }
 
+/* 表格淡入淡出动画 */
 @keyframes fadeOut {
     from { opacity: 1; }
     to { opacity: 0; }
@@ -536,37 +578,4 @@ tr:nth-child(even):hover {
 
 .fade-in {
     animation: fadeIn 0.3s ease forwards;
-}
-
-/* 排序时的动画效果 */
-@keyframes sortFade {
-    from {
-        opacity: 0.5;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-.sorting {
-    animation: sortFade 0.3s ease-out forwards;
-}
-
-/* 调整其他列的宽度 */
-th:nth-child(1), td:nth-child(1) { width: 5%; }   /* 排名 */
-th:nth-child(2), td:nth-child(2) { width: 8%; }   /* 日期 */
-th:nth-child(3), td:nth-child(3) { width: 18%; }  /* 赛事名称 */
-th:nth-child(4), td:nth-child(4) { width: 4%; }   /* 头像 */
-th:nth-child(5), td:nth-child(5) { width: 12%; }  /* 角色名 */
-th:nth-child(6), td:nth-child(6) { width: 26%; }  /* 作品名 */
-th:nth-child(7), td:nth-child(7) { width: 12%; }  /* 声优 */
-th:nth-child(8), td:nth-child(8) { width: 7%; }   /* 票数 */
-
-/* 防止浏览器自动填充时的背景色覆盖 */
-.search-input:-webkit-autofill,
-.search-input:-webkit-autofill:hover,
-.search-input:-webkit-autofill:focus,
-.search-input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #4d2b1a inset !important;
-    -webkit-text-fill-color: #f4e1d2 !important;
 }
