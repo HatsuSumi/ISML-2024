@@ -12,9 +12,9 @@ def generate_id(df, gender, is_eliminated):
     """生成ID"""
     prefix = ''
     if is_eliminated:
-        prefix = 'ENFSU' if gender == 'female' else 'ENMSU'
+        prefix = 'ENFA' if gender == 'female' else 'ENMA'
     else:
-        prefix = 'NFSU' if gender == 'female' else 'NMSU'
+        prefix = 'NFA' if gender == 'female' else 'NMA'
     
     # 获取相同前缀的最大编号
     same_prefix = df[df['ID'].str.startswith(prefix)]['ID']
@@ -24,11 +24,11 @@ def generate_id(df, gender, is_eliminated):
     max_num = max([int(id[-3:]) for id in same_prefix])
     return f"{prefix}{(max_num + 1):03d}"
 
-def add_summer_characters():
+def add_autumn_characters():
     # 文件路径
     excel_path = 'data/characters/stats/ISML2024-characters.xlsx'
-    female_json = 'data/nomination/nova/summer/female/07-nova-summer-female-nomination.json'
-    male_json = 'data/nomination/nova/summer/male/08-nova-summer-male-nomination.json'
+    female_json = 'data/nomination/nova/autumn/female/09-nova-autumn-female-nomination.json'
+    male_json = 'data/nomination/nova/autumn/male/10-nova-autumn-male-nomination.json'
     
     # 读取Excel文件
     df = pd.read_excel(excel_path)
@@ -52,9 +52,9 @@ def add_summer_characters():
             'IP': char['ip'],
             'CV': char.get('cv', ''),
             '头像': char.get('avatar', ''),
-            '状态': '已晋级至夏季赛预选赛' if char['is_advanced'] else '未晋级',
+            '状态': '已晋级至秋季赛预选赛' if char['is_advanced'] else '未晋级',
             '分组': 'nova',
-            '季节': 'summer',
+            '季节': 'autumn',
             '性别': 'female'
         }
         new_characters.append(new_char)
@@ -72,9 +72,9 @@ def add_summer_characters():
             'IP': char['ip'],
             'CV': char.get('cv', ''),
             '头像': char.get('avatar', ''),
-            '状态': '已晋级至夏季赛预选赛' if char['is_advanced'] else '未晋级',
+            '状态': '已晋级至秋季赛预选赛' if char['is_advanced'] else '未晋级',
             '分组': 'nova',
-            '季节': 'summer',
+            '季节': 'autumn',
             '性别': 'male'
         }
         new_characters.append(new_char)
@@ -94,4 +94,4 @@ def add_summer_characters():
         print('没有新角色需要添加')
 
 if __name__ == '__main__':
-    add_summer_characters() 
+    add_autumn_characters() 

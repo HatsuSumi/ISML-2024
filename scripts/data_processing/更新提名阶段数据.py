@@ -33,19 +33,19 @@ class NominationStatsUpdater:
         """加载投票数据"""
         file_path = os.path.join(
             root_dir, 
-            'data/nomination/nova/summer',
+            'data/nomination/nova/autumn',
             gender,
-            f'0{"7" if gender == "female" else "8"}-nova-summer-{gender}-nomination.json'
+            f'{"09" if gender == "female" else "10"}-nova-autumn-{gender}-nomination.json'
         )
         with open(file_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
             return {f"{char['name']}_{char['ip']}": char['votes'] for char in data['data']}
             
-    def _update_summer_stats(self, gender: str, votes_map: Dict) -> None:
+    def _update_autumn_stats(self, gender: str, votes_map: Dict) -> None:
         """更新夏季赛统计数据"""
-        self.stats_data['nova']['summer'][gender] = []
+        self.stats_data['nova']['autumn'][gender] = []
 
-        for char in self.characters_data['nova']['summer'][gender]:
+        for char in self.characters_data['nova']['autumn'][gender]:
             key = f"{char['name']}@{char['ip']}"
             try:
                 year_season = self.year_season_map[key]
@@ -53,7 +53,7 @@ class NominationStatsUpdater:
                 print(f"\n找不到角色: {char['name']} ({char['ip']})")
                 year_season = {'ip_year': '', 'ip_season': ''}
                 
-            self.stats_data['nova']['summer'][gender].append({
+            self.stats_data['nova']['autumn'][gender].append({
                 'name': char['name'],
                 'ip': char['ip'],
                 'cv': char['cv'],
@@ -67,12 +67,12 @@ class NominationStatsUpdater:
     def update(self) -> None:
         """更新所有统计数据"""
         # 初始化夏季赛数据结构
-        self.stats_data['nova']['summer'] = {'female': [], 'male': []}
+        self.stats_data['nova']['autumn'] = {'female': [], 'male': []}
         
         # 更新女性组和男性组数据
         for gender in ['female', 'male']:
             votes_map = self._load_votes_data(gender)
-            self._update_summer_stats(gender, votes_map)
+            self._update_autumn_stats(gender, votes_map)
         # 保存更新后的数据
         output_file = os.path.join(root_dir, 'data/statistics/nomination-stats-updated.json')
         with open(output_file, 'w', encoding='utf-8', newline='\n') as f:

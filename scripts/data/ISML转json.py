@@ -14,7 +14,7 @@ def update_json():
     
     # 更新夏季赛数据
     for _, row in df.iterrows():
-        if row['季节'].lower() == 'summer':
+        if row['季节'].lower() == 'autumn':
             character = {
                 "id": row['ID'],
                 "name": row['角色'],
@@ -25,10 +25,10 @@ def update_json():
             }
             
             # 根据ID前缀分类
-            if row['ID'].startswith(('NFSU', 'ENFSU')):
-                json_data["nova"]["summer"]["female"].append(character)
-            elif row['ID'].startswith(('NMSU', 'ENMSU')):
-                json_data["nova"]["summer"]["male"].append(character)
+            if row['ID'].startswith(('NFA', 'ENFA')):
+                json_data["nova"]["autumn"]["female"].append(character)
+            elif row['ID'].startswith(('NMA', 'ENMA')):
+                json_data["nova"]["autumn"]["male"].append(character)
     
     # 生成新文件名
     new_json_path = f'data/characters/stats/ISML2024-characters_{datetime.now().strftime("%Y%m%d")}.json'

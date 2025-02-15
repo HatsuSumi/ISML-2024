@@ -17,12 +17,12 @@ def update_character_matches():
     with open(characters_file, 'r', encoding='utf-8') as f:
         characters_data = json.load(f)
     
-    # 更新夏季赛数据
+    # 更新秋季赛数据
     for gender in ['female', 'male']:
-        for char in characters_data['nova']['summer'][gender]:
+        for char in characters_data['nova']['autumn'][gender]:
             # 查找是否参加过之前的赛季
             previous_matches = []
-            for season in ['winter', 'spring']:
+            for season in ['winter', 'spring', 'summer']:
                 for prev_char in characters_data['nova'][season][gender]:
                     if char['name'] == prev_char['name'] and char['ip'] == prev_char['ip']:
                         if prev_char['id'] in matches_data['matches']:
@@ -33,10 +33,12 @@ def update_character_matches():
                 'name': char['name'],
                 'ip': char['ip'],
                 'avatar': char['avatar'],
-                'matches': previous_matches + [{
-                    'title': '新星组夏季赛提名',
-                    'result': '晋级' if '已晋级' in char['status'] else '未晋级'
-                }]
+                'matches': previous_matches + [
+                    {
+                        'title': '新星组秋季赛提名',
+                        'result': '晋级' if '已晋级' in char['status'] else '未晋级'
+                    }
+                ]
             }
     
     # 生成新文件名
