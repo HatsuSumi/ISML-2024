@@ -6,10 +6,10 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(os.path.dirname(script_dir))
 
 # 输入和输出文件路径
-input_file = os.path.join(root_dir, 'data', 'nomination', 'nova', 'autumn', 'female', 'female.txt') 
-input_file_en = os.path.join(root_dir, 'data', 'nomination', 'nova', 'autumn', 'female', 'female_en.txt')
-excel_file = os.path.join(root_dir, 'data', 'nomination', 'nova', 'autumn', 'female', '09-nova-autumn-female-nomination.xlsx')
-output_file = os.path.join(root_dir, 'data', 'nomination', 'nova', 'autumn', 'female', '09-nova-autumn-female-nomination-updated.xlsx')
+input_file = os.path.join(root_dir, 'data', 'nomination', 'nova', 'autumn', 'male', 'male.txt') 
+input_file_en = os.path.join(root_dir, 'data', 'nomination', 'nova', 'autumn', 'male', 'male_en.txt')
+excel_file = os.path.join(root_dir, 'data', 'nomination', 'nova', 'autumn', 'male', '10-nova-autumn-male-nomination.xlsx')
+output_file = os.path.join(root_dir, 'data', 'nomination', 'nova', 'autumn', 'male', '10-nova-autumn-male-nomination-updated.xlsx')
 
 # 读取txt文件
 df = pd.read_csv(input_file, sep='\t', encoding='utf-8')

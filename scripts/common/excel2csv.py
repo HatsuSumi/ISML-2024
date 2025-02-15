@@ -35,7 +35,8 @@ def excel_to_csv(excel_file):
 
 def main():
     excel_files = [
-        'data/nomination/nova/autumn/female/09-nova-autumn-female-nomination.xlsx',
+        'data/nomination/nova/autumn/male/10-nova-autumn-male-nomination.xlsx',
+        # 'data/characters/base/characters-data.xlsx'
     ]
     
     for excel_file in excel_files:

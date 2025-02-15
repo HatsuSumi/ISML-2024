@@ -9,7 +9,7 @@ def csv_to_json(csv_file, json_file):
         # 创建JSON结构
         json_data = {
             "date": "01.28-02.03",
-            "event": "新星组秋季赛提名-女性组别",
+            "event": "新星组秋季赛提名-男性组别",
             "data": []
         }
         
@@ -34,8 +34,8 @@ def csv_to_json(csv_file, json_file):
         print(f"转换失败: {e}")
 
 def main():
-    csv_file = 'data/nomination/nova/autumn/female/09-nova-autumn-female-nomination.csv'
-    json_file = 'data/nomination/nova/autumn/female/09-nova-autumn-female-nomination.json'
+    csv_file = 'data/nomination/nova/autumn/male/10-nova-autumn-male-nomination.csv'
+    json_file = 'data/nomination/nova/autumn/male/10-nova-autumn-male-nomination.json'
     csv_to_json(csv_file, json_file)
 
 if __name__ == '__main__':

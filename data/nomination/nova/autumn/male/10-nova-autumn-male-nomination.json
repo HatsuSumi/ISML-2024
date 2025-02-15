@@ -1,0 +1,294 @@
+{
+  "date": "01.28-02.03",
+  "event": "新星组秋季赛提名-男性组别",
+  "data": [
+    {
+      "name": "猪股大喜",
+      "ip": "青之箱",
+      "cv": "千叶翔也",
+      "votes": 83,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 1
+    },
+    {
+      "name": "高仓健",
+      "ip": "胆大党",
+      "cv": "花江夏树",
+      "votes": 57,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 2
+    },
+    {
+      "name": "田沼要",
+      "ip": "夏目友人帐",
+      "cv": "堀江一真",
+      "votes": 57,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 3
+    },
+    {
+      "name": "鸭乃桥论",
+      "ip": "鸭乃桥论的禁忌推理",
+      "cv": "阿座上洋平",
+      "votes": 26,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 4
+    },
+    {
+      "name": "藤丸立香",
+      "ip": "Fate系列",
+      "cv": "岛崎信长",
+      "votes": 16,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 5
+    },
+    {
+      "name": "早乙女乱马",
+      "ip": "乱马½",
+      "cv": "山口胜平",
+      "votes": 12,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 6
+    },
+    {
+      "name": "中野丸尾",
+      "ip": "五等分的新娘",
+      "cv": "黑田崇矢",
+      "votes": 10,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 7
+    },
+    {
+      "name": "多兰",
+      "ip": "再见龙生，你好人生",
+      "cv": "武内骏辅",
+      "votes": 9,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 8
+    },
+    {
+      "name": "佐佐木常宏",
+      "ip": "悲喜渔生",
+      "cv": "岩中睦树",
+      "votes": 9,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 9
+    },
+    {
+      "name": "拉法尔",
+      "ip": "地。-关于地球的运动-",
+      "cv": "坂本真绫",
+      "votes": 7,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 10
+    },
+    {
+      "name": "圆城寺仁",
+      "ip": "胆大党",
+      "cv": "石川界人",
+      "votes": 7,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 11
+    },
+    {
+      "name": "大原拓也",
+      "ip": "听说你们要结婚！？",
+      "cv": "熊谷健太郎",
+      "votes": 6,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 12
+    },
+    {
+      "name": "贝尔多尔·贝尔别特·贝尔休伯特",
+      "ip": "魔王2099",
+      "cv": "日野聪",
+      "votes": 6,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 13
+    },
+    {
+      "name": "上终瓜生",
+      "ip": "缘结甘神家",
+      "cv": "铃木崚汰",
+      "votes": 5,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 14
+    },
+    {
+      "name": "贝尔·克朗尼",
+      "ip": "在地下城寻求邂逅是否搞错了什么",
+      "cv": "松冈祯丞",
+      "votes": 4,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 15
+    },
+    {
+      "name": "踯躅森贵明",
+      "ip": "悲喜渔生",
+      "cv": "石川界人",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 16
+    },
+    {
+      "name": "花散仁央",
+      "ip": "青之壬生浪",
+      "cv": "梅田修一朗",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 17
+    },
+    {
+      "name": "哈迪斯·迪奥斯·拉维",
+      "ip": "重启人生的千金小姐正在攻略龙帝陛下",
+      "cv": "户谷菊之介",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 18
+    },
+    {
+      "name": "河合井小太郎",
+      "ip": "噗妮露是可爱史莱姆",
+      "cv": "梅田修一朗",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 19
+    },
+    {
+      "name": "克莱·安东黎希",
+      "ip": "叹气的亡灵想隐退",
+      "cv": "小野贤章",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 20
+    },
+    {
+      "name": "新岛圭介",
+      "ip": "妻子变成小学生。",
+      "cv": "平川大辅",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 21
+    },
+    {
+      "name": "南云始",
+      "ip": "平凡职业成就世界最强",
+      "cv": "深町寿成",
+      "votes": 3,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 22
+    },
+    {
+      "name": "天束光",
+      "ip": "机械手臂",
+      "cv": "丰永利行",
+      "votes": 2,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 23
+    },
+    {
+      "name": "库洛马",
+      "ip": "Acro Trip 顶尖恶路",
+      "cv": "岛崎信长",
+      "votes": 2,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 24
+    },
+    {
+      "name": "遥",
+      "ip": "孤单一人的异世界攻略",
+      "cv": "梅田修一朗",
+      "votes": 2,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 25
+    },
+    {
+      "name": "阳务乐郎",
+      "ip": "香格里拉边境～粪作猎人向神作游戏发起挑战～",
+      "cv": "内田雄马",
+      "votes": 2,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 26
+    },
+    {
+      "name": "五十岚一贺",
+      "ip": "喂！蜻蜓",
+      "cv": "东地宏树",
+      "votes": 2,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 27
+    },
+    {
+      "name": "雷格西",
+      "ip": "BEASTARS",
+      "cv": "小林亲弘",
+      "votes": 2,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 28
+    },
+    {
+      "name": "奥托·苏文",
+      "ip": "Re:从零开始的异世界生活",
+      "cv": "天崎滉平",
+      "votes": 2,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 29
+    },
+    {
+      "name": "利欧",
+      "ip": "精灵幻想记",
+      "cv": "松冈祯丞",
+      "votes": 2,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 30
+    },
+    {
+      "name": "重本浩司",
+      "ip": "魔法光源股份有限公司",
+      "cv": "小山力也",
+      "votes": 2,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 31
+    },
+    {
+      "name": "常盘",
+      "ip": "去参加联谊，却发现完全没有女生在场",
+      "cv": "武内骏辅",
+      "votes": 2,
+      "avatar": "",
+      "is_advanced": true,
+      "rank": 32
+    }
+  ]
+}
