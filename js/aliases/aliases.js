@@ -90,5 +90,13 @@ export const EVENT_LINKS = {
     "08-nova-summer-male-nomination-table": {
         name: "新星组夏季赛-男性组别",
         phase: "nomination"
+    },
+    "09-nova-autumn-female-nomination-table": {
+        name: "新星组秋季赛-女性组别",
+        phase: "nomination"
+    },
+    "10-nova-autumn-male-nomination-table": {
+        name: "新星组秋季赛-男性组别",
+        phase: "nomination"
     }
 };
