@@ -14,8 +14,8 @@ root_dir = os.path.dirname(os.path.dirname(script_dir))
 
 # 输入和输出文件路径
 characters_file = os.path.join(root_dir, 'data', 'characters', 'base', 'characters-data.csv')
-nomination_file = os.path.join(root_dir, 'data', 'nomination', 'nova', 'summer', 'male', '08-nova-summer-male-nomination.xlsx')
-output_file = os.path.join(root_dir, 'data', 'nomination', 'nova', 'summer', 'male', '08-nova-summer-male-nomination-updated.xlsx')
+nomination_file = os.path.join(root_dir, 'data', 'nomination', 'nova', 'autumn', 'female', '09-nova-autumn-female-nomination.xlsx')
+output_file = os.path.join(root_dir, 'data', 'nomination', 'nova', 'autumn', 'female', '09-nova-autumn-female-nomination-updated.xlsx')
 characters_output = os.path.join(root_dir, 'data', 'characters', 'base', 'characters-data-updated.xlsx')
 
 # 读取文件

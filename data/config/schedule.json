@@ -122,7 +122,6 @@
                 },
                 {
                     "title": "新星组夏季赛提名",
-
                     "dateRange": {
                         "start": "2025-01-21 20:00:00",
                         "end": "2025-01-28 19:59:59",
@@ -164,10 +163,39 @@
                     "title": "新星组秋季赛提名",
                     "dateRange": {
                         "start": "2025-01-28 20:00:00",
-                        "end": "2025-02-03 19:59:59"
+                        "end": "2025-02-03 19:59:59",
+                        "result": "2025-02-10"
                     },
                     "details": {
-                        "requirements": "2024年秋季新番角色"
+                        "requirements": "2024年10月1日至2024年12月31日期间在符合主赛事资格的标准时长动画中登场的角色。对于电影或其他放映范围受限的作品，取其在第三个洲的上映日期和BD/DVD发售日期中的较早日期判断参赛资格",
+                        "participants": {
+                            "total": 70,
+                            "female": 34,
+                            "male": 36
+                        },
+                        "votes": { 
+                            "total": 252,
+                            "valid": 108
+                        },
+                        "qualified": {
+                            "total": 67,
+                            "female": 31,
+                            "male": 36
+                        }
+                    },
+                    "links": {
+                        "completed": {
+                            "items": [
+                                {
+                                    "text": "查看女子组结果",
+                                    "url": "pages/visualization/09-nova-autumn-female-nomination.html"
+                                },
+                                {
+                                    "text": "查看男子组结果",
+                                    "url": "pages/visualization/10-nova-autumn-male-nomination.html"
+                                }
+                            ]
+                        }
                     }
                 }
             ]
@@ -183,8 +211,8 @@
                     },
                     "details": {
                         "format": {
-                            "恒星组预选赛": "赞成投票制",
-                            "新星组预选赛": "赞成投票制"
+                            "恒星组男子组": "赞成投票制",
+                            "新星组女子组": "赞成投票制"
                         }
                     }
                 },

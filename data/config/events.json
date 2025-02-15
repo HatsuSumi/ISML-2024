@@ -198,16 +198,45 @@
                 {
                     "dateRange": {
                         "start": "2025-01-28 20:00:00",
-                        "end": "2025-02-03 19:59:59"
+                        "end": "2025-02-03 19:59:59",
+                        "result": "2025-02-10"
+                    },
+                    "stats": {
+                        "votes": {
+                            "total": 252,
+                            "valid": 108
+                        }
                     },
                     "matches": [
                         {
                             "title": "新星组秋季赛提名-女性组别",
-                            "phase": "主赛事提名阶段"
+                            "id": "nomination/nova/autumn/female",
+                            "phase": "主赛事提名阶段",
+                            "details": {
+                                "qualified": {
+                                    "description": "共31名角色晋级至主赛事新星组秋季赛预选赛阶段"
+                                }
+                            },
+                            "links": {
+                                "visualization": "pages/visualization/09-nova-autumn-female-nomination.html",
+                                "table": "pages/tables/09-nova-autumn-female-nomination-table.html",
+                                "data": "data/nomination/nova/autumn/female/09-nova-autumn-female-nomination.json"
+                            }
                         },
                         {
                             "title": "新星组秋季赛提名-男性组别",
-                            "phase": "主赛事提名阶段"
+                            "id": "nomination/nova/autumn/male",
+                            "phase": "主赛事提名阶段",
+                            "details": {
+                                "qualified": {
+                                    "description": "共36名角色晋级至主赛事新星组秋季赛预选赛阶段"
+                                }
+                            },
+                            "links": {
+                                "visualization": "pages/visualization/10-nova-autumn-male-nomination.html",
+                                "table": "pages/tables/10-nova-autumn-male-nomination-table.html",
+                                "data": "data/nomination/nova/autumn/male/10-nova-autumn-male-nomination.json"
+                            }
                         }
                     ]
                 }

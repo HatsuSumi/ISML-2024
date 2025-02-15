@@ -1,11 +1,21 @@
 import pandas as pd
-from pathlib import Path
+import os
+import sys
 
 def excel_to_csv(excel_file):
-    """将Excel文件转换为CSV"""
     try:
-        df = pd.read_excel(excel_file)
+        # 使用绝对路径
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        root_dir = os.path.dirname(os.path.dirname(script_dir))
+        full_excel_path = os.path.join(root_dir, excel_file)
         
+        # 构建CSV文件路径
+        csv_file = full_excel_path.replace('.xlsx', '_new.csv')
+        
+        # 读取Excel文件
+        df = pd.read_excel(full_excel_path)
+        
+        # 处理数据类型
         for column in df.columns:
             if df[column].dtype == 'object': 
                 df[column] = df[column].fillna('').astype(str).str.strip()
@@ -14,19 +24,23 @@ def excel_to_csv(excel_file):
                     df[column] = df[column].fillna(-1).astype(int)
                     df[column] = df[column].replace(-1, None)
         
-        excel_path = Path(excel_file)
-        csv_file = excel_path.parent / f"{excel_path.stem}_new.csv"
-        
+        # 保存为CSV
         df.to_csv(csv_file, index=False, encoding='utf-8')
-        print(f"✅ 已转换为CSV: {csv_file}")
-            
+        
+        print(f"✅ 转换成功: {csv_file}")
+        return True
     except Exception as e:
-        print(f"❌ 转换文件时出错: {str(e)}")
+        print(f"❌ 转换失败: {str(e)}")
+        return False
 
 def main():
-    excel_file = 'data/characters/base/characters-data.xlsx'
-    print(f"正在转换: {excel_file}")
-    excel_to_csv(excel_file)
-if __name__ == '__main__':
+    excel_files = [
+        'data/nomination/nova/autumn/female/09-nova-autumn-female-nomination.xlsx',
+    ]
+    
+    for excel_file in excel_files:
+        print(f"正在转换: {excel_file}")
+        excel_to_csv(excel_file)
 
-    main() 
+if __name__ == '__main__':
+    main()
