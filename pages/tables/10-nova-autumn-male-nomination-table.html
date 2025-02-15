@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="https://hatsusumi.github.io/ISML-2024/">
+    <link rel="stylesheet" href="css/tables/05-nova-autumn-nomination-table.css">
+</head>
+<body>
+    <include src="templates/header.html"></include>
+    <div class="container">
+        <h1>新星组秋季赛提名-男性组别</h1>
+        <div class="subtitle">点击表头可对数据进行排序</div>
+        <div class="subtitle">总选票数：252（有效：108）</div>
+        <div class="filter-container">
+
+            <div class="select-wrapper">
+                <select id="searchType">
+                    <option value="none">不筛选</option>
+                    <option value="rank">按排名筛选</option>
+                    <option value="character">按角色筛选</option>
+                    <option value="anime">按IP筛选</option>
+                    <option value="cv">按声优筛选</option>
+                    <option value="votes">按票数筛选</option>
+                </select>
+            </div>
+            <input type="text" id="searchInput" placeholder="请输入筛选内容..." class="search-input">   
+            <div id="votesRange" class="votes-range" style="display: none;">
+                <input type="number" id="minVotes" placeholder="最小票数" class="vote-input">
+                <span class="range-separator">-</span>
+                <input type="number" id="maxVotes" placeholder="最大票数" class="vote-input">
+            </div>
+            <div class="select-wrapper">
+                <select id="statusFilter" class="status-filter">
+                    <option value="all">全部选手</option>
+                    <option value="advance">已晋级</option>
+                    <option value="eliminate">未晋级</option>
+                </select>
+            </div>
+            <button class="reset-btn">
+                <i class="fas fa-undo"></i>
+                恢复初始状态
+            </button>
+        </div>
+        <div class="button-container">
+            <a href="javascript:history.back()" class="home-btn">返回上一页</a>
+            <a href="pages/visualization/10-nova-autumn-male-nomination.html" class="visualization-btn">数据可视化</a>
+            <div class="dropdown">
+                <button class="download-btn" onclick="toggleDropdown()">下载表格</button>
+                <div id="downloadDropdown" class="dropdown-content">
+                    <a href="#" onclick="downloadFile('csv', event)">下载原始CSV</a>
+                    <a href="#" onclick="downloadFile('xlsx', event)">下载原始XLSX</a>
+                    <a href="#" onclick="downloadFile('json', event)">下载原始JSON</a>
+                    <a href="#" onclick="downloadCurrentTable('csv', event)">下载筛选后的CSV</a>
+                    <a href="#" onclick="downloadCurrentTable('xlsx', event)">下载筛选后的XLSX</a>
+                    <a href="#" onclick="downloadCurrentTable('json', event)">下载筛选后的JSON</a>
+                </div>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>排名</th>
+                    <th>日期</th>
+                    <th>赛事名称</th>
+                    <th>头像</th>
+                    <th>角色</th>
+                    <th>IP</th>
+                    <th>CV</th>
+                    <th>得票数</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody" style="position: relative;">
+            </tbody>
+        </table>
+        <button class="back-to-top">↑</button>
+    </div>
+    <include src="templates/footer.html"></include>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+    <script type="module" src="js/common/template-loader.js"></script>
+    <script type="module" src="js/table/10-nova-autumn-male-nomination-table.js"></script>
+    <script type="module" src="js/common/event-links.js"></script>
+</body>
+</html> 
