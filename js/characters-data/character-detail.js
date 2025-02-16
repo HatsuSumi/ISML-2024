@@ -783,6 +783,14 @@ class NominationHandler extends StageHandler {
 }
 
 class PreliminariesHandler extends StageHandler {
+    constructor(config = {}) {
+        this.characterId = config.characterId;
+        this.charactersData = config.charactersData;
+        this.config = config.config || {};
+        this.roundConfig = this.config.roundConfig;
+        this.stageConfig = this.config.stageConfig;
+    }
+    
     getFields(round) {
         return {
             '比赛时间': this.config.stageConfig?.['比赛时间'],
@@ -881,6 +889,12 @@ class StageHandlerFactory {
         });
         
         const config = handler.getConfig(round, stages);
-        return new match.handler(config);
+        
+        // 使用配置创建新的处理器实例
+        return new match.handler({
+            characterId: characterId,
+            charactersData: charactersData,
+            config: config
+        });
     }
 }
