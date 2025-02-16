@@ -106,7 +106,6 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 128px;
     padding: 10px;
     border: 1px solid transparent;
     background-color: rgba(50, 50, 50, 0.5);
