@@ -245,6 +245,7 @@ class CharacterDetail {
         const record = this.templates.battleRecord.content.cloneNode(true).querySelector('.battle-record');
         const content = record.querySelector('.record-content');
         const linksDropdown = record.querySelector('.links-dropdown');
+        const linksBtn = record.querySelector('.links-btn');
         
         const excludeRankFields = new Set(['弃票数', '弃票率']);
         
@@ -393,6 +394,37 @@ class CharacterDetail {
             console.error('处理赛事数据失败:', error);
         }
         
+        // 添加悬停交互逻辑
+        if (linksBtn && linksDropdown) {
+            linksBtn.addEventListener('mouseenter', () => {
+                linksDropdown.style.opacity = '1';
+                linksDropdown.style.visibility = 'visible';
+                linksDropdown.style.transform = 'translateY(0) scale(1)';
+                linksDropdown.style.pointerEvents = 'auto';
+            });
+
+            linksBtn.addEventListener('mouseleave', () => {
+                linksDropdown.style.opacity = '0';
+                linksDropdown.style.visibility = 'hidden';
+                linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
+                linksDropdown.style.pointerEvents = 'none';
+            });
+
+            linksDropdown.addEventListener('mouseenter', () => {
+                linksDropdown.style.opacity = '1';
+                linksDropdown.style.visibility = 'visible';
+                linksDropdown.style.transform = 'translateY(0) scale(1)';
+                linksDropdown.style.pointerEvents = 'auto';
+            });
+
+            linksDropdown.addEventListener('mouseleave', () => {
+                linksDropdown.style.opacity = '0';
+                linksDropdown.style.visibility = 'hidden';
+                linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
+                linksDropdown.style.pointerEvents = 'none';
+            });
+        }
+
         return record;
     }
     
@@ -910,54 +942,3 @@ class StageHandlerFactory {
         });
     }
 }
-
-// 为所有链接按钮添加全局悬停交互逻辑
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOMContentLoaded: 查找链接按钮');
-    const recordLinksList = document.querySelectorAll('.record-links');
-    console.log(`找到 ${recordLinksList.length} 个 .record-links 元素`);
-
-    recordLinksList.forEach(recordLinks => {
-        const linksBtn = recordLinks.querySelector('.links-btn');
-        const linksDropdown = recordLinks.querySelector('.links-dropdown');
-
-        console.log('链接按钮:', linksBtn);
-        console.log('下拉菜单:', linksDropdown);
-
-        if (linksBtn && linksDropdown) {
-            linksBtn.addEventListener('mouseenter', () => {
-                console.log('鼠标进入链接按钮');
-                linksDropdown.style.opacity = '1';
-                linksDropdown.style.visibility = 'visible';
-                linksDropdown.style.transform = 'translateY(0) scale(1)';
-                linksDropdown.style.pointerEvents = 'auto';
-            });
-
-            linksBtn.addEventListener('mouseleave', () => {
-                console.log('鼠标离开链接按钮');
-                linksDropdown.style.opacity = '0';
-                linksDropdown.style.visibility = 'hidden';
-                linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
-                linksDropdown.style.pointerEvents = 'none';
-            });
-
-            linksDropdown.addEventListener('mouseenter', () => {
-                console.log('鼠标进入下拉菜单');
-                linksDropdown.style.opacity = '1';
-                linksDropdown.style.visibility = 'visible';
-                linksDropdown.style.transform = 'translateY(0) scale(1)';
-                linksDropdown.style.pointerEvents = 'auto';
-            });
-
-            linksDropdown.addEventListener('mouseleave', () => {
-                console.log('鼠标离开下拉菜单');
-                linksDropdown.style.opacity = '0';
-                linksDropdown.style.visibility = 'hidden';
-                linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
-                linksDropdown.style.pointerEvents = 'none';
-            });
-        } else {
-            console.warn('未找到链接按钮或下拉菜单:', {linksBtn, linksDropdown});
-        }
-    });
-});
