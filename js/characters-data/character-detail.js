@@ -913,12 +913,20 @@ class StageHandlerFactory {
 
 // 为所有链接按钮添加全局悬停交互逻辑
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.record-links').forEach(recordLinks => {
+    console.log('DOMContentLoaded: 查找链接按钮');
+    const recordLinksList = document.querySelectorAll('.record-links');
+    console.log(`找到 ${recordLinksList.length} 个 .record-links 元素`);
+
+    recordLinksList.forEach(recordLinks => {
         const linksBtn = recordLinks.querySelector('.links-btn');
         const linksDropdown = recordLinks.querySelector('.links-dropdown');
 
+        console.log('链接按钮:', linksBtn);
+        console.log('下拉菜单:', linksDropdown);
+
         if (linksBtn && linksDropdown) {
             linksBtn.addEventListener('mouseenter', () => {
+                console.log('鼠标进入链接按钮');
                 linksDropdown.style.opacity = '1';
                 linksDropdown.style.visibility = 'visible';
                 linksDropdown.style.transform = 'translateY(0) scale(1)';
@@ -926,6 +934,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             linksBtn.addEventListener('mouseleave', () => {
+                console.log('鼠标离开链接按钮');
                 linksDropdown.style.opacity = '0';
                 linksDropdown.style.visibility = 'hidden';
                 linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
@@ -933,6 +942,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             linksDropdown.addEventListener('mouseenter', () => {
+                console.log('鼠标进入下拉菜单');
                 linksDropdown.style.opacity = '1';
                 linksDropdown.style.visibility = 'visible';
                 linksDropdown.style.transform = 'translateY(0) scale(1)';
@@ -940,11 +950,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             linksDropdown.addEventListener('mouseleave', () => {
+                console.log('鼠标离开下拉菜单');
                 linksDropdown.style.opacity = '0';
                 linksDropdown.style.visibility = 'hidden';
                 linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
                 linksDropdown.style.pointerEvents = 'none';
             });
+        } else {
+            console.warn('未找到链接按钮或下拉菜单:', {linksBtn, linksDropdown});
         }
     });
 });
