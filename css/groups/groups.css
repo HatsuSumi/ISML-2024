@@ -58,6 +58,8 @@ body {
     position: relative;
 }
 
+/* 预选赛样式 */
+
 .group-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -179,4 +181,77 @@ body {
     .group-list {
         grid-template-columns: 1fr;
     }
+}
+
+/* 小组赛样式 */
+
+.seed-group-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.seed-group-table thead {
+    background-color: #f4f4f4;
+}
+
+.seed-group-table th, 
+.seed-group-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.seed-group-table thead th {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #333;
+}
+
+.seed-group-row .seed-group-name {
+    font-weight: bold;
+    background-color: #f9f9f9;
+}
+
+.seed-group-character {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.seed-group-avatar {
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4%;
+    border: 2px solid #e0e0e0;
+    transition: transform 0.3s ease;
+}
+
+.seed-group-avatar:hover {
+    transform: scale(1.1);
+}
+
+.seed-group-name {
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+}
+
+.seed-group-cell.seed-1 .seed-group-character {
+    border-left: 4px solid gold;
+}
+
+.seed-group-cell.seed-2 .seed-group-character {
+    border-left: 4px solid silver;
+}
+
+.seed-group-cell.seed-3 .seed-group-character {
+    border-left: 4px solid #cd7f32;
+}
+
+.seed-group-cell.seed-4 .seed-group-character {
+    border-left: 4px solid #4a4a4a;
 }
