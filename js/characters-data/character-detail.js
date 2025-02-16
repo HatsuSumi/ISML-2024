@@ -822,8 +822,17 @@ class StageHandlerFactory {
     ];
     
     static getHandler(round, stages) {
+        console.log('Current Round:', round);
+        console.log('Round Name:', round.round);
+        console.log('Available Stages:', Object.keys(stages));
+    
         // 使用正则表达式匹配
-        const match = this.patterns.find(p => p.pattern.test(round.round));
+        const match = this.patterns.find(p => {
+            const isMatch = p.pattern.test(round.round);
+            console.log(`Testing pattern ${p.pattern}: ${isMatch}`);
+            return isMatch;
+        });
+    
         if (!match) {
             throw new Error(`未找到对应的处理器: ${round.round}`);
         }
