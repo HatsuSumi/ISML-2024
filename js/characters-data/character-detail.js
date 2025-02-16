@@ -857,7 +857,9 @@ class StageHandlerFactory {
         console.log('Current Round:', round);
         console.log('Round Name:', round.round);
         console.log('Available Stages:', Object.keys(stages));
-    
+        console.log('Character ID:', characterId);
+        console.log('Characters Data:', charactersData);
+
         // 使用正则表达式匹配
         const match = this.patterns.find(p => {
             const isMatch = p.pattern.test(round.round);
