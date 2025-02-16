@@ -365,6 +365,9 @@ class CharacterDetail {
                     url: url
                 };
             });
+
+            console.log('Round Config:', roundConfig);
+            console.log('Links:', links);
             
             // 如果有链接，显示链接按钮，否则隐藏
             const linksSection = record.querySelector('.record-links');

@@ -401,7 +401,7 @@ body {
     }
 }
 
-.record-links:hover .links-dropdown {
+.links-btn:hover .links-dropdown {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
