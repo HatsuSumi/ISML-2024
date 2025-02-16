@@ -329,6 +329,8 @@ class CharacterDetail {
 
             const links = linkConfigs
             .filter(config => {
+                console.log(`Checking config: ${config.key}`);
+        console.log('RoundConfig:', roundConfig);   
                 if (config.key === 'rules') {
                     // 检查规则是否存在
                     const ruleKey = roundConfig?.[config.key];
