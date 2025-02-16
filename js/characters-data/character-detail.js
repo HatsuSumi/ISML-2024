@@ -758,8 +758,8 @@ class NominationHandler extends StageHandler {
     
     getFields(round) {
         return {
-            '提名时间': this.config.stageConfig?.['提名时间'],
-            '被提名角色数': round['名次'] !== '自动晋级' ? this.config.roundConfig?.['被提名角色数'] : null,
+            '提名时间': this.stageConfig?.['提名时间'],
+            '被提名角色数': round['名次'] !== '自动晋级' ? this.roundConfig?.['被提名角色数'] : null,
             '提名票': round['提名票'],
             '名次': round['名次'],
             '上届世萌战绩': round['上届世萌战绩']
@@ -797,11 +797,11 @@ class PreliminariesHandler extends StageHandler {
     
     getFields(round) {
         return {
-            '比赛时间': this.config.stageConfig?.['比赛时间'],
-            '小组': round['小组'],
-            '得票': round['得票'],
-            '排名': round['排名'],
-            '晋级状态': round['晋级状态']
+            '比赛时间': this.stageConfig?.['比赛时间'],
+            '比赛轮次': round['名次'] !== '自动晋级' ? this.roundConfig?.['比赛轮次'] : null,
+            '比赛结果': round['比赛结果'],
+            '名次': round['名次'],
+            '上届世萌战绩': round['上届世萌战绩']
         };
     }
     
