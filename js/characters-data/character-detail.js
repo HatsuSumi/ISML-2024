@@ -348,11 +348,16 @@ class CharacterDetail {
                 let url;
                 if (config.key === 'visualization' || config.key === 'table') {
                     url = roundConfig[config.key];
+                    console.log(`生成 ${config.key} 链接:`, url);
                 } else if (config.key === 'rules') {
                     url = `pages/rules/rules.html?id=${roundConfig[config.key]}&from=characters-data`;
                 } else if (config.key === 'groups') {
                     url = `pages/groups/groups.html?id=${roundConfig[config.key]}&from=characters-data`;
+                } else {
+                    url = roundConfig[config.key];
                 }
+                
+                console.log(`最终 ${config.key} 链接:`, url);
                 
                 if (!url.includes('from=characters-data')) {
                     url += url.includes('?') ? `&from=characters-data` : `?from=characters-data`;
