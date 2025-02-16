@@ -101,40 +101,37 @@ body {
 }
 
 .characters-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    gap: 8px;
+    padding: 12px;
+    transition: all 0.2s ease;
+    border: 1px solid #444;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.characters-list li img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 8px;
+}
+
+.characters-list li span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 12px;
-    background-color: #383838;
-    border-radius: 8px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s ease;
-    border: 1px solid #444;
-    gap: 12px;
-    font-size: 0.9rem; /* 稍微缩小字体以适应更多列 */
 }
 
 .characters-list li:hover {
     background-color: #444;
     transform: translateX(5px);
     border-color: #64B5F6;
-}
-
-.characters-list li img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #64B5F6;
-}
-
-.characters-list li .character-name {
-    flex-grow: 1;
-    font-weight: 500;
 }
 
 .loading-container {
