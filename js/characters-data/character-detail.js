@@ -808,7 +808,7 @@ class PreliminariesHandler extends StageHandler {
         }
         
         const roundNumber = roundMatch[1];
-        const roundKey = `预选赛${roundNumber}轮`;
+        const roundKey = `预选赛第${roundNumber}轮`; 
         
         // 检查配置是否存在
         if (!stages['预选赛阶段'] || !stages['预选赛阶段'][roundKey]) {
