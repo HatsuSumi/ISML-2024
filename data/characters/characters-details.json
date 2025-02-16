@@ -81,23 +81,26 @@
                 }
             },
             "预选赛阶段": {
-                "恒星组": {
-                    "女性组别": {
-                        "groups": "preliminary.stellar.female",
-                        "visualization": "pages/visualization/11-stellar-female-preliminary.html",
-                        "table": "pages/tables/11-stellar-female-preliminary-table.html",
-                        "rules": ""
-                    },
-                    "男性组别": {
-                        "groups": "preliminary.stellar.male",
-                        "visualization": "pages/visualization/12-stellar-male-preliminary.html",
-                        "table": "pages/tables/12-stellar-male-preliminary-table.html",
-                        "rules": ""
+                "预选赛第一轮": {
+                    "恒星组": {
+                        "女性组别": {
+                            "groups": "preliminary.stellar.female",
+                            "visualization": "pages/visualization/11-stellar-female-preliminary.html",
+                            "table": "pages/tables/11-stellar-female-preliminary-table.html",
+                            "rules": ""
+                        },
+                        "男性组别": {
+                            "groups": "preliminary.stellar.male",
+                            "visualization": "pages/visualization/12-stellar-male-preliminary.html",
+                            "table": "pages/tables/12-stellar-male-preliminary-table.html",
+                            "rules": ""
+                        }
                     }
                 }
             }
         }
     },
+    
     "characters": {
         "SF001": {
             "basic": {

@@ -796,13 +796,14 @@ class PreliminariesHandler extends StageHandler {
     }
     
     getConfig(round, stages) {
-        console.log('Preliminary Stages:', stages);
-        console.log('预选赛阶段:', stages['预选赛阶段']);
-        console.log('预选赛阶段 Keys:', Object.keys(stages['预选赛阶段']));
-    
+        console.log('Current Round:', round);
+        
+        // 从 round 中提取组别信息
+        const group = round.round.includes('女性') ? '女性组别' : '男性组别';
+        
         return {
-            roundConfig: stages['预选赛阶段'][round.round],
-            stageConfig: stages['预选赛阶段']
+            roundConfig: stages['预选赛阶段']['预选赛第一轮']['恒星组'][group],
+            stageConfig: stages['预选赛阶段']['预选赛第一轮']['恒星组']
         };
     }
 }
