@@ -21,12 +21,8 @@ class Groups {
         } finally {
             const loadingContainer = document.querySelector('.loading-container');
             console.log('Loading container:', loadingContainer);
-            
             if (loadingContainer) {
-                console.log('Hiding loading container');
-                loadingContainer.style.display = 'none';
-            } else {
-                console.warn('Loading container not found');
+                loadingContainer.remove(); 
             }
         }
     }
