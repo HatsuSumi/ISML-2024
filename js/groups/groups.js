@@ -19,7 +19,15 @@ class Groups {
             console.error('初始化分组页面失败:', error);
             this.showError('分组信息加载失败，请稍后重试');
         } finally {
-            document.querySelector('.loading-container')?.style.display = 'none';
+            const loadingContainer = document.querySelector('.loading-container');
+            console.log('Loading container:', loadingContainer);
+            
+            if (loadingContainer) {
+                console.log('Hiding loading container');
+                loadingContainer.style.display = 'none';
+            } else {
+                console.warn('Loading container not found');
+            }
         }
     }
 
