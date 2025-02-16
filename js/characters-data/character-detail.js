@@ -784,6 +784,7 @@ class NominationHandler extends StageHandler {
 
 class PreliminariesHandler extends StageHandler {
     constructor(config = {}) {
+        super(config);
         this.characterId = config.characterId;
         this.charactersData = config.charactersData;
         this.config = config.config || {};
