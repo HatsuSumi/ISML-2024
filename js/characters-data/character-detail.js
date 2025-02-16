@@ -866,11 +866,9 @@ class StageHandlerFactory {
     ];
     
     static getHandler(round, stages, characterId, charactersData) {
-        console.log('Current Round:', round);
-        console.log('Round Name:', round.round);
-        console.log('Available Stages:', Object.keys(stages));
-        console.log('Character ID:', characterId);
-        console.log('Characters Data:', charactersData);
+        console.log('Debug - StageHandlerFactory.getHandler - round:', JSON.stringify(round));
+        console.log('Debug - StageHandlerFactory.getHandler - stages:', JSON.stringify(stages));
+        console.log('Debug - StageHandlerFactory.getHandler - characterId:', characterId);
 
         // 使用正则表达式匹配
         const match = this.patterns.find(p => {
@@ -889,8 +887,8 @@ class StageHandlerFactory {
         });
         
         const config = handler.getConfig(round, stages);
-        
-        // 使用配置创建新的处理器实例
+        console.log('Debug - StageHandlerFactory.getHandler - config:', JSON.stringify(config));
+
         return new match.handler({
             characterId: characterId,
             charactersData: charactersData,
