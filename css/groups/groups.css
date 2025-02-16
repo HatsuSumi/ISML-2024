@@ -95,22 +95,26 @@ body {
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 145px);
     gap: 8px;
-    align-items: center;
+    justify-content: center;
 }
 
 .characters-list li {
+    width: 145px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 8px;
-    padding: 12px;
-    transition: all 0.2s ease;
-    border: 1px solid #444;
+    padding: 10px;
+    border: 1px solid #333;
     border-radius: 8px;
-    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.characters-list li:hover {
+    background-color: rgba(100, 181, 246, 0.1);
+    transform: scale(1.02);
 }
 
 .characters-list li img {
@@ -122,16 +126,11 @@ body {
 }
 
 .characters-list li span {
-    white-space: nowrap;
+    font-size: 0.8rem;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 100%;
-}
-
-.characters-list li:hover {
-    background-color: #444;
-    transform: translateX(5px);
-    border-color: #64B5F6;
+    white-space: nowrap;
 }
 
 .loading-container {
