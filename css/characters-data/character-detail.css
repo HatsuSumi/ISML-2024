@@ -383,9 +383,13 @@ body {
     padding: 8px;
     min-width: 200px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px) scale(0.95);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: top right;
     margin-bottom: 8px;
+    pointer-events: none;
 }
 
 .links-dropdown a {
@@ -415,6 +419,18 @@ body {
 
 .links-dropdown a:hover i {
     color: #90CAF9;
+}
+
+.links-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 16px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #2a2a2a;
 }
 
 /* 排名样式 */
