@@ -38,5 +38,35 @@
                 "要乐奈", "立花泷", "结城美柑"
             ]
         }
+    },
+    "group_stage.stellar.female": {
+        "title": "恒星组小组赛-女性组别",
+        "groups": {
+            "A组": [
+                {"name": "辛耶·诺赞", "seed": 1},
+                {"name": "可蕾娜·库克米拉", "seed": 2},
+                {"name": "安琪·艾玛", "seed": 3}
+            ],
+            "B组": [
+                {"name": "芙拉蒂蕾娜·米利杰", "seed": 1},
+                {"name": "芙蕾德利嘉·罗森菲尔特", "seed": 2},
+                {"name": "星野瑠美衣", "seed": 3}
+            ]
+        }
+    },
+    "group_stage.stellar.male": {
+        "title": "恒星组小组赛-男性组别",
+        "groups": {
+            "A组": [
+                {"name": "比企谷八幡", "seed": 1},
+                {"name": "梓川咲太", "seed": 2},
+                {"name": "友崎文也", "seed": 3}
+            ],
+            "B组": [
+                {"name": "尤吉欧", "seed": 1},
+                {"name": "卫宫切嗣", "seed": 2},
+                {"name": "利威尔", "seed": 3}
+            ]
+        }
     }
 }

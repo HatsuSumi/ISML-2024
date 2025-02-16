@@ -109,7 +109,8 @@ class GroupRendererStrategy {
 
 class Groups {
     constructor() {
-        this.groupId = new URLSearchParams(window.location.search).get('id');
+        const urlParams = new URLSearchParams(window.location.search);
+        this.groupId = urlParams.get('id');
         this.containers = {
             content: document.querySelector('.groups-content'),
             title: document.querySelector('.groups-title')
@@ -163,8 +164,9 @@ class Groups {
     }
 
     getGroupType() {
-        if (this.groupId.includes('preliminary')) return 'preliminary';
-        if (this.groupId.includes('group_stage')) return 'seedGroup';
+        const cleanGroupId = this.groupId.split('&')[0];
+        if (cleanGroupId.includes('preliminary')) return 'preliminary';
+        if (cleanGroupId.includes('group_stage')) return 'seedGroup';
         throw new Error('未知的分组类型');
     }
 
