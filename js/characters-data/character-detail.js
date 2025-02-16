@@ -795,17 +795,36 @@ class PreliminariesHandler extends StageHandler {
     
     getConfig(round, stages) {
         console.log('Current Round:', round);
+        console.log('Stages:', stages);
         
         // 从 round 中提取组别信息
         const group = round.round.includes('女性') ? '女性组别' : '男性组别';
         
         // 从 round 中提取轮次
-        const roundNumber = round.round.match(/第([一二三四五六])轮/)[1];
+        const roundMatch = round.round.match(/第([一二三四五六])轮/);
+        if (!roundMatch) {
+            console.error('无法解析轮次:', round.round);
+            return { roundConfig: null, stageConfig: null };
+        }
+        
+        const roundNumber = roundMatch[1];
         const roundKey = `预选赛${roundNumber}轮`;
         
+        // 检查配置是否存在
+        if (!stages['预选赛阶段'] || !stages['预选赛阶段'][roundKey]) {
+            console.error(`未找到配置: 预选赛阶段 -> ${roundKey}`);
+            return { roundConfig: null, stageConfig: null };
+        }
+        
+        const stageConfig = stages['预选赛阶段'][roundKey]['恒星组'];
+        if (!stageConfig) {
+            console.error(`未找到恒星组配置: 预选赛阶段 -> ${roundKey} -> 恒星组`);
+            return { roundConfig: null, stageConfig: null };
+        }
+        
         return {
-            roundConfig: stages['预选赛阶段'][roundKey]['恒星组'][group],
-            stageConfig: stages['预选赛阶段'][roundKey]['恒星组']
+            roundConfig: stageConfig[group],
+            stageConfig: stageConfig
         };
     }
 }
