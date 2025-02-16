@@ -502,16 +502,29 @@ class CharacterDetail {
                 linksBtn.addEventListener('mouseenter', () => {
                     linksDropdown.style.opacity = '1';
                     linksDropdown.style.visibility = 'visible';
+                    linksDropdown.style.transform = 'translateY(0) scale(1)';
+                    linksDropdown.style.pointerEvents = 'auto';
                 });
 
                 linksBtn.addEventListener('mouseleave', () => {
                     linksDropdown.style.opacity = '0';
                     linksDropdown.style.visibility = 'hidden';
+                    linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
+                    linksDropdown.style.pointerEvents = 'none';
+                });
+
+                linksDropdown.addEventListener('mouseenter', () => {
+                    linksDropdown.style.opacity = '1';
+                    linksDropdown.style.visibility = 'visible';
+                    linksDropdown.style.transform = 'translateY(0) scale(1)';
+                    linksDropdown.style.pointerEvents = 'auto';
                 });
 
                 linksDropdown.addEventListener('mouseleave', () => {
                     linksDropdown.style.opacity = '0';
                     linksDropdown.style.visibility = 'hidden';
+                    linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
+                    linksDropdown.style.pointerEvents = 'none';
                 });
             }
         });
