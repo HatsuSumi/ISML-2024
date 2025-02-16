@@ -797,11 +797,7 @@ class PreliminariesHandler extends StageHandler {
     
     getFields(round) {
         return {
-            '比赛时间': this.stageConfig?.['比赛时间'],
-            '比赛轮次': round['名次'] !== '自动晋级' ? this.roundConfig?.['比赛轮次'] : null,
-            '比赛结果': round['比赛结果'],
-            '名次': round['名次'],
-            '上届世萌战绩': round['上届世萌战绩']
+            '赛事时间': this.roundConfig?.['赛事时间'],
         };
     }
     
