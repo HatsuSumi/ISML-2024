@@ -1,88 +1,182 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: #121212;
     color: #e0e0e0;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    padding-top: 80px;
 }
 
-.group-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+.groups-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.group-section {
+.groups-section {
     background-color: #1e1e1e;
-    border-radius: 10px;
-    padding: 15px;
-    width: calc(33.33% - 20px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     border: 1px solid #333;
 }
 
+.back-btn {
+    background: transparent;
+    border: 2px solid #64B5F6;
+    color: #64B5F6;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: rgba(100, 181, 246, 0.1);
+    transform: translateX(-3px);
+}
+
+.back-btn i {
+    font-size: 16px;
+}
+
+.groups-title {
+    color: #64B5F6;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.groups-content {
+    position: relative;
+    min-height: calc(100vh - 200px);
+}
+
+.group-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.group-section {
+    background-color: #2a2a2a;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    border: 1px solid #444;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
 .group-section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    transform: translateY(-8px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    border-color: #64B5F6;
 }
 
 .group-section h2 {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     color: #64B5F6;
+    font-size: 1.4rem;
+    border-bottom: 2px solid #64B5F6;
+    padding-bottom: 10px;
 }
 
 .characters-list {
     list-style: none;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .characters-list li {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #2a2a2a;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    border: 1px solid #333;
+    padding: 12px;
+    background-color: #383838;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+    border: 1px solid #444;
+    gap: 12px;
 }
 
 .characters-list li:hover {
-    background-color: #333;
-    transform: scale(1.02);
+    background-color: #444;
+    transform: translateX(5px);
+    border-color: #64B5F6;
 }
 
 .characters-list li img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    margin-right: 15px;
     object-fit: cover;
     border: 2px solid #64B5F6;
 }
 
-.character-info {
+.characters-list li .character-name {
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+.loading-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
 }
 
-.character-name {
-    font-weight: bold;
-    color: #e0e0e0;
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #64B5F6;
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
-.character-ip {
-    font-size: 0.8em;
-    color: #888;
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 响应式调整 */
+@media (max-width: 1200px) {
+    .group-list {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
 }
 
 @media (max-width: 768px) {
-    .group-list {
-        flex-direction: column;
-        gap: 15px;
+    .groups-wrapper {
+        padding: 0 10px;
     }
 
-    .group-section {
-        width: 100%;
+    .groups-section {
+        padding: 20px;
+    }
+
+    .groups-title {
+        font-size: 2rem;
+    }
+
+    .group-list {
+        grid-template-columns: 1fr;
     }
 }
