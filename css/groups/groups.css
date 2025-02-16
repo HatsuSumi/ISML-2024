@@ -1,3 +1,8 @@
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
 .group-list {
     display: flex;
     flex-wrap: wrap;
@@ -5,17 +10,24 @@
 }
 
 .group-section {
-    background-color: #f9f9f9;
+    background-color: #1e1e1e;
     border-radius: 10px;
     padding: 15px;
     width: calc(33.33% - 20px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #333;
+}
+
+.group-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
 .group-section h2 {
     text-align: center;
     margin-bottom: 15px;
-    color: #333;
+    color: #64B5F6;
 }
 
 .characters-list {
@@ -28,9 +40,16 @@
     align-items: center;
     margin-bottom: 10px;
     padding: 10px;
-    background-color: white;
+    background-color: #2a2a2a;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    border: 1px solid #333;
+}
+
+.characters-list li:hover {
+    background-color: #333;
+    transform: scale(1.02);
 }
 
 .characters-list li img {
@@ -39,6 +58,7 @@
     border-radius: 50%;
     margin-right: 15px;
     object-fit: cover;
+    border: 2px solid #64B5F6;
 }
 
 .character-info {
@@ -48,10 +68,21 @@
 
 .character-name {
     font-weight: bold;
-    color: #333;
+    color: #e0e0e0;
 }
 
 .character-ip {
     font-size: 0.8em;
-    color: #666;
+    color: #888;
+}
+
+@media (max-width: 768px) {
+    .group-list {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .group-section {
+        width: 100%;
+    }
 }

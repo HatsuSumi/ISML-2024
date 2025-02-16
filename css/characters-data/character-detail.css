@@ -390,7 +390,8 @@ body {
     pointer-events: none;
 }
 
-.links-btn:hover + .links-dropdown {
+.links-btn:hover + .links-dropdown,
+.record-links .links-dropdown:hover {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
