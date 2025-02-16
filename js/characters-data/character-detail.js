@@ -267,7 +267,7 @@ class CharacterDetail {
         };
         
         try {
-            const handler = StageHandlerFactory.getHandler(round, this.configData.stages);
+            const handler = StageHandlerFactory.getHandler(round, this.configData.stages, this.characterId, this.allCharacters);
             const { roundConfig, stageConfig } = handler.config;
             const fields = handler.getFields(round);
             
@@ -844,7 +844,7 @@ class StageHandlerFactory {
         }
     ];
     
-    static getHandler(round, stages) {
+    static getHandler(round, stages, characterId, charactersData) {
         console.log('Current Round:', round);
         console.log('Round Name:', round.round);
         console.log('Available Stages:', Object.keys(stages));
@@ -860,7 +860,11 @@ class StageHandlerFactory {
             throw new Error(`未找到对应的处理器: ${round.round}`);
         }
         
-        const handler = new match.handler();
+        const handler = new match.handler({
+            characterId: characterId,
+            charactersData: charactersData
+        });
+        
         const config = handler.getConfig(round, stages);
         return new match.handler(config);
     }
