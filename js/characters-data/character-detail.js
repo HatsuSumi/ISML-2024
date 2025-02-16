@@ -329,14 +329,12 @@ class CharacterDetail {
 
             const links = linkConfigs
             .filter(config => {
-                console.log(`Checking config: ${config.key}`);
-        console.log('RoundConfig:', roundConfig);   
+                console.log(`检查配置: ${config.key}`);
+                console.log('RoundConfig:', roundConfig);   
                 if (config.key === 'rules') {
-                    // 检查规则是否存在
                     const ruleKey = roundConfig?.[config.key];
                     return ruleKey && this.rulesData[ruleKey];
                 }
-                // 新增对预选赛链接的处理
                 if (config.key === 'visualization' || config.key === 'table') {
                     const linkKey = roundConfig?.[config.key];
                     return linkKey;
@@ -353,7 +351,6 @@ class CharacterDetail {
                     url = roundConfig[config.key];
                 }
                 
-                // 为链接添加 from 参数
                 if (url.includes('?')) {
                     url += `&from=characters-data`;
                 } else {
