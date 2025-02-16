@@ -843,7 +843,7 @@ class PreliminariesHandler extends StageHandler {
         return {
             roundConfig: {
                 ...stageConfig[gender],
-                '赛事时间': stages['预选赛阶段']['预选赛第一轮']['赛事时间']
+                '赛事时间': stages['预选赛阶段'][roundKey]['赛事时间']
             },
             stageConfig: stageConfig
         };
