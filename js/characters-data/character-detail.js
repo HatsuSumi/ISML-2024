@@ -796,9 +796,13 @@ class PreliminariesHandler extends StageHandler {
     }
     
     getConfig(round, stages) {
+        console.log('Preliminary Stages:', stages);
+        console.log('预选赛阶段:', stages['预选赛阶段']);
+        console.log('预选赛阶段 Keys:', Object.keys(stages['预选赛阶段']));
+    
         return {
-            roundConfig: stages['预选赛']['预选赛第一轮'],
-            stageConfig: stages['预选赛']
+            roundConfig: stages['预选赛阶段'][round.round],
+            stageConfig: stages['预选赛阶段']
         };
     }
 }
