@@ -19,11 +19,10 @@ class Groups {
             console.error('初始化分组页面失败:', error);
             this.showError('分组信息加载失败，请稍后重试');
         } finally {
-            const loadingContainer = document.querySelector('.groups-content .loading-container');
-            console.log('Loading container:', loadingContainer);
-            if (loadingContainer) {
-                loadingContainer.remove(); 
-            }
+            setTimeout(() => {
+                const containers = document.querySelectorAll('.loading-container');
+                containers.forEach(container => container.remove());
+            }, 0);
         }
     }
 
