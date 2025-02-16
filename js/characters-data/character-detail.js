@@ -100,7 +100,10 @@ class CharacterDetail {
             this.renderEventReports();
             this.setupNavigation();
             this.setupCharacterNav();
-            
+            window.characterDetailInstance = this;
+            window.currentCharacterId = this.characterId;
+            window.charactersData = this.charactersData;
+
             const container = document.querySelector('.character-detail-container');
             container.classList.add('loaded');
             
@@ -891,8 +894,12 @@ class StageHandlerFactory {
             throw new Error(`未找到对应的处理器: ${round.round}`);
         }
         
-        const handler = new match.handler();
-        const config = handler.getConfig(round, stages);
-        return new match.handler(config);
+        // 使用全局变量传递上下文
+        const handler = new match.handler({
+            characterId: window.currentCharacterId,
+            charactersData: window.charactersData
+        });
+        
+        return handler;
     }
 }
