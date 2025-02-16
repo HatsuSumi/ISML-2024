@@ -492,6 +492,29 @@ class CharacterDetail {
                 this.smoothScroll(targetTop);
             }
         });
+        
+        // 为链接按钮添加悬停交互逻辑
+        document.querySelectorAll('.record-links').forEach(recordLinks => {
+            const linksBtn = recordLinks.querySelector('.links-btn');
+            const linksDropdown = recordLinks.querySelector('.links-dropdown');
+
+            if (linksBtn && linksDropdown) {
+                linksBtn.addEventListener('mouseenter', () => {
+                    linksDropdown.style.opacity = '1';
+                    linksDropdown.style.visibility = 'visible';
+                });
+
+                linksBtn.addEventListener('mouseleave', () => {
+                    linksDropdown.style.opacity = '0';
+                    linksDropdown.style.visibility = 'hidden';
+                });
+
+                linksDropdown.addEventListener('mouseleave', () => {
+                    linksDropdown.style.opacity = '0';
+                    linksDropdown.style.visibility = 'hidden';
+                });
+            }
+        });
     }
     
     handleScroll(e) {
