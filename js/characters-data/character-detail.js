@@ -343,18 +343,16 @@ class CharacterDetail {
             })
             .map(config => {
                 let url;
-                if (config.key === 'rules') {
+                if (config.key === 'visualization' || config.key === 'table') {
+                    url = roundConfig[config.key];
+                } else if (config.key === 'rules') {
                     url = `pages/rules/rules.html?id=${roundConfig[config.key]}&from=characters-data`;
-                } else if (config.key === 'visualization' || config.key === 'table') {
-                    url = `pages/groups/groups.html?id=${roundConfig[config.key]}&from=characters-data`;
                 } else {
                     url = roundConfig[config.key];
                 }
                 
-                if (url.includes('?')) {
-                    url += `&from=characters-data`;
-                } else {
-                    url += `?from=characters-data`;
+                if (!url.includes('from=characters-data')) {
+                    url += url.includes('?') ? `&from=characters-data` : `?from=characters-data`;
                 }
                 
                 return {
@@ -801,9 +799,13 @@ class PreliminariesHandler extends StageHandler {
         // 从 round 中提取组别信息
         const group = round.round.includes('女性') ? '女性组别' : '男性组别';
         
+        // 从 round 中提取轮次
+        const roundNumber = round.round.match(/第([一二三四五六])轮/)[1];
+        const roundKey = `预选赛${roundNumber}轮`;
+        
         return {
-            roundConfig: stages['预选赛阶段']['预选赛第一轮']['恒星组'][group],
-            stageConfig: stages['预选赛阶段']['预选赛第一轮']['恒星组']
+            roundConfig: stages['预选赛阶段'][roundKey]['恒星组'][group],
+            stageConfig: stages['预选赛阶段'][roundKey]['恒星组']
         };
     }
 }
