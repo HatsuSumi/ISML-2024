@@ -18,11 +18,6 @@ class Groups {
         } catch (error) {
             console.error('初始化分组页面失败:', error);
             this.showError('分组信息加载失败，请稍后重试');
-        } finally {
-            setTimeout(() => {
-                const containers = document.querySelectorAll('.loading-container');
-                containers.forEach(container => container.remove());
-            }, 0);
         }
     }
 
@@ -100,7 +95,8 @@ class Groups {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".loading-container").forEach(container => container.remove());
     const groups = new Groups();
     groups.init();
 });
