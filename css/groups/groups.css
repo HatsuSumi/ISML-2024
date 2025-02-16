@@ -212,7 +212,7 @@ body {
     color: #f0f0f0;
 }
 
-.seed-group-row .seed-group-name {
+.seed-group-row th.seed-group-name {
     font-weight: bold;
     background-color: #353535;
     color: #e0e0e0;
