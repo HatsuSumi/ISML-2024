@@ -375,6 +375,8 @@ body {
 }
 
 .links-btn {
+    position: relative;
+    margin-bottom: 10px; 
     background: transparent;
     border: none;
     color: #64B5F6;
@@ -385,6 +387,17 @@ body {
     align-items: center;
     gap: 6px;
     transition: color 0.2s;
+}
+
+.links-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: transparent;
+    z-index: 5;
 }
 
 .links-btn:hover {
