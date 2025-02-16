@@ -100,10 +100,7 @@ class CharacterDetail {
             this.renderEventReports();
             this.setupNavigation();
             this.setupCharacterNav();
-            window.characterDetailInstance = this;
-            window.currentCharacterId = this.characterId;
-            window.charactersData = this.charactersData;
-
+            
             const container = document.querySelector('.character-detail-container');
             container.classList.add('loaded');
             
@@ -799,51 +796,23 @@ class PreliminariesHandler extends StageHandler {
     getConfig(round, stages) {
         console.log('Current Round:', round);
         console.log('Stages:', stages);
-        console.log('Character ID:', this.characterId);
-        console.log('Characters Data:', this.charactersData);
         
-        // 获取当前角色的完整数据
-        const characterData = this.charactersData[this.characterId];
-        
-        // 如果存在多个轮次，使用第一个轮次（通常是提名赛）
-        if (characterData && characterData.rounds && characterData.rounds.length > 0) {
-            round.round = characterData.rounds[0].round;
-        }
-        
-        console.log('Updated Round:', round);
-        
-        // 从 round 中推断性别
-        const characterGender = round.round.includes('女性组别') ? '女性' : 
-                                round.round.includes('男性组别') ? '男性' : null;
-        
-        if (!characterGender) {
-            console.error('无法确定角色性别:', round);
-            return { roundConfig: null, stageConfig: null };
-        }
-        
-        // 将性别映射到组别
-        const group = characterGender === '女性' ? '女性组别' : '男性组别';
-        console.log('Detected Gender:', characterGender);
-        console.log('Detected Group:', group);
+        // 从 round 中提取组别信息
+        const group = round.round.includes('女性') ? '女性组别' : '男性组别';
         
         // 从 round 中提取轮次
         const roundMatch = round.round.match(/第([一二三四五六])轮/);
-        
-        // 如果是提名赛，使用第一轮的配置
-        const roundKey = roundMatch ? `预选赛第${roundMatch[1]}轮` : '预选赛第一轮';
-        
-        console.log('Round Key:', roundKey);
-        console.log('Stages Keys:', Object.keys(stages));
-        
-        // 检查配置是否存在
-        if (!stages['预选赛阶段']) {
-            console.error('未找到预选赛阶段配置');
+        if (!roundMatch) {
+            console.error('无法解析轮次:', round.round);
             return { roundConfig: null, stageConfig: null };
         }
         
-        if (!stages['预选赛阶段'][roundKey]) {
+        const roundNumber = roundMatch[1];
+        const roundKey = `预选赛第${roundNumber}轮`; 
+        
+        // 检查配置是否存在
+        if (!stages['预选赛阶段'] || !stages['预选赛阶段'][roundKey]) {
             console.error(`未找到配置: 预选赛阶段 -> ${roundKey}`);
-            console.log('Available Keys in 预选赛阶段:', Object.keys(stages['预选赛阶段']));
             return { roundConfig: null, stageConfig: null };
         }
         
@@ -894,12 +863,8 @@ class StageHandlerFactory {
             throw new Error(`未找到对应的处理器: ${round.round}`);
         }
         
-        // 使用全局变量传递上下文
-        const handler = new match.handler({
-            characterId: window.currentCharacterId,
-            charactersData: window.charactersData
-        });
-        
-        return handler;
+        const handler = new match.handler();
+        const config = handler.getConfig(round, stages);
+        return new match.handler(config);
     }
 }
