@@ -57,7 +57,6 @@ body {
 
 .groups-content {
     position: relative;
-    min-height: calc(100vh - 200px);
 }
 
 .group-list {
