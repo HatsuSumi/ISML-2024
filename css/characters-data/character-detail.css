@@ -162,6 +162,7 @@ body {
     border-radius: 8px;
     transition: background-color 0.2s;
     border: 1px solid #444;
+    overflow: visible;
 }
 
 .battle-record:hover {
@@ -347,9 +348,13 @@ body {
 }
 
 .record-links {
+    position: relative;
     margin-top: 15px;
-    border-top: 1px solid #444;
     padding-top: 15px;
+    border-top: 1px solid #444;
+    display: flex;
+    justify-content: flex-end;
+    overflow: visible;
 }
 
 .links-btn {
@@ -385,6 +390,7 @@ body {
     transform-origin: top right;
     margin-bottom: 8px;
     pointer-events: none;
+    overflow: visible;
     &::after {
         content: '';
         position: absolute;
