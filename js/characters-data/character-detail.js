@@ -336,10 +336,8 @@ class CharacterDetail {
                 }
                 // 新增对预选赛链接的处理
                 if (config.key === 'visualization' || config.key === 'table') {
-                    const stageConfig = this.configData?.stages['预选赛阶段'];
-                    const [stage, type, gender] = this.characterId.split('.');
-                    const stageTypeConfig = stageConfig?.['恒星组']?.[`${gender}组别`];
-                    return stageTypeConfig && stageTypeConfig[config.key];
+                    const linkKey = roundConfig?.[config.key];
+                    return linkKey;
                 }
                 return roundConfig?.[config.key];
             })
@@ -348,10 +346,7 @@ class CharacterDetail {
                 if (config.key === 'rules') {
                     url = `pages/rules/rules.html?id=${roundConfig[config.key]}&from=characters-data`;
                 } else if (config.key === 'visualization' || config.key === 'table') {
-                    const stageConfig = this.configData.stages['预选赛阶段'];
-                    const [stage, type, gender] = this.characterId.split('.');
-                    const stageTypeConfig = stageConfig['恒星组'][`${gender}组别`];
-                    url = stageTypeConfig[config.key];
+                    url = `pages/groups/groups.html?id=${roundConfig[config.key]}&from=characters-data`;
                 } else {
                     url = roundConfig[config.key];
                 }
