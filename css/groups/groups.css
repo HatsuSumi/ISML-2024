@@ -60,12 +60,15 @@ body {
 
 .group-list {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 两列并排 */
-    gap: 24px; /* 组之间的间距 */
+    grid-template-columns: repeat(2, 618px);
+    gap: 24px;
     justify-content: center;
+    width: 1236px;
+    margin: 0 auto;
 }
 
 .group-section {
+    width: 618px;
     background-color: #2a2a2a;
     border-radius: 12px;
     padding: 20px;
@@ -74,7 +77,6 @@ body {
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    width: 100%; /* 确保充满容器 */
 }
 
 .group-section:hover {
@@ -96,7 +98,7 @@ body {
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 自适应列宽 */
+    grid-template-columns: repeat(5, 1fr);
     gap: 16px;
     justify-content: center;
 }
