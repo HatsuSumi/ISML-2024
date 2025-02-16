@@ -43,58 +43,53 @@ class GroupRendererStrategy {
 
         seedGroup: (groupConfig, charactersData, containers) => {
             const template = document.getElementById('seed-group-template');
-            const table = document.createElement('table');
-            table.className = 'seed-group-table';
-
-            const thead = template.content.querySelector('thead').cloneNode(true);
-            table.appendChild(thead);
-
-            const tbody = document.createElement('tbody');
-
+            const table = template.content.cloneNode(true);
+        
+            const tbody = table.querySelector('tbody');
+            tbody.innerHTML = ''; 
+        
             Object.entries(groupConfig.groups).forEach(([groupName, characters]) => {
-                const row = document.createElement('tr');
-                row.className = 'seed-group-row';
-
-                const groupCell = document.createElement('th');
-                groupCell.textContent = groupName;
-                groupCell.className = 'seed-group-name';
-                row.appendChild(groupCell);
-
+                const rowTemplate = template.content.querySelector('.seed-group-row');
+                const row = rowTemplate.cloneNode(true);
+        
+                row.querySelector('.seed-group-name').textContent = groupName;
+        
                 [1, 2, 3, 4].forEach(seedNumber => {
-                    const cell = document.createElement('td');
-                    cell.className = `seed-group-cell seed-${seedNumber}`;
-                    
+                    const cell = row.querySelector(`.seed-${seedNumber}`);
+                    const characterDiv = cell.querySelector('.seed-group-character');
+                    const avatar = characterDiv.querySelector('.seed-group-avatar');
+                    const nameSpan = characterDiv.querySelector('.seed-group-name');
+        
                     const character = characters.find(c => c.seed === seedNumber);
                     
                     if (character) {
                         const characterKey = Object.keys(charactersData).find(
                             key => charactersData[key].name === character.name
                         );
-
+        
                         if (characterKey && charactersData[characterKey].avatar) {
-                            cell.innerHTML = `
-                                <div class="seed-group-character">
-                                    <img src="${charactersData[characterKey].avatar}" alt="${character.name}" class="seed-group-avatar">
-                                    <span class="seed-group-name">${character.name}</span>
-                                </div>
-                            `;
+                            avatar.src = charactersData[characterKey].avatar;
+                            avatar.alt = character.name;
                         } else {
-                            cell.textContent = character.name;
+                            avatar.remove();
                         }
+                        
+                        nameSpan.textContent = character.name;
                     } else {
-                        cell.textContent = '';
+                        characterDiv.remove();
                     }
-
-                    row.appendChild(cell);
                 });
-
+        
                 tbody.appendChild(row);
             });
-
-            table.appendChild(tbody);
-
+        
+            const tableElement = document.createElement('table');
+            tableElement.className = 'seed-group-table';
+            tableElement.appendChild(table.querySelector('thead'));
+            tableElement.appendChild(tbody);
+        
             containers.content.innerHTML = '';
-            containers.content.appendChild(table);
+            containers.content.appendChild(tableElement);
         }
     };
 
