@@ -4,38 +4,39 @@ class GroupRendererStrategy {
             const template = document.getElementById('preliminary-group-template');
             const groupContainer = document.createElement('div');
             groupContainer.className = 'group-list';
-
+        
             Object.entries(groupConfig.groups).forEach(([groupName, characters]) => {
-                const groupSection = template.content.querySelector('.group-section').cloneNode(true);
-                const groupTitle = groupSection.querySelector('.group-title');
-                groupTitle.textContent = groupName;
-
+                const groupSection = template.content.cloneNode(true);
+                
+                groupSection.querySelector('.group-title').textContent = groupName;
                 const charactersList = groupSection.querySelector('.characters-list');
-                charactersList.innerHTML = ''; 
-
+                const characterTemplate = charactersList.querySelector('.character-item');
+                
+                charactersList.innerHTML = '';
+                
                 characters.forEach(characterName => {
                     const characterKey = Object.keys(charactersData).find(
                         key => charactersData[key].name === characterName
                     );
-
-                    const characterItem = document.createElement('li');
-                    characterItem.className = 'character-item';
+        
+                    const characterItem = characterTemplate.cloneNode(true);
+                    const avatar = characterItem.querySelector('.character-avatar');
+                    const nameSpan = characterItem.querySelector('.character-name');
                     
                     if (characterKey && charactersData[characterKey].avatar) {
-                        characterItem.innerHTML = `
-                            <img src="${charactersData[characterKey].avatar}" alt="${characterName}" class="character-avatar">
-                            <span class="character-name">${characterName}</span>
-                        `;
+                        avatar.src = charactersData[characterKey].avatar;
+                        avatar.alt = characterName;
                     } else {
-                        characterItem.textContent = characterName;
+                        avatar.remove();
                     }
-
+                    
+                    nameSpan.textContent = characterName;
                     charactersList.appendChild(characterItem);
                 });
-
-                groupContainer.appendChild(groupSection);
+        
+                groupContainer.appendChild(groupSection.querySelector('.group-section'));
             });
-
+        
             containers.content.innerHTML = '';
             containers.content.appendChild(groupContainer);
         },
