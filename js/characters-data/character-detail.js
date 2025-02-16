@@ -330,18 +330,14 @@ class CharacterDetail {
             ];
 
             const links = linkConfigs
-            .filter(config => {
-                console.log(`检查配置: ${config.key}`);
-                console.log('RoundConfig:', roundConfig);   
+            .filter(config => { 
                 if (config.key === 'rules') {
                     const ruleKey = roundConfig?.[config.key];
                     return ruleKey && this.rulesData[ruleKey];
                 }
                 if (config.key === 'visualization' || config.key === 'table') {
                     const linkKey = roundConfig?.[config.key];
-                    console.log(`${config.key} linkKey:`, linkKey);
                     const result = !!linkKey;
-                    console.log(`${config.key} result:`, result);
                     return result;
                 }
                 return roundConfig?.[config.key];
@@ -350,7 +346,6 @@ class CharacterDetail {
                 let url;
                 if (config.key === 'visualization' || config.key === 'table') {
                     url = roundConfig[config.key];
-                    console.log(`生成 ${config.key} 链接:`, url);
                 } else if (config.key === 'rules') {
                     url = `pages/rules/rules.html?id=${roundConfig[config.key]}&from=characters-data`;
                 } else if (config.key === 'groups') {
@@ -359,7 +354,6 @@ class CharacterDetail {
                     url = roundConfig[config.key];
                 }
                 
-                console.log(`最终 ${config.key} 链接:`, url);
                 
                 if (!url.includes('from=characters-data')) {
                     url += url.includes('?') ? `&from=characters-data` : `?from=characters-data`;
@@ -372,17 +366,11 @@ class CharacterDetail {
                     url: url
                 };
             });
-
-            console.log('Round Config:', roundConfig);
-            console.log('Links:', links);
             
             // 如果有链接，显示链接按钮，否则隐藏
             const linksSection = record.querySelector('.record-links');
-            console.log('Links:', links);
-            console.log('Links Length:', links.length);
             if (links.length > 0) {
                 links.forEach(link => {
-                    console.log('Creating link:', link);
                     const a = document.createElement('a');
                     a.href = link.url;
                     a.innerHTML = `<i class="fas fa-${link.icon}"></i>${link.text}`;
@@ -439,8 +427,6 @@ class CharacterDetail {
             hoverArea.style.height = '20px';
             hoverArea.style.background = 'transparent';
             hoverArea.style.zIndex = '10';
-
-            recordLinks.style.position = 'relative';
             recordLinks.appendChild(hoverArea);
 
             // 添加事件监听
@@ -525,7 +511,6 @@ class CharacterDetail {
         
         // 监听导航点击
         this.containers.nav.addEventListener('click', (e) => {
-            console.log('Nav clicked');
             const link = e.target.closest('a');
             if (!link) return;
             
@@ -540,14 +525,12 @@ class CharacterDetail {
             
             // 平滑滚动到目标位置
             const targetId = link.dataset.target;
-            console.log('Target ID:', targetId);
             const target = document.getElementById(targetId);
             if (target) {
                 // 计算目标滚动位置
                 const targetRect = target.getBoundingClientRect();
                 const containerRect = this.containers.reports.getBoundingClientRect();
                 const targetTop = this.containers.reports.scrollTop + targetRect.top - containerRect.top;
-                console.log('Scrolling to:', targetTop);
                 this.smoothScroll(targetTop);
             }
         });
@@ -871,11 +854,7 @@ class PreliminariesHandler extends StageHandler {
         };
     }
     
-    getConfig(round, stages) {
-        console.log('PreliminariesHandler getConfig - this:', this);
-        console.log('PreliminariesHandler getConfig - characterId:', this.characterId);
-        console.log('PreliminariesHandler getConfig - charactersData:', this.charactersData);
-        
+    getConfig(round, stages) {     
         // 从提名阶段的 round 获取性别
         const characterData = this.charactersData || window.charactersData;
         const characterId = this.characterId || window.currentCharacterId;
@@ -939,14 +918,9 @@ class StageHandlerFactory {
     ];
     
     static getHandler(round, stages, characterId, charactersData) {
-        console.log('Debug - StageHandlerFactory.getHandler - round:', JSON.stringify(round));
-        console.log('Debug - StageHandlerFactory.getHandler - stages:', JSON.stringify(stages));
-        console.log('Debug - StageHandlerFactory.getHandler - characterId:', characterId);
-
         // 使用正则表达式匹配
         const match = this.patterns.find(p => {
             const isMatch = p.pattern.test(round.round);
-            console.log(`Testing pattern ${p.pattern}: ${isMatch}`);
             return isMatch;
         });
     
@@ -960,7 +934,6 @@ class StageHandlerFactory {
         });
         
         const config = handler.getConfig(round, stages);
-        console.log('Debug - StageHandlerFactory.getHandler - config:', JSON.stringify(config));
 
         return new match.handler({
             characterId: characterId,
