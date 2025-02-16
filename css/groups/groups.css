@@ -93,9 +93,10 @@ body {
 .characters-list {
     list-style: none;
     padding: 0;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 12px;
+    align-items: center;
 }
 
 .characters-list li {
