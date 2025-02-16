@@ -62,10 +62,9 @@ body {
 
 .group-list {
     display: grid;
-    grid-template-columns: repeat(2, 618px);
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
     justify-content: center;
-    width: 1236px;
     margin: 0 auto;
 }
 
