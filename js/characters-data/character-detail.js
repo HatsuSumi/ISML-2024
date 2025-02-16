@@ -805,7 +805,7 @@ class PreliminariesHandler extends StageHandler {
         console.log('PreliminariesHandler getConfig - this:', this);
         console.log('PreliminariesHandler getConfig - characterId:', this.characterId);
         console.log('PreliminariesHandler getConfig - charactersData:', this.charactersData);
-    
+        
         // 从提名阶段的 round 获取性别
         const characterData = this.charactersData || window.charactersData;
         const characterId = this.characterId || window.currentCharacterId;
@@ -815,7 +815,7 @@ class PreliminariesHandler extends StageHandler {
             console.error('无法获取角色数据:', { characterData, characterId });
             return { roundConfig: null, stageConfig: null };
         }
-    
+
         const gender = characterData[characterId].rounds[0].round.includes('女性组别') ? '女性组别' : '男性组别';
         
         // 从 round 中提取轮次
@@ -841,7 +841,10 @@ class PreliminariesHandler extends StageHandler {
         }
         
         return {
-            roundConfig: stageConfig[gender],
+            roundConfig: {
+                ...stageConfig[gender],
+                '赛事时间': stages['预选赛阶段']['预选赛第一轮']['赛事时间']
+            },
             stageConfig: stageConfig
         };
     }
