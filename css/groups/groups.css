@@ -114,11 +114,9 @@ body {
 }
 
 .characters-list li img {
-    width: 100%;
     max-width: 120px;
-    aspect-ratio: 3/4; 
-    object-fit: cover;
-    object-position: center top;
+    max-height: 160px;
+    object-fit: contain;
     border-radius: 8px;
     margin-bottom: 8px;
 }
