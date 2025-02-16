@@ -312,3 +312,9 @@ body {
     justify-content: center;
     z-index: 2;
 }
+
+.seed-group-table thead th:first-child::before,
+.seed-group-table thead th:first-child::after,
+.seed-group-table thead th:first-child > span {
+    font-size: 12px;
+}
