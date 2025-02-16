@@ -1,0 +1,18 @@
+{
+    "preliminary.stellar.female": {
+        "title": "恒星组女性预选赛分组",
+        "groups": {
+            "A组": ["char001", "char002", "char003"],
+            "B组": ["char004", "char005", "char006"],
+            "C组": ["char007", "char008", "char009"]
+        }
+    },
+    "preliminary.stellar.male": {
+        "title": "恒星组男性预选赛分组",
+        "groups": {
+            "A组": ["char010", "char011", "char012"],
+            "B组": ["char013", "char014", "char015"],
+            "C组": ["char016", "char017", "char018"]
+        }
+    }
+}

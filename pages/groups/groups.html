@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="https://hatsusumi.github.io/ISML-2024/">
+    <link rel="stylesheet" href="css/groups/groups.css">
+</head>
+<body>
+    <include src="templates/header.html"></include>
+
+    <div class="groups-wrapper">
+        <div class="groups-section">
+            <button class="back-btn">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+            <div class="groups-container">
+                <h1 class="groups-title"></h1>
+                <div class="groups-content">
+                    <div class="loading-container">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <include src="templates/footer.html"></include>
+    <script type="module" src="js/common/template-loader.js"></script>
+    <script type="module" src="js/groups/groups.js"></script>
+</body>
+</html>

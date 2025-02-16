@@ -313,6 +313,11 @@ class CharacterDetail {
                     text: '详细表格'
                 },
                 {
+                    key: 'groups',
+                    icon: 'users', 
+                    text: '角色分组'
+                },
+                {
                     key: 'rules',
                     icon: 'book',
                     text: '赛事规则'
