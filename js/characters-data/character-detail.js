@@ -46,7 +46,7 @@ class CharacterDetail {
         this.addBackButton();
         
         // 绑定事件处理
-        this.bindEvents();
+        // this.bindEvents();
         
         // 滚动动画相关
         this.scrollAnimation = null;
@@ -100,6 +100,7 @@ class CharacterDetail {
             this.renderEventReports();
             this.setupNavigation();
             this.setupCharacterNav();
+            this.bindEvents();
             
             const container = document.querySelector('.character-detail-container');
             container.classList.add('loaded');
