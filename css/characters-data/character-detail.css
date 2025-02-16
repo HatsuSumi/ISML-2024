@@ -391,6 +391,14 @@ body {
     pointer-events: none;
 }
 
+.links-btn:hover + .links-dropdown {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
 .links-dropdown::after {
     content: '';
     position: absolute;
@@ -401,13 +409,6 @@ body {
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-top: 8px solid #2a2a2a;
-}
-
-.links-btn:hover + .links-dropdown {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
 }
 
 .links-dropdown a {
