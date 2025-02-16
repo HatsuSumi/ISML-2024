@@ -794,21 +794,36 @@ class PreliminariesHandler extends StageHandler {
     }
     
     getConfig(round, stages) {
+        // 获取当前角色的完整数据
+        const characterData = this.charactersData[this.characterId];
+        
+        // 如果存在多个轮次，使用第一个轮次（通常是提名赛）
+        if (characterData && characterData.rounds && characterData.rounds.length > 0) {
+            round.round = characterData.rounds[0].round;
+        }
+        
         console.log('Current Round:', round);
         console.log('Stages:', stages);
         
-        // 从 round 中提取组别信息
-        const group = round.round.includes('女性') ? '女性组别' : '男性组别';
+        // 从 round 中推断性别
+        const characterGender = round.round.includes('女性组别') ? '女性' : 
+                                round.round.includes('男性组别') ? '男性' : null;
         
-        // 从 round 中提取轮次
-        const roundMatch = round.round.match(/第([一二三四五六])轮/);
-        if (!roundMatch) {
-            console.error('无法解析轮次:', round.round);
+        if (!characterGender) {
+            console.error('无法确定角色性别:', round);
             return { roundConfig: null, stageConfig: null };
         }
         
-        const roundNumber = roundMatch[1];
-        const roundKey = `预选赛第${roundNumber}轮`; 
+        // 将性别映射到组别
+        const group = characterGender === '女性' ? '女性组别' : '男性组别';
+        console.log('Detected Gender:', characterGender);
+        console.log('Detected Group:', group);
+        
+        // 从 round 中提取轮次
+        const roundMatch = round.round.match(/第([一二三四五六])轮/);
+        
+        // 如果是提名赛，使用第一轮的配置
+        const roundKey = roundMatch ? `预选赛第${roundMatch[1]}轮` : '预选赛第一轮';
         
         // 检查配置是否存在
         if (!stages['预选赛阶段'] || !stages['预选赛阶段'][roundKey]) {
