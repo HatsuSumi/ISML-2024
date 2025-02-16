@@ -373,7 +373,6 @@ body {
 }
 
 .links-dropdown {
-    display: none;
     position: absolute;
     bottom: 100%;
     right: 0;
@@ -392,7 +391,6 @@ body {
 }
 
 .links-btn:hover + .links-dropdown {
-    display: block;
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
