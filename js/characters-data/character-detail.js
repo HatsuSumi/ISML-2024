@@ -337,7 +337,10 @@ class CharacterDetail {
                 }
                 if (config.key === 'visualization' || config.key === 'table') {
                     const linkKey = roundConfig?.[config.key];
-                    return linkKey;
+                    console.log(`${config.key} linkKey:`, linkKey);
+                    const result = !!linkKey;
+                    console.log(`${config.key} result:`, result);
+                    return result;
                 }
                 return roundConfig?.[config.key];
             })
