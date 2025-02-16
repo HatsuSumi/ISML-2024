@@ -145,7 +145,7 @@ body {
 
 .battle-list {
     max-height: 2000px; 
-    overflow: hidden;
+    overflow: visible;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -162,7 +162,6 @@ body {
     border-radius: 8px;
     transition: background-color 0.2s;
     border: 1px solid #444;
-    overflow: visible;
 }
 
 .battle-record:hover {
@@ -354,7 +353,6 @@ body {
     border-top: 1px solid #444;
     display: flex;
     justify-content: flex-end;
-    overflow: visible;
 }
 
 .links-btn {
@@ -375,6 +373,7 @@ body {
 }
 
 .links-dropdown {
+    display: none;
     position: absolute;
     bottom: 100%;
     right: 0;
@@ -390,21 +389,21 @@ body {
     transform-origin: top right;
     margin-bottom: 8px;
     pointer-events: none;
-    overflow: visible;
-    &::after {
-        content: '';
-        position: absolute;
-        top: 100%;
-        right: 16px;
-        width: 0;
-        height: 0;
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-top: 8px solid #2a2a2a;
-    }
 }
 
-.record-links:hover .links-dropdown {
+.links-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 16px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #2a2a2a;
+}
+
+.links-btn:hover + .links-dropdown {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
