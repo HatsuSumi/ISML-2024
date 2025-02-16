@@ -347,8 +347,8 @@ class CharacterDetail {
                     url = roundConfig[config.key];
                 } else if (config.key === 'rules') {
                     url = `pages/rules/rules.html?id=${roundConfig[config.key]}&from=characters-data`;
-                } else {
-                    url = roundConfig[config.key];
+                } else if (config.key === 'groups') {
+                    url = `pages/groups/groups.html?id=${roundConfig[config.key]}&from=characters-data`;
                 }
                 
                 if (!url.includes('from=characters-data')) {
