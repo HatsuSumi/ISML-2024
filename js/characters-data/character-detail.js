@@ -794,6 +794,11 @@ class PreliminariesHandler extends StageHandler {
     }
     
     getConfig(round, stages) {
+        console.log('Current Round:', round);
+        console.log('Stages:', stages);
+        console.log('Character ID:', this.characterId);
+        console.log('Characters Data:', this.charactersData);
+        
         // 获取当前角色的完整数据
         const characterData = this.charactersData[this.characterId];
         
@@ -802,8 +807,7 @@ class PreliminariesHandler extends StageHandler {
             round.round = characterData.rounds[0].round;
         }
         
-        console.log('Current Round:', round);
-        console.log('Stages:', stages);
+        console.log('Updated Round:', round);
         
         // 从 round 中推断性别
         const characterGender = round.round.includes('女性组别') ? '女性' : 
@@ -825,9 +829,18 @@ class PreliminariesHandler extends StageHandler {
         // 如果是提名赛，使用第一轮的配置
         const roundKey = roundMatch ? `预选赛第${roundMatch[1]}轮` : '预选赛第一轮';
         
+        console.log('Round Key:', roundKey);
+        console.log('Stages Keys:', Object.keys(stages));
+        
         // 检查配置是否存在
-        if (!stages['预选赛阶段'] || !stages['预选赛阶段'][roundKey]) {
+        if (!stages['预选赛阶段']) {
+            console.error('未找到预选赛阶段配置');
+            return { roundConfig: null, stageConfig: null };
+        }
+        
+        if (!stages['预选赛阶段'][roundKey]) {
             console.error(`未找到配置: 预选赛阶段 -> ${roundKey}`);
+            console.log('Available Keys in 预选赛阶段:', Object.keys(stages['预选赛阶段']));
             return { roundConfig: null, stageConfig: null };
         }
         
