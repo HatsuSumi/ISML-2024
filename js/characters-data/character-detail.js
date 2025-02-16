@@ -797,7 +797,7 @@ class PreliminariesHandler extends StageHandler {
     
     getConfig(round, stages) {
         return {
-            roundConfig: stages['预选赛'],
+            roundConfig: stages['预选赛']['预选赛第一轮'],
             stageConfig: stages['预选赛']
         };
     }
