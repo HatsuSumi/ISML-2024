@@ -420,6 +420,18 @@ body {
     transform-origin: top right;
     margin-bottom: 8px;
     pointer-events: none;
+    z-index: 9;
+}
+
+.links-dropdown::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 20px; 
+    background: transparent;
+    z-index: 10;
 }
 
 .links-dropdown::after {
