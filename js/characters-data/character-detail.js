@@ -748,6 +748,15 @@ class StageHandler {
 }
 
 class NominationHandler extends StageHandler {
+    constructor(config = {}) {
+        super(config);
+        this.characterId = config.characterId;
+        this.charactersData = config.charactersData;
+        this.config = config.config || {};
+        this.roundConfig = this.config.roundConfig;
+        this.stageConfig = this.config.stageConfig;
+    }
+    
     getFields(round) {
         return {
             '提名时间': this.config.stageConfig?.['提名时间'],
