@@ -96,7 +96,7 @@ body {
     padding: 0;
     display: grid;
     grid-template-columns: repeat(5, 145px);
-    gap: 8px;
+    gap: 16px; /* 增加间距 */
     justify-content: center;
 }
 
@@ -107,7 +107,8 @@ body {
     align-items: center;
     text-align: center;
     padding: 10px;
-    border: 1px solid #333;
+    border: 1px solid transparent; /* 透明边框 */
+    background-color: rgba(50, 50, 50, 0.5); /* 背景替代边框 */
     border-radius: 8px;
     transition: all 0.2s ease;
 }
@@ -115,6 +116,7 @@ body {
 .characters-list li:hover {
     background-color: rgba(100, 181, 246, 0.1);
     transform: scale(1.02);
+    border-color: rgba(100, 181, 246, 0.3); /* 悬停时显示边框 */
 }
 
 .characters-list li img {
