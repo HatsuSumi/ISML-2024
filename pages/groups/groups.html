@@ -15,9 +15,64 @@
             <div class="groups-container">
                 <h1 class="groups-title"></h1>
                 <div class="groups-content">
-                    <div class="loading-container">
-                        <div class="loading-spinner"></div>
-                    </div>
+                    <!-- 预选赛模板 -->
+                    <template id="preliminary-group-template">
+                        <div class="group-list">
+                            <div class="group-section">
+                                <h2 class="group-title"></h2>
+                                <ul class="characters-list">
+                                    <li class="character-item">
+                                        <img src="" alt="" class="character-avatar">
+                                        <span class="character-name"></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </template>
+                
+                    <!-- 小组赛模板 -->
+                    <template id="seed-group-template">
+                        <table class="seed-group-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>1号种子</th>
+                                    <th>2号种子</th>
+                                    <th>3号种子</th>
+                                    <th>4号种子</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="seed-group-row">
+                                    <th class="seed-group-name"></th>
+                                    <td class="seed-group-cell seed-1">
+                                        <div class="seed-group-character">
+                                            <img src="" alt="" class="seed-group-avatar">
+                                            <span class="seed-group-name"></span>
+                                        </div>
+                                    </td>
+                                    <td class="seed-group-cell seed-2">
+                                        <div class="seed-group-character">
+                                            <img src="" alt="" class="seed-group-avatar">
+                                            <span class="seed-group-name"></span>
+                                        </div>
+                                    </td>
+                                    <td class="seed-group-cell seed-3">
+                                        <div class="seed-group-character">
+                                            <img src="" alt="" class="seed-group-avatar">
+                                            <span class="seed-group-name"></span>
+                                        </div>
+                                    </td>
+                                    <td class="seed-group-cell seed-4">
+                                        <div class="seed-group-character">
+                                            <img src="" alt="" class="seed-group-avatar">
+                                            <span class="seed-group-name"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </template>
                 </div>
             </div>
         </div>

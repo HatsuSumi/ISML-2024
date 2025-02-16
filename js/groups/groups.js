@@ -1,19 +1,16 @@
 class GroupRendererStrategy {
     static strategies = {
         preliminary: (groupConfig, charactersData, containers) => {
-            const groupContainer = document.createElement('div');
-            groupContainer.className = 'group-list';
+            const template = document.getElementById('preliminary-group-template');
+            const groupContainer = template.content.cloneNode(true);
 
             Object.entries(groupConfig.groups).forEach(([groupName, characters]) => {
-                const groupSection = document.createElement('div');
-                groupSection.className = 'group-section';
-                
-                const groupTitle = document.createElement('h2');
+                const groupSection = groupContainer.querySelector('.group-section');
+                const groupTitle = groupSection.querySelector('.group-title');
                 groupTitle.textContent = groupName;
-                groupSection.appendChild(groupTitle);
 
-                const charactersList = document.createElement('ul');
-                charactersList.className = 'characters-list';
+                const charactersList = groupSection.querySelector('.characters-list');
+                charactersList.innerHTML = ''; 
 
                 characters.forEach(characterName => {
                     const characterKey = Object.keys(charactersData).find(
@@ -21,11 +18,12 @@ class GroupRendererStrategy {
                     );
 
                     const characterItem = document.createElement('li');
+                    characterItem.className = 'character-item';
                     
                     if (characterKey && charactersData[characterKey].avatar) {
                         characterItem.innerHTML = `
-                            <img src="${charactersData[characterKey].avatar}" alt="${characterName}">
-                            <span>${characterName}</span>
+                            <img src="${charactersData[characterKey].avatar}" alt="${characterName}" class="character-avatar">
+                            <span class="character-name">${characterName}</span>
                         `;
                     } else {
                         characterItem.textContent = characterName;
@@ -34,44 +32,43 @@ class GroupRendererStrategy {
                     charactersList.appendChild(characterItem);
                 });
 
-                groupSection.appendChild(charactersList);
-                groupContainer.appendChild(groupSection);
+                containers.content.appendChild(groupSection);
             });
-
-            containers.content.innerHTML = '';
-            containers.content.appendChild(groupContainer);
         },
 
         seedGroup: (groupConfig, charactersData, containers) => {
-            const table = document.createElement('table');
-            table.className = 'group-table';
-
-            const thead = document.createElement('thead');
-            const headerRow = document.createElement('tr');
-            headerRow.innerHTML = '<th></th><th>1号种子</th><th>2号种子</th><th>3号种子</th>';
-            thead.appendChild(headerRow);
-            table.appendChild(thead);
-
-            const tbody = document.createElement('tbody');
+            const template = document.getElementById('seed-group-template');
+            const table = template.content.cloneNode(true);
+        
+            const tbody = table.querySelector('tbody');
+            tbody.innerHTML = ''; 
+        
             Object.entries(groupConfig.groups).forEach(([groupName, characters]) => {
                 const row = document.createElement('tr');
+                row.className = 'seed-group-row';
+        
                 const groupCell = document.createElement('th');
                 groupCell.textContent = groupName;
+                groupCell.className = 'seed-group-name';
                 row.appendChild(groupCell);
-
-                [1, 2, 3].forEach(seedNumber => {
+        
+                [1, 2, 3, 4].forEach(seedNumber => {
                     const cell = document.createElement('td');
+                    cell.className = `seed-group-cell seed-${seedNumber}`;
+                    
                     const character = characters.find(c => c.seed === seedNumber);
                     
                     if (character) {
                         const characterKey = Object.keys(charactersData).find(
                             key => charactersData[key].name === character.name
                         );
-
+        
                         if (characterKey && charactersData[characterKey].avatar) {
                             cell.innerHTML = `
-                                <img src="${charactersData[characterKey].avatar}" alt="${character.name}">
-                                <span>${character.name}</span>
+                                <div class="seed-group-character">
+                                    <img src="${charactersData[characterKey].avatar}" alt="${character.name}" class="seed-group-avatar">
+                                    <span class="seed-group-name">${character.name}</span>
+                                </div>
                             `;
                         } else {
                             cell.textContent = character.name;
@@ -79,21 +76,15 @@ class GroupRendererStrategy {
                     } else {
                         cell.textContent = '';
                     }
-
+        
                     row.appendChild(cell);
                 });
-
+        
                 tbody.appendChild(row);
             });
-
-            table.appendChild(tbody);
-
+        
             containers.content.innerHTML = '';
             containers.content.appendChild(table);
-        },
-
-        registerStrategy(type, renderFn) {
-            this.strategies[type] = renderFn;
         }
     };
 
@@ -133,8 +124,8 @@ class Groups {
 
     async loadCharacters() {
         const [groupsResponse, charactersResponse] = await Promise.all([
-            fetch("data/groups/groups.json"),
-            fetch("data/characters/base/characters-data.json")
+            fetch("../../data/groups/groups.json"),
+            fetch("../../data/characters/base/characters-data.json")
         ]);
 
         if (!groupsResponse.ok || !charactersResponse.ok) {

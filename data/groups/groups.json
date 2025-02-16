@@ -39,21 +39,23 @@
             ]
         }
     },
-    "group_stage.stellar.female": {
-        "title": "恒星组小组赛-女性组别",
-        "groups": {
-            "A组": [
-                {"name": "辛耶·诺赞", "seed": 1},
-                {"name": "可蕾娜·库克米拉", "seed": 2},
-                {"name": "安琪·艾玛", "seed": 3}
-            ],
-            "B组": [
-                {"name": "芙拉蒂蕾娜·米利杰", "seed": 1},
-                {"name": "芙蕾德利嘉·罗森菲尔特", "seed": 2},
-                {"name": "星野瑠美衣", "seed": 3}
-            ]
-        }
-    },
+  "group_stage.stellar.female": {
+    "title": "恒星组小组赛-女性组别",
+    "groups": {
+        "A组": [
+            {"name": "辛耶·诺赞", "seed": 1},
+            {"name": "可蕾娜·库克米拉", "seed": 2},
+            {"name": "安琪·艾玛", "seed": 3},
+            {"name": "芙拉蒂蕾娜·米利杰", "seed": 4}
+        ],
+        "B组": [
+            {"name": "芙蕾德利嘉·罗森菲尔特", "seed": 1},
+            {"name": "星野瑠美衣", "seed": 2},
+            {"name": "小鸟游六花", "seed": 3},
+            {"name": "伊地知星歌", "seed": 4}
+        ]
+    }
+},
     "group_stage.stellar.male": {
         "title": "恒星组小组赛-男性组别",
         "groups": {
