@@ -815,7 +815,7 @@ class StageHandlerFactory {
             handler: NominationHandler
         },
         {
-            pattern: /预选赛[A-Z]组/,
+            pattern: /预选赛第[一二三四五六]轮/,
             handler: PreliminariesHandler
         }
     ];
