@@ -246,26 +246,50 @@ body {
     border-left: 4px solid #ffd700;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
-    box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
 .seed-group-cell.seed-2 .seed-group-character {
     border-left: 4px solid #c0c0c0;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
-    box-shadow: inset 0 0 10px rgba(192, 192, 192, 0.5);
 }
 
 .seed-group-cell.seed-3 .seed-group-character {
     border-left: 4px solid #cd7f32;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
-    box-shadow: inset 0 0 10px rgba(205, 127, 50, 0.5);
 }
 
 .seed-group-cell.seed-4 .seed-group-character {
     border-left: 4px solid #6a6a6a;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
-    box-shadow: inset 0 0 10px rgba(106, 106, 106, 0.5);
+}
+
+.seed-group-cell.seed-1 .seed-group-character::before,
+.seed-group-cell.seed-2 .seed-group-character::before,
+.seed-group-cell.seed-3 .seed-group-character::before,
+.seed-group-cell.seed-4 .seed-group-character::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+}
+
+.seed-group-cell.seed-1 .seed-group-character::before {
+    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.5) 0%, transparent 70%);
+}
+
+.seed-group-cell.seed-2 .seed-group-character::before {
+    background: radial-gradient(circle at center, rgba(192, 192, 192, 0.5) 0%, transparent 70%);
+}
+
+.seed-group-cell.seed-3 .seed-group-character::before {
+    background: radial-gradient(circle at center, rgba(205, 127, 50, 0.5) 0%, transparent 70%);
+}
+
+.seed-group-cell.seed-4 .seed-group-character::before {
+    background: radial-gradient(circle at center, rgba(106, 106, 106, 0.5) 0%, transparent 70%);
 }
