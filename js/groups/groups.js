@@ -124,8 +124,8 @@ class Groups {
 
     async loadCharacters() {
         const [groupsResponse, charactersResponse] = await Promise.all([
-            fetch("../../data/groups/groups.json"),
-            fetch("../../data/characters/base/characters-data.json")
+            fetch("data/groups/groups.json"),
+            fetch("data/characters/base/characters-data.json")
         ]);
 
         if (!groupsResponse.ok || !charactersResponse.ok) {
