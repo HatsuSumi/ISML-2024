@@ -46,7 +46,7 @@ class CharacterDetail {
         this.addBackButton();
         
         // 绑定事件处理
-        // this.bindEvents();
+        this.bindEvents();
         
         // 滚动动画相关
         this.scrollAnimation = null;
@@ -100,7 +100,6 @@ class CharacterDetail {
             this.renderEventReports();
             this.setupNavigation();
             this.setupCharacterNav();
-            this.bindEvents();
             
             const container = document.querySelector('.character-detail-container');
             container.classList.add('loaded');
@@ -491,42 +490,6 @@ class CharacterDetail {
                 const targetTop = this.containers.reports.scrollTop + targetRect.top - containerRect.top;
                 console.log('Scrolling to:', targetTop);
                 this.smoothScroll(targetTop);
-            }
-        });
-        
-        // 为链接按钮添加悬停交互逻辑
-        document.querySelectorAll('.record-links').forEach(recordLinks => {
-            const linksBtn = recordLinks.querySelector('.links-btn');
-            const linksDropdown = recordLinks.querySelector('.links-dropdown');
-
-            if (linksBtn && linksDropdown) {
-                linksBtn.addEventListener('mouseenter', () => {
-                    linksDropdown.style.opacity = '1';
-                    linksDropdown.style.visibility = 'visible';
-                    linksDropdown.style.transform = 'translateY(0) scale(1)';
-                    linksDropdown.style.pointerEvents = 'auto';
-                });
-
-                linksBtn.addEventListener('mouseleave', () => {
-                    linksDropdown.style.opacity = '0';
-                    linksDropdown.style.visibility = 'hidden';
-                    linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
-                    linksDropdown.style.pointerEvents = 'none';
-                });
-
-                linksDropdown.addEventListener('mouseenter', () => {
-                    linksDropdown.style.opacity = '1';
-                    linksDropdown.style.visibility = 'visible';
-                    linksDropdown.style.transform = 'translateY(0) scale(1)';
-                    linksDropdown.style.pointerEvents = 'auto';
-                });
-
-                linksDropdown.addEventListener('mouseleave', () => {
-                    linksDropdown.style.opacity = '0';
-                    linksDropdown.style.visibility = 'hidden';
-                    linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
-                    linksDropdown.style.pointerEvents = 'none';
-                });
             }
         });
     }
@@ -947,3 +910,41 @@ class StageHandlerFactory {
         });
     }
 }
+
+// 为所有链接按钮添加全局悬停交互逻辑
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.record-links').forEach(recordLinks => {
+        const linksBtn = recordLinks.querySelector('.links-btn');
+        const linksDropdown = recordLinks.querySelector('.links-dropdown');
+
+        if (linksBtn && linksDropdown) {
+            linksBtn.addEventListener('mouseenter', () => {
+                linksDropdown.style.opacity = '1';
+                linksDropdown.style.visibility = 'visible';
+                linksDropdown.style.transform = 'translateY(0) scale(1)';
+                linksDropdown.style.pointerEvents = 'auto';
+            });
+
+            linksBtn.addEventListener('mouseleave', () => {
+                linksDropdown.style.opacity = '0';
+                linksDropdown.style.visibility = 'hidden';
+                linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
+                linksDropdown.style.pointerEvents = 'none';
+            });
+
+            linksDropdown.addEventListener('mouseenter', () => {
+                linksDropdown.style.opacity = '1';
+                linksDropdown.style.visibility = 'visible';
+                linksDropdown.style.transform = 'translateY(0) scale(1)';
+                linksDropdown.style.pointerEvents = 'auto';
+            });
+
+            linksDropdown.addEventListener('mouseleave', () => {
+                linksDropdown.style.opacity = '0';
+                linksDropdown.style.visibility = 'hidden';
+                linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
+                linksDropdown.style.pointerEvents = 'none';
+            });
+        }
+    });
+});
