@@ -19,7 +19,7 @@ class Groups {
             console.error('初始化分组页面失败:', error);
             this.showError('分组信息加载失败，请稍后重试');
         } finally {
-            document.querySelector('.loading-container').style.display = 'none';
+            document.querySelector('.loading-container')?.style.display = 'none';
         }
     }
 
