@@ -355,6 +355,16 @@ body {
     justify-content: flex-end;
 }
 
+.record-links::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 20px;
+    transform: translateY(100%);
+}
+
 .links-btn {
     background: transparent;
     border: none;
@@ -391,6 +401,7 @@ body {
 }
 
 .links-btn:hover + .links-dropdown,
+.record-links::after:hover + .links-dropdown,
 .record-links .links-dropdown:hover {
     opacity: 1;
     visibility: visible;
