@@ -794,11 +794,8 @@ class PreliminariesHandler extends StageHandler {
     }
     
     getConfig(round, stages) {
-        console.log('Current Round:', round);
-        console.log('Stages:', stages);
-        
         // 从 round 中提取组别信息
-        const group = round.round.includes('女性') ? '女性组别' : '男性组别';
+        const gender = this.charactersData[this.characterId].rounds[0].round.includes('女性组别') ? '女性组别' : '男性组别';
         
         // 从 round 中提取轮次
         const roundMatch = round.round.match(/第([一二三四五六])轮/);
@@ -823,7 +820,7 @@ class PreliminariesHandler extends StageHandler {
         }
         
         return {
-            roundConfig: stageConfig[group],
+            roundConfig: stageConfig[gender],
             stageConfig: stageConfig
         };
     }
