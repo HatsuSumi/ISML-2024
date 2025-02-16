@@ -2,10 +2,11 @@ class GroupRendererStrategy {
     static strategies = {
         preliminary: (groupConfig, charactersData, containers) => {
             const template = document.getElementById('preliminary-group-template');
-            const groupContainer = template.content.cloneNode(true);
+            const groupContainer = document.createElement('div');
+            groupContainer.className = 'group-list';
 
             Object.entries(groupConfig.groups).forEach(([groupName, characters]) => {
-                const groupSection = groupContainer.querySelector('.group-section');
+                const groupSection = template.content.querySelector('.group-section').cloneNode(true);
                 const groupTitle = groupSection.querySelector('.group-title');
                 groupTitle.textContent = groupName;
 
@@ -32,26 +33,32 @@ class GroupRendererStrategy {
                     charactersList.appendChild(characterItem);
                 });
 
-                containers.content.appendChild(groupSection);
+                groupContainer.appendChild(groupSection);
             });
+
+            containers.content.innerHTML = '';
+            containers.content.appendChild(groupContainer);
         },
 
         seedGroup: (groupConfig, charactersData, containers) => {
             const template = document.getElementById('seed-group-template');
-            const table = template.content.cloneNode(true);
-        
-            const tbody = table.querySelector('tbody');
-            tbody.innerHTML = ''; 
-        
+            const table = document.createElement('table');
+            table.className = 'seed-group-table';
+
+            const thead = template.content.querySelector('thead').cloneNode(true);
+            table.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+
             Object.entries(groupConfig.groups).forEach(([groupName, characters]) => {
                 const row = document.createElement('tr');
                 row.className = 'seed-group-row';
-        
+
                 const groupCell = document.createElement('th');
                 groupCell.textContent = groupName;
                 groupCell.className = 'seed-group-name';
                 row.appendChild(groupCell);
-        
+
                 [1, 2, 3, 4].forEach(seedNumber => {
                     const cell = document.createElement('td');
                     cell.className = `seed-group-cell seed-${seedNumber}`;
@@ -62,7 +69,7 @@ class GroupRendererStrategy {
                         const characterKey = Object.keys(charactersData).find(
                             key => charactersData[key].name === character.name
                         );
-        
+
                         if (characterKey && charactersData[characterKey].avatar) {
                             cell.innerHTML = `
                                 <div class="seed-group-character">
@@ -76,13 +83,15 @@ class GroupRendererStrategy {
                     } else {
                         cell.textContent = '';
                     }
-        
+
                     row.appendChild(cell);
                 });
-        
+
                 tbody.appendChild(row);
             });
-        
+
+            table.appendChild(tbody);
+
             containers.content.innerHTML = '';
             containers.content.appendChild(table);
         }
