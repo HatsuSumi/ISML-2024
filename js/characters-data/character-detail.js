@@ -376,8 +376,11 @@ class CharacterDetail {
             
             // 如果有链接，显示链接按钮，否则隐藏
             const linksSection = record.querySelector('.record-links');
+            console.log('Links:', links);
+            console.log('Links Length:', links.length);
             if (links.length > 0) {
                 links.forEach(link => {
+                    console.log('Creating link:', link);
                     const a = document.createElement('a');
                     a.href = link.url;
                     a.innerHTML = `<i class="fas fa-${link.icon}"></i>${link.text}`;
