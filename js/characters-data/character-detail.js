@@ -246,6 +246,7 @@ class CharacterDetail {
         const content = record.querySelector('.record-content');
         const linksDropdown = record.querySelector('.links-dropdown');
         const linksBtn = record.querySelector('.links-btn');
+        const recordLinks = record.querySelector('.record-links');
         
         const excludeRankFields = new Set(['弃票数', '弃票率']);
         
@@ -394,35 +395,61 @@ class CharacterDetail {
             console.error('处理赛事数据失败:', error);
         }
         
-        // 添加悬停交互逻辑
-        if (linksBtn && linksDropdown) {
-            linksBtn.addEventListener('mouseenter', () => {
+        // 改进悬停交互逻辑
+        if (linksBtn && linksDropdown && recordLinks) {
+            let isHovering = false;
+            let hoverTimeout;
+
+            const showDropdown = () => {
                 linksDropdown.style.opacity = '1';
                 linksDropdown.style.visibility = 'visible';
                 linksDropdown.style.transform = 'translateY(0) scale(1)';
                 linksDropdown.style.pointerEvents = 'auto';
-            });
+            };
 
-            linksBtn.addEventListener('mouseleave', () => {
+            const hideDropdown = () => {
                 linksDropdown.style.opacity = '0';
                 linksDropdown.style.visibility = 'hidden';
                 linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
                 linksDropdown.style.pointerEvents = 'none';
-            });
+            };
 
-            linksDropdown.addEventListener('mouseenter', () => {
-                linksDropdown.style.opacity = '1';
-                linksDropdown.style.visibility = 'visible';
-                linksDropdown.style.transform = 'translateY(0) scale(1)';
-                linksDropdown.style.pointerEvents = 'auto';
-            });
+            const handleMouseEnter = () => {
+                isHovering = true;
+                clearTimeout(hoverTimeout);
+                hoverTimeout = setTimeout(showDropdown, 50);
+            };
 
-            linksDropdown.addEventListener('mouseleave', () => {
-                linksDropdown.style.opacity = '0';
-                linksDropdown.style.visibility = 'hidden';
-                linksDropdown.style.transform = 'translateY(8px) scale(0.95)';
-                linksDropdown.style.pointerEvents = 'none';
-            });
+            const handleMouseLeave = () => {
+                isHovering = false;
+                clearTimeout(hoverTimeout);
+                hoverTimeout = setTimeout(() => {
+                    if (!isHovering) {
+                        hideDropdown();
+                    }
+                }, 100);
+            };
+
+            // 扩大悬停区域
+            const hoverArea = document.createElement('div');
+            hoverArea.style.position = 'absolute';
+            hoverArea.style.bottom = '100%';
+            hoverArea.style.left = '0';
+            hoverArea.style.right = '0';
+            hoverArea.style.height = '20px';
+            hoverArea.style.background = 'transparent';
+            hoverArea.style.zIndex = '10';
+
+            recordLinks.style.position = 'relative';
+            recordLinks.appendChild(hoverArea);
+
+            // 添加事件监听
+            linksBtn.addEventListener('mouseenter', handleMouseEnter);
+            linksBtn.addEventListener('mouseleave', handleMouseLeave);
+            linksDropdown.addEventListener('mouseenter', handleMouseEnter);
+            linksDropdown.addEventListener('mouseleave', handleMouseLeave);
+            hoverArea.addEventListener('mouseenter', handleMouseEnter);
+            hoverArea.addEventListener('mouseleave', handleMouseLeave);
         }
 
         return record;
