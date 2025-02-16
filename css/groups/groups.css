@@ -6,13 +6,15 @@ body {
 }
 
 .groups-wrapper {
-    max-width: 1800px; /* 增加宽度以容纳更多内容 */
+    max-width: 1800px;
     margin: 0 auto;
     padding: 0 20px;
-    padding-top: 80px; /* 为导航栏留出空间 */
+    padding-top: 80px;
 }
 
 .groups-section {
+    width: 1316px;
+    margin: 0 auto;
     background-color: #1e1e1e;
     border-radius: 12px;
     padding: 30px;
@@ -61,14 +63,14 @@ body {
 .group-list {
     display: grid;
     grid-template-columns: repeat(2, 618px);
-    gap: 0;
+    gap: 24px;
     justify-content: center;
     width: 1236px;
     margin: 0 auto;
 }
 
 .group-section {
-    width: 618px; /* 646px * 0.957 约等于 618px */
+    width: 618px;
     background-color: #2a2a2a;
     border-radius: 12px;
     padding: 20px;
@@ -98,7 +100,7 @@ body {
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(5, 111.33px);
+    grid-template-columns: repeat(5, 1fr);
     gap: 16px;
     justify-content: center;
 }
