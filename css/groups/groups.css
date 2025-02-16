@@ -189,30 +189,33 @@ body {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    background-color: #2c2c2c;
+    box-shadow: 0 2px 3px rgba(255, 255, 255, 0.1);
 }
 
 .seed-group-table thead {
-    background-color: #f4f4f4;
+    background-color: #3a3a3a;
 }
 
 .seed-group-table th, 
 .seed-group-table td {
-    border: 1px solid #ddd;
+    border: 1px solid #4a4a4a;
     padding: 12px;
     text-align: center;
     vertical-align: middle;
+    color: #e0e0e0;
 }
 
 .seed-group-table thead th {
     font-weight: bold;
     text-transform: uppercase;
-    color: #333;
+    color: #f0f0f0;
 }
 
 .seed-group-row .seed-group-name {
     font-weight: bold;
-    background-color: #f9f9f9;
+    background-color: #353535;
+    color: #e0e0e0;
 }
 
 .seed-group-character {
@@ -226,7 +229,7 @@ body {
     height: 60px;
     object-fit: cover;
     border-radius: 4%;
-    border: 2px solid #e0e0e0;
+    border: 2px solid #555;
     transition: transform 0.3s ease;
 }
 
@@ -236,16 +239,16 @@ body {
 
 .seed-group-name {
     font-size: 14px;
-    color: #333;
+    color: #e0e0e0;
     text-align: center;
 }
 
 .seed-group-cell.seed-1 .seed-group-character {
-    border-left: 4px solid gold;
+    border-left: 4px solid #ffd700;
 }
 
 .seed-group-cell.seed-2 .seed-group-character {
-    border-left: 4px solid silver;
+    border-left: 4px solid #c0c0c0;
 }
 
 .seed-group-cell.seed-3 .seed-group-character {
@@ -253,5 +256,5 @@ body {
 }
 
 .seed-group-cell.seed-4 .seed-group-character {
-    border-left: 4px solid #4a4a4a;
+    border-left: 4px solid #6a6a6a;
 }
