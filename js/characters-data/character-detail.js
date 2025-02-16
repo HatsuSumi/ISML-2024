@@ -734,8 +734,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 单独的赛事处理器文件
 class StageHandler {
-    constructor(config) {
-        this.config = config;
+    constructor(config = {}) {
+        this.characterId = config.characterId;
+        this.charactersData = config.charactersData;
+        this.config = config.config || {};
+        this.roundConfig = this.config.roundConfig;
+        this.stageConfig = this.config.stageConfig;
     }
     
     getFields() {
@@ -750,11 +754,6 @@ class StageHandler {
 class NominationHandler extends StageHandler {
     constructor(config = {}) {
         super(config);
-        this.characterId = config.characterId;
-        this.charactersData = config.charactersData;
-        this.config = config.config || {};
-        this.roundConfig = this.config.roundConfig;
-        this.stageConfig = this.config.stageConfig;
     }
     
     getFields(round) {
@@ -794,11 +793,6 @@ class NominationHandler extends StageHandler {
 class PreliminariesHandler extends StageHandler {
     constructor(config = {}) {
         super(config);
-        this.characterId = config.characterId;
-        this.charactersData = config.charactersData;
-        this.config = config.config || {};
-        this.roundConfig = this.config.roundConfig;
-        this.stageConfig = this.config.stageConfig;
     }
     
     getFields(round) {
