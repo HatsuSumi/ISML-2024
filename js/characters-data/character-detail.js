@@ -794,7 +794,6 @@ class PreliminariesHandler extends StageHandler {
     }
     
     getConfig(round, stages) {
-        const group = round.round.match(/[A-Z]组/)[0];
         return {
             roundConfig: stages['预选赛'][group],
             stageConfig: stages['预选赛']
