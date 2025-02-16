@@ -61,14 +61,14 @@ body {
 .group-list {
     display: grid;
     grid-template-columns: repeat(2, 618px);
-    gap: 24px;
+    gap: 0;
     justify-content: center;
     width: 1236px;
     margin: 0 auto;
 }
 
 .group-section {
-    width: 618px;
+    width: 618px; /* 646px * 0.957 约等于 618px */
     background-color: #2a2a2a;
     border-radius: 12px;
     padding: 20px;
@@ -98,7 +98,7 @@ body {
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 111.33px);
     gap: 16px;
     justify-content: center;
 }
