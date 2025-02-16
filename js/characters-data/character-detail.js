@@ -124,23 +124,26 @@ class CharacterDetail {
     async loadData() {
         try {
             // 并行加载所有数据
-            const [charactersResponse, rulesResponse] = await Promise.all([
+            const [charactersResponse, rulesResponse, groupsResponse] = await Promise.all([
                 fetch("data/characters/characters-details.json"),
-                fetch("data/rules/rules.json")
+                fetch("data/rules/rules.json"),
+                fetch("data/groups/groups.json")
             ]);
-            if (!charactersResponse.ok || !rulesResponse.ok) {
+            if (!charactersResponse.ok || !rulesResponse.ok || !groupsResponse.ok) {
                 throw new Error('数据加载失败');
             }
 
-            const [charactersData, rulesData] = await Promise.all([
+            const [charactersData, rulesData, groupsData] = await Promise.all([
                 charactersResponse.json(),
-                rulesResponse.json()
+                rulesResponse.json(),
+                groupsResponse.json()
             ]);
 
             this.allCharacters = charactersData.characters;
             this.characterData = charactersData.characters[this.characterId];
             this.configData = charactersData.config;
-            this.rulesData = rulesData;  
+            this.rulesData = rulesData;
+            this.groupsData = groupsData;
 
             if (!this.characterData) {
                 throw new Error('角色数据不存在');
@@ -331,21 +334,33 @@ class CharacterDetail {
                     const ruleKey = roundConfig?.[config.key];
                     return ruleKey && this.rulesData[ruleKey];
                 }
+                // 新增对预选赛链接的处理
+                if (config.key === 'visualization' || config.key === 'table') {
+                    const stageConfig = this.configData?.stages['预选赛阶段'];
+                    const [stage, type, gender] = this.characterId.split('.');
+                    const stageTypeConfig = stageConfig?.['恒星组']?.[`${gender}组别`];
+                    return stageTypeConfig && stageTypeConfig[config.key];
+                }
                 return roundConfig?.[config.key];
             })
             .map(config => {
                 let url;
                 if (config.key === 'rules') {
                     url = `pages/rules/rules.html?id=${roundConfig[config.key]}&from=characters-data`;
+                } else if (config.key === 'visualization' || config.key === 'table') {
+                    const stageConfig = this.configData.stages['预选赛阶段'];
+                    const [stage, type, gender] = this.characterId.split('.');
+                    const stageTypeConfig = stageConfig['恒星组'][`${gender}组别`];
+                    url = stageTypeConfig[config.key];
                 } else {
                     url = roundConfig[config.key];
-                    
-                    // 为其他链接添加 from 参数
-                    if (url.includes('?')) {
-                        url += `&from=characters-data`;
-                    } else {
-                        url += `?from=characters-data`;
-                    }
+                }
+                
+                // 为链接添加 from 参数
+                if (url.includes('?')) {
+                    url += `&from=characters-data`;
+                } else {
+                    url += `?from=characters-data`;
                 }
                 
                 return {
