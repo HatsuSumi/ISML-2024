@@ -1226,29 +1226,31 @@ function showCharacterSelection(characters) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const ROUND_NAME_MAP = {
-        '预选赛第一轮': '预选赛第1-1轮',
-        '预选赛第二轮': '预选赛第1-2轮',
-        '预选赛第三轮': '预选赛第2-1轮',
-        '预选赛第四轮': '预选赛第2-2轮',
-        '预选赛第五轮': '预选赛第3-1轮',
-        '预选赛第六轮': '预选赛第3-2轮'
-    };
+    setTimeout(() => {
+        const ROUND_NAME_MAP = {
+            '预选赛第一轮': '预选赛第1-1轮',
+            '预选赛第二轮': '预选赛第1-2轮',
+            '预选赛第三轮': '预选赛第2-1轮',
+            '预选赛第四轮': '预选赛第2-2轮',
+            '预选赛第五轮': '预选赛第3-1轮',
+            '预选赛第六轮': '预选赛第3-2轮'
+        };
 
-    $('*').filter(function() {
-        return $(this).text().includes('预选赛第') || 
-               $(this).attr('data-match-title') && $(this).attr('data-match-title').includes('预选赛第');
-    }).each(function() {
-        const $this = $(this);
-        const originalText = $this.text();
-        const originalTitle = $this.attr('data-match-title');
+        $('*').filter(function() {
+            return $(this).text().includes('预选赛第') || 
+                   $(this).attr('data-match-title') && $(this).attr('data-match-title').includes('预选赛第');
+        }).each(function() {
+            const $this = $(this);
+            const originalText = $this.text();
+            const originalTitle = $this.attr('data-match-title');
 
-        if (originalText && ROUND_NAME_MAP[originalText]) {
-            $this.text(ROUND_NAME_MAP[originalText]);
-        }
+            if (originalText && ROUND_NAME_MAP[originalText]) {
+                $this.text(ROUND_NAME_MAP[originalText]);
+            }
 
-        if (originalTitle && ROUND_NAME_MAP[originalTitle]) {
-            $this.attr('data-match-title', ROUND_NAME_MAP[originalTitle]);
-        }
-    });
+            if (originalTitle && ROUND_NAME_MAP[originalTitle]) {
+                $this.attr('data-match-title', ROUND_NAME_MAP[originalTitle]);
+            }
+        });
+    }, 1000);
 });
