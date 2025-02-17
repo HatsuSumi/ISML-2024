@@ -1224,3 +1224,29 @@ function showCharacterSelection(characters) {
     const searchEl = document.getElementById('characterSearch');
     searchEl.parentNode.insertBefore(selectionEl, searchEl.nextSibling);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const ROUND_NAME_MAP = {
+        '预选赛第一轮': '预选赛第1-1轮',
+        '预选赛第二轮': '预选赛第1-2轮',
+        '预选赛第三轮': '预选赛第2-1轮',
+        '预选赛第四轮': '预选赛第2-2轮',
+        '预选赛第五轮': '预选赛第3-1轮',
+        '预选赛第六轮': '预选赛第3-2轮'
+    };
+
+    $('.round-item').each(function() {
+        const $this = $(this);
+        const originalTitle = $this.attr('data-match-title');
+        const originalSpanText = $this.find('.round-title').text();
+
+        $this.attr('data-match-title', ROUND_NAME_MAP[originalTitle] || originalTitle);
+        $this.find('.round-title').text(ROUND_NAME_MAP[originalSpanText] || originalSpanText);
+    });
+
+    $('.match-title').each(function() {
+        const $this = $(this);
+        const originalText = $this.text();
+        $this.text(ROUND_NAME_MAP[originalText] || originalText);
+    });
+});
