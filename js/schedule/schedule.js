@@ -1322,6 +1322,15 @@ document.addEventListener('DOMContentLoaded', () => {
             $this.text(newText + rescheduledMark);
         });
 
+         // 处理 round-item 中的 round-title
+         $('.round-item .round-title').each(function() {
+            const $this = $(this);
+            const originalText = $this.text();
+            const rescheduledMark = originalText.includes('(重赛)') ? ' (重赛)' : '';
+            const newText = ROUND_NAME_MAP[originalText.replace(rescheduledMark, '')] || originalText;
+            $this.text(newText + rescheduledMark);
+        });
+
         // 原有的全局替换逻辑
         $('*').filter(function() {
             return $(this).text().includes('预选赛第') || 
