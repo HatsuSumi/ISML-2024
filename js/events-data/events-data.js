@@ -720,12 +720,10 @@ function createGroupSection(groupTitle, groupData, nextEventStartTime) {
                <div class="group-date">
                    ${groupData[0].event.dateRange.isRescheduled ? 
                        `原定：${formatDateTime(groupData[0].event.dateRange.start)} - ${formatDateTime(groupData[0].event.dateRange.end)}<br>
-                       重赛：${formatDateTime(groupData[0].event.dateRange.ReStart)} - ${formatDateTime(groupData[0].event.dateRange.ReEnd)}` 
-                       : `${formatDateTime(groupData[0].event.dateRange.start)} - ${formatDateTime(groupData[0].event.dateRange.end)}`}
-                   ${firstEvent.dateRange.result ? 
-                       ` | 结果公布：${formatDateTime(firstEvent.dateRange.result, 'date')}
+                       重赛：${formatDateTime(groupData[0].event.dateRange.ReStart)} - ${formatDateTime(groupData[0].event.dateRange.ReEnd)}
                        <span class="tooltip-trigger" title="${groupData[0].event.dateRange.rescheduledReason}">?</span>` 
-                       : `<span class="tooltip-trigger" title="${groupData[0].event.dateRange.rescheduledReason}">?</span>`}
+                       : `${formatDateTime(groupData[0].event.dateRange.start)} - ${formatDateTime(groupData[0].event.dateRange.end)}`}
+                   ${firstEvent.dateRange.result ? ` | 结果公布：${formatDateTime(firstEvent.dateRange.result, 'date')}` : ''}
                 /div>
             </div>
             <div class="status-info">
