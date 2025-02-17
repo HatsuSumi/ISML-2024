@@ -665,17 +665,17 @@ function createElevatorNav(data) {
             const currentMatchDiv = document.createElement('div');
             currentMatchDiv.className = 'current-match-info';
             currentMatchDiv.innerHTML = `
-                <div class="info-label">${
-                    // 根据是否重赛选择开始和结束日期
-                    (currentMatch.dateRange.isRescheduled && currentMatch.dateRange.Restart && currentMatch.dateRange.ReEnd) 
-                        ? (new Date() >= new Date(currentMatch.dateRange.Restart) && 
-                           new Date() <= new Date(currentMatch.dateRange.ReEnd))
-                        : (new Date() >= new Date(currentMatch.dateRange.start) && 
-                           new Date() <= new Date(currentMatch.dateRange.end))
-                    ? '当前进行中的赛事：' : '即将开始的赛事：'
-                }</div>
-                <div class="match-name">${currentMatch.title}${currentMatch.dateRange.isRescheduled ? ' (重赛)' : ''}</div>
-            `;
+            <div class="info-label">${
+                // 检查重赛条件是否完整
+                currentMatch.dateRange.isRescheduled 
+                    ? (new Date() >= new Date(currentMatch.dateRange.Restart) && 
+                       new Date() <= new Date(currentMatch.dateRange.ReEnd))
+                    : (new Date() >= new Date(currentMatch.dateRange.start) && 
+                       new Date() <= new Date(currentMatch.dateRange.end))
+                ? '当前进行中的赛事：' : '即将开始的赛事：'
+            }</div>
+            <div class="match-name">${currentMatch.title}${currentMatch.dateRange.isRescheduled ? ' (重赛)' : ''}</div>
+        `;
             
             // 点击跳转到对应赛事
             currentMatchDiv.querySelector('.match-name').addEventListener('click', () => {
