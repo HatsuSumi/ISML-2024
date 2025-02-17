@@ -569,11 +569,6 @@ function groupEventsByStructure(events) {
                     phaseId = `preliminary-${numMap[round]}`;
                 }
             }
-
-            console.log('处理事件:', {
-                title: match.title,
-                phaseId
-            });
             
             // 保留原有的分组逻辑
             let mainGroup;
