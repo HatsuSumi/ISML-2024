@@ -16,6 +16,18 @@ const TITLE_MAPPING = {
         { 
             title: '恒星男子组', 
             format: '赞成投票制',
+            description: 'A组'
+        }
+    ],
+    '预选赛第二轮': [
+        { 
+            title: '恒星女子组', 
+            format: '赞成投票制',
+            description: 'B组'
+        }, 
+        { 
+            title: '恒星男子组', 
+            format: '赞成投票制',
             description: 'B组'
         }
     ]
@@ -412,7 +424,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             // 处理折叠/展开
             if (item.querySelector('.collapse-icon')) {
                 item.addEventListener('click', (e) => {
-                    e.stopPropagation(); // 阻止冒泡，避免触发滚动
+                    e.stopPropagation();
                     const group = item.closest('.elevator-nav-group');
                     const icon = item.querySelector('.collapse-icon');
                     
