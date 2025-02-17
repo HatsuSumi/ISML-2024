@@ -79,7 +79,11 @@ function getNextMatch(data) {
     // 遍历所有阶段和比赛
     Object.values(data.phases).forEach(phase => {
         phase.matches.forEach(match => {
-            const startDate = new Date(match.dateRange.start);
+            // 根据是否重赛选择开始日期
+            const startDate = match.dateRange.isRescheduled 
+                ? new Date(match.dateRange.Restart) 
+                : new Date(match.dateRange.start);
+            
             const diff = startDate - now;
             // 只考虑未开始的比赛
             if (diff > 0 && diff < minDiff) {
@@ -498,10 +502,24 @@ function createElevatorNav(data) {
         
         // 检查阶段中所有比赛的状态
         const matches = phase.matches || [];
-        const hasCompleted = matches.some(match => new Date(match.dateRange.end) < now);
+        const hasCompleted = matches.some(match => {
+            // 对于重赛，使用重赛的结束日期
+            const endDate = match.dateRange.isRescheduled && match.dateRange.ReEnd 
+                ? new Date(match.dateRange.ReEnd)
+                : new Date(match.dateRange.end);
+            return endDate < now;
+        });
+        
         const hasOngoing = matches.some(match => {
-            const start = new Date(match.dateRange.start);
-            const end = new Date(match.dateRange.end);
+            // 对于重赛，使用重赛的开始和结束日期
+            const start = match.dateRange.isRescheduled && match.dateRange.Restart
+                ? new Date(match.dateRange.Restart)
+                : new Date(match.dateRange.start);
+            
+            const end = match.dateRange.isRescheduled && match.dateRange.ReEnd
+                ? new Date(match.dateRange.ReEnd)
+                : new Date(match.dateRange.end);
+            
             return now >= start && now <= end;
         });
         
@@ -621,8 +639,14 @@ function createElevatorNav(data) {
         
         Object.values(data.phases).forEach(phase => {
             phase.matches.forEach(match => {
-                const startDate = new Date(match.dateRange.start);
-                const endDate = new Date(match.dateRange.end);
+                // 根据是否重赛选择开始和结束日期
+                const startDate = match.dateRange.isRescheduled && match.dateRange.Restart
+                    ? new Date(match.dateRange.Restart)
+                    : new Date(match.dateRange.start);
+                
+                const endDate = match.dateRange.isRescheduled && match.dateRange.ReEnd
+                    ? new Date(match.dateRange.ReEnd)
+                    : new Date(match.dateRange.end);
                 
                 if (now >= startDate && now <= endDate) {
                     currentMatch = { ...match, phaseTitle: phase.title };
@@ -637,34 +661,38 @@ function createElevatorNav(data) {
     
     // 创建当前赛事信息
     const currentMatch = findCurrentMatch(data);
-    if (currentMatch) {
-        const currentMatchDiv = document.createElement('div');
-        currentMatchDiv.className = 'current-match-info';
-        currentMatchDiv.innerHTML = `
-            <div class="info-label">${
-                new Date() >= new Date(currentMatch.dateRange.start) && 
-                new Date() <= new Date(currentMatch.dateRange.end) ? 
-                '当前进行中的赛事：' : '即将开始的赛事：'
-            }</div>
-            <div class="match-name">${currentMatch.title}</div>
-        `;
-        
-        // 点击跳转到对应赛事
-        currentMatchDiv.querySelector('.match-name').addEventListener('click', () => {
-            // 查找包含指定标题的赛事卡片
-            const allMatches = document.querySelectorAll('.match-card');
-            const matchElement = Array.from(allMatches).find(card => 
-                card.querySelector('.match-title').textContent === currentMatch.title
-            );
+        if (currentMatch) {
+            const currentMatchDiv = document.createElement('div');
+            currentMatchDiv.className = 'current-match-info';
+            currentMatchDiv.innerHTML = `
+                <div class="info-label">${
+                    // 根据是否重赛选择开始和结束日期
+                    (currentMatch.dateRange.isRescheduled && currentMatch.dateRange.Restart && currentMatch.dateRange.ReEnd) 
+                        ? (new Date() >= new Date(currentMatch.dateRange.Restart) && 
+                           new Date() <= new Date(currentMatch.dateRange.ReEnd))
+                        : (new Date() >= new Date(currentMatch.dateRange.start) && 
+                           new Date() <= new Date(currentMatch.dateRange.end))
+                    ? '当前进行中的赛事：' : '即将开始的赛事：'
+                }</div>
+                <div class="match-name">${currentMatch.title}${currentMatch.dateRange.isRescheduled ? ' (重赛)' : ''}</div>
+            `;
             
-            if (matchElement) {
-                const targetPosition = getOffsetTop(matchElement) - 120;
-                smoothScrollTo(targetPosition);
-            }
-        });
-        
-        nav.appendChild(currentMatchDiv);
-    }
+            // 点击跳转到对应赛事
+            currentMatchDiv.querySelector('.match-name').addEventListener('click', () => {
+                // 查找包含指定标题的赛事卡片
+                const allMatches = document.querySelectorAll('.match-card');
+                const matchElement = Array.from(allMatches).find(card => 
+                    card.querySelector('.match-title').textContent === currentMatch.title
+                );
+                
+                if (matchElement) {
+                    const targetPosition = getOffsetTop(matchElement) - 120;
+                    smoothScrollTo(targetPosition);
+                }
+            });
+            
+            nav.appendChild(currentMatchDiv);
+        }
     
     document.body.appendChild(nav);
     
@@ -792,14 +820,25 @@ function createMatchElement(match, nextMatch) {
                      ${match.title === '恒星组提名' ? 
                          `2024-12-31 20:00:00 (周二) - 2025-01-07 19:59:59 (周二)` :
                          (() => {
-                             const startDate = new Date(match.dateRange.start);
-                             const endDate = new Date(match.dateRange.end);
-                             const startStr = match.dateRange.start;
-                             const endStr = match.dateRange.end;
-                             const endParts = endStr.split(' ')[0].split('-');
-                             
-                             const isCrossMonth = endDate.getMonth() !== startDate.getMonth() ||
-                                                endDate.getFullYear() !== startDate.getFullYear();
+                            const startDate = match.dateRange.isRescheduled && match.dateRange.Restart
+                                ? new Date(match.dateRange.Restart)
+                                : new Date(match.dateRange.start);
+
+                                const endDate = match.dateRange.isRescheduled && match.dateRange.ReEnd
+                                ? new Date(match.dateRange.ReEnd)
+                                : new Date(match.dateRange.end);
+
+                                const startStr = match.dateRange.isRescheduled && match.dateRange.Restart
+                                ? match.dateRange.Restart
+                                : match.dateRange.start;
+
+                                const endStr = match.dateRange.isRescheduled && match.dateRange.ReEnd
+                                ? match.dateRange.ReEnd
+                                : match.dateRange.end;
+
+                                const endParts = endStr.split(' ')[0].split('-');
+                                const isCrossMonth = endDate.getMonth() !== startDate.getMonth() ||
+                                endDate.getFullYear() !== startDate.getFullYear();
                              
                              const originalDateStr = `${startStr} (${getWeekday(startDate)}) - ${
                                  endParts.length === 3 ? endStr : 
@@ -918,8 +957,15 @@ function renderMatchDetails(match, status) {
                     `（女性：${match.details.participants.female} 人，男性：${match.details.participants.male} 人）` 
                     : ''}
             </span></p>
-            ${new Date() < new Date(match.dateRange.end) ? 
-                `<p><span class="key">剩余时间：</span><span class="value"><span data-countdown="${match.dateRange.end}">计算中...</span></span></p>`
+            ${new Date() < (match.dateRange.isRescheduled && match.dateRange.ReEnd 
+                ? new Date(match.dateRange.ReEnd) 
+                : new Date(match.dateRange.end)) 
+                ? `<p><span class="key">剩余时间：</span><span class="value">
+                    <span data-countdown="${
+                        match.dateRange.isRescheduled && match.dateRange.ReEnd 
+                            ? match.dateRange.ReEnd 
+                            : match.dateRange.end
+                    }">计算中...</span></span></p>`
                 : ''
             }
         `;
@@ -934,7 +980,13 @@ function renderMatchDetails(match, status) {
                     </span>` 
                     : match.details.requirements) + '</span>'
                 : ''}</p>
-            <p><span class="key">开始倒计时：</span><span class="value"><span data-countdown="${match.dateRange.start}">计算中...</span></span></p>
+            <p><span class="key">开始倒计时：</span><span class="value">
+                <span data-countdown="${
+                    match.dateRange.isRescheduled && match.dateRange.Restart 
+                        ? match.dateRange.Restart 
+                        : match.dateRange.start
+                }">计算中...</span>
+            </span></p>
             ${reminderButton}
         `;
     }
@@ -1185,8 +1237,15 @@ function getMatchStatus(match) {
     }
     
     const now = new Date();
-    const startDate = new Date(match.dateRange.start);
-    const endDate = new Date(match.dateRange.end);
+    
+    // 根据是否重赛选择开始和结束日期
+    const startDate = match.dateRange.isRescheduled && match.dateRange.Restart
+        ? new Date(match.dateRange.Restart)
+        : new Date(match.dateRange.start);
+    
+    const endDate = match.dateRange.isRescheduled && match.dateRange.ReEnd
+        ? new Date(match.dateRange.ReEnd)
+        : new Date(match.dateRange.end);
     
     if (now > endDate) {
         return 'completed';
