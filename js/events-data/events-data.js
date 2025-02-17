@@ -192,11 +192,17 @@ document.addEventListener('DOMContentLoaded', async function() {
             const card = document.createElement('div');
             card.className = 'event-card';
             
+            console.log('Match Title:', match.title);
+            console.log('TITLE_MAPPING:', TITLE_MAPPING);
+            console.log('Mapped Titles:', TITLE_MAPPING[match.title]);
+            
             // 使用 TITLE_MAPPING 获取 eventTitle
             const eventTitle = 
                 TITLE_MAPPING[match.title]?.eventTitles?.[
                     TITLE_MAPPING[match.title]?.eventTitles?.indexOf(match.title) ?? -1
                 ] || formatEventTitle(match.title);
+            
+            console.log('Resolved Event Title:', eventTitle);
             
             const status = getEventStatus(event, nextEventStartTime);
             
