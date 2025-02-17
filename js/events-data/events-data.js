@@ -824,4 +824,37 @@ window.addEventListener('load', () => {
     }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        const ROUND_NAME_MAP = {
+            '预选赛第一轮': '预选赛第1 - 1轮',
+            '预选赛第二轮': '预选赛第1 - 2轮',
+            '预选赛第三轮': '预选赛第2 - 1轮',
+            '预选赛第四轮': '预选赛第2 - 2轮',
+            '预选赛第五轮': '预选赛第3 - 1轮',
+            '预选赛第六轮': '预选赛第3 - 2轮'
+        };
+
+        $('*').filter(function() {
+            return $(this).text().includes('预选赛第') || 
+                   $(this).attr('data-target') && $(this).attr('data-target').includes('preliminary');
+        }).each(function() {
+            const $this = $(this);
+            const originalText = $this.text();
+            const originalTarget = $this.attr('data-target');
+
+            if (originalText && ROUND_NAME_MAP[originalText]) {
+                $this.text(ROUND_NAME_MAP[originalText]);
+            }
+
+            if (originalTarget && originalTarget.includes('preliminary')) {
+                const roundNumber = originalTarget.replace('preliminary-', '');
+                const newTarget = 'preliminary-' + roundNumber.replace('1', '1 - 1').replace('2', '1 - 2')
+                    .replace('3', '2 - 1').replace('4', '2 - 2')
+                    .replace('5', '3 - 1').replace('6', '3 - 2');
+                $this.attr('data-target', newTarget);
+            }
+        });
+    }, 1000);
+});
 
