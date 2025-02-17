@@ -7,10 +7,10 @@ const SCROLL_POSITION_KEY = 'events_scroll_position';
 const RETURN_FROM_KEY = 'return_from_event';
 
 const TITLE_MAPPING = {
-    '预选赛第一轮': {
-        groupTitle: '预选赛第1 - 1轮',
-        eventTitles: ['恒星女子组', '恒星男子组']
-    }
+    '预选赛第一轮': [
+        { title: '恒星女子组', format: '赞成投票制' }, 
+        { title: '恒星男子组', format: '赞成投票制' }
+    ]
 };
 
 // 添加一个函数来找到下一场比赛的开始时间
@@ -651,23 +651,21 @@ function createPhaseSection(phaseName, phase, nextEventStartTime) {
         const finalGroupTitle = 
             TITLE_MAPPING[groupName]?.groupTitle || groupName;
         
-        const modifiedMatches = matches.map((eventMatch, index) => {
+        const modifiedMatches = matches.flatMap((eventMatch) => {
             const match = eventMatch.match;
             
-            console.log('Current Index:', index);
-            console.log('Match:', match);
-            console.log('TITLE_MAPPING:', TITLE_MAPPING);
-            console.log('Mapped Titles:', TITLE_MAPPING[match.title]?.eventTitles);
-            console.log('Selected Title:', TITLE_MAPPING[match.title]?.eventTitles?.[index % 2] || match.title);
+            if (TITLE_MAPPING[match.title]) {
+                return TITLE_MAPPING[match.title].map(item => ({
+                    ...eventMatch,
+                    match: {
+                        ...match,
+                        title: item.title,
+                        format: item.format
+                    }
+                }));
+            }
             
-            return {
-                ...eventMatch,
-                match: {
-                    ...match,
-                    originalTitle: match.title,
-                    title: TITLE_MAPPING[match.title]?.eventTitles?.[index % 2] || match.title
-                }
-            };
+            return [eventMatch];
         });
         
         const groupSection = createGroupSection(finalGroupTitle, modifiedMatches, nextEventStartTime);
