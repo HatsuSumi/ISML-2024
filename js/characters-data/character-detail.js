@@ -784,23 +784,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const detail = new CharacterDetail();
     detail.init();
     const ROUND_NAME_MAP = {
-        '预选赛第一轮': '预选赛第1 - 1轮',
-        '预选赛第二轮': '预选赛第1 - 2轮',
-        '预选赛第三轮': '预选赛第2 - 1轮',
-        '预选赛第四轮': '预选赛第2 - 2轮',
-        '预选赛第五轮': '预选赛第3 - 1轮',
-        '预选赛第六轮': '预选赛第3 - 2轮'
+        '预选赛第一轮': '预选赛第1-1轮',
+        '预选赛第二轮': '预选赛第1-2轮',
+        '预选赛第三轮': '预选赛第2-1轮',
+        '预选赛第四轮': '预选赛第2-2轮',
+        '预选赛第五轮': '预选赛第3-1轮',
+        '预选赛第六轮': '预选赛第3-2轮'
     };
+
+    console.log('Round Name Map:', ROUND_NAME_MAP);
+    console.log('Elements to replace:', 
+        $('a[data-target^="round-"]').length, 
+        $('.event-title span').length
+    );
 
     $('a[data-target^="round-"]').each(function() {
         const originalTarget = $(this).attr('data-target');
-        const newTarget = 'round-' + ROUND_NAME_MAP[originalTarget.replace('round-', '')] || originalTarget;
+        const originalText = $(this).text();
+        console.log('Original Target:', originalTarget, 'Original Text:', originalText);
+        
+        const newTarget = 'round-' + (ROUND_NAME_MAP[originalTarget.replace('round-', '')] || originalTarget);
+        const newText = ROUND_NAME_MAP[originalText] || originalText;
+        
+        console.log('New Target:', newTarget, 'New Text:', newText);
+        
         $(this).attr('data-target', newTarget);
-        $(this).text(ROUND_NAME_MAP[$(this).text()] || $(this).text());
+        $(this).text(newText);
     });
 
     $('.event-title span').each(function() {
-        $(this).text(ROUND_NAME_MAP[$(this).text()] || $(this).text());
+        const originalText = $(this).text();
+        console.log('Original Event Title:', originalText);
+        
+        const newText = ROUND_NAME_MAP[originalText] || originalText;
+        
+        console.log('New Event Title:', newText);
+        
+        $(this).text(newText);
     });
 });
 
