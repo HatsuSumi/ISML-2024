@@ -558,7 +558,14 @@ function groupEventsByStructure(events) {
             } else if (match.title.includes('预选赛')) {
                 const round = match.title.match(/第([一二三四五六])轮/)?.[1];
                 if (round) {
-                    const numMap = {'一':1, '二':2, '三':3, '四':4, '五':5, '六':6};
+                    const numMap = {
+                        '一': '1-1', 
+                        '二': '1-2', 
+                        '三': '2-1', 
+                        '四': '2-2', 
+                        '五': '3-1', 
+                        '六': '3-2'
+                    };
                     phaseId = `preliminary-${numMap[round]}`;
                 }
             }
