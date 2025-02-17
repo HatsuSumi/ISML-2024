@@ -198,9 +198,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             
             // 使用 TITLE_MAPPING 获取 eventTitle
             const eventTitle = 
-                TITLE_MAPPING[match.title]?.eventTitles?.[
-                    TITLE_MAPPING[match.title]?.eventTitles?.indexOf(match.title) ?? -1
-                ] || formatEventTitle(match.title);
+               TITLE_MAPPING[match.title]?.eventTitles?.[0] || 
+               formatEventTitle(match.title);
             
             console.log('Resolved Event Title:', eventTitle);
             
@@ -746,7 +745,7 @@ function formatDateTime(date, format = 'full') {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} (${weekDay})`;
 }
 
-function formatEventTitle(title) {
+function formatEventTitle(title) {  
     // 只处理预选赛的标题
     if (title.includes('预选赛')) {
         if (title.includes('恒星组')) {
