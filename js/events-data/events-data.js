@@ -654,6 +654,12 @@ function createPhaseSection(phaseName, phase, nextEventStartTime) {
         const modifiedMatches = matches.map((eventMatch, index) => {
             const match = eventMatch.match;
             
+            console.log('Current Index:', index);
+            console.log('Match:', match);
+            console.log('TITLE_MAPPING:', TITLE_MAPPING);
+            console.log('Mapped Titles:', TITLE_MAPPING[match.title]?.eventTitles);
+            console.log('Selected Title:', TITLE_MAPPING[match.title]?.eventTitles?.[index % 2] || match.title);
+            
             return {
                 ...eventMatch,
                 match: {
