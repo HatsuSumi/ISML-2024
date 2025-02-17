@@ -283,7 +283,8 @@
                     "matches": [
                         {
                             "title": "预选赛第三轮",
-                            "phase": "预选赛阶段"
+                            "phase": "预选赛阶段",
+                            "status": "postponed"
                         }
                     ]
                 },
