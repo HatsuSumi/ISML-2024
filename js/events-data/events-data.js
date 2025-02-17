@@ -192,6 +192,12 @@ document.addEventListener('DOMContentLoaded', async function() {
             const card = document.createElement('div');
             card.className = 'event-card';
             
+            // 使用 TITLE_MAPPING 获取 eventTitle
+            const eventTitle = 
+                TITLE_MAPPING[match.title]?.eventTitles?.[
+                    TITLE_MAPPING[match.title]?.eventTitles?.indexOf(match.title) ?? -1
+                ] || formatEventTitle(match.title);
+            
             const status = getEventStatus(event, nextEventStartTime);
             
             let description = '';
@@ -207,7 +213,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <div class="event-header">
                     <div class="event-info">
                         <div class="event-title">
-                            ${formatEventTitle(match.title)}
+                            ${eventTitle}
                         </div>
                         ${match.format ? `
                             <div class="voting-format-wrapper">
