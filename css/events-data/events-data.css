@@ -784,15 +784,15 @@ html {
 
 .tooltip-trigger {
     cursor: help;
-    background-color: #f0f0f0;
+    background-color: #f0e6ff; 
     color: #333;
     border-radius: 50%;
-    width: 16px;
-    height: 16px;
+    width: 12px;  
+    height: 12px; 
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 10px;  
     font-weight: bold;
     margin-left: 5px;
     position: relative;
@@ -801,13 +801,13 @@ html {
 }
 
 .tooltip-trigger:hover {
-    background-color: #e0e0e0;
+    background-color: #e6d6ff; 
 }
 
 .tooltip-trigger:hover::after {
     content: attr(data-title);
     position: absolute;
-    background-color: #333;
+    background-color: #6a5acd;  
     color: white;
     padding: 5px;
     border-radius: 3px;
@@ -817,4 +817,17 @@ html {
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
+    animation: tooltipFadeIn 0.3s ease-out;
+    opacity: 1;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
