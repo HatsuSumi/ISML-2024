@@ -569,7 +569,7 @@ function groupEventsByStructure(events) {
                     phaseId = `preliminary-${numMap[round]}`;
                 }
             }
-            
+
             // 保留原有的分组逻辑
             let mainGroup;
             if (match.title.includes('预选赛')) {
@@ -618,6 +618,7 @@ function createDateSection(date, dateGroup, nextEventStartTime) {
 }
 
 function createPhaseSection(phaseName, phase, nextEventStartTime) {
+    console.log('phase.groups:', phase.groups);
     const phaseSection = document.createElement('div');
     phaseSection.className = 'phase-group';
     
