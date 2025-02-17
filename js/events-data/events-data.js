@@ -856,9 +856,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (originalTarget && originalTarget.includes('preliminary')) {
                 const roundNumber = originalTarget.replace('preliminary-', '');
-                const newTarget = 'preliminary-' + roundNumber.replace('1', '1 - 1').replace('2', '1 - 2')
-                    .replace('3', '2 - 1').replace('4', '2 - 2')
-                    .replace('5', '3 - 1').replace('6', '3 - 2');
+                const newTarget = 'preliminary-' + roundNumber
+                    .replace('1', '1-1')
+                    .replace('2', '1-2')
+                    .replace('3', '2-1')
+                    .replace('4', '2-2')
+                    .replace('5', '3-1')
+                    .replace('6', '3-2');
                 $this.attr('data-target', newTarget);
             }
         });
