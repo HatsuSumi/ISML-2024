@@ -192,16 +192,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             const card = document.createElement('div');
             card.className = 'event-card';
             
-            console.log('Match Title:', match.title);
-            console.log('TITLE_MAPPING:', TITLE_MAPPING);
-            console.log('Mapped Titles:', TITLE_MAPPING[match.title]);
-            
-            // 使用 TITLE_MAPPING 获取 eventTitle
-            const eventTitle = 
-               TITLE_MAPPING[match.title]?.eventTitles?.[0] || 
-               formatEventTitle(match.title);
-            
-            console.log('Resolved Event Title:', eventTitle);
+            const eventTitle = match.title;
             
             const status = getEventStatus(event, nextEventStartTime);
             
@@ -662,8 +653,9 @@ function createPhaseSection(phaseName, phase, nextEventStartTime) {
         
         const modifiedMatches = matches.map((match, index) => ({
             ...match,
-            // 如果有映射，使用映射的 eventTitle
-            title: TITLE_MAPPING[groupName]?.eventTitles?.[index] || match.title
+            originalTitle: match.title,
+            title: TITLE_MAPPING[match.title]?.eventTitles?.[index] || match.title,
+            eventIndex: index
         }));
         
         const groupSection = createGroupSection(finalGroupTitle, modifiedMatches, nextEventStartTime);
