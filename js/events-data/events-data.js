@@ -722,7 +722,8 @@ function createGroupSection(groupTitle, groupData, nextEventStartTime) {
                         `原定：${formatDateTime(groupData[0].event.dateRange.start)} - ${formatDateTime(groupData[0].event.dateRange.end)}<br>
                         重赛：${formatDateTime(groupData[0].event.dateRange.ReStart)} - ${formatDateTime(groupData[0].event.dateRange.ReEnd)}` 
                         : `${formatDateTime(groupData[0].event.dateRange.start)} - ${formatDateTime(groupData[0].event.dateRange.end)}`}
-                    ${firstEvent.dateRange.result ? ` | 结果公布：${formatDateTime(firstEvent.dateRange.result, 'date')}` : ''}
+                    ${firstEvent.dateRange.result ? ` | 结果公布：${formatDateTime(firstEvent.dateRange.result, 'date')}
+                        <span class="tooltip-trigger" title="${groupData[0].event.dateRange.rescheduledReason}">?</span>` : ''}
                 </div>
             </div>
             <div class="status-info">

@@ -249,7 +249,8 @@
                         "end": "2025-02-14 19:59:59",
                         "ReStart": "2025-02-19 20:00:00",
                         "ReEnd": "2025-02-20 19:59:59",
-                        "isRescheduled": true
+                        "isRescheduled": true,
+                        "rescheduledReason": "因世萌服务器遭到攻击，工作人员讨论后决定重赛"
                     },
                     "matches": [
                         {

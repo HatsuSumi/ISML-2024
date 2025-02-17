@@ -781,3 +781,20 @@ html {
         display: none;
     }
 }
+
+.tooltip-trigger {
+    cursor: help;
+    margin-left: 5px;
+    font-size: 0.8em;
+}
+
+.tooltip-trigger:hover::after {
+    content: attr(title);
+    position: absolute;
+    background-color: #333;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
