@@ -813,7 +813,7 @@ html {
     font-size: 0.8rem;
     font-weight: normal;
     white-space: nowrap;
-    top: -40px;
+    top: -36px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
