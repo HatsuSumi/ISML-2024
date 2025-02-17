@@ -504,8 +504,8 @@ function createElevatorNav(data) {
         const matches = phase.matches || [];
         const hasCompleted = matches.some(match => {
             // 对于重赛，使用重赛的结束日期
-            const endDate = match.dateRange.isRescheduled && match.dateRange.ReEnd 
-                ? new Date(match.dateRange.ReEnd)
+            const endDate = match.dateRange.isRescheduled && match.dateRange.Reend 
+                ? new Date(match.dateRange.Reend)
                 : new Date(match.dateRange.end);
             return endDate < now;
         });
@@ -516,8 +516,8 @@ function createElevatorNav(data) {
                 ? new Date(match.dateRange.Restart)
                 : new Date(match.dateRange.start);
             
-            const end = match.dateRange.isRescheduled && match.dateRange.ReEnd
-                ? new Date(match.dateRange.ReEnd)
+            const end = match.dateRange.isRescheduled && match.dateRange.Reend
+                ? new Date(match.dateRange.Reend)
                 : new Date(match.dateRange.end);
             
             return now >= start && now <= end;
@@ -550,8 +550,8 @@ function createElevatorNav(data) {
                     const now = new Date();
                     
                         const status = match.dateRange.isRescheduled 
-                        ? (new Date(match.dateRange.ReEnd) < now ? '已结束' :
-                           (new Date(match.dateRange.Restart) <= now && now <= new Date(match.dateRange.ReEnd)) ? '进行中' : '未开始')
+                        ? (new Date(match.dateRange.Reend) < now ? '已结束' :
+                           (new Date(match.dateRange.Restart) <= now && now <= new Date(match.dateRange.Reend)) ? '进行中' : '未开始')
                         : (originalEndDate < now ? '已结束' :
                            (new Date(match.dateRange.start) <= now && now <= originalEndDate) ? '进行中' : '未开始');
                     
@@ -644,8 +644,8 @@ function createElevatorNav(data) {
                     ? new Date(match.dateRange.Restart)
                     : new Date(match.dateRange.start);
                 
-                const endDate = match.dateRange.isRescheduled && match.dateRange.ReEnd
-                    ? new Date(match.dateRange.ReEnd)
+                const endDate = match.dateRange.isRescheduled && match.dateRange.Reend
+                    ? new Date(match.dateRange.Reend)
                     : new Date(match.dateRange.end);
                 
                 if (now >= startDate && now <= endDate) {
@@ -669,7 +669,7 @@ function createElevatorNav(data) {
                 // 直接返回文案
                 currentMatch.dateRange.isRescheduled 
                     ? (new Date() >= new Date(currentMatch.dateRange.Restart) && 
-                       new Date() <= new Date(currentMatch.dateRange.ReEnd))
+                       new Date() <= new Date(currentMatch.dateRange.Reend))
                         ? '当前进行中的赛事：' 
                         : '即将开始的赛事：'
                     : (new Date() >= new Date(currentMatch.dateRange.start) && 
@@ -827,16 +827,16 @@ function createMatchElement(match, nextMatch) {
                                 ? new Date(match.dateRange.Restart)
                                 : new Date(match.dateRange.start);
 
-                                const endDate = match.dateRange.isRescheduled && match.dateRange.ReEnd
-                                ? new Date(match.dateRange.ReEnd)
+                                const endDate = match.dateRange.isRescheduled && match.dateRange.Reend
+                                ? new Date(match.dateRange.Reend)
                                 : new Date(match.dateRange.end);
 
                                 const startStr = match.dateRange.isRescheduled && match.dateRange.Restart
                                 ? match.dateRange.Restart
                                 : match.dateRange.start;
 
-                                const endStr = match.dateRange.isRescheduled && match.dateRange.ReEnd
-                                ? match.dateRange.ReEnd
+                                const endStr = match.dateRange.isRescheduled && match.dateRange.Reend
+                                ? match.dateRange.Reend
                                 : match.dateRange.end;
 
                                 const endParts = endStr.split(' ')[0].split('-');
@@ -853,7 +853,7 @@ function createMatchElement(match, nextMatch) {
                              return match.dateRange.isRescheduled ? 
                                 `原定：${originalDateStr}<br>重赛：${
                                     match.dateRange.Restart ? 
-                                    `${match.dateRange.Restart} (${getWeekday(new Date(match.dateRange.Restart))}) - ${match.dateRange.ReEnd} (${getWeekday(new Date(match.dateRange.ReEnd))})
+                                    `${match.dateRange.Restart} (${getWeekday(new Date(match.dateRange.Restart))}) - ${match.dateRange.Reend} (${getWeekday(new Date(match.dateRange.Reend))})
                                     <span class="tooltip-trigger" data-title="${match.dateRange.rescheduledReason}">?</span>` 
                                     : ''
                                 }` : 
@@ -960,13 +960,13 @@ function renderMatchDetails(match, status) {
                     `（女性：${match.details.participants.female} 人，男性：${match.details.participants.male} 人）` 
                     : ''}
             </span></p>
-            ${new Date() < (match.dateRange.isRescheduled && match.dateRange.ReEnd 
-                ? new Date(match.dateRange.ReEnd) 
+            ${new Date() < (match.dateRange.isRescheduled && match.dateRange.Reend 
+                ? new Date(match.dateRange.Reend) 
                 : new Date(match.dateRange.end)) 
                 ? `<p><span class="key">剩余时间：</span><span class="value">
                     <span data-countdown="${
-                        match.dateRange.isRescheduled && match.dateRange.ReEnd 
-                            ? match.dateRange.ReEnd 
+                        match.dateRange.isRescheduled && match.dateRange.Reend 
+                            ? match.dateRange.Reend 
                             : match.dateRange.end
                     }">计算中...</span></span></p>`
                 : ''
@@ -1246,8 +1246,8 @@ function getMatchStatus(match) {
         ? new Date(match.dateRange.Restart)
         : new Date(match.dateRange.start);
     
-    const endDate = match.dateRange.isRescheduled && match.dateRange.ReEnd
-        ? new Date(match.dateRange.ReEnd)
+    const endDate = match.dateRange.isRescheduled && match.dateRange.Reend
+        ? new Date(match.dateRange.Reend)
         : new Date(match.dateRange.end);
     
     if (now > endDate) {
