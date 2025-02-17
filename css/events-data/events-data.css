@@ -811,8 +811,9 @@ html {
     padding: 5px;
     border-radius: 3px;
     font-size: 0.8rem;
+    font-weight: normal;
     white-space: nowrap;
-    top: -30px;
+    top: -40px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
