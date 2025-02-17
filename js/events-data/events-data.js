@@ -724,7 +724,7 @@ function createGroupSection(groupTitle, groupData, nextEventStartTime) {
                        <span class="tooltip-trigger" title="${groupData[0].event.dateRange.rescheduledReason}">?</span>` 
                        : `${formatDateTime(groupData[0].event.dateRange.start)} - ${formatDateTime(groupData[0].event.dateRange.end)}`}
                    ${firstEvent.dateRange.result ? ` | 结果公布：${formatDateTime(firstEvent.dateRange.result, 'date')}` : ''}
-                /div>
+                </div>
             </div>
             <div class="status-info">
                 ${status === 'postponed' ? `
