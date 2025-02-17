@@ -199,8 +199,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             let description = '';
             if (match.details?.qualified) {
                 description = match.details.qualified.description;
-            } else if (match.format) {
-                description = match.format;
             }
             
             const topFiveData = rankingData?.[match.title]?.top5;
