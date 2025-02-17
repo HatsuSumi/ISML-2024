@@ -531,13 +531,11 @@ function createElevatorNav(data) {
                     const originalEndDate = new Date(match.dateRange.end);
                     const now = new Date();
                     
-                    // 如果是重赛，使用重赛的结束日期
-                    const effectiveEndDate = match.dateRange.isRescheduled && match.dateRange.ReEnd 
-                        ? new Date(match.dateRange.ReEnd) 
-                        : originalEndDate;
-                    
-                    const status = effectiveEndDate < now ? '已结束' :
-                                 (new Date(match.dateRange.start) <= now && now <= effectiveEndDate) ? '进行中' : '未开始';
+                        const status = match.dateRange.isRescheduled 
+                        ? (new Date(match.dateRange.ReEnd) < now ? '已结束' :
+                           (new Date(match.dateRange.Restart) <= now && now <= new Date(match.dateRange.ReEnd)) ? '进行中' : '未开始')
+                        : (originalEndDate < now ? '已结束' :
+                           (new Date(match.dateRange.start) <= now && now <= originalEndDate) ? '进行中' : '未开始');
                     
                     const statusClass = status === '已结束' ? 'completed' :
                                       status === '进行中' ? 'ongoing' : 'pending';
