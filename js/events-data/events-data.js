@@ -73,8 +73,8 @@ function getEventStatus(event, nextEventStartTime) {
         ? new Date(event.dateRange.Restart)
         : new Date(event.dateRange.start);
     
-    const endDate = event.dateRange.isRescheduled && event.dateRange.ReEnd
-        ? new Date(event.dateRange.ReEnd)
+    const endDate = event.dateRange.isRescheduled && event.dateRange.Reend
+        ? new Date(event.dateRange.Reend)
         : new Date(event.dateRange.end);
     
     // 设置时间为当天开始和结束
@@ -195,8 +195,8 @@ function getCurrentPhase(eventsData) {
                 ? new Date(event.dateRange.Restart)
                 : new Date(event.dateRange.start);
             
-            const endDate = event.dateRange.isRescheduled && event.dateRange.ReEnd
-                ? new Date(event.dateRange.ReEnd)
+            const endDate = event.dateRange.isRescheduled && event.dateRange.Reend
+                ? new Date(event.dateRange.Reend)
                 : new Date(event.dateRange.end);
             
             startDate.setHours(0, 0, 0, 0);
@@ -750,7 +750,7 @@ function createGroupSection(groupTitle, groupData, nextEventStartTime) {
                <div class="group-date">
                    ${groupData[0].event.dateRange.isRescheduled ? 
                        `原定：${formatDateTime(groupData[0].event.dateRange.start)} - ${formatDateTime(groupData[0].event.dateRange.end)}<br>
-                       重赛：${formatDateTime(groupData[0].event.dateRange.ReStart)} - ${formatDateTime(groupData[0].event.dateRange.ReEnd)}
+                       重赛：${formatDateTime(groupData[0].event.dateRange.Restart)} - ${formatDateTime(groupData[0].event.dateRange.Reend)}
                        <span class="tooltip-trigger" data-title="${groupData[0].event.dateRange.rescheduledReason}">?</span>` 
                        : `${formatDateTime(groupData[0].event.dateRange.start)} - ${formatDateTime(groupData[0].event.dateRange.end)}`}
                    ${firstEvent.dateRange.result ? ` | 结果公布：${formatDateTime(firstEvent.dateRange.result, 'date')}` : ''}
