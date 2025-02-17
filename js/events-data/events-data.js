@@ -43,7 +43,11 @@ function findNextEventStartTime(data) {
     // 遍历所有月份和事件，找到最近的未开始的比赛
     for (const [monthKey, month] of Object.entries(data.months)) {
         month.events.forEach(event => {
-            const startDate = new Date(event.dateRange.start);
+            // 根据是否重赛选择开始日期
+            const startDate = event.dateRange.isRescheduled && event.dateRange.Restart
+                ? new Date(event.dateRange.Restart)
+                : new Date(event.dateRange.start);
+            
             startDate.setHours(0, 0, 0, 0);
             
             if (startDate > now) {
@@ -63,8 +67,15 @@ function getEventStatus(event, nextEventStartTime) {
     }
     
     const now = new Date();
-    const startDate = new Date(event.dateRange.start);
-    const endDate = new Date(event.dateRange.end);
+    
+    // 根据是否重赛选择开始和结束日期
+    const startDate = event.dateRange.isRescheduled && event.dateRange.Restart
+        ? new Date(event.dateRange.Restart)
+        : new Date(event.dateRange.start);
+    
+    const endDate = event.dateRange.isRescheduled && event.dateRange.ReEnd
+        ? new Date(event.dateRange.ReEnd)
+        : new Date(event.dateRange.end);
     
     // 设置时间为当天开始和结束
     startDate.setHours(0, 0, 0, 0);
@@ -177,10 +188,17 @@ function getCurrentPhase(eventsData) {
     now.setHours(0, 0, 0, 0);
     
     // 遍历所有月份和事件
-    for (const [monthKey, month] of Object.entries(eventsData.months)) {
+    for (const month of Object.values(eventsData.months)) {
         for (const event of month.events) {
-            const startDate = new Date(event.dateRange.start);
-            const endDate = new Date(event.dateRange.end);
+            // 根据是否重赛选择开始和结束日期
+            const startDate = event.dateRange.isRescheduled && event.dateRange.Restart
+                ? new Date(event.dateRange.Restart)
+                : new Date(event.dateRange.start);
+            
+            const endDate = event.dateRange.isRescheduled && event.dateRange.ReEnd
+                ? new Date(event.dateRange.ReEnd)
+                : new Date(event.dateRange.end);
+            
             startDate.setHours(0, 0, 0, 0);
             endDate.setHours(23, 59, 59, 999);
             
@@ -551,20 +569,32 @@ function groupEventsByStructure(events) {
     const processedEvents = new Set();
     
     events.forEach(event => {
-        const startDate = new Date(event.dateRange.start);
+        // 根据是否重赛选择开始日期
+        const startDate = event.dateRange.isRescheduled && event.dateRange.Restart
+            ? new Date(event.dateRange.Restart)
+            : new Date(event.dateRange.start);
+        
         const month = String(startDate.getMonth() + 1).padStart(2, '0');
         const day = String(startDate.getDate()).padStart(2, '0');
         const dateKey = `${month}.${day}`;
         
         if (!structure[dateKey]) {
             structure[dateKey] = {
-                date: event.dateRange.start,
+                date: event.dateRange.isRescheduled && event.dateRange.Restart 
+                    ? event.dateRange.Restart 
+                    : event.dateRange.start,
                 phases: {}
             };
         }
         
         event.matches.forEach(match => {
-            const eventId = `${event.dateRange.start}-${match.title}`;
+            // 使用重赛日期或原始日期创建唯一标识
+            const eventId = `${
+                event.dateRange.isRescheduled && event.dateRange.Restart 
+                    ? event.dateRange.Restart 
+                    : event.dateRange.start
+            }-${match.title}`;
+            
             if (processedEvents.has(eventId)) return;
             processedEvents.add(eventId);
             
