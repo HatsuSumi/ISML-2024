@@ -513,37 +513,45 @@ function createElevatorNav(data) {
 
         const li = document.createElement('li');
         li.innerHTML = `
-            <a href="#${phaseId}" class="nav-link ${phaseStatus}">
-                <span class="status-dot"></span>
-                <div class="nav-text">
-                    <div class="nav-text-content">
-                        <span class="phase-title">${phase.title}</span>
-                        <span class="phase-status phase-status-toggle">${
-                            phaseStatus === 'completed' ? '已结束' :
-                            phaseStatus === 'ongoing' ? '进行中' : '未开始'
-                        }</span>
-                    </div>
-                    <span class="nav-arrow">›</span>
+        <a href="#${phaseId}" class="nav-link ${phaseStatus}">
+            <span class="status-dot"></span>
+            <div class="nav-text">
+                <div class="nav-text-content">
+                    <span class="phase-title">${phase.title}</span>
+                    <span class="phase-status phase-status-toggle">${
+                        phaseStatus === 'completed' ? '已结束' :
+                        phaseStatus === 'ongoing' ? '进行中' : '未开始'
+                    }</span>
                 </div>
-                <div class="round-dropdown">
-                    ${phase.matches.map((match, index) => {
-                        const matchDate = new Date(match.dateRange.end);
-                        const now = new Date();
-                        const status = matchDate < now ? '已结束' :
-                                     (new Date(match.dateRange.start) <= now && now <= matchDate) ? '进行中' : '未开始';
-                        const statusClass = status === '已结束' ? 'completed' :
-                                          status === '进行中' ? 'ongoing' : 'pending';
-                        
-                        return `
-                            <div class="round-item" data-match-title="${match.title}">
-                                <span class="round-title">${match.title.split(' ').pop()}</span>
-                                <span class="round-status ${statusClass}">${status}</span>
-                            </div>
-                        `;
-                    }).join('')}
-                </div>
-            </a>
-        `;
+                <span class="nav-arrow">›</span>
+            </div>
+            <div class="round-dropdown">
+                ${phase.matches.map((match, index) => {
+                    // 考虑重赛日期
+                    const originalEndDate = new Date(match.dateRange.end);
+                    const now = new Date();
+                    
+                    // 如果是重赛，使用重赛的结束日期
+                    const effectiveEndDate = match.dateRange.isRescheduled && match.dateRange.ReEnd 
+                        ? new Date(match.dateRange.ReEnd) 
+                        : originalEndDate;
+                    
+                    const status = effectiveEndDate < now ? '已结束' :
+                                 (new Date(match.dateRange.start) <= now && now <= effectiveEndDate) ? '进行中' : '未开始';
+                    
+                    const statusClass = status === '已结束' ? 'completed' :
+                                      status === '进行中' ? 'ongoing' : 'pending';
+                    
+                    return `
+                        <div class="round-item" data-match-title="${match.title}">
+                            <span class="round-title">${match.title.split(' ').pop()}${match.dateRange.isRescheduled ? ' (重赛)' : ''}</span>
+                            <span class="round-status ${statusClass}">${status}</span>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        </a>
+    `;
         
         // 添加点击事件处理
         li.querySelector('a').addEventListener('click', (e) => {
