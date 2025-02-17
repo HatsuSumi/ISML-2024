@@ -173,10 +173,9 @@ function getCurrentPhase(eventsData) {
             endDate.setHours(23, 59, 59, 999);
             
             if (now >= startDate && now <= endDate) {
-                // 找到当前正在进行的赛事
-                const match = event.matches[0];  // 取第一个匹配项
+                const match = event.matches[0]; 
                 if (match.phase) {
-                    return match.phase;  // 返回当前阶段
+                    return match.phase;  
                 }
             }
         }
@@ -442,7 +441,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 if (targetElement) {
                     e.preventDefault();
                     smoothScrollTo(targetElement.offsetTop - 80);
-                    history.pushState(null, '', `#${targetId}`);
+                    history.pushState(null, '', `/ISML-2024/pages/events-data/events-data.html#${targetId}`);
                     updateNavActiveState(targetId);
                 } else {
                     console.warn('未找到目标元素:', targetId);  
