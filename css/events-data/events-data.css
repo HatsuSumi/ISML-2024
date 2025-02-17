@@ -404,7 +404,6 @@ body {
     line-height: 1.4;
     word-break: keep-all;
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
 }
 
@@ -819,6 +818,21 @@ html {
     z-index: 10;
     animation: tooltipFadeIn 0.3s ease-out;
     opacity: 1;
+}
+
+.tooltip-trigger:hover::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 10px solid #6a5acd;
+    z-index: 9;
+    animation: tooltipFadeIn 0.3s ease-out;
 }
 
 @keyframes tooltipFadeIn {
