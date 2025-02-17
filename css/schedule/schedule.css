@@ -1345,3 +1345,69 @@ body {
     flex: 1;
 }
 
+.tooltip-trigger {
+    cursor: help;
+    background-color: #f0e6ff; 
+    color: #333;
+    border-radius: 50%;
+    width: 12px;  
+    height: 12px; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;  
+    font-weight: bold;
+    margin-left: 5px;
+    position: relative;
+    top: -2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.tooltip-trigger:hover {
+    background-color: #e6d6ff; 
+}
+
+.tooltip-trigger:hover::after {
+    content: attr(data-title);
+    position: absolute;
+    background-color: #6a5acd;  
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: normal;
+    white-space: nowrap;
+    top: -36px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    animation: tooltipFadeIn 0.3s ease-out;
+    opacity: 1;
+}
+
+.tooltip-trigger:hover::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 10px solid #6a5acd;
+    z-index: 9;
+    animation: tooltipFadeIn 0.3s ease-out;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+

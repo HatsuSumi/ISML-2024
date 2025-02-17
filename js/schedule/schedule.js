@@ -779,46 +779,55 @@ function createMatchElement(match, nextMatch) {
     element.className = `timeline-item ${status}`;
     
     element.innerHTML = `
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-            <div class="match-card">
-                <div class="match-date">
-                    ${match.title === '恒星组提名' ? 
-                        `2024-12-31 20:00:00 (周二) - 2025-01-07 19:59:59 (周二)` :
-                        (() => {
-                            const startDate = new Date(match.dateRange.start);
-                            const endDate = new Date(match.dateRange.end);
-                            const startStr = match.dateRange.start;
-                            const endStr = match.dateRange.end;
-                            const endParts = endStr.split(' ')[0].split('-');
-                            
-                            const isCrossMonth = endDate.getMonth() !== startDate.getMonth() ||
-                                               endDate.getFullYear() !== startDate.getFullYear();
-                            
-                            return `${startStr} (${getWeekday(startDate)}) - ${
-                                endParts.length === 3 ? endStr : 
-                                isCrossMonth ? 
-                                `${(endDate.getMonth() + 1).toString().padStart(2, '0')}-${endParts[0].padStart(2, '0')} ${endStr.split(' ')[1]}` :
-                                `${endParts[0].padStart(2, '0')} ${endStr.split(' ')[1]}`
-                            } (${getWeekday(endDate)})`;
-                        })()
-                    }
-                    ${match.dateRange.result ? ` | 结果公布：${match.dateRange.result} (${getWeekday(new Date(match.dateRange.result))})` : ''} 
-                    ${match.details?.format ? `
-                        <div class="voting-format-wrapper">
-                            <span class="key">投票制度</span>
-                            <div class="voting-format-menu">
-                                ${typeof match.details.format === 'string' ? 
-                                    match.details.format.split('\n').map(line => 
-                                        `<div class="format-item">${line}</div>`
-                                    ).join('') :
-                                    Object.entries(match.details.format).map(([group, rule]) => 
-                                        `<div class="format-item">${group}：${rule}</div>`
-                                    ).join('')
-                                }
-                            </div>
-                        </div>
-                    ` : ''}
+    <div class="timeline-dot"></div>
+         <div class="timeline-content">
+             <div class="match-card">
+                 <div class="match-date">
+                     ${match.title === '恒星组提名' ? 
+                         `2024-12-31 20:00:00 (周二) - 2025-01-07 19:59:59 (周二)` :
+                         (() => {
+                             const startDate = new Date(match.dateRange.start);
+                             const endDate = new Date(match.dateRange.end);
+                             const startStr = match.dateRange.start;
+                             const endStr = match.dateRange.end;
+                             const endParts = endStr.split(' ')[0].split('-');
+                             
+                             const isCrossMonth = endDate.getMonth() !== startDate.getMonth() ||
+                                                endDate.getFullYear() !== startDate.getFullYear();
+                             
+                             const originalDateStr = `${startStr} (${getWeekday(startDate)}) - ${
+                                 endParts.length === 3 ? endStr : 
+                                 isCrossMonth ? 
+                                 `${(endDate.getMonth() + 1).toString().padStart(2, '0')}-${endParts[0].padStart(2, '0')} ${endStr.split(' ')[1]}` :
+                                 `${endParts[0].padStart(2, '0')} ${endStr.split(' ')[1]}`
+                             } (${getWeekday(endDate)})`;
+
+                             return match.dateRange.isRescheduled ? 
+                                `原定：${originalDateStr}<br>重赛：${
+                                    match.dateRange.Restart ? 
+                                    `${match.dateRange.Restart} (${getWeekday(new Date(match.dateRange.Restart))}) - ${match.dateRange.ReEnd} (${getWeekday(new Date(match.dateRange.ReEnd))})
+                                    <span class="tooltip-trigger" data-title="${match.dateRange.rescheduledReason}">?</span>` 
+                                    : ''
+                                }` : 
+                                originalDateStr;
+                         })()
+                     }
+                     ${match.dateRange.result ? ` | 结果公布：${match.dateRange.result} (${getWeekday(new Date(match.dateRange.result))})` : ''} 
+                     ${match.details?.format ? `
+                         <div class="voting-format-wrapper">
+                             <span class="key">投票制度</span>
+                             <div class="voting-format-menu">
+                                 ${typeof match.details.format === 'string' ? 
+                                     match.details.format.split('\n').map(line => 
+                                         `<div class="format-item">${line}</div>`
+                                     ).join('') :
+                                     Object.entries(match.details.format).map(([group, rule]) => 
+                                         `<div class="format-item">${group}：${rule}</div>`
+                                     ).join('')
+                                 }
+                             </div>
+                         </div>
+                     ` : ''}
                 </div>
                 <h3 class="match-title">${match.title}</h3>
                 <div class="match-header">
