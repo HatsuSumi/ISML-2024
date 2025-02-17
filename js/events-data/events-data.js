@@ -659,7 +659,7 @@ function createPhaseSection(phaseName, phase, nextEventStartTime) {
                 match: {
                     ...match,
                     originalTitle: match.title,
-                    title: TITLE_MAPPING[match.title]?.eventTitles?.[index] || match.title
+                    title: TITLE_MAPPING[match.title]?.eventTitles?.[index % 2] || match.title
                 }
             };
         });
