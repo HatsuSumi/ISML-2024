@@ -8,8 +8,16 @@ const RETURN_FROM_KEY = 'return_from_event';
 
 const TITLE_MAPPING = {
     '预选赛第一轮': [
-        { title: '恒星女子组', format: '赞成投票制' }, 
-        { title: '恒星男子组', format: '赞成投票制' }
+        { 
+            title: '恒星女子组', 
+            format: '赞成投票制',
+            description: 'A组'
+        }, 
+        { 
+            title: '恒星男子组', 
+            format: '赞成投票制',
+            description: 'B组'
+        }
     ]
 };
 
@@ -658,7 +666,13 @@ function createPhaseSection(phaseName, phase, nextEventStartTime) {
                     match: {
                         ...match,
                         title: item.title,
-                        format: item.format
+                        format: item.format,
+                        details: {
+                            ...match.details,
+                            qualified: {
+                                description: item.description
+                            }
+                        }
                     }
                 }));
             }
