@@ -651,12 +651,19 @@ function createPhaseSection(phaseName, phase, nextEventStartTime) {
         const finalGroupTitle = 
             TITLE_MAPPING[groupName]?.groupTitle || groupName;
         
-        const modifiedMatches = matches.map((match, index) => ({
-            ...match,
-            originalTitle: match.title,
-            title: TITLE_MAPPING[match.title]?.eventTitles?.[index] || match.title,
-            eventIndex: index
-        }));
+        const modifiedMatches = matches.map((match, index) => {
+            console.log('Original Match:', match);
+            console.log('TITLE_MAPPING:', TITLE_MAPPING);
+            console.log('Current Title:', match.title);
+            console.log('Mapped Titles:', TITLE_MAPPING[match.title]?.eventTitles);
+            
+            return {
+                ...match,
+                originalTitle: match.title,
+                title: TITLE_MAPPING[match.title]?.eventTitles?.[index] || match.title,
+                eventIndex: index
+            };
+        });
         
         const groupSection = createGroupSection(finalGroupTitle, modifiedMatches, nextEventStartTime);
         phaseContent.appendChild(groupSection);
