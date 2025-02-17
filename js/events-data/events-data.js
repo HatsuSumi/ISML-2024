@@ -618,7 +618,6 @@ function createDateSection(date, dateGroup, nextEventStartTime) {
 }
 
 function createPhaseSection(phaseName, phase, nextEventStartTime) {
-    console.log('phase.groups:', phase.groups);
     const phaseSection = document.createElement('div');
     phaseSection.className = 'phase-group';
     
@@ -720,6 +719,12 @@ function formatDateTime(date, format = 'full') {
 
 function formatEventTitle(title) {
     console.log('Original Title:', title);
+    console.log('Processed Title:', 
+        title.includes('预选赛') ? 
+            (title.includes('恒星组') ? '恒星组' : 
+             title.includes('新星组') ? '新星组' : title) 
+        : title
+    );
     // 只处理预选赛的标题
     if (title.includes('预选赛')) {
         if (title.includes('恒星组')) {
