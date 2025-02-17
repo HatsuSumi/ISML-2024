@@ -666,14 +666,6 @@ function createElevatorNav(data) {
             currentMatchDiv.className = 'current-match-info';
             currentMatchDiv.innerHTML = `
             <div class="info-label">${
-                // 详细打印调试信息
-                console.log('isRescheduled:', currentMatch.dateRange.isRescheduled),
-                console.log('Restart:', currentMatch.dateRange.Restart),
-                console.log('ReEnd:', currentMatch.dateRange.ReEnd),
-                console.log('Now:', new Date()),
-                console.log('Restart Date:', new Date(currentMatch.dateRange.Restart)),
-                console.log('ReEnd Date:', new Date(currentMatch.dateRange.ReEnd)),
-                
                 // 直接返回文案
                 currentMatch.dateRange.isRescheduled 
                     ? (new Date() >= new Date(currentMatch.dateRange.Restart) && 
@@ -1321,6 +1313,16 @@ document.addEventListener('DOMContentLoaded', () => {
             '预选赛第六轮': '预选赛第3 - 2轮'
         };
 
+        // 处理电梯导航中的当前比赛名称
+        $('.current-match-info .match-name').each(function() {
+            const $this = $(this);
+            const originalText = $this.text();
+            const rescheduledMark = originalText.includes('(重赛)') ? ' (重赛)' : '';
+            const newText = ROUND_NAME_MAP[originalText.replace(rescheduledMark, '')] || originalText;
+            $this.text(newText + rescheduledMark);
+        });
+
+        // 原有的全局替换逻辑
         $('*').filter(function() {
             return $(this).text().includes('预选赛第') || 
                    $(this).attr('data-match-title') && $(this).attr('data-match-title').includes('预选赛第');
