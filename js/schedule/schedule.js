@@ -1235,18 +1235,20 @@ document.addEventListener('DOMContentLoaded', () => {
         '预选赛第六轮': '预选赛第3-2轮'
     };
 
-    $('.round-item').each(function() {
-        const $this = $(this);
-        const originalTitle = $this.attr('data-match-title');
-        const originalSpanText = $this.find('.round-title').text();
-
-        $this.attr('data-match-title', ROUND_NAME_MAP[originalTitle] || originalTitle);
-        $this.find('.round-title').text(ROUND_NAME_MAP[originalSpanText] || originalSpanText);
-    });
-
-    $('.match-title').each(function() {
+    $('*').filter(function() {
+        return $(this).text().includes('预选赛第') || 
+               $(this).attr('data-match-title') && $(this).attr('data-match-title').includes('预选赛第');
+    }).each(function() {
         const $this = $(this);
         const originalText = $this.text();
-        $this.text(ROUND_NAME_MAP[originalText] || originalText);
+        const originalTitle = $this.attr('data-match-title');
+
+        if (originalText && ROUND_NAME_MAP[originalText]) {
+            $this.text(ROUND_NAME_MAP[originalText]);
+        }
+
+        if (originalTitle && ROUND_NAME_MAP[originalTitle]) {
+            $this.attr('data-match-title', ROUND_NAME_MAP[originalTitle]);
+        }
     });
 });
