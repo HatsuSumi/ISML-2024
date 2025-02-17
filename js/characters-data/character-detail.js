@@ -792,36 +792,35 @@ document.addEventListener('DOMContentLoaded', () => {
         '预选赛第六轮': '预选赛第3-2轮'
     };
 
-    console.log('Round Name Map:', ROUND_NAME_MAP);
-    console.log('Elements to replace:', 
-        $('a[data-target^="round-"]').length, 
-        $('.event-title span').length
-    );
-
-    $('a[data-target^="round-"]').each(function() {
-        const originalTarget = $(this).attr('data-target');
-        const originalText = $(this).text();
-        console.log('Original Target:', originalTarget, 'Original Text:', originalText);
+    // 延迟执行，确保元素已经渲染
+    setTimeout(() => {
+        console.log('Searching for elements');
         
-        const newTarget = 'round-' + (ROUND_NAME_MAP[originalTarget.replace('round-', '')] || originalTarget);
-        const newText = ROUND_NAME_MAP[originalText] || originalText;
-        
-        console.log('New Target:', newTarget, 'New Text:', newText);
-        
-        $(this).attr('data-target', newTarget);
-        $(this).text(newText);
-    });
-
-    $('.event-title span').each(function() {
-        const originalText = $(this).text();
-        console.log('Original Event Title:', originalText);
-        
-        const newText = ROUND_NAME_MAP[originalText] || originalText;
-        
-        console.log('New Event Title:', newText);
-        
-        $(this).text(newText);
-    });
+        // 更宽松的选择器
+        $('*').filter(function() {
+            return $(this).text().includes('预选赛第') || 
+                   $(this).attr('data-target') && $(this).attr('data-target').includes('round-');
+        }).each(function() {
+            const originalText = $(this).text();
+            const originalTarget = $(this).attr('data-target');
+            
+            console.log('Found element:', this, 'Text:', originalText, 'Target:', originalTarget);
+            
+            // 替换文本
+            if (ROUND_NAME_MAP[originalText]) {
+                $(this).text(ROUND_NAME_MAP[originalText]);
+            }
+            
+            // 替换 data-target
+            if (originalTarget) {
+                const roundPart = originalTarget.replace('round-', '');
+                const newTarget = ROUND_NAME_MAP[`预选赛${roundPart}`] 
+                    ? `round-${ROUND_NAME_MAP[`预选赛${roundPart}`].replace('预选赛', '')}` 
+                    : originalTarget;
+                $(this).attr('data-target', newTarget);
+            }
+        });
+    }, 1000);
 });
 
 // 单独的赛事处理器文件
