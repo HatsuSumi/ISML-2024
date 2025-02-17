@@ -6,6 +6,13 @@ let nav;
 const SCROLL_POSITION_KEY = 'events_scroll_position';
 const RETURN_FROM_KEY = 'return_from_event';
 
+const TITLE_MAPPING = {
+    '预选赛第一轮': {
+        groupTitle: '预选赛第1 - 1轮',
+        eventTitles: ['恒星女子组', '恒星男子组']
+    }
+};
+
 // 添加一个函数来找到下一场比赛的开始时间
 function findNextEventStartTime(data) {
     const now = new Date();
@@ -638,7 +645,17 @@ function createPhaseSection(phaseName, phase, nextEventStartTime) {
     phaseContent.className = 'phase-content';
     
     Object.entries(phase.groups).forEach(([groupName, matches]) => {
-        const groupSection = createGroupSection(groupName, matches, nextEventStartTime);
+        // 使用 TITLE_MAPPING 获取 groupTitle
+        const finalGroupTitle = 
+            TITLE_MAPPING[groupName]?.groupTitle || groupName;
+        
+        const modifiedMatches = matches.map((match, index) => ({
+            ...match,
+            // 如果有映射，使用映射的 eventTitle
+            title: TITLE_MAPPING[groupName]?.eventTitles?.[index] || match.title
+        }));
+        
+        const groupSection = createGroupSection(finalGroupTitle, modifiedMatches, nextEventStartTime);
         phaseContent.appendChild(groupSection);
     });
     
@@ -870,4 +887,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, 1000);
 });
-
