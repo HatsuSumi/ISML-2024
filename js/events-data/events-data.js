@@ -719,6 +719,7 @@ function formatDateTime(date, format = 'full') {
 }
 
 function formatEventTitle(title) {
+    console.log('Original Title:', title);
     // 只处理预选赛的标题
     if (title.includes('预选赛')) {
         if (title.includes('恒星组')) {
